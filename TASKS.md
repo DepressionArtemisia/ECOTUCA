@@ -14,7 +14,19 @@
 - [x] Adicionar reset local seguro na central `/demo`.
 - [x] Suavizar textos tecnicos visiveis para cliente.
 - [x] Rodar lint/build.
-- [ ] Substituir logos placeholders por assets oficiais se forem enviados.
+- [x] Remover placeholders visiveis antigos com lockups temporarios premium.
+- [ ] Substituir lockups temporarios por assets oficiais se forem enviados.
+
+## P0 - Rodada 5 design premium
+- [x] Criar branch `design/premium-brand-attack`.
+- [x] Analisar PDF salvo em `docs/brand/`.
+- [x] Criar estrutura `public/brand/official`.
+- [x] Criar `scripts/extract-brand-assets.mjs`.
+- [x] Criar `OfficialLogo`.
+- [x] Aplicar identidade em shells e telas principais.
+- [x] Criar relatorios de marca/design.
+- [x] Rodar build final da rodada.
+- [x] Fazer QA visual/browser da rodada.
 
 ## P1 - MVP funcional
 - [ ] Aplicar SQL no Supabase.

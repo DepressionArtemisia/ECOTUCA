@@ -20,11 +20,12 @@ export function PerifaCard({
   return (
     <div
       className={cn(
-        "relative rounded-lg border-l-8 bg-white p-5 shadow-brand dark:bg-white/10",
+        "brand-card brand-card-hover relative overflow-hidden border-l-8 p-5 dark:bg-brand-dark-soft/90",
         border[tone],
         className
       )}
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#335595,#FE9440)] opacity-60" />
       {children}
     </div>
   );

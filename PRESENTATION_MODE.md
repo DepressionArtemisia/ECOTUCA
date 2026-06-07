@@ -6,7 +6,7 @@ Abrir `http://localhost:3020/demo`.
 ## Freeze Rodada 4
 - Comecar em `/demo`.
 - Usar o card `Comece por aqui`.
-- Se precisar limpar a apresentacao, usar `Resetar demo`, que limpa apenas chaves locais ECOTUCA.
+- Se precisar limpar a apresentacao, usar `Limpar apresentacao`, que limpa apenas chaves locais ECOTUCA.
 - Evitar terminal, `.env.local`, Supabase keys e DevTools durante compartilhamento.
 - Deixar claro: MVP navegavel local, web app/PWA, com base pronta para proxima etapa.
 
@@ -51,6 +51,12 @@ Senha de todos: `Demo@123456`.
 - `TESTE_FINAL_15_MIN.md`
 - `PLANO_B_APRESENTACAO.md`
 - `RESUMO_EXECUTIVO_MVP.md`
+
+## Atualizacao Rodada 5 - Design
+- A apresentacao agora usa `OfficialLogo` e lockups temporarios premium da paleta ECOTUCA.
+- Explicar com cuidado: os assets atuais removem o placeholder visual, mas ainda dependem de SVG/PNG oficial do designer.
+- Comecar por `/demo`, abrir home, mostrar `/demo-mobile`, roteiro, aluno, aula/player e admin.
+- Evitar dizer que a logo final foi extraida; dizer que o app esta pronto para receber a logo oficial sem mudar layout.
 
 ## Atualizacao Rodada 3
 - Antes ou depois do fluxo principal, abrir `/demo/status` para mostrar a integracao hibrida sem expor chaves.

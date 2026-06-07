@@ -7,6 +7,8 @@ import { DataSourceBadge } from "@/components/demo/data-source-badge";
 import { ResetDemoDataButton } from "@/components/demo/reset-demo-data-button";
 import { EcoButton } from "@/components/brand/eco-button";
 import { PerifaCard } from "@/components/brand/perifa-card";
+import { ImpactRibbon } from "@/components/brand/impact-ribbon";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { Badge } from "@/components/ui/badge";
 
 const demoCards = [
@@ -25,16 +27,31 @@ export default function DemoPage() {
   return (
     <PublicShell>
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
-        <Badge tone="coral">Modo apresentacao</Badge>
-        <h1 className="brand-display mt-5 max-w-4xl text-6xl text-brand-brown dark:text-brand-yellow">Roteiro guiado para a reuniao</h1>
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-3xl text-brand-brown/75 dark:text-brand-cream/75">
-            Use estes atalhos para apresentar a historia completa: escola, aluno, turismo, guias, admin e impacto.
+        <div className="brand-card relative overflow-hidden p-6 dark:bg-brand-dark-soft/90">
+          <div className="absolute inset-x-0 top-0 h-2 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#335595,#FE9440)]" />
+          <div className="mb-5">
+            <OfficialLogo variant="tagline" size="lg" />
+          </div>
+          <Badge tone="coral">Modo apresentacao</Badge>
+          <h1 className="brand-display mt-5 max-w-4xl text-5xl text-brand-brown dark:text-brand-yellow sm:text-6xl">Roteiro guiado para a reuniao</h1>
+          <p className="mt-4 max-w-3xl text-brand-brown/75 dark:text-brand-cream/75">
+            Use estes atalhos para apresentar a historia completa: escola, aluno, turismo, guias, coordenacao e impacto.
           </p>
+          <ImpactRibbon
+            className="mt-5 max-w-3xl"
+            items={[
+              { label: "perfis navegaveis", value: "6" },
+              { label: "fluxo sugerido", value: "12 passos" },
+              { label: "modo seguro", value: "ativo" }
+            ]}
+          />
+        </div>
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-3xl text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">Ambiente pronto para apresentacao com dados de demonstracao.</p>
           <div className="flex flex-wrap gap-2">
             <DataSourceBadge />
             <Link href="/demo/status">
-              <EcoButton variant="outline">Status tecnico</EcoButton>
+              <EcoButton variant="outline">Status do ambiente</EcoButton>
             </Link>
             <Link href="/demo-mobile">
               <EcoButton variant="mint">Abrir mobile</EcoButton>
@@ -78,7 +95,7 @@ export default function DemoPage() {
                   <Icon size={30} />
                   <h2 className="brand-display mt-4 text-3xl">{card.title}</h2>
                   <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{card.show}</p>
-                  <p className="mt-3 rounded-lg bg-brand-warm p-2 text-xs font-black text-brand-brown">Usuario: {card.user}</p>
+                  <p className="mt-3 rounded-lg bg-brand-warm p-2 text-xs font-black text-brand-brown">Acesso: {card.user}</p>
                   <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-brand-blue dark:text-brand-mint">
                     Clique para abrir
                     <ArrowRight size={16} />
@@ -90,7 +107,7 @@ export default function DemoPage() {
         </div>
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_.8fr]">
           <DemoUserSwitcher />
-          <PerifaCard tone="yellow">
+          <PerifaCard tone="yellow" className="min-w-0">
             <p className="text-sm font-black uppercase text-brand-coral">Sequencia sugerida</p>
             <ol className="mt-4 space-y-3 text-sm font-bold">
               {[

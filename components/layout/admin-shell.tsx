@@ -17,9 +17,9 @@ const adminNav = [
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#f8efe0] text-brand-brown dark:bg-brand-brown dark:text-brand-cream">
-      <aside className="fixed inset-y-0 left-0 hidden w-80 border-r border-brand-brown/10 bg-brand-brown p-5 text-brand-cream lg:block">
-        <BrandLogo />
+    <div className="min-h-screen bg-background-warm text-brand-brown dark:bg-background-dark dark:text-brand-cream">
+      <aside className="fixed inset-y-0 left-0 hidden w-80 border-r border-brand-yellow/15 bg-brand-brown p-5 text-brand-cream lg:block">
+        <BrandLogo tone="negative" />
         <p className="mt-5 rounded-lg bg-brand-yellow p-4 text-sm font-black text-brand-brown">
           Centro de comando para coordenacao, prestacao de contas e operacao do MVP.
         </p>
@@ -27,7 +27,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           {adminNav.map((item) => {
             const Icon = item.icon;
             return (
-              <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-black hover:bg-white/10">
+              <Link key={item.href} href={item.href} className="focus-ring-brand flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-sm font-black transition hover:bg-white/10">
                 <Icon size={18} />
                 {item.label}
               </Link>
@@ -36,7 +36,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </nav>
       </aside>
       <div className="lg:pl-80">
-        <header className="sticky top-0 z-20 border-b border-brand-brown/10 bg-[#f8efe0]/90 px-4 py-3 backdrop-blur dark:border-brand-yellow/10 dark:bg-brand-brown/90">
+        <header className="sticky top-0 z-20 border-b border-brand-brown/10 bg-brand-warm/90 px-4 py-3 backdrop-blur dark:border-brand-yellow/10 dark:bg-brand-brown/90">
           <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <BrandLogo className="lg:hidden" compact />
             <div className="hidden lg:block">

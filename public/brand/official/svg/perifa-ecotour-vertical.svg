@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="720" viewBox="0 0 700 720" role="img" aria-labelledby="title desc">
+  <title id="title">Perifa Ecotour temporary vertical lockup</title>
+  <desc id="desc">Temporary Perifa Ecotour vertical lockup prepared with the official palette while the final brand file is pending.</desc>
+  <rect width="700" height="720" rx="42" fill="none"/>
+  <g transform="translate(200 58)">
+    <rect width="300" height="300" rx="76" fill="#2ACCB5"/>
+    <path d="M74 228 C102 136 166 78 244 72" fill="none" stroke="#3A1A16" stroke-width="24" stroke-linecap="round"/>
+    <path d="M96 218 C148 180 188 136 242 94" fill="none" stroke="#FCC224" stroke-width="18" stroke-linecap="round"/>
+    <path d="M100 104 H204" stroke="#3A1A16" stroke-width="20" stroke-linecap="round"/>
+    <circle cx="240" cy="80" r="24" fill="#E9635D"/>
+    <circle cx="80" cy="232" r="24" fill="#FE9440"/>
+  </g>
+  <text x="350" y="476" fill="#3A1A16" font-family="Impact, Arial Black, sans-serif" font-size="78" text-anchor="middle" letter-spacing="0">PERIFA</text>
+  <text x="350" y="564" fill="#3A1A16" font-family="Impact, Arial Black, sans-serif" font-size="78" text-anchor="middle" letter-spacing="0">ECOTOUR</text>
+  <text x="350" y="628" fill="#3A1A16" font-family="Trebuchet MS, Arial, sans-serif" font-size="34" font-weight="800" text-anchor="middle">ecoturismo comunitario</text>
+</svg>

@@ -11,8 +11,14 @@
   --brand-mint: #2accb5;
   --background: #fff6e2;
   --foreground: #3a1a16;
-  --card: #fffaf0;
+  --card: #fffdf7;
   --muted: #7b5f59;
+  --background-warm: #fff6e2;
+  --background-paper: #fffdf7;
+  --background-dark: #3a1a16;
+  --background-dark-soft: #4a241f;
+  --border-soft: rgba(58, 26, 22, 0.12);
+  --shadow-card: 0 18px 45px rgba(58, 26, 22, 0.14);
 }
 
 .dark {
@@ -20,6 +26,8 @@
   --foreground: #fff6e2;
   --card: #4a241f;
   --muted: #e4c9bd;
+  --border-soft: rgba(255, 246, 226, 0.18);
+  --shadow-card: 0 20px 55px rgba(0, 0, 0, 0.22);
 }
 
 * {
@@ -60,6 +68,7 @@ textarea {
   font-family: Impact, "Arial Black", "Trebuchet MS", sans-serif;
   letter-spacing: 0;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .brand-pattern {
@@ -75,5 +84,73 @@ textarea {
 
 .focus-ring {
   outline: 3px solid rgba(42, 204, 181, 0.55);
+  outline-offset: 3px;
+}
+
+.brand-surface {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.96), rgba(255, 246, 226, 0.92)),
+    radial-gradient(circle at 15% 10%, rgba(252, 194, 36, 0.18), transparent 32%);
+}
+
+.dark .brand-surface {
+  background:
+    linear-gradient(180deg, rgba(74, 36, 31, 0.96), rgba(36, 17, 15, 0.98)),
+    radial-gradient(circle at 15% 10%, rgba(42, 204, 181, 0.18), transparent 34%);
+}
+
+.brand-card {
+  border: 1px solid var(--border-soft);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+  border-radius: 0.5rem;
+}
+
+.brand-card-hover {
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms cubic-bezier(.2,.8,.2,1), border-color 220ms cubic-bezier(.2,.8,.2,1);
+}
+
+.brand-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(42, 204, 181, 0.42);
+  box-shadow: 0 26px 70px rgba(58, 26, 22, 0.18);
+}
+
+.brand-gradient-primary {
+  background: linear-gradient(135deg, #fcc224 0%, #fe9440 48%, #e9635d 100%);
+}
+
+.brand-gradient-dark {
+  background: linear-gradient(135deg, #3a1a16 0%, #24110f 62%, #335595 100%);
+}
+
+.brand-pattern-soft {
+  background-image:
+    linear-gradient(90deg, rgba(58, 26, 22, 0.06) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(58, 26, 22, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 20% 20%, rgba(42, 204, 181, 0.12), transparent 30%);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+}
+
+.premium-glass {
+  border: 1px solid rgba(255, 246, 226, 0.24);
+  background: rgba(255, 253, 247, 0.82);
+  backdrop-filter: blur(14px);
+}
+
+.dark .premium-glass {
+  background: rgba(74, 36, 31, 0.72);
+}
+
+.mobile-safe-area {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+}
+
+.touch-card {
+  min-height: 44px;
+}
+
+.focus-ring-brand:focus-visible {
+  outline: 3px solid rgba(42, 204, 181, 0.65);
   outline-offset: 3px;
 }

@@ -30,9 +30,11 @@ Required public paths:
 
 If final files are not extractable, these are temporary placeholders and must be replaced by official PNG/SVG.
 
-Current status: placeholders were generated in `public/brand` using the official palette and clearly marked as temporary. They are not final logos.
+Current status: the PDF currently saved in `docs/brand/` does not contain the identity manual/logo vectors described in the prompt. Round 5 generated cleaner temporary palette-faithful lockups in `public/brand/official/` and synchronized legacy public paths so the UI no longer shows the old placeholder banner. They are not final logos.
 
 Round 2 update: headers and shells now reserve a clear logo/wordmark area so official PNG/SVG files can replace the placeholders without changing layout. The placeholder should remain typographic and restrained until official assets arrive.
+
+Round 5 update: `components/brand/official-logo.tsx` centralizes ECOTUCA/Perifa brand usage, sizing, tone handling and fallback UI. Replace assets in `public/brand/official/png` or `public/brand/official/svg` without changing page layouts.
 
 ## Usage Rules
 - Do not distort the logo.
@@ -69,3 +71,18 @@ Mandatory identity components: `PublicShell`, `AppShell`, `MobileShell`, `AdminS
 - `RouteBrowser`: search/filter route showcase.
 - `RouteInterestForm`: localStorage route interest capture.
 - `ApprovalQueue`: admin approval simulation with visual status.
+
+## Round 5 Tokens And Utilities
+- Brand colors: `brand-yellow`, `brand-coral`, `brand-blue`, `brand-orange`, `brand-brown`, `brand-mint`.
+- Backgrounds: `background-warm`, `background-paper`, `background-dark`, `background-dark-soft`.
+- Gradients: `gradient-sunrise`, `gradient-territory`, `gradient-forest`, `gradient-night`, `gradient-learning`, `gradient-tourism`.
+- Shadows: `shadow-soft`, `shadow-card`, `shadow-premium`, `shadow-floating`, `shadow-mobile`.
+- Utilities: `.brand-surface`, `.brand-card`, `.brand-card-hover`, `.brand-gradient-primary`, `.brand-gradient-dark`, `.brand-pattern-soft`, `.premium-glass`, `.mobile-safe-area`, `.touch-card`, `.focus-ring-brand`.
+
+## Round 5 Typography Scale
+- Display XL: hero/product statements.
+- Display LG: page titles.
+- H1/H2/H3: feature and dashboard hierarchy with `brand-display`.
+- Eyebrow: uppercase small labels with coral/mint/yellow.
+- Body LG/MD/SM: rounded readable body stack.
+- Caption/Badge: high-contrast labels, not decorative filler.

@@ -1,17 +1,25 @@
-import Image from "next/image";
 import Link from "next/link";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { cn } from "@/lib/utils";
 
-export function BrandLogo({ className, compact = false }: { className?: string; compact?: boolean }) {
+export function BrandLogo({
+  className,
+  compact = false,
+  tone = "color"
+}: {
+  className?: string;
+  compact?: boolean;
+  tone?: "color" | "positive" | "negative";
+}) {
   return (
-    <Link href="/" className={cn("flex items-center gap-3", className)} aria-label="ECOTUCA inicio">
-      <Image src="/brand/symbol-ecotuca.png" alt="" width={44} height={44} className="h-11 w-11 rounded-lg" priority />
-      {!compact && (
-        <span className="leading-none">
-          <span className="brand-display block text-2xl text-brand-brown dark:text-brand-yellow">ECOTUCA</span>
-          <span className="text-xs font-black uppercase text-brand-brown/70 dark:text-brand-cream">Perifa Ecotour</span>
-        </span>
-      )}
+    <Link href="/" className={cn("inline-flex min-w-0 items-center", className)} aria-label="ECOTUCA inicio">
+      <OfficialLogo
+        brand="ecotuca"
+        variant={compact ? "symbol" : "horizontal"}
+        tone={tone}
+        size={compact ? "md" : "sm"}
+        priority
+      />
     </Link>
   );
 }

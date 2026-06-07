@@ -13,6 +13,11 @@
 - [x] `npm run build`
 - [x] Versionable secret scan with `rg`
 
+## Round 5 Premium Design Commands
+- [x] `npm run lint`
+- [x] `npm run build`
+- [x] Browser responsive pass after design updates
+
 ## Browser Routes
 - [x] `/`
 - [x] `/demo`
@@ -39,6 +44,28 @@
 - [x] Verificar sem overflow horizontal nas telas principais.
 - [x] Conferir bottom nav em areas internas.
 - [x] Conferir `PhoneMockup` e alternancia de telas.
+
+## Round 5 Responsive Checklist
+- [x] 320px sem overflow horizontal nas rotas criticas.
+- [x] 390px sem overflow horizontal nas rotas criticas.
+- [x] 768px com cards empilhando corretamente.
+- [x] 1024px com sidebars/conteudo sem esmagamento.
+- [x] 1440px com home/demo/roteiros usando bem o espaco.
+- [x] Logo legivel em tema claro.
+- [x] Logo legivel em tema escuro.
+- [x] Demo mobile cabendo na tela compartilhada.
+- [x] Formulario de roteiro com foco/contraste adequados.
+- [x] Player com progresso e controles visiveis.
+
+## Round 5 Browser Checks
+- [x] Desktop 1440: `/`, `/demo`, `/demo/status`, `/demo-mobile`, `/login`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/guias/rafael-silva`, `/app/aluno`, `/app/aluno/trilhas`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/professor/conteudos`, `/app/guia`, `/app/turista`, `/app/admin`, `/app/admin/aprovacoes`, `/app/admin/metricas`.
+- [x] Mobile 390: rotas criticas sem overflow e sem imagens quebradas.
+- [x] Mobile 320: rotas criticas sem overflow e sem imagens quebradas apos ajuste de logo/display/email.
+- [x] Login apresentacao: `/login` redirecionou para `/app/aluno`.
+- [x] Logout: botao `Sair` voltou para `/demo`.
+- [x] Tema claro/escuro: botao `Alternar tema` alternou a classe `dark`.
+- [x] Roteiro: `Enviar interesse` confirmou solicitacao.
+- [x] Player: `Iniciar aula` mudou para `Continuar de onde parei`.
 
 ## Video Resume
 1. Entrar em `/app/aluno/aulas/aula-guia-01`.

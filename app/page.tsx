@@ -4,6 +4,10 @@ import { ArrowRight, BookOpen, GraduationCap, MapPinned, ShieldCheck, Sparkles }
 import { PublicShell } from "@/components/layout/public-shell";
 import { EcoButton } from "@/components/brand/eco-button";
 import { PerifaCard } from "@/components/brand/perifa-card";
+import { BrandPattern } from "@/components/brand/brand-pattern";
+import { ImpactRibbon } from "@/components/brand/impact-ribbon";
+import { OfficialLogo } from "@/components/brand/official-logo";
+import { TerritoryShapes } from "@/components/brand/territory-shapes";
 import { RouteCard } from "@/components/cards/route-card";
 import { TrackCard } from "@/components/cards/track-card";
 import { GuideCard } from "@/components/cards/guide-card";
@@ -15,14 +19,20 @@ export default function HomePage() {
     <PublicShell>
       <section className="relative min-h-[84vh] overflow-hidden">
         <Image src="/mock/route-perifa.png" alt="" fill priority className="object-cover" />
-        <div className="absolute inset-0 bg-brand-brown/72" />
+        <div className="absolute inset-0 bg-brand-brown/78" />
         <div className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#335595,#FE9440)]" />
+        <TerritoryShapes className="opacity-70" />
         <div className="relative mx-auto flex min-h-[84vh] max-w-7xl items-center px-5 py-16 sm:px-6">
-          <div className="max-w-3xl text-brand-cream">
+          <div className="w-full min-w-0 max-w-3xl text-brand-cream">
+            <div className="mb-5">
+              <OfficialLogo variant="tagline" tone="negative" size="lg" priority />
+            </div>
             <Badge tone="yellow">Complexo do Alemao</Badge>
-            <h1 className="brand-display mt-5 text-6xl text-brand-yellow sm:text-7xl lg:text-8xl">ECOTUCA</h1>
+            <h1 className="brand-display mt-5 text-5xl text-brand-yellow sm:text-6xl lg:text-7xl">
+              Formacao, territorio e ecoturismo conectando jovens a novas oportunidades.
+            </h1>
             <p className="mt-5 max-w-2xl text-lg font-bold text-brand-cream/90 sm:text-xl">
-              Escola de ecoturismo e app mobile que conecta jovens, territorio, Agenda 2030, roteiros e renda com a identidade Perifa Ecotour.
+              Escola de ecoturismo e app mobile integrados a Perifa Ecotour, com trilhas de aprendizagem, roteiros reais, Agenda 2030 e prestacao de contas.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/demo">
@@ -38,11 +48,20 @@ export default function HomePage() {
                 </EcoButton>
               </Link>
             </div>
+            <ImpactRibbon
+              className="mt-8 max-w-2xl"
+              items={[
+                { label: "jornada do aluno", value: "5 etapas" },
+                { label: "trilhas iniciais", value: "3" },
+                { label: "roteiros vitrine", value: "6" }
+              ]}
+            />
           </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-4 px-5 py-10 sm:px-6 md:grid-cols-3">
+      <section className="relative mx-auto grid max-w-7xl gap-4 px-5 py-10 sm:px-6 md:grid-cols-3">
+        <BrandPattern className="rounded-lg opacity-25" />
         <PerifaCard tone="yellow">
           <GraduationCap size={28} className="text-brand-orange" />
           <h2 className="brand-display mt-4 text-3xl">Formacao</h2>
@@ -70,6 +89,19 @@ export default function HomePage() {
             Ver area do aluno
             <ArrowRight size={16} />
           </Link>
+        </div>
+        <div className="mt-6 grid gap-3 rounded-lg bg-brand-brown p-4 text-brand-cream shadow-card md:grid-cols-4">
+          {[
+            "Aluno entra na trilha",
+            "Conclui formacao",
+            "Vira guia local",
+            "Atende roteiros"
+          ].map((item, index) => (
+            <div key={item} className="rounded-lg bg-white/10 p-4">
+              <p className="brand-display text-3xl text-brand-yellow">{index + 1}</p>
+              <p className="text-sm font-black">{item}</p>
+            </div>
+          ))}
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {learningTracks.map((track) => (
@@ -102,7 +134,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
         <div className="grid gap-4 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-          <div>
+          <div className="min-w-0">
             <p className="text-sm font-black uppercase text-brand-orange">Guias e comunidade</p>
             <h2 className="brand-display text-5xl">Jovens protagonistas</h2>
             <p className="mt-4 text-brand-brown/75 dark:text-brand-cream/75">

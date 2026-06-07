@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Perifa Ecotour temporary symbol</title>
+  <desc id="desc">Temporary Perifa Ecotour symbol prepared with the official palette while the final brand file is pending.</desc>
+  <rect x="24" y="24" width="464" height="464" rx="118" fill="#2ACCB5"/>
+  <path d="M118 390 C162 230 272 126 404 116" fill="none" stroke="#3A1A16" stroke-width="42" stroke-linecap="round"/>
+  <path d="M154 374 C246 306 312 222 404 158" fill="none" stroke="#FCC224" stroke-width="30" stroke-linecap="round"/>
+  <path d="M156 168 H332" stroke="#3A1A16" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="408" cy="124" r="38" fill="#E9635D"/>
+  <circle cx="120" cy="398" r="38" fill="#FE9440"/>
+</svg>

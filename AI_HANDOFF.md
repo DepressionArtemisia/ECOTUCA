@@ -44,6 +44,15 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - New meeting files were created at project root: `ROTEIRO_DE_APRESENTACAO.md`, `CHECKLIST_REUNIAO.md`, `PERGUNTAS_REUNIAO_PRIORITARIAS.md`, `RELATORIO_PENDENCIAS_POS_REUNIAO.md`, `TESTE_FINAL_15_MIN.md`, `PLANO_B_APRESENTACAO.md`, `RESUMO_EXECUTIVO_MVP.md`.
 - `MEETING_QUESTIONS.md` was reorganized and `docs/progress-reports/STEP_13_ROUND_4_PRESENTATION_FREEZE.md` tracks the freeze.
 
+## Round 5 Premium Design Attack
+- Branch: `design/premium-brand-attack`.
+- Do not apply SQL and do not create real Auth users in this round.
+- The brand PDF in `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf` was analyzed and does not contain official identity manual/logo artwork.
+- Temporary palette-faithful lockups were generated in `public/brand/official/` and old visible placeholder files were replaced with cleaner temporary assets.
+- `components/brand/official-logo.tsx` is the source of truth for logo rendering and fallback behavior.
+- Key UI upgraded: Home, `/demo`, `/demo-mobile`, `/login`, routes, student dashboard, lesson/player, professor, guide, tourist and admin.
+- New docs: `docs/brand/BRAND_ASSET_EXTRACTION_REPORT.md`, `docs/brand/LOGO_USAGE_STRATEGY.md`, `docs/design/*`, `docs/progress-reports/STEP_14_ROUND_5_PREMIUM_DESIGN_ATTACK.md`.
+
 ## Verification
 - `npm run lint`: passed.
 - `npm run build`: passed.
@@ -81,7 +90,8 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - Do not document real tokens.
 - Do not expose service role in client components.
 - Keep mock fallback even after connecting Supabase.
-- Do not replace placeholder logos unless official assets are available.
+- Do not treat Round 5 temporary lockups as final official logos.
+- Replace temporary brand files only with approved official assets.
 
 ## Next Prompt
 "After the meeting, apply reviewed Supabase SQL only if approved, create real demo Auth users with the safe script, replace official assets/content, seed UUID-backed lessons/routes, and validate real login/progress/bookings while preserving demo fallback."

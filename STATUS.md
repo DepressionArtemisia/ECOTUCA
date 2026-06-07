@@ -6,6 +6,19 @@
 - Rota principal da reuniao: `http://localhost:3020/demo`
 - Porta: `3020`, porque `localhost:3000` estava ocupado por outro projeto local.
 
+## Rodada 5 - Design premium e identidade
+- Branch: `design/premium-brand-attack`.
+- Checkpoint anterior criado: `67616ab freeze: ECOTUCA MVP presentation ready`.
+- PDF analisado: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
+- Resultado da analise: o PDF atual contem proposta/MVP, ilustracoes e mockups; nao contem o manual oficial completo nem logos vetoriais extraiveis descritos no prompt.
+- Criadas pastas `public/brand/official/`, `public/brand/official/png/`, `public/brand/official/svg/`, `public/brand/official/source/` e `docs/brand/extraction/`.
+- Criado `scripts/extract-brand-assets.mjs`.
+- Gerados lockups temporarios premium para ECOTUCA/Perifa, documentados como nao oficiais.
+- Criado `components/brand/official-logo.tsx` e aplicado em shells, home, demo, login, roteiros, aluno, professor, guia, turista, admin e player.
+- Atualizados tokens Tailwind/CSS e componentes visuais compartilhados.
+- Telas ajustadas: `/`, `/demo`, `/demo-mobile`, `/login`, `/roteiros`, detalhe de roteiro, area do aluno, aula/player, professor, guia, turista e admin.
+- Proximo passo de identidade: substituir arquivos temporarios por SVG/PNG oficiais aprovados pelo designer.
+
 ## Rodada 4 - Freeze de apresentacao
 - Objetivo: congelar o MVP para reuniao, sem aplicar SQL, sem criar usuarios reais e sem refactor grande.
 - `/demo` recebeu card `Comece por aqui`, card `Roteiro recomendado`, botao `/demo-mobile`, botao `/demo/status` e reset local seguro da apresentacao.
@@ -95,6 +108,11 @@
 - Admin: abrir `/app/admin`, `/app/admin/aprovacoes`, `/app/admin/metricas`.
 
 ## Testes executados
+- Rodada 5: `npm run lint` passou.
+- Rodada 5: `npm run build` passou, 36 rotas.
+- Rodada 5 browser desktop 1440: `/`, `/demo`, `/demo/status`, `/demo-mobile`, `/login`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/guias/rafael-silva`, `/app/aluno`, `/app/aluno/trilhas`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/professor/conteudos`, `/app/guia`, `/app/turista`, `/app/admin`, `/app/admin/aprovacoes`, `/app/admin/metricas`.
+- Rodada 5 browser mobile 320/390: rotas criticas sem overflow horizontal apos ajuste de `OfficialLogo`, textos display e e-mails do seletor de usuarios.
+- Rodada 5 interacoes: login apresentacao, sair, alternar tema, enviar interesse de roteiro e iniciar aula/player passaram.
 - `npm run lint`: passou.
 - `npm run build`: passou, 36 rotas.
 - `NODE_OPTIONS=--use-system-ca npm run supabase:check`: passou.

@@ -23,3 +23,9 @@ Troika and Lufga are target brand fonts. Until official font files/licenses are 
 
 ## 2026-06-07 - Brand Assets
 The PDF was saved as required. If official logos are not extractable with production quality, placeholders are generated in the official palette and documented as temporary.
+
+## 2026-06-07 - Round 5 Logo Handling
+The current PDF does not contain the official logo assets requested in the design prompt. Decision: do not fake extraction or claim official assets. Generate cleaner temporary palette-faithful lockups, mark them as temporary in docs, centralize usage through `OfficialLogo`, and keep filenames stable for future official replacement.
+
+## 2026-06-07 - Round 5 Design Scope
+This round is visual polish only. No SQL application, no real Auth user creation and no major data architecture refactor. Shared components and shells are preferred so presentation routes improve together.

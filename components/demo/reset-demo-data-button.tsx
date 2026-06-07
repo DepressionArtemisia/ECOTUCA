@@ -9,7 +9,7 @@ export function ResetDemoDataButton() {
 
   function resetDemoData() {
     const confirmed = window.confirm(
-      "Resetar apenas os dados locais da apresentacao ECOTUCA? Isso limpa perfil demo, progresso e reservas locais."
+      "Limpar apenas os dados locais da apresentacao ECOTUCA? Isso remove perfil escolhido, progresso e solicitacoes salvas neste navegador."
     );
     if (!confirmed) return;
 
@@ -23,14 +23,14 @@ export function ResetDemoDataButton() {
     }
 
     keysToRemove.forEach((key) => window.localStorage.removeItem(key));
-    setMessage(`Dados locais da apresentacao resetados (${keysToRemove.length}).`);
+    setMessage(`Dados locais da apresentacao limpos (${keysToRemove.length}).`);
   }
 
   return (
     <div className="inline-flex flex-col gap-2">
       <EcoButton type="button" variant="outline" onClick={resetDemoData}>
         <RotateCcw size={16} />
-        Resetar demo
+        Limpar apresentacao
       </EcoButton>
       {message ? <span className="text-xs font-black text-brand-mint dark:text-brand-yellow">{message}</span> : null}
     </div>

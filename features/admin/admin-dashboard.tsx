@@ -3,6 +3,8 @@
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { CheckCircle2, Download, UserCheck } from "lucide-react";
 import { EcoButton } from "@/components/brand/eco-button";
+import { ImpactRibbon } from "@/components/brand/impact-ribbon";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { MetricCard } from "@/components/cards/metric-card";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +30,24 @@ export function AdminDashboard() {
 
   return (
     <div className="mx-auto max-w-7xl space-y-6">
+      <section className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
+        <div className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#FE9440)]" />
+        <OfficialLogo variant="horizontal" tone="negative" size="md" />
+        <p className="mt-5 text-sm font-black uppercase text-brand-mint">Centro de comando</p>
+        <h1 className="brand-display mt-2 text-5xl text-brand-yellow">Impacto, usuarios e roteiros</h1>
+        <p className="mt-3 max-w-3xl text-brand-cream/78">
+          Visao executiva para coordenacao, aprovacoes, prestacao de contas e acompanhamento da jornada ECOTUCA.
+        </p>
+        <ImpactRibbon
+          className="mt-5 max-w-4xl"
+          items={[
+            { label: "aprovacoes na fila", value: String(pending.length) },
+            { label: "roteiros ativos", value: String(tourRoutes.length) },
+            { label: "relatorio CSV", value: "pronto" }
+          ]}
+        />
+      </section>
+
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {adminMetrics.map((metric) => (
           <MetricCard key={metric.label} metric={metric} />
@@ -35,7 +55,7 @@ export function AdminDashboard() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1fr_.8fr]">
-        <div className="rounded-lg border border-brand-brown/10 bg-white p-5 shadow-brand dark:border-brand-yellow/15 dark:bg-white/10">
+        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-black uppercase text-brand-coral">Prestacao de contas</p>
@@ -104,7 +124,7 @@ export function AdminDashboard() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border border-brand-brown/10 bg-white p-5 shadow-brand dark:border-brand-yellow/15 dark:bg-white/10">
+        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
           <p className="text-sm font-black uppercase text-brand-orange">Conclusao por trilha</p>
           <div className="mt-5 h-72">
             <ResponsiveContainer width="100%" height="100%">
@@ -119,7 +139,7 @@ export function AdminDashboard() {
             </ResponsiveContainer>
           </div>
         </div>
-        <div className="rounded-lg border border-brand-brown/10 bg-white p-5 shadow-brand dark:border-brand-yellow/15 dark:bg-white/10">
+        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
           <p className="text-sm font-black uppercase text-brand-coral">Solicitacoes de roteiros</p>
           <div className="mt-5 h-72">
             <ResponsiveContainer width="100%" height="100%">

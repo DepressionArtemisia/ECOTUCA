@@ -1,4 +1,5 @@
 import { BookOpen, FileUp, MessageCircle, UsersRound } from "lucide-react";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -8,7 +9,10 @@ export function TeacherDashboard() {
   return (
     <section className="mx-auto max-w-7xl space-y-6">
       <div className="rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
-        <Badge tone="yellow">Professor</Badge>
+        <OfficialLogo variant="horizontal" tone="negative" size="md" />
+        <div className="mt-5">
+          <Badge tone="yellow">Professor</Badge>
+        </div>
         <h1 className="brand-display mt-4 text-5xl text-brand-yellow">Prof. Mariana Costa</h1>
         <p className="mt-3 max-w-2xl text-brand-cream/80">
           Acompanhe turmas, publique materiais e responda duvidas da comunidade ECOTUCA.
@@ -21,7 +25,7 @@ export function TeacherDashboard() {
         <PerifaCard tone="blue"><FileUp size={26} /><p className="mt-3 text-3xl font-black">9 PDFs</p><p className="text-sm">materiais preparados</p></PerifaCard>
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
+        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
           <h2 className="brand-display text-4xl">Progresso das trilhas</h2>
           <div className="mt-4 space-y-4">
             {learningTracks.map((track) => (
@@ -35,7 +39,7 @@ export function TeacherDashboard() {
             ))}
           </div>
         </div>
-        <div className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
+        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
           <h2 className="brand-display text-4xl">Forum para responder</h2>
           <div className="mt-4 space-y-3">
             {forumTopics.map((topic) => (

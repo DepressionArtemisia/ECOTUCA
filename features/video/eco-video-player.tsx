@@ -3,6 +3,7 @@
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { EcoButton } from "@/components/brand/eco-button";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useCurrentUser } from "@/features/auth/use-current-user";
@@ -106,7 +107,7 @@ export function EcoVideoPlayer({
   }
 
   return (
-    <section className="overflow-hidden rounded-lg border border-brand-brown/10 bg-brand-brown text-brand-cream shadow-glow">
+    <section className="overflow-hidden rounded-lg border border-brand-yellow/20 bg-brand-brown text-brand-cream shadow-glow">
       <div className="relative aspect-video bg-black">
         <iframe
           className="h-full w-full"
@@ -116,7 +117,7 @@ export function EcoVideoPlayer({
           allowFullScreen
         />
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between bg-gradient-to-b from-brand-brown/80 to-transparent p-4">
-          <span className="brand-display text-2xl text-brand-yellow">ECOTUCA</span>
+          <OfficialLogo variant="horizontal" tone="negative" size="sm" />
           <span className="rounded-lg bg-brand-mint px-3 py-1 text-xs font-black text-brand-brown">{completed ? "Aula concluida" : "Em andamento"}</span>
         </div>
       </div>

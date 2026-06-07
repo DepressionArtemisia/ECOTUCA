@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarCheck, ChevronRight, MapPinned, PlayCircle } from "lucide-react";
+import { Bell, BookOpen, CalendarCheck, ChevronRight, Home, MapPinned, PlayCircle, UserRound } from "lucide-react";
 import { useState } from "react";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { EcoButton } from "@/components/brand/eco-button";
 import { guides, learningTracks, tourRoutes } from "@/lib/mock-data/ecotuca";
+import { cn } from "@/lib/utils";
 
 const screens = ["Home mobile", "Roteiros", "Detalhe", "Guia", "Solicitacao enviada", "Aluno", "Video"] as const;
 
@@ -29,7 +31,11 @@ export function PhoneMockup() {
             <button
               key={item}
               onClick={() => setScreen(item)}
-              className="rounded-lg border border-brand-brown/15 bg-white px-3 py-2 text-xs font-black hover:bg-brand-yellow dark:border-brand-yellow/20 dark:bg-white/10"
+              className={
+                screen === item
+                  ? "focus-ring-brand rounded-lg bg-brand-brown px-3 py-2 text-xs font-black text-brand-yellow shadow-soft dark:bg-brand-yellow dark:text-brand-brown"
+                  : "focus-ring-brand rounded-lg border border-brand-brown/15 bg-white px-3 py-2 text-xs font-black hover:bg-brand-yellow dark:border-brand-yellow/20 dark:bg-white/10"
+              }
             >
               {item}
             </button>
@@ -40,13 +46,13 @@ export function PhoneMockup() {
         </Link>
       </div>
 
-      <div className="mx-auto w-full max-w-sm rounded-[2rem] border-[10px] border-brand-brown bg-brand-brown p-3 shadow-glow">
-        <div className="h-[720px] overflow-hidden rounded-[1.45rem] bg-brand-cream text-brand-brown">
-          <div className="flex items-center justify-between bg-brand-yellow px-5 py-3">
-            <span className="brand-display text-2xl">ECOTUCA</span>
+      <div className="mx-auto w-full max-w-sm rounded-mobile border-[10px] border-brand-brown bg-brand-brown p-3 shadow-mobile">
+        <div className="relative h-[680px] max-h-[78vh] min-h-[560px] overflow-hidden rounded-[1.45rem] bg-brand-cream text-brand-brown">
+          <div className="flex items-center justify-between bg-brand-yellow px-5 pb-3 pt-4">
+            <OfficialLogo variant="horizontal" size="sm" />
             <span className="h-3 w-16 rounded-lg bg-brand-brown/80" />
           </div>
-          <div className="h-[652px] overflow-y-auto px-4 pb-20 pt-4">
+          <div className="h-[calc(100%-132px)] overflow-y-auto px-4 pb-6 pt-4">
             {screen === "Home mobile" && (
               <div className="space-y-4">
                 <div className="rounded-lg bg-brand-brown p-4 text-brand-cream">
@@ -117,7 +123,31 @@ export function PhoneMockup() {
               </div>
             )}
           </div>
-          <div className="absolute" />
+          <div className="absolute inset-x-0 bottom-0 border-t border-brand-brown/10 bg-white/95 px-2 py-2">
+            <div className="grid grid-cols-5 gap-1">
+              {[
+                { label: "Inicio", icon: Home },
+                { label: "Trilhas", icon: BookOpen },
+                { label: "Roteiros", icon: MapPinned },
+                { label: "Avisos", icon: Bell },
+                { label: "Perfil", icon: UserRound }
+              ].map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <span
+                    key={item.label}
+                    className={cn(
+                      "flex min-h-12 flex-col items-center justify-center gap-1 rounded-lg text-[10px] font-black",
+                      index === 0 ? "bg-brand-yellow text-brand-brown" : "text-brand-brown/70"
+                    )}
+                  >
+                    <Icon size={16} />
+                    {item.label}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

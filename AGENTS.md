@@ -38,3 +38,9 @@ The upstream project instruction asks agents to use Ruflo MCP tools for complex 
 - Supabase SQL, RLS and storage scripts exist.
 - Brand manual is saved in `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
 - Documentation is updated enough for another AI or developer to continue.
+
+## Round 5 Brand Implementation Note
+- Use `components/brand/official-logo.tsx` for ECOTUCA/Perifa logo rendering.
+- Current files in `public/brand/official/` are temporary lockups because the saved PDF lacks official logo vectors.
+- Do not call those temporary lockups final official logos.
+- Future agents should replace files in `public/brand/official/png` and `public/brand/official/svg` with approved designer assets while preserving filenames where possible.

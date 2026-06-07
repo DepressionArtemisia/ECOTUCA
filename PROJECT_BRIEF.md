@@ -22,3 +22,6 @@ Create a navigable MVP for an important presentation. The MVP must look and feel
 
 ## Brand Context
 The project follows the Perifa Ecotour / ECOTUCA visual identity. The PDF manual is stored at `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`. The extracted PDF text confirms the five product modules and the institutional framing. The explicit brand update defines the official palette and typography direction.
+
+## Round 5 Brand Clarification
+The PDF currently present in the repo does not include the official identity manual pages or clean logo vectors described in the prompt. The MVP now uses documented temporary lockups in the official palette and is structurally ready for designer-approved ECOTUCA/Perifa SVG/PNG replacement.

@@ -51,7 +51,7 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
 
   if (submitted) {
     return (
-      <div className="rounded-lg bg-brand-mint p-5 text-brand-brown shadow-brand">
+      <div className="rounded-lg bg-brand-mint p-5 text-brand-brown shadow-card">
         <Badge tone="yellow">Solicitacao recebida</Badge>
         <div className="mt-3">
           <Badge tone={savedBooking?.source === "supabase" ? "mint" : "coral"}>
@@ -67,10 +67,10 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
   }
 
   return (
-    <div className="rounded-lg bg-brand-yellow p-5 text-brand-brown shadow-brand">
+    <div className="rounded-lg bg-brand-yellow p-5 text-brand-brown shadow-card">
       <h2 className="brand-display text-4xl">Tenho interesse</h2>
       <p className="mt-2 text-sm font-bold">
-        Simule uma solicitacao real. A equipe ECOTUCA recebera o interesse e confirmara disponibilidade depois.
+        Envie uma solicitacao de roteiro. A equipe ECOTUCA confirma disponibilidade, guia e orientacoes de seguranca.
       </p>
       <div className="mt-5 space-y-3">
         <Input label="Nome" value={form.name} onChange={(name) => setForm((current) => ({ ...current, name }))} />
@@ -85,7 +85,7 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
           <textarea
             value={form.message}
             onChange={(event) => setForm((current) => ({ ...current, message: event.target.value }))}
-            className="mt-1 min-h-24 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none"
+            className="mt-1 min-h-24 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none focus:border-brand-mint"
           />
         </label>
       </div>
@@ -119,7 +119,7 @@ function Input({
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-1 h-12 w-full rounded-lg border border-brand-brown/15 bg-white px-4 text-sm font-bold outline-none"
+        className="mt-1 h-12 w-full rounded-lg border border-brand-brown/15 bg-white px-4 text-sm font-bold outline-none focus:border-brand-mint"
       />
     </label>
   );

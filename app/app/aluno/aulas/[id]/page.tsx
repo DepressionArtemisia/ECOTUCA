@@ -3,6 +3,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { EcoVideoPlayer } from "@/features/video/eco-video-player";
 import { Badge } from "@/components/ui/badge";
 import { EcoButton } from "@/components/brand/eco-button";
+import { PerifaCard } from "@/components/brand/perifa-card";
 import { learningTracks } from "@/lib/mock-data/ecotuca";
 
 export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
@@ -13,13 +14,13 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   return (
     <AppShell title={lesson.title}>
       <section className="mx-auto max-w-5xl space-y-6">
-        <div>
+        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
           <Badge tone="yellow">Videoaula</Badge>
           <h1 className="brand-display mt-4 text-5xl">{lesson.title}</h1>
           <p className="mt-3 text-brand-brown/75 dark:text-brand-cream/75">{lesson.description}</p>
         </div>
         <EcoVideoPlayer lessonId={lesson.id} title={lesson.title} videoId={lesson.videoId} durationSeconds={lesson.durationMinutes * 60} />
-        <div className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
+        <PerifaCard tone="mint">
           <h2 className="text-xl font-black">Texto de apoio</h2>
           <p className="mt-2 text-brand-brown/75 dark:text-brand-cream/75">{lesson.supportText}</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -33,7 +34,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
             <EcoButton variant="mint">Marcar como concluida</EcoButton>
             <EcoButton variant="outline">Proxima aula</EcoButton>
           </div>
-        </div>
+        </PerifaCard>
       </section>
     </AppShell>
   );

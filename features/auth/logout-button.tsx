@@ -10,7 +10,7 @@ export function LogoutButton() {
   return (
     <Button variant="outline" size="sm" onClick={logout}>
       <LogOut size={15} />
-      Logout
+      Sair
     </Button>
   );
 }

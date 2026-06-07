@@ -15,7 +15,7 @@ export function DemoSessionPill() {
         <UserRound size={15} />
         <span className="max-w-[140px] truncate">{user.name}</span>
         <Badge tone={user.status === "pending" ? "coral" : "mint"}>{user.role}</Badge>
-        <Badge tone={user.source === "supabase" ? "mint" : "yellow"}>{user.source === "supabase" ? "Supabase" : "Demo"}</Badge>
+        <Badge tone={user.source === "supabase" ? "mint" : "yellow"}>{user.source === "supabase" ? "Supabase" : "Apresentacao"}</Badge>
       </div>
       <LogoutButton />
     </div>

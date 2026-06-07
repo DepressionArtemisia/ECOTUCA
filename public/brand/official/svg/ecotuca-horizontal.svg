@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="240" viewBox="0 0 920 240" role="img" aria-labelledby="title desc">
+  <title id="title">ECOTUCA temporary app lockup</title>
+  <desc id="desc">Temporary ECOTUCA typographic lockup prepared with the official palette while the final brand file is pending.</desc>
+  <rect width="920" height="240" rx="34" fill="none"/>
+  <g transform="translate(32 34)">
+    <rect width="172" height="172" rx="44" fill="#3A1A16"/>
+    <path d="M42 116 C58 66 87 44 130 35 C120 62 101 79 76 90 C100 88 123 95 142 114 C111 132 73 132 42 116Z" fill="#2ACCB5"/>
+    <path d="M42 116 C70 118 99 105 130 78" fill="none" stroke="#FCC224" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="52" cy="128" r="10" fill="#E9635D"/>
+    <circle cx="138" cy="68" r="10" fill="#FE9440"/>
+  </g>
+  <g transform="translate(230 48)">
+    <text x="0" y="78" fill="#3A1A16" font-family="Impact, Arial Black, sans-serif" font-size="76" letter-spacing="0">ECOTUCA</text>
+    <rect x="0" y="96" width="386" height="12" rx="6" fill="#FCC224"/>
+    <rect x="404" y="96" width="90" height="12" rx="6" fill="#E9635D"/>
+    <rect x="510" y="96" width="112" height="12" rx="6" fill="#2ACCB5"/>
+    <text x="0" y="142" fill="#3A1A16" font-family="Trebuchet MS, Arial, sans-serif" font-size="31" font-weight="800">escola de ecoturismo</text>
+  </g>
+</svg>

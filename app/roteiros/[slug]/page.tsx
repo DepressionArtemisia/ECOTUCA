@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Clock, MapPin, Share2, ShieldCheck, Users } from "lucide-react";
 import { PublicShell } from "@/components/layout/public-shell";
 import { EcoButton } from "@/components/brand/eco-button";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { GuideCard } from "@/components/cards/guide-card";
 import { Badge } from "@/components/ui/badge";
 import { RouteInterestForm } from "@/features/routes/route-interest-form";
@@ -23,6 +24,9 @@ export default async function RouteDetailPage({ params }: { params: Promise<{ sl
         <div className="absolute inset-0 bg-brand-brown/65" />
         <div className="relative mx-auto flex min-h-[58vh] max-w-7xl items-end px-5 py-10 sm:px-6">
           <div className="max-w-4xl text-brand-cream">
+            <div className="mb-5">
+              <OfficialLogo brand="perifa" variant="horizontal" tone="negative" size="md" />
+            </div>
             <Badge tone="yellow">{route.difficulty}</Badge>
             <h1 className="brand-display mt-4 text-6xl text-brand-yellow">{route.title}</h1>
             <p className="mt-4 max-w-2xl text-lg font-bold text-brand-cream/90">{route.description}</p>
@@ -38,7 +42,7 @@ export default async function RouteDetailPage({ params }: { params: Promise<{ sl
             <Info icon={<MapPin size={18} />} label="Ponto" value={route.meetingPoint} />
             <Info icon={<ShieldCheck size={18} />} label="Valor" value={`R$ ${route.price}`} />
           </div>
-          <div className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
+          <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
             <h2 className="brand-display text-4xl">Galeria e territorio</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {route.galleryUrls.concat(route.coverUrl).slice(0, 3).map((image, index) => (
@@ -48,7 +52,7 @@ export default async function RouteDetailPage({ params }: { params: Promise<{ sl
               ))}
             </div>
           </div>
-          <div className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
+          <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
             <h2 className="brand-display text-4xl">O que esta incluido</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {route.includedItems.map((item) => (
@@ -56,7 +60,7 @@ export default async function RouteDetailPage({ params }: { params: Promise<{ sl
               ))}
             </div>
           </div>
-          <div className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
+          <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
             <h2 className="brand-display text-4xl">Recomendacoes e seguranca</h2>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2">
               {route.recommendations.map((item) => (
@@ -82,7 +86,7 @@ export default async function RouteDetailPage({ params }: { params: Promise<{ sl
 
 function Info({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-white p-4 shadow-brand dark:bg-white/10">
+    <div className="brand-card p-4 dark:bg-brand-dark-soft/90">
       <p className="flex items-center gap-2 text-xs font-black uppercase text-brand-coral">{icon}{label}</p>
       <p className="mt-2 text-sm font-black">{value}</p>
     </div>

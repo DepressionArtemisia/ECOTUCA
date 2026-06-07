@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { Award, Bell, BookOpen, CheckCircle2, Flame, PlayCircle, TimerReset } from "lucide-react";
 import { EcoButton } from "@/components/brand/eco-button";
+import { BrandPattern } from "@/components/brand/brand-pattern";
+import { EcotucaOrb } from "@/components/brand/ecotuca-orb";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -17,19 +20,28 @@ export function StudentDashboard() {
       <section className="grid gap-6 lg:grid-cols-[1.35fr_.65fr]">
         <div className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
           <div className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#FE9440)]" />
-          <Badge tone="yellow">Area do aluno</Badge>
-          <h1 className="brand-display mt-5 text-5xl text-brand-yellow">Ola, Lucas</h1>
-          <p className="mt-4 max-w-2xl text-brand-cream/80">
-            Sua formacao conecta territorio, biodiversidade, Agenda 2030 e a chance real de atuar como guia local.
-          </p>
-          <div className="mt-6 max-w-xl">
+          <BrandPattern intensity="soft" className="opacity-25" />
+          <div className="relative grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <OfficialLogo variant="horizontal" tone="negative" size="md" />
+              <div className="mt-5">
+                <Badge tone="yellow">Area do aluno</Badge>
+              </div>
+              <h1 className="brand-display mt-5 text-5xl text-brand-yellow">Ola, Lucas</h1>
+              <p className="mt-4 max-w-2xl text-brand-cream/80">
+                Sua formacao conecta territorio, biodiversidade, Agenda 2030 e a chance real de atuar como guia local.
+              </p>
+            </div>
+            <EcotucaOrb label="64%" caption="formacao geral" className="hidden md:flex" />
+          </div>
+          <div className="relative mt-6 max-w-xl">
             <div className="mb-2 flex justify-between text-sm font-black">
               <span>Formacao geral</span>
               <span>64%</span>
             </div>
             <Progress value={64} tone="yellow" />
           </div>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="relative mt-6 flex flex-wrap gap-3">
             <Link href="/app/aluno/aulas/aula-guia-01">
               <EcoButton variant="mint">
                 <PlayCircle size={18} />

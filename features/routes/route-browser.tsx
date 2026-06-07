@@ -35,7 +35,7 @@ export function RouteBrowser() {
 
   return (
     <section className="space-y-6">
-      <div className="rounded-lg border border-brand-brown/10 bg-white p-4 shadow-brand dark:border-brand-yellow/15 dark:bg-white/10">
+      <div className="brand-card p-4 dark:bg-brand-dark-soft/90">
         <div className="grid gap-3 lg:grid-cols-[1fr_180px_180px_180px]">
           <label className="flex min-h-12 items-center gap-3 rounded-lg bg-brand-warm px-4 text-sm font-bold text-brand-brown">
             <Search size={18} />
@@ -83,7 +83,7 @@ function Filter({
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-12 w-full rounded-lg border border-brand-brown/15 bg-brand-warm px-3 text-sm font-black text-brand-brown outline-none"
+        className="h-12 w-full rounded-lg border border-brand-brown/15 bg-brand-warm px-3 text-sm font-black text-brand-brown outline-none focus:border-brand-mint"
       >
         {options.map((option) => (
           <option key={option} value={option}>{label}: {option}</option>

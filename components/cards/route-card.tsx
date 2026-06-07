@@ -7,10 +7,12 @@ import { TourRoute } from "@/types/domain";
 
 export function RouteCard({ route }: { route: TourRoute }) {
   return (
-    <article className="overflow-hidden rounded-lg border border-brand-brown/10 bg-white shadow-brand dark:border-brand-yellow/15 dark:bg-white/10">
+    <article className="brand-card brand-card-hover overflow-hidden dark:bg-brand-dark-soft/90">
       <div className="relative aspect-[4/3]">
         <Image src={route.coverUrl} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-brown/55 via-transparent to-transparent" />
         {route.featured && <Badge tone="yellow" className="absolute left-3 top-3">Destaque</Badge>}
+        <Badge tone="brown" className="absolute bottom-3 left-3">{route.difficulty}</Badge>
       </div>
       <div className="p-5">
         <div className="flex flex-wrap gap-2">
@@ -25,10 +27,10 @@ export function RouteCard({ route }: { route: TourRoute }) {
           <span className="inline-flex items-center gap-2"><Users size={15} />Ate {route.maxPeople}</span>
           <span className="col-span-2 inline-flex items-center gap-2"><MapPin size={15} />{route.location}</span>
         </div>
-        <div className="mt-5 flex items-center justify-between">
-          <span className="text-lg font-black">R$ {route.price}</span>
-          <Link href={`/roteiros/${route.slug}`} className="inline-flex items-center gap-2 rounded-lg bg-brand-brown px-4 py-2 text-sm font-black text-brand-yellow dark:bg-brand-yellow dark:text-brand-brown">
-            Ver
+        <div className="mt-5 flex items-center justify-between gap-3">
+          <span className="text-lg font-black text-brand-brown dark:text-brand-yellow">R$ {route.price}</span>
+          <Link href={`/roteiros/${route.slug}`} className="focus-ring-brand inline-flex min-h-11 items-center gap-2 rounded-lg bg-brand-brown px-4 py-2 text-sm font-black text-brand-yellow transition hover:bg-brand-brown/90 dark:bg-brand-yellow dark:text-brand-brown">
+            Ver roteiro
             <ArrowRight size={15} />
           </Link>
         </div>

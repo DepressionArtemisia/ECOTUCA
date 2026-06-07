@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="300" viewBox="0 0 1120 300" role="img" aria-labelledby="title desc">
+  <title id="title">ECOTUCA temporary tagline lockup</title>
+  <desc id="desc">Temporary ECOTUCA tagline lockup prepared with the official palette while the final brand file is pending.</desc>
+  <rect width="1120" height="300" rx="38" fill="none"/>
+  <g transform="translate(34 42)">
+    <rect width="204" height="204" rx="52" fill="#3A1A16"/>
+    <path d="M50 138 C72 78 107 52 158 42 C144 76 120 99 88 112 C122 109 151 120 174 140 C135 164 88 164 50 138Z" fill="#2ACCB5"/>
+    <path d="M50 138 C84 141 121 123 158 92" fill="none" stroke="#FCC224" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="64" cy="156" r="12" fill="#E9635D"/>
+    <circle cx="172" cy="78" r="12" fill="#FE9440"/>
+  </g>
+  <g transform="translate(274 52)">
+    <text x="0" y="82" fill="#3A1A16" font-family="Impact, Arial Black, sans-serif" font-size="82" letter-spacing="0">ECOTUCA</text>
+    <rect x="0" y="100" width="416" height="12" rx="6" fill="#FCC224"/>
+    <rect x="432" y="100" width="92" height="12" rx="6" fill="#E9635D"/>
+    <rect x="540" y="100" width="118" height="12" rx="6" fill="#2ACCB5"/>
+    <text x="0" y="154" fill="#3A1A16" font-family="Trebuchet MS, Arial, sans-serif" font-size="34" font-weight="800">Escola de Ecoturismo do Complexo do Alemao</text>
+    <text x="0" y="200" fill="#335595" font-family="Trebuchet MS, Arial, sans-serif" font-size="25" font-weight="800">formacao, territorio e turismo comunitario</text>
+  </g>
+</svg>

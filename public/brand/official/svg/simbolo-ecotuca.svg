@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">ECOTUCA temporary symbol</title>
+  <desc id="desc">Temporary ECOTUCA symbol prepared with the official palette while the final brand file is pending.</desc>
+  <rect x="24" y="24" width="464" height="464" rx="118" fill="#3A1A16"/>
+  <path d="M122 350 C164 196 250 126 392 94 C356 180 296 234 214 268 C286 262 350 286 400 350 C316 402 198 402 122 350Z" fill="#2ACCB5"/>
+  <path d="M122 350 C206 354 298 302 392 218" fill="none" stroke="#FCC224" stroke-width="30" stroke-linecap="round"/>
+  <circle cx="148" cy="386" r="30" fill="#E9635D"/>
+  <circle cx="404" cy="166" r="30" fill="#FE9440"/>
+</svg>

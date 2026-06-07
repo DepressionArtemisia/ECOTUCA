@@ -29,3 +29,10 @@ Aplicar assets oficiais e revisar visualmente em desktop/mobile.
 
 ## 10. Resumo curto para Bruno copiar
 Identidade visual incorporada no Tailwind e componentes; placeholders de logo estao prontos para troca por arquivos oficiais.
+
+## 11. Atualizacao Rodada 5
+- `OfficialLogo` agora centraliza ECOTUCA/Perifa, variantes, tamanhos e fallback.
+- `public/brand/official/` foi criado com PNG/SVG temporarios premium.
+- O PDF atual nao contem logos oficiais extraiveis; a limitacao esta documentada em `docs/brand/BRAND_ASSET_EXTRACTION_REPORT.md`.
+- Tokens novos: fundos, gradientes, sombras, radius, motion e utilitarios `.brand-card`, `.brand-surface`, `.focus-ring-brand`.
+- Telas principais foram polidas com a identidade sem remover fallback de demonstracao.

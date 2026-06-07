@@ -5,6 +5,7 @@ import { LogIn, Mail } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { EcoButton } from "@/components/brand/eco-button";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/features/auth/auth-provider";
 import type { CurrentUser } from "@/lib/data/auth";
@@ -32,7 +33,10 @@ export function LoginForm() {
 
   return (
     <form onSubmit={submit} className="rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
-      <Badge tone={source === "supabase" ? "mint" : "yellow"}>{source === "supabase" ? "Base conectada" : "Modo demonstracao"}</Badge>
+      <OfficialLogo variant="horizontal" tone="negative" size="md" />
+      <div className="mt-5">
+        <Badge tone={source === "supabase" ? "mint" : "yellow"}>{source === "supabase" ? "Base conectada" : "Modo demonstracao"}</Badge>
+      </div>
       <h1 className="brand-display mt-5 text-6xl text-brand-yellow">Entrar</h1>
       <p className="mt-4 text-brand-cream/75">{message}</p>
       <div className="mt-6 space-y-3">

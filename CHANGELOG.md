@@ -16,3 +16,7 @@
 - Improved `scripts/create-demo-users.ts` with `--dry-run`, confirmation and idempotent profile creation.
 - Ran lint, build, Supabase check, SQL prepare, create-demo-users dry-run and secret scan successfully.
 - Froze the MVP for presentation with meeting docs, `/demo` guidance cards, safe local reset and client-facing text polish.
+- Started Round 5 premium design attack on branch `design/premium-brand-attack`.
+- Added `OfficialLogo`, official brand asset folders, extraction report, logo usage strategy and design reports.
+- Replaced old visible placeholder logo art with documented temporary palette-faithful lockups because the current PDF does not contain official logo vectors.
+- Polished Home, Demo, Demo Mobile, Login, Routes, Student, Lesson/Player, Professor, Guide, Tourist and Admin surfaces.
