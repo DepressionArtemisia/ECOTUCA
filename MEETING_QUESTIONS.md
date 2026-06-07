@@ -1,48 +1,66 @@
 # Meeting Questions
 
-## Produto
-- O nome público será ECOTUCA, Perifa Ecotour ou ambos?
-- O app será aberto ao público ou apenas para turmas aprovadas?
-- Turistas poderão pagar online ou apenas demonstrar interesse?
-- Quem recebe as solicitações de turistas?
-- Qual é a prioridade: escola, app de roteiros ou relatórios?
+Use este arquivo como apoio geral. Para a reuniao em si, comece por `PERGUNTAS_REUNIAO_PRIORITARIAS.md`.
 
-## Pedagógico
-- Quais trilhas reais existem?
-- Quem fornecerá vídeos e PDFs?
-- Terá quiz ou avaliação?
-- Qual regra para emitir certificado?
-- Precisa presença/aula prática?
-- Quem valida conclusão e certificado?
+## 1. Decisoes que destravam produto
+- O nome publico principal sera ECOTUCA, Perifa Ecotour ou os dois?
+- O app sera aberto ao publico ou apenas para alunos aprovados?
+- Turistas poderao contratar diretamente ou apenas demonstrar interesse?
+- Vai existir pagamento online nesta fase?
+- Qual e a prioridade do MVP final: escola, roteiros, admin ou relatorios?
 
-## Administração
-- Quem aprova alunos?
-- Quem aprova professores/guias?
-- Quem terá acesso ao painel?
-- Quais relatórios são exigidos pelo edital?
-- Precisa exportar CSV, PDF ou dashboard online?
+## 2. Jornada do aluno
+- Quem pode se cadastrar?
+- Existe idade minima?
+- Tera menor de idade?
+- Quais dados sao obrigatorios?
+- Como o aluno conclui aula, trilha e certificacao?
+- O aluno pode visualizar roteiros antes de concluir a formacao?
 
-## Roteiros
-- Quais roteiros são oficiais?
-- Existem valores definidos?
-- Quem serão os guias?
-- Precisa termo de responsabilidade?
-- Precisa limite de vagas?
-- Quem confirma agenda, clima e segurança?
+## 3. Conteudo pedagogico
+- Quais trilhas reais entram primeiro?
+- Quem fornece videos?
+- Quem fornece PDFs?
+- As aulas terao quiz?
+- Qual porcentagem minima de video precisa assistir?
+- Tera aula pratica ou presencial?
+- Quem aprova certificado?
 
-## Legal/LGPD
+## 4. Professores e guias
+- Quem serao os professores?
+- Professores podem criar conteudo sem aprovacao?
+- Professores veem todos os alunos ou apenas turmas?
+- Quando aluno vira guia?
+- Quem aprova perfil publico do guia?
+- Guia pode editar agenda e disponibilidade?
+
+## 5. Roteiros
+- Quais roteiros oficiais entram primeiro?
+- Quais valores, duracoes e pontos de encontro?
+- Qual limite de pessoas?
+- Precisa seguro, termo de responsabilidade ou autorizacao?
+- Quem confirma clima, seguranca e disponibilidade?
+
+## 6. Admin, impacto e relatorios
+- Quem sera admin?
+- Quem aprova cadastros?
+- Quais metricas o edital exige?
+- Quais relatorios precisam exportar?
+- Qual periodicidade dos relatorios?
+- Quem modera comunidade?
+
+## 7. Legal, LGPD e operacao
 - Precisa termo de uso?
-- Precisa política de privacidade?
-- Precisa autorização de imagem?
-- Haverá dados de menores?
-- Responsável legal precisa assinar?
-- Quais dados pessoais são realmente obrigatórios?
+- Precisa politica de privacidade?
+- Tera dados de menores?
+- Precisa autorizacao de imagem?
+- Quem sera controlador dos dados?
+- Quem opera o sistema no dia a dia?
 
-## Tecnologia
-- Qual domínio final?
-- Haverá e-mail oficial do projeto?
-- Quem vai operar o sistema?
-- Quem fornecerá logos finais?
-- Quem vai alimentar conteúdo?
-- Quem terá acesso ao Supabase/Vercel?
-- A prioridade é PWA ou app nativo no curto prazo?
+## 8. Tecnologia e proxima fase
+- Qual sera o dominio final?
+- Qual e-mail oficial?
+- Quem tera acesso ao Supabase e deploy?
+- Quem fornecera logos, fotos e videos reais?
+- PWA basta ou precisa app em loja?
+- Qual prazo para MVP final?

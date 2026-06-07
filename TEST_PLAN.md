@@ -8,6 +8,11 @@
 - [x] `NODE_OPTIONS=--use-system-ca npm run supabase:create-demo-users -- --dry-run`
 - [x] Versionable secret scan with `rg`
 
+## Round 4 Freeze Commands
+- [x] `npm run lint`
+- [x] `npm run build`
+- [x] Versionable secret scan with `rg`
+
 ## Browser Routes
 - [x] `/`
 - [x] `/demo`
@@ -25,6 +30,9 @@
 - [x] `/app/professor`
 - [x] `/app/guia`
 - [x] `/app/turista`
+- [x] `/app/professor`
+- [x] `/app/guia`
+- [x] `/app/admin/aprovacoes`
 
 ## Mobile
 - [x] Testar viewport 390x844.
@@ -71,6 +79,16 @@
 - [x] Abrir `/app/turista/reservas` e ver a reserva local ou mock.
 - [x] Aprovar/rejeitar em `/app/admin/aprovacoes` sem quebrar a UI.
 - [x] Viewport 390x844 sem overflow em `/demo`, `/demo/status`, `/app/aluno`, `/roteiros/serra-da-misericordia`, `/app/admin/aprovacoes` e `/demo-mobile`.
+
+## Round 4 Freeze Checks
+- [x] `/demo` mostra `Comece por aqui`.
+- [x] `/demo` mostra `Roteiro recomendado`.
+- [x] `/demo` mostra botao `Resetar demo`.
+- [x] Reset local da apresentacao foi testado e exibiu confirmacao.
+- [x] Formulario de roteiro confirmou `Solicitacao recebida` e `Salvo para apresentacao`.
+- [x] `/demo-mobile` alternou para a tela `Guia`.
+- [x] Textos visiveis principais nao mostram `Mock`, `LocalStorage`, `fallback` ou `upload mock` fora do painel tecnico.
+- [x] Mobile 390x844 sem overflow em `/demo`, `/demo/status`, `/demo-mobile`, `/`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/aluno/aulas/aula-guia-01` e `/app/admin/aprovacoes`.
 
 ## Caveats
 Persistencia 100% real ainda depende de SQL aplicado, usuarios Auth reais e IDs UUID reais de aulas/roteiros.

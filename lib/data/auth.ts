@@ -51,18 +51,18 @@ export async function loginWithSupabaseOrDemo(email: string, password: string): 
   const demo = getDemoUserByEmail(email);
   if (demo && demo.password === password) {
     setStoredDemoUser(demo);
-    return {
-      ok: true,
-      user: { ...demo, source: "demo" },
-      source: "demo",
-      message: "Modo demonstracao ativado."
-    };
+      return {
+        ok: true,
+        user: { ...demo, source: "demo" },
+        source: "demo",
+        message: "Acesso de demonstracao ativado."
+      };
   }
 
   return {
     ok: false,
     source: "demo",
-    message: "Login nao encontrado no Supabase nem nos usuarios demo."
+    message: "Nao encontramos este acesso. Confira e-mail e senha."
   };
 }
 

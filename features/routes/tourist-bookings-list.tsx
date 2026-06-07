@@ -6,6 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { listRouteBookings, type StoredRouteBooking } from "@/lib/data/bookings";
 import { tourRoutes } from "@/lib/mock-data/ecotuca";
 
+const sourceLabels = {
+  supabase: "Base conectada",
+  localStorage: "Salvo para apresentacao",
+  mock: "Modo demonstracao"
+};
+
+const statusLabels: Record<string, string> = {
+  pending: "pendente",
+  favorite: "favorito",
+  approved: "aprovado",
+  rejected: "rejeitado"
+};
+
 const mockBookings: StoredRouteBooking[] = [
   {
     id: "mock-serra",
@@ -68,9 +81,9 @@ export function TouristBookingsList() {
         return (
           <article key={booking.id} className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
             <div className="flex flex-wrap gap-2">
-              <Badge tone={booking.status === "pending" ? "coral" : "yellow"}>{booking.status}</Badge>
+              <Badge tone={booking.status === "pending" ? "coral" : "yellow"}>{statusLabels[booking.status] ?? booking.status}</Badge>
               <Badge tone={booking.source === "supabase" ? "mint" : booking.source === "localStorage" ? "orange" : "blue"}>
-                {booking.source === "supabase" ? "Supabase" : booking.source === "localStorage" ? "LocalStorage" : "Mock"}
+                {sourceLabels[booking.source]}
               </Badge>
             </div>
             <h2 className="mt-3 flex items-center gap-2 text-xl font-black">

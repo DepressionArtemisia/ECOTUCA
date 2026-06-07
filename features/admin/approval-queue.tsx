@@ -29,7 +29,7 @@ export function ApprovalQueue() {
       if (!active) return;
       setRows(queue.map(toRow));
       setSource(queue.some((user) => user.password === "") ? "supabase" : "demo");
-      setMessage(queue.length ? "Fila carregada com fallback seguro." : "Nenhum cadastro pendente encontrado.");
+      setMessage(queue.length ? "Fila pronta para validacao da coordenacao." : "Nenhum cadastro pendente encontrado.");
       setLoading(false);
     }
 
@@ -45,8 +45,8 @@ export function ApprovalQueue() {
     setSource(result.source === "supabase" ? "supabase" : "demo");
     setMessage(
       result.source === "supabase"
-        ? `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} no Supabase.`
-        : `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} em simulacao local.`
+        ? `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} na base conectada.`
+        : `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} no modo de demonstracao.`
     );
   }
 
@@ -56,7 +56,7 @@ export function ApprovalQueue() {
         <div className="flex flex-wrap gap-2">
           <Badge tone="coral">Fila de aprovacoes</Badge>
           <Badge tone={source === "supabase" ? "mint" : "yellow"}>
-            {source === "supabase" ? "Supabase conectado" : "Simulacao demo"}
+            {source === "supabase" ? "Base conectada" : "Modo demonstracao"}
           </Badge>
         </div>
         <h1 className="brand-display mt-4 text-5xl">Fila de aprovacoes</h1>

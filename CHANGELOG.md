@@ -15,3 +15,4 @@
 - Connected video progress, route interest form, tourist bookings, admin approvals and teacher upload to hybrid services.
 - Improved `scripts/create-demo-users.ts` with `--dry-run`, confirmation and idempotent profile creation.
 - Ran lint, build, Supabase check, SQL prepare, create-demo-users dry-run and secret scan successfully.
+- Froze the MVP for presentation with meeting docs, `/demo` guidance cards, safe local reset and client-facing text polish.

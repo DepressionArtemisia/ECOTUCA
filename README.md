@@ -13,11 +13,26 @@ npm run build
 ## Key Routes
 - `/`
 - `/demo`
+- `/demo/status`
 - `/demo-mobile`
 - `/login`
 - `/app/aluno`
 - `/app/admin`
 - `/roteiros/serra-da-misericordia`
+
+## Presentation Freeze
+Start at [http://localhost:3020/demo](http://localhost:3020/demo).
+
+Meeting support files:
+- `ROTEIRO_DE_APRESENTACAO.md`
+- `CHECKLIST_REUNIAO.md`
+- `PERGUNTAS_REUNIAO_PRIORITARIAS.md`
+- `RELATORIO_PENDENCIAS_POS_REUNIAO.md`
+- `TESTE_FINAL_15_MIN.md`
+- `PLANO_B_APRESENTACAO.md`
+- `RESUMO_EXECUTIVO_MVP.md`
+
+Do not apply SQL or create real Auth users before the meeting. The MVP is frozen for presentation with safe demo fallback.
 
 ## Brand
 Manual: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.

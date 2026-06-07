@@ -10,6 +10,9 @@
 - [x] Criar scripts/guia Supabase.
 - [x] Criar `/demo/status`.
 - [x] Criar camada Supabase/fallback sem quebrar demo.
+- [x] Criar roteiro, checklist, plano B, perguntas prioritarias e resumo executivo.
+- [x] Adicionar reset local seguro na central `/demo`.
+- [x] Suavizar textos tecnicos visiveis para cliente.
 - [x] Rodar lint/build.
 - [ ] Substituir logos placeholders por assets oficiais se forem enviados.
 
@@ -30,4 +33,4 @@
 - [ ] Revisao de vulnerabilidades `next`/`postcss`.
 
 ## Proximo foco recomendado
-Aplicar SQL revisado, criar Auth users reais com o script seguro e validar login/progresso/reservas com dados UUID reais.
+Depois da reuniao, aplicar SQL revisado se aprovado, criar Auth users reais com o script seguro e validar login/progresso/reservas com dados UUID reais.

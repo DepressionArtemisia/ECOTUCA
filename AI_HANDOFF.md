@@ -37,6 +37,13 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - `scripts/create-demo-users.ts` is idempotent, supports `--dry-run`, and requires explicit confirmation for writes.
 - Dry-run was executed successfully; no real Auth users were created.
 
+## Round 4 Presentation Freeze
+- No SQL was applied and no real Auth users were created.
+- `/demo` now has a "Comece por aqui" card, recommended flow card, mobile/status buttons and a safe local demo reset button.
+- Client-facing texts were softened: technical labels such as LocalStorage/mock/fallback were replaced with presentation language outside `/demo/status`.
+- New meeting files were created at project root: `ROTEIRO_DE_APRESENTACAO.md`, `CHECKLIST_REUNIAO.md`, `PERGUNTAS_REUNIAO_PRIORITARIAS.md`, `RELATORIO_PENDENCIAS_POS_REUNIAO.md`, `TESTE_FINAL_15_MIN.md`, `PLANO_B_APRESENTACAO.md`, `RESUMO_EXECUTIVO_MVP.md`.
+- `MEETING_QUESTIONS.md` was reorganized and `docs/progress-reports/STEP_13_ROUND_4_PRESENTATION_FREEZE.md` tracks the freeze.
+
 ## Verification
 - `npm run lint`: passed.
 - `npm run build`: passed.
@@ -46,9 +53,12 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - Versionable secret scan: no matches.
 - Browser route checks passed for the main presentation routes and role pages.
 - Video resume was visually confirmed after player adjustment.
+- Round 4 browser QA passed for `/demo`, `/demo/status`, `/demo-mobile`, `/`, `/login`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/guia`, `/app/turista`, `/app/admin`, `/app/admin/aprovacoes`.
+- Reset local, route interest form, demo-mobile tab switch and mobile 390x844 were verified.
 
 ## Important Files
 - `app/demo/page.tsx`
+- `components/demo/reset-demo-data-button.tsx`
 - `components/demo/demo-user-switcher.tsx`
 - `components/demo/demo-session-pill.tsx`
 - `features/video/eco-video-player.tsx`
@@ -64,6 +74,7 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - `lib/data/*`
 - `SUPABASE_SETUP_FOR_BRUNO.md`
 - `docs/progress-reports/STEP_12_ROUND_3_SUPABASE_INTEGRATION.md`
+- `docs/progress-reports/STEP_13_ROUND_4_PRESENTATION_FREEZE.md`
 - `docs/progress-reports/STEP_11_ROUND_2_CONSOLIDATION.md`
 
 ## Do Not Forget
@@ -73,4 +84,4 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - Do not replace placeholder logos unless official assets are available.
 
 ## Next Prompt
-"Apply reviewed Supabase SQL, create real demo Auth users with the safe script, seed UUID-backed lessons/routes, and validate real login/progress/bookings while preserving demo fallback."
+"After the meeting, apply reviewed Supabase SQL only if approved, create real demo Auth users with the safe script, replace official assets/content, seed UUID-backed lessons/routes, and validate real login/progress/bookings while preserving demo fallback."

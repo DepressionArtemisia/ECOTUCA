@@ -4,6 +4,7 @@ import { PublicShell } from "@/components/layout/public-shell";
 import { DemoUserSwitcher } from "@/components/demo/demo-user-switcher";
 import { FullscreenButton } from "@/components/demo/fullscreen-button";
 import { DataSourceBadge } from "@/components/demo/data-source-badge";
+import { ResetDemoDataButton } from "@/components/demo/reset-demo-data-button";
 import { EcoButton } from "@/components/brand/eco-button";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +18,7 @@ const demoCards = [
   { title: "Entrar como Admin", href: "/app/admin", icon: BarChart3, tone: "blue" as const, user: "admin@ecotuca.local", show: "Aprovacoes, metricas e relatorios." },
   { title: "Ver Demo Mobile", href: "/demo-mobile", icon: Smartphone, tone: "mint" as const, user: "Apresentacao", show: "App em moldura de celular com telas alternaveis." },
   { title: "Ver Roteiro", href: "/roteiros/serra-da-misericordia", icon: MapPinned, tone: "yellow" as const, user: "Visitante/Turista", show: "Detalhe, guia, seguranca e interesse." },
-  { title: "Ver Impacto", href: "/app/admin/metricas", icon: BarChart3, tone: "coral" as const, user: "admin@ecotuca.local", show: "Indicadores e exportacao CSV mock." }
+  { title: "Ver Impacto", href: "/app/admin/metricas", icon: BarChart3, tone: "coral" as const, user: "admin@ecotuca.local", show: "Indicadores e exportacao CSV de demonstracao." }
 ];
 
 export default function DemoPage() {
@@ -35,8 +36,38 @@ export default function DemoPage() {
             <Link href="/demo/status">
               <EcoButton variant="outline">Status tecnico</EcoButton>
             </Link>
+            <Link href="/demo-mobile">
+              <EcoButton variant="mint">Abrir mobile</EcoButton>
+            </Link>
             <FullscreenButton />
+            <ResetDemoDataButton />
           </div>
+        </div>
+        <div className="mt-8 grid gap-4 lg:grid-cols-[.8fr_1.2fr]">
+          <PerifaCard tone="mint">
+            <Badge tone="yellow">Comece por aqui</Badge>
+            <h2 className="brand-display mt-4 text-4xl">Abra a historia, nao a tecnica</h2>
+            <p className="mt-3 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
+              Comece pela home publica, mostre o app mobile e depois entre nos fluxos de roteiro, aluno e coordenacao.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Link href="/">
+                <EcoButton variant="coral">Home publica</EcoButton>
+              </Link>
+              <Link href="/roteiros/serra-da-misericordia">
+                <EcoButton variant="outline">Roteiro exemplo</EcoButton>
+              </Link>
+            </div>
+          </PerifaCard>
+          <PerifaCard tone="yellow">
+            <Badge tone="coral">Roteiro recomendado</Badge>
+            <p className="mt-4 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
+              Home publica, demo mobile, roteiro turistico, aluno, aula com progresso, professor, guia, admin e status tecnico.
+            </p>
+            <Link href="/app/aluno" className="mt-5 inline-block">
+              <EcoButton variant="mint">Seguir fluxo do aluno</EcoButton>
+            </Link>
+          </PerifaCard>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {demoCards.map((card) => {

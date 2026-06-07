@@ -347,7 +347,7 @@ export const adminMetrics: Metric[] = [
   { label: "Aulas concluidas", value: "842", detail: "64% da trilha principal", tone: "mint" },
   { label: "Guias em formacao", value: "42", detail: "12 quase certificados", tone: "orange" },
   { label: "Roteiros publicados", value: "6", detail: "3 em destaque", tone: "orange" },
-  { label: "Leads de turistas", value: "31", detail: "mock/localStorage", tone: "coral" },
+  { label: "Leads de turistas", value: "31", detail: "modo demonstracao", tone: "coral" },
   { label: "Certificados emitidos", value: "18", detail: "simulados", tone: "yellow" },
   { label: "Taxa de conclusao", value: "68%", detail: "trilha Guia Local", tone: "mint" },
   { label: "Horas estudadas", value: "1.340h", detail: "dados simulados", tone: "blue" },

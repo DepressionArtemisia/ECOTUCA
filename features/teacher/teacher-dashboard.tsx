@@ -18,7 +18,7 @@ export function TeacherDashboard() {
         <PerifaCard tone="yellow"><UsersRound size={26} /><p className="mt-3 text-3xl font-black">3 turmas</p><p className="text-sm">128 alunos</p></PerifaCard>
         <PerifaCard tone="mint"><BookOpen size={26} /><p className="mt-3 text-3xl font-black">18 aulas</p><p className="text-sm">12 publicadas</p></PerifaCard>
         <PerifaCard tone="coral"><MessageCircle size={26} /><p className="mt-3 text-3xl font-black">16 duvidas</p><p className="text-sm">5 pendentes</p></PerifaCard>
-        <PerifaCard tone="blue"><FileUp size={26} /><p className="mt-3 text-3xl font-black">9 PDFs</p><p className="text-sm">upload mock</p></PerifaCard>
+        <PerifaCard tone="blue"><FileUp size={26} /><p className="mt-3 text-3xl font-black">9 PDFs</p><p className="text-sm">materiais preparados</p></PerifaCard>
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">

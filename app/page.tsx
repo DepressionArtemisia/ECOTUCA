@@ -88,7 +88,7 @@ export default function HomePage() {
             <Link href="/demo-mobile">
               <EcoButton variant="mint">
                 <BookOpen size={17} />
-                Ver mockup mobile
+                Ver demo mobile
               </EcoButton>
             </Link>
           </div>

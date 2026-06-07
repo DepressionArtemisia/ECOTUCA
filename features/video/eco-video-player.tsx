@@ -127,14 +127,14 @@ export function EcoVideoPlayer({
             <p className="mt-1 text-sm text-brand-cream/75">Voce parou em {secondsToTime(seconds)} de {secondsToTime(durationSeconds)}.</p>
             <div className="mt-2">
               <Badge tone={progressSource === "supabase" ? "mint" : "yellow"}>
-                {progressSource === "supabase" ? "Supabase + localStorage" : "LocalStorage ativo"}
+                {progressSource === "supabase" ? "Base conectada + progresso local" : "Progresso salvo nesta demo"}
               </Badge>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
             <EcoButton variant="mint" onClick={togglePlayback}>
               {playing ? <Pause size={17} /> : <Play size={17} />}
-              {seconds > 0 ? "Continuar de onde parei" : "Play"}
+              {seconds > 0 ? "Continuar de onde parei" : "Iniciar aula"}
             </EcoButton>
             <EcoButton variant="outline" onClick={reset}>
               <RotateCcw size={17} />

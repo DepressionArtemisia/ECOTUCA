@@ -6,6 +6,14 @@
 - Rota principal da reuniao: `http://localhost:3020/demo`
 - Porta: `3020`, porque `localhost:3000` estava ocupado por outro projeto local.
 
+## Rodada 4 - Freeze de apresentacao
+- Objetivo: congelar o MVP para reuniao, sem aplicar SQL, sem criar usuarios reais e sem refactor grande.
+- `/demo` recebeu card `Comece por aqui`, card `Roteiro recomendado`, botao `/demo-mobile`, botao `/demo/status` e reset local seguro da apresentacao.
+- Textos visiveis foram suavizados: `mock`, `LocalStorage` e `fallback` sairam das telas de cliente e viraram linguagem de demonstracao.
+- Criados documentos de reuniao: `ROTEIRO_DE_APRESENTACAO.md`, `CHECKLIST_REUNIAO.md`, `PERGUNTAS_REUNIAO_PRIORITARIAS.md`, `RELATORIO_PENDENCIAS_POS_REUNIAO.md`, `TESTE_FINAL_15_MIN.md`, `PLANO_B_APRESENTACAO.md`, `RESUMO_EXECUTIVO_MVP.md`.
+- `MEETING_QUESTIONS.md` foi reorganizado para decisoes de produto, pedagogico, alunos, professores, guias, roteiros, admin, LGPD e tecnologia.
+- O MVP esta congelado para apresentacao: foco em demonstrar valor, jornada e proximas decisoes.
+
 ## Rodada 3 - Inicio
 - Data/hora de inicio: 2026-06-07 13:40:36 -03:00
 - Objetivo: integrar Supabase real de forma progressiva com fallback seguro para demo/localStorage.
@@ -99,6 +107,11 @@
 - Roteiro: formulario confirmou `Solicitacao recebida` e `Salvo localmente em modo demo`; `/app/turista/reservas` mostrou a reserva local.
 - Admin: aprovar pendente funcionou em simulacao local e marcou `approved`.
 - Mobile 390x844: `/demo`, `/demo/status`, `/app/aluno`, `/roteiros/serra-da-misericordia`, `/app/admin/aprovacoes` e `/demo-mobile` sem overflow horizontal apos ajuste dos headers.
+- Rodada 4: `/demo` abriu com `Comece por aqui`, `Roteiro recomendado` e reset local seguro.
+- Rodada 4: reset local testado com confirmacao e mensagem `Dados locais da apresentacao resetados`.
+- Rodada 4: formulario de roteiro confirmou `Solicitacao recebida` e `Salvo para apresentacao`.
+- Rodada 4: `/demo-mobile` alternou para tela de guia.
+- Rodada 4: mobile 390x844 sem overflow nas rotas principais do freeze.
 
 ## Riscos
 - `npm audit` ainda aponta 2 vulnerabilidades moderadas em `next`/`postcss`; `npm audit fix --force` sugere mudanca quebrada e nao foi aplicado.

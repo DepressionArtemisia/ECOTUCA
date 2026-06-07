@@ -3,6 +3,13 @@
 ## Rota principal
 Abrir `http://localhost:3020/demo`.
 
+## Freeze Rodada 4
+- Comecar em `/demo`.
+- Usar o card `Comece por aqui`.
+- Se precisar limpar a apresentacao, usar `Resetar demo`, que limpa apenas chaves locais ECOTUCA.
+- Evitar terminal, `.env.local`, Supabase keys e DevTools durante compartilhamento.
+- Deixar claro: MVP navegavel local, web app/PWA, com base pronta para proxima etapa.
+
 ## Roteiro de fala para Bruno
 1. "Esta é a ECOTUCA, uma escola de ecoturismo conectada à Perifa Ecotour."
 2. Abrir home pública e mostrar missão: juventude, território, Agenda 2030, renda e impacto.
@@ -35,6 +42,15 @@ Senha de todos: `Demo@123456`.
 
 ## Ordem mais segura
 `/demo` -> `/` -> `/demo-mobile` -> `/roteiros/serra-da-misericordia` -> `/app/aluno` -> `/app/aluno/aulas/aula-guia-01` -> `/app/professor` -> `/app/admin`.
+
+## Arquivos de apoio
+- `ROTEIRO_DE_APRESENTACAO.md`
+- `CHECKLIST_REUNIAO.md`
+- `PERGUNTAS_REUNIAO_PRIORITARIAS.md`
+- `RELATORIO_PENDENCIAS_POS_REUNIAO.md`
+- `TESTE_FINAL_15_MIN.md`
+- `PLANO_B_APRESENTACAO.md`
+- `RESUMO_EXECUTIVO_MVP.md`
 
 ## Atualizacao Rodada 3
 - Antes ou depois do fluxo principal, abrir `/demo/status` para mostrar a integracao hibrida sem expor chaves.

@@ -55,7 +55,7 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
         <Badge tone="yellow">Solicitacao recebida</Badge>
         <div className="mt-3">
           <Badge tone={savedBooking?.source === "supabase" ? "mint" : "coral"}>
-            {savedBooking?.source === "supabase" ? "Salvo no Supabase" : "Salvo localmente em modo demo"}
+            {savedBooking?.source === "supabase" ? "Registro conectado" : "Salvo para apresentacao"}
           </Badge>
         </div>
         <h2 className="brand-display mt-4 text-4xl">Equipe ECOTUCA acionada</h2>
@@ -70,7 +70,7 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
     <div className="rounded-lg bg-brand-yellow p-5 text-brand-brown shadow-brand">
       <h2 className="brand-display text-4xl">Tenho interesse</h2>
       <p className="mt-2 text-sm font-bold">
-        Tenta salvar em route_bookings; se o Supabase falhar, preserva tudo em localStorage.
+        Simule uma solicitacao real. A equipe ECOTUCA recebera o interesse e confirmara disponibilidade depois.
       </p>
       <div className="mt-5 space-y-3">
         <Input label="Nome" value={form.name} onChange={(name) => setForm((current) => ({ ...current, name }))} />

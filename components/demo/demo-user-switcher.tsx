@@ -33,12 +33,12 @@ export function DemoUserSwitcher() {
     <section className="rounded-lg border border-brand-brown/10 bg-white p-5 shadow-brand dark:border-brand-yellow/15 dark:bg-white/10">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-black uppercase text-brand-coral">Usuarios demo</p>
+          <p className="text-sm font-black uppercase text-brand-coral">Usuarios de apresentacao</p>
           <h2 className="brand-display text-3xl">Login rapido da reuniao</h2>
           <p className="mt-2 text-sm text-brand-brown/70 dark:text-brand-cream/75">
             Selecione um perfil para contar uma historia diferente na apresentacao.
           </p>
-          <Badge tone="yellow" className="mt-3">Modo demo para apresentacao</Badge>
+          <Badge tone="yellow" className="mt-3">Modo de demonstracao</Badge>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="sm" onClick={() => copyText(selected.email)}>
@@ -76,7 +76,7 @@ export function DemoUserSwitcher() {
         <div className="mt-4 flex flex-wrap gap-2">
           <EcoButton variant="mint" onClick={useProfile}>
             <LogIn size={16} />
-            Usar este perfil no modo demo
+            Usar este perfil na apresentacao
           </EcoButton>
           <Badge tone={selected.status === "pending" ? "coral" : "yellow"}>{selected.status}</Badge>
         </div>
