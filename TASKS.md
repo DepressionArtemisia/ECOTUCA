@@ -1,0 +1,33 @@
+# Tasks
+
+## P0 - Antes da reuniao
+- [x] Manter MVP rodando em `localhost:3020`.
+- [x] Melhorar `/demo` como central guiada.
+- [x] Melhorar `/demo-mobile`.
+- [x] Melhorar area do aluno e player.
+- [x] Melhorar roteiros e formulario de interesse.
+- [x] Melhorar admin como centro de comando.
+- [x] Criar scripts/guia Supabase.
+- [x] Criar `/demo/status`.
+- [x] Criar camada Supabase/fallback sem quebrar demo.
+- [x] Rodar lint/build.
+- [ ] Substituir logos placeholders por assets oficiais se forem enviados.
+
+## P1 - MVP funcional
+- [ ] Aplicar SQL no Supabase.
+- [ ] Criar Auth users reais.
+- [x] Conectar login ao Supabase Auth com fallback demo.
+- [x] Preparar persistencia hibrida de `lesson_progress`.
+- [x] Preparar persistencia hibrida de `route_bookings`.
+- [x] Preparar uploads Supabase Storage com fallback.
+- [ ] Seedar aulas e roteiros reais com UUIDs para persistencia 100% Supabase.
+- [ ] Criar validacao E2E com usuarios Auth reais.
+
+## P2 - Pos-reuniao
+- [ ] Refinar acessibilidade e microinteracoes.
+- [ ] Criar relatorios reais.
+- [ ] Deploy Vercel.
+- [ ] Revisao de vulnerabilidades `next`/`postcss`.
+
+## Proximo foco recomendado
+Aplicar SQL revisado, criar Auth users reais com o script seguro e validar login/progresso/reservas com dados UUID reais.

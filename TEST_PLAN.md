@@ -1,0 +1,76 @@
+# Test Plan
+
+## Commands
+- [x] `npm run lint`
+- [x] `npm run build`
+- [x] `npm run supabase:prepare-sql`
+- [x] `NODE_OPTIONS=--use-system-ca npm run supabase:check`
+- [x] `NODE_OPTIONS=--use-system-ca npm run supabase:create-demo-users -- --dry-run`
+- [x] Versionable secret scan with `rg`
+
+## Browser Routes
+- [x] `/`
+- [x] `/demo`
+- [x] `/demo/status`
+- [x] `/demo-mobile`
+- [x] `/login`
+- [x] `/roteiros`
+- [x] `/roteiros/serra-da-misericordia`
+- [x] `/guias/rafael-silva`
+- [x] `/app/aluno`
+- [x] `/app/aluno/trilhas`
+- [x] `/app/aluno/aulas/aula-guia-01`
+- [x] `/app/admin`
+- [x] `/app/admin/aprovacoes`
+- [x] `/app/professor`
+- [x] `/app/guia`
+- [x] `/app/turista`
+
+## Mobile
+- [x] Testar viewport 390x844.
+- [x] Verificar sem overflow horizontal nas telas principais.
+- [x] Conferir bottom nav em areas internas.
+- [x] Conferir `PhoneMockup` e alternancia de telas.
+
+## Video Resume
+1. Entrar em `/app/aluno/aulas/aula-guia-01`.
+2. Clicar `Reiniciar`.
+3. Clicar `Play`.
+4. Sair para `/demo`.
+5. Voltar para a aula.
+6. Confirmar `Voce parou em 00:10` ou tempo salvo.
+7. Confirmar botao `Continuar de onde parei`.
+
+## Demo
+- [x] Trocar usuario no `DemoUserSwitcher`.
+- [x] Copiar e-mail.
+- [x] Copiar senha.
+- [x] Usar perfil no modo demo.
+- [x] Ver indicador de perfil/role/status nas areas internas.
+
+## Supabase
+- [x] Variaveis presentes sem imprimir valores.
+- [x] Auth Admin acessivel com CA do sistema.
+- [x] `profiles` acessivel na checagem segura.
+- [x] Script de usuarios testado em `--dry-run`.
+- [x] Login frontend tenta Supabase Auth e cai para demo.
+- [x] Video progress salva localStorage e tenta Supabase para IDs UUID reais.
+- [x] Formulario de roteiro tenta Supabase e cai para localStorage.
+- [x] Admin aprovacoes tenta Supabase e cai para simulacao.
+- [x] Upload professor tenta Storage e cai para simulacao.
+- [ ] SQL aplicado manualmente no Supabase.
+- [ ] Auth users reais criados.
+
+## Round 3 Manual Browser Checks
+- [x] Abrir `/demo/status` e confirmar que nao mostra chaves.
+- [x] Login demo aluno em `/login` deve ir para `/app/aluno`.
+- [x] Login demo admin em `/login` deve ir para `/app/admin`.
+- [x] Login demo pendente deve ir para `/app/aguardando-aprovacao`.
+- [x] Logout deve limpar sessao real/demo e voltar para `/demo`.
+- [x] Enviar interesse em `/roteiros/serra-da-misericordia` e confirmar badge Supabase/localStorage.
+- [x] Abrir `/app/turista/reservas` e ver a reserva local ou mock.
+- [x] Aprovar/rejeitar em `/app/admin/aprovacoes` sem quebrar a UI.
+- [x] Viewport 390x844 sem overflow em `/demo`, `/demo/status`, `/app/aluno`, `/roteiros/serra-da-misericordia`, `/app/admin/aprovacoes` e `/demo-mobile`.
+
+## Caveats
+Persistencia 100% real ainda depende de SQL aplicado, usuarios Auth reais e IDs UUID reais de aulas/roteiros.
