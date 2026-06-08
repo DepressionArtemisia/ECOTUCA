@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BookOpen, FileUp, MessageCircle, UsersRound } from "lucide-react";
+import { BookOpen, ClipboardCheck, FileUp, MessageCircle, TimerReset, UsersRound } from "lucide-react";
 import { OfficialLogo } from "@/components/brand/official-logo";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,13 @@ import { Progress } from "@/components/ui/progress";
 import { forumTopics, learningTracks } from "@/lib/mock-data/ecotuca";
 
 export function TeacherDashboard() {
+  const contentStates = [
+    { label: "Rascunhos", value: "5", detail: "aulas em preparo", tone: "yellow" as const, icon: FileUp },
+    { label: "Em curadoria", value: "3", detail: "materiais para revisar", tone: "coral" as const, icon: ClipboardCheck },
+    { label: "Publicadas", value: "12", detail: "aulas disponiveis", tone: "mint" as const, icon: BookOpen },
+    { label: "Proximas respostas", value: "5", detail: "duvidas pendentes", tone: "blue" as const, icon: TimerReset }
+  ];
+
   return (
     <section className="mx-auto max-w-7xl space-y-6">
       <div className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
@@ -34,6 +41,19 @@ export function TeacherDashboard() {
         <PerifaCard tone="mint"><BookOpen size={26} /><p className="mt-3 text-3xl font-black">18 aulas</p><p className="text-sm">12 publicadas</p></PerifaCard>
         <PerifaCard tone="coral"><MessageCircle size={26} /><p className="mt-3 text-3xl font-black">16 duvidas</p><p className="text-sm">5 pendentes</p></PerifaCard>
         <PerifaCard tone="blue"><FileUp size={26} /><p className="mt-3 text-3xl font-black">9 PDFs</p><p className="text-sm">material em preparacao</p></PerifaCard>
+      </div>
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {contentStates.map((state) => {
+          const Icon = state.icon;
+          return (
+            <PerifaCard key={state.label} tone={state.tone}>
+              <Icon size={24} />
+              <p className="mt-3 text-sm font-black uppercase text-brand-brown/65 dark:text-brand-cream/70">{state.label}</p>
+              <p className="brand-display mt-1 text-4xl">{state.value}</p>
+              <p className="text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">{state.detail}</p>
+            </PerifaCard>
+          );
+        })}
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="brand-card p-5 dark:bg-brand-dark-soft/90">

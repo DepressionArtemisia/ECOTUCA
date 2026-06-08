@@ -9,7 +9,7 @@ import { FormStepper } from "@/components/forms/form-stepper";
 import { SignupReviewCard } from "@/components/forms/signup-review-card";
 import { Badge } from "@/components/ui/badge";
 
-type FieldKind = "text" | "email" | "tel" | "date" | "textarea" | "select" | "consent";
+type FieldKind = "text" | "email" | "tel" | "date" | "textarea" | "select" | "radio" | "checkboxGroup" | "consent";
 
 type Field = {
   name: string;
@@ -18,6 +18,10 @@ type Field = {
   placeholder?: string;
   options?: string[];
   required?: boolean;
+  requiredWhen?: { field: string; value: string | boolean };
+  showWhen?: { field: string; value: string | boolean };
+  helperText?: string;
+  fullWidth?: boolean;
 };
 
 type SignupSection = {
@@ -26,15 +30,34 @@ type SignupSection = {
   fields: Field[];
 };
 
-type SignupData = Record<string, string | boolean>;
+type SignupValue = string | boolean | string[];
+type SignupData = Record<string, SignupValue>;
 
 function makeInitialData(sections: SignupSection[]) {
   return sections.reduce<SignupData>((acc, section) => {
     section.fields.forEach((field) => {
-      acc[field.name] = field.kind === "consent" ? false : "";
+      acc[field.name] = field.kind === "consent" ? false : field.kind === "checkboxGroup" ? [] : "";
     });
     return acc;
   }, {});
+}
+
+function isVisible(field: Field, data: SignupData) {
+  if (!field.showWhen) return true;
+  return data[field.showWhen.field] === field.showWhen.value;
+}
+
+function isRequired(field: Field, data: SignupData) {
+  if (field.required) return true;
+  if (!field.requiredWhen) return false;
+  return data[field.requiredWhen.field] === field.requiredWhen.value;
+}
+
+function hasValue(field: Field, value: SignupValue) {
+  if (field.kind === "consent") return Boolean(value);
+  if (field.kind === "checkboxGroup") return Array.isArray(value) && value.length > 0;
+  if (field.kind === "email") return String(value ?? "").includes("@");
+  return String(value ?? "").trim().length > 0;
 }
 
 function FieldControl({
@@ -43,17 +66,61 @@ function FieldControl({
   onChange
 }: {
   field: Field;
-  value: string | boolean;
-  onChange: (value: string | boolean) => void;
+  value: SignupValue;
+  onChange: (value: SignupValue) => void;
 }) {
   if (field.kind === "consent") {
     return <ConsentCheckbox label={field.label} checked={Boolean(value)} onChange={onChange} />;
   }
 
+  if (field.kind === "checkboxGroup") {
+    const selected = Array.isArray(value) ? value : [];
+    return (
+      <div className="mt-2 grid gap-2 sm:grid-cols-2">
+        {(field.options ?? []).map((option) => (
+          <label key={option} className="flex min-h-12 items-start gap-3 rounded-lg border border-brand-brown/10 bg-white/70 p-3 text-sm font-bold dark:border-brand-yellow/20 dark:bg-white/5">
+            <input
+              aria-label={option}
+              className="mt-1 h-4 w-4 accent-brand-mint"
+              type="checkbox"
+              checked={selected.includes(option)}
+              onChange={(event) => {
+                onChange(event.target.checked ? [...selected, option] : selected.filter((item) => item !== option));
+              }}
+            />
+            <span>{option}</span>
+          </label>
+        ))}
+      </div>
+    );
+  }
+
+  if (field.kind === "radio") {
+    return (
+      <div className="mt-2 grid gap-2 sm:grid-cols-2">
+        {(field.options ?? []).map((option) => (
+          <label key={option} className="flex min-h-12 items-center gap-3 rounded-lg border border-brand-brown/10 bg-white/70 p-3 text-sm font-bold dark:border-brand-yellow/20 dark:bg-white/5">
+            <input
+              aria-label={option}
+              className="h-4 w-4 accent-brand-mint"
+              type="radio"
+              name={field.name}
+              checked={value === option}
+              onChange={() => onChange(option)}
+            />
+            <span>{option}</span>
+          </label>
+        ))}
+      </div>
+    );
+  }
+
   if (field.kind === "textarea") {
     return (
       <textarea
+        aria-label={field.label}
         className="mt-2 min-h-28 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none transition focus:border-brand-mint dark:border-brand-yellow/20 dark:bg-white/10"
+        name={field.name}
         placeholder={field.placeholder}
         value={String(value ?? "")}
         onInput={(event) => onChange(event.currentTarget.value)}
@@ -65,7 +132,9 @@ function FieldControl({
   if (field.kind === "select") {
     return (
       <select
+        aria-label={field.label}
         className="mt-2 min-h-12 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none transition focus:border-brand-mint dark:border-brand-yellow/20 dark:bg-brand-dark-soft"
+        name={field.name}
         value={String(value ?? "")}
         onChange={(event) => onChange(event.target.value)}
       >
@@ -79,7 +148,9 @@ function FieldControl({
 
   return (
     <input
+      aria-label={field.label}
       className="mt-2 min-h-12 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none transition focus:border-brand-mint dark:border-brand-yellow/20 dark:bg-white/10"
+      name={field.name}
       type={field.kind ?? "text"}
       placeholder={field.placeholder}
       value={String(value ?? "")}
@@ -95,7 +166,12 @@ export function MultistepSignupFlow({
   description,
   storageKey,
   sections,
-  asideItems
+  asideItems,
+  asideTitle = "Checklist do perfil",
+  analysisTitle = "Como sera analisado",
+  analysisDescription = "A coordenacao verifica perfil, consentimentos, aderencia ao territorio e necessidades de acompanhamento antes de liberar acessos completos.",
+  submitLabel = "Enviar cadastro",
+  successMessage = "Cadastro recebido. A coordenacao ECOTUCA ira analisar as informacoes e retornar pelo contato informado."
 }: {
   title: string;
   eyebrow: string;
@@ -103,6 +179,11 @@ export function MultistepSignupFlow({
   storageKey: string;
   sections: SignupSection[];
   asideItems: string[];
+  asideTitle?: string;
+  analysisTitle?: string;
+  analysisDescription?: string;
+  submitLabel?: string;
+  successMessage?: string;
 }) {
   const initialData = useMemo(() => makeInitialData(sections), [sections]);
   const [data, setData] = useState<SignupData>(initialData);
@@ -110,6 +191,7 @@ export function MultistepSignupFlow({
   const [hydrated, setHydrated] = useState(false);
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [stepError, setStepError] = useState("");
   const steps = [...sections.map((section) => section.title), "Revisao"];
   const reviewStep = current >= sections.length;
   const labelByName = useMemo(() => Object.fromEntries(sections.flatMap((section) => section.fields.map((field) => [field.name, field.label]))), [sections]);
@@ -138,16 +220,20 @@ export function MultistepSignupFlow({
   }, [data, hydrated, storageKey]);
 
   const currentSection = sections[current];
-  const requiredReady = reviewStep || currentSection.fields
-    .filter((field) => field.required)
-    .every((field) => {
-      const value = data[field.name];
-      return field.kind === "consent" ? Boolean(value) : String(value ?? "").trim().length > 0;
-    });
-  const reviewData = Object.fromEntries(Object.entries(data).map(([key, value]) => [labelByName[key] ?? key, value]));
+  const visibleFields = reviewStep ? [] : currentSection.fields.filter((field) => isVisible(field, data));
+  const missingFields = reviewStep ? [] : visibleFields
+    .filter((field) => isRequired(field, data))
+    .filter((field) => !hasValue(field, data[field.name]));
+  const requiredReady = reviewStep || missingFields.length === 0;
+  const reviewData = Object.fromEntries(
+    sections.flatMap((section) => section.fields)
+      .filter((field) => isVisible(field, data))
+      .map((field) => [labelByName[field.name] ?? field.name, data[field.name]])
+  );
 
-  function updateField(name: string, value: string | boolean) {
+  function updateField(name: string, value: SignupValue) {
     setSubmitted(false);
+    setStepError("");
     setData((currentData) => ({ ...currentData, [name]: value }));
   }
 
@@ -162,6 +248,16 @@ export function MultistepSignupFlow({
     setCurrent(0);
     setSavedAt(null);
     setSubmitted(false);
+    setStepError("");
+  }
+
+  function continueToNextStep() {
+    if (!requiredReady) {
+      setStepError(`Preencha os campos obrigatorios: ${missingFields.map((field) => field.label).join(", ")}.`);
+      return;
+    }
+    setStepError("");
+    setCurrent((step) => Math.min(step + 1, sections.length));
   }
 
   return (
@@ -173,7 +269,7 @@ export function MultistepSignupFlow({
           <p className="mt-4 max-w-3xl text-base font-bold text-brand-brown/72 dark:text-brand-cream/74">{description}</p>
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <AutosaveIndicator savedAt={savedAt} />
-            <Badge tone="mint">Sem envio ao Supabase nesta etapa</Badge>
+            <Badge tone="mint">Rascunho antes da validacao</Badge>
           </div>
         </div>
 
@@ -192,18 +288,25 @@ export function MultistepSignupFlow({
                 <Badge tone="yellow">{current + 1} de {sections.length}</Badge>
               </div>
               <div className="mt-6 grid gap-4 md:grid-cols-2">
-                {currentSection.fields.map((field) => (
-                  <label key={field.name} className={field.kind === "textarea" || field.kind === "consent" ? "md:col-span-2" : undefined}>
+                {visibleFields.map((field) => (
+                  <label key={field.name} className={field.fullWidth || field.kind === "textarea" || field.kind === "consent" || field.kind === "checkboxGroup" || field.kind === "radio" ? "md:col-span-2" : undefined}>
                     {field.kind !== "consent" && (
                       <span className="text-sm font-black">
                         {field.label}
-                        {field.required ? " *" : ""}
+                        {isRequired(field, data) ? " *" : ""}
                       </span>
                     )}
                     <FieldControl field={field} value={data[field.name] ?? ""} onChange={(value) => updateField(field.name, value)} />
+                    {field.helperText ? <span className="mt-1 block text-xs font-bold text-brand-brown/55 dark:text-brand-cream/60">{field.helperText}</span> : null}
                   </label>
                 ))}
               </div>
+              {stepError ? <p className="mt-5 rounded-lg bg-brand-coral px-4 py-3 text-sm font-black text-white">{stepError}</p> : null}
+              {!requiredReady && !stepError ? (
+                <p className="mt-5 rounded-lg bg-brand-yellow/25 px-4 py-3 text-sm font-black text-brand-brown dark:text-brand-cream">
+                  Campos com * precisam ser preenchidos para continuar.
+                </p>
+              ) : null}
             </>
           ) : (
             <div className="space-y-4">
@@ -212,7 +315,7 @@ export function MultistepSignupFlow({
                   <CheckCircle2 className="text-brand-mint" size={32} />
                   <h2 className="brand-display mt-3 text-4xl">Cadastro recebido</h2>
                   <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/75">
-                    O fluxo esta pronto para apresentacao: a proxima versao conecta a validacao real da coordenacao.
+                    {successMessage}
                   </p>
                 </div>
               ) : null}
@@ -226,20 +329,23 @@ export function MultistepSignupFlow({
               Voltar
             </EcoButton>
             {!reviewStep ? (
-              <EcoButton type="button" variant="mint" disabled={!requiredReady} onClick={() => setCurrent((step) => Math.min(step + 1, sections.length))}>
+              <EcoButton type="button" variant="mint" onClick={continueToNextStep}>
                 Continuar
                 <ArrowRight size={17} />
               </EcoButton>
             ) : (
               <EcoButton type="button" variant="coral" onClick={() => setSubmitted(true)}>
-                Confirmar cadastro
+                {submitLabel}
                 <CheckCircle2 size={17} />
               </EcoButton>
             )}
-            <EcoButton type="button" variant="blue" onClick={saveDraft}>Salvar rascunho</EcoButton>
+            {reviewStep ? (
+              <EcoButton type="button" variant="mint" onClick={() => setCurrent(0)}>Editar dados</EcoButton>
+            ) : null}
+            <EcoButton type="button" variant="blue" onClick={saveDraft}>Salvar e continuar depois</EcoButton>
             <EcoButton type="button" variant="outline" onClick={clearDraft}>
               <Trash2 size={17} />
-              Limpar
+              Limpar rascunho
             </EcoButton>
           </div>
         </form>
@@ -247,7 +353,7 @@ export function MultistepSignupFlow({
 
       <aside className="desktop-form-aside space-y-4">
         <section className="premium-context-panel p-5">
-          <Badge tone="yellow">Checklist do perfil</Badge>
+          <Badge tone="yellow">{asideTitle}</Badge>
           <ul className="mt-5 space-y-3 text-sm font-bold">
             {asideItems.map((item) => (
               <li key={item} className="flex gap-3">
@@ -258,9 +364,9 @@ export function MultistepSignupFlow({
           </ul>
         </section>
         <section className="premium-context-panel p-5">
-          <h2 className="brand-display text-3xl">Como sera analisado</h2>
+          <h2 className="brand-display text-3xl">{analysisTitle}</h2>
           <p className="mt-3 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
-            A coordenacao verifica perfil, consentimentos, aderencia ao territorio e necessidades de acompanhamento antes de liberar acessos completos.
+            {analysisDescription}
           </p>
         </section>
       </aside>

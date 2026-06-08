@@ -73,3 +73,10 @@ Round 6 extracted real ECOTUCA/Perifa logo PNGs from the correct identity manual
 - Student/teacher signup flows are multi-step, local-only and documented in `docs/forms/SIGNUP_FLOW_SPEC.md`.
 - Sitemap structure is documented in `docs/navigation/SITEMAP_STRUCTURE.md`.
 - Round report: `docs/progress-reports/STEP_18_ROUND_8_DESKTOP_CADASTRO_SITEMAP.md`.
+
+## Round 9 Fonts/Panels/Forms
+- Font fallback strategy for Troika/Lufga is documented in `docs/brand/FONT_USAGE_AND_LICENSE.md`.
+- All four signup flows are now multi-step, local-only and documented in `docs/forms/SIGNUP_FLOW_SPEC.md`.
+- `/sitemap` now has profile/status filters and copy-link actions; `/sitemap.xml` indexes only public routes.
+- Google Forms fallback requirements and Apps Script starter live in `docs/forms/`.
+- Round report: `docs/progress-reports/STEP_19_ROUND_9_FONTS_PANELS_FORMS.md`.

@@ -38,6 +38,20 @@ export default function TouristPage() {
             </PerifaCard>
           ))}
         </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-4">
+          {[
+            ["Interesse", "recebido", "aguardando retorno"],
+            ["Grupo", "4 pessoas", "perfil familiar"],
+            ["Preparo", "pendente", "orientacoes antes da visita"],
+            ["Conduta", "confirmar", "imagem e respeito local"]
+          ].map(([item, value, text]) => (
+            <PerifaCard key={item} tone="mint">
+              <p className="text-sm font-black uppercase text-brand-blue">{item}</p>
+              <p className="brand-display mt-2 text-3xl">{value}</p>
+              <p className="mt-1 text-xs font-bold text-brand-brown/70 dark:text-brand-cream/70">{text}</p>
+            </PerifaCard>
+          ))}
+        </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           {[
             ["Antes da visita", "Leia orientacoes, combine horario e entenda a proposta comunitaria."],

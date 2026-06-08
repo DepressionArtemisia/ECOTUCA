@@ -34,3 +34,10 @@
 - Shared first-load JS remains about 102 kB; admin pages remain heavier because of Recharts.
 - New institutional pages reuse shared components and mostly static content.
 - Build note for Windows/OneDrive: stop `next start` before `next build` to avoid `.next` file locks and apparent hangs.
+
+# Round 9 Performance Addendum
+- No new runtime dependency was added for forms, sitemap filtering or typography.
+- Signup expansion reuses the shared multi-step component instead of adding per-profile form libraries.
+- Sitemap filtering is small client-side state over static route metadata.
+- Font files were not added; fallbacks avoid extra network/download cost until official licensed files are supplied.
+- Final `npm run build` passed with 45 generated routes.

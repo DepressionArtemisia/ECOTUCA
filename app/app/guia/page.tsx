@@ -37,6 +37,20 @@ export default function GuideDashboardPage() {
             <EcoButton variant="coral" className="mt-5">Atualizar disponibilidade</EcoButton>
           </PerifaCard>
         </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-4">
+          {[
+            ["Perfil", "82%", "Bio, idiomas e contato"],
+            ["Agenda", "3", "datas em analise"],
+            ["Roteiros", "2", "experiencias vinculadas"],
+            ["Cuidados", "ok", "imagem e seguranca"]
+          ].map(([item, value, text]) => (
+            <PerifaCard key={item} tone="orange">
+              <p className="text-sm font-black uppercase text-brand-orange">{item}</p>
+              <p className="brand-display mt-2 text-4xl">{value}</p>
+              <p className="mt-1 text-xs font-bold text-brand-brown/70 dark:text-brand-cream/70">{text}</p>
+            </PerifaCard>
+          ))}
+        </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           {[
             ["Briefing do roteiro", "Ponto de encontro, duracao, narrativa e limites de circulacao."],

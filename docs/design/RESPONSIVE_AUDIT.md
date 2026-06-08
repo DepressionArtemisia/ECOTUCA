@@ -86,3 +86,11 @@ Status: concluido em producao e local antes da reuniao.
 - Checked critical pages: `/`, `/cadastro`, `/cadastro/aluno`, `/sitemap`, `/demo-mobile`, `/app/professor`.
 - Result: 54 route/breakpoint checks with no horizontal overflow.
 - New desktop utilities use CSS grid with mobile-first fallbacks and sticky asides only from `1024px`.
+
+# Round 9 Responsive Addendum
+- New surfaces requiring final browser QA: `/cadastro/guia`, `/cadastro/turista`, `/sitemap`, `/app/professor/conteudos`, `/app/guia`, `/app/turista`, `/app/admin/aprovacoes`.
+- Signup forms use the existing `.desktop-form-shell` grid with one-column mobile fallback.
+- Sitemap explorer uses `.desktop-sitemap-grid` and wraps filter controls for mobile widths.
+- Local browser QA passed at 390px and 1440px for 10 priority routes after `npm run build`.
+- Result: no horizontal overflow, no visible broken images and expected headings/content found.
+- Extra interactions passed: student signup required-field feedback, student first-step advance, sitemap guide filter and copy-link controls.

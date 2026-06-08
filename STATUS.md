@@ -225,3 +225,22 @@ Aplicar SQL revisado, criar usuarios Auth reais com `--yes`, seedar dados UUID r
 - Linguagem tecnica foi suavizada fora de `/demo/status`.
 - Testes: `npm run lint` passou; `npm run build` passou com 45 rotas; browser QA cobriu rotas, cadastros, login, player, roteiro, reset e viewports 320-1920 sem overflow.
 - Observacao: para build no Windows, parar `next start` antes de rodar `next build`.
+
+## Round 9 - Fonts, Panels, Forms
+- Branch: `design/round-9-fonts-panels-signup-final`.
+- Objetivo: finalizar tipografia, cadastros completos por perfil, paineis por role, sitemap filtravel e docs de Google Forms.
+- Fontes Troika/Lufga: arquivos oficiais nao encontrados nos caminhos verificados; fallback documentado em `docs/brand/FONT_USAGE_AND_LICENSE.md` e `public/fonts/README.md`.
+- Tokens/classes de tipografia adicionados em `app/globals.css`.
+- `/cadastro/aluno`, `/cadastro/professor`, `/cadastro/guia` e `/cadastro/turista` agora usam fluxos multi-step locais com autosave, validacao, revisao e confirmacao visual.
+- Chaves locais: `ecotuca:signup:student`, `ecotuca:signup:teacher`, `ecotuca:signup:guide`, `ecotuca:signup:tourist`.
+- `/sitemap` virou explorador com filtros por perfil/status e copia de links; `/sitemap.xml` indexa apenas rotas publicas.
+- Paineis professor, professor-conteudos, guia, turista e admin-aprovacoes receberam estados operacionais mais claros.
+- Docs criados: `docs/progress-reports/STEP_19_ROUND_9_FONTS_PANELS_FORMS.md`, `docs/design/ROUND_9_SITE_AND_PANEL_AUDIT.md`, `docs/forms/GOOGLE_FORMS_REQUIREMENTS.md`, `docs/forms/GOOGLE_FORMS_APPS_SCRIPT.md`.
+- `npm run lint`: passou.
+- `npm run build`: passou, 45 rotas.
+- Browser QA local: passou em 20 combinacoes rota/viewport (`390` e `1440`) para rotas de cadastro, sitemap e paineis; sem overflow horizontal e sem imagens quebradas.
+- Interacoes locais: erro de obrigatorios no cadastro de aluno, avanco da primeira etapa preenchida, filtro de guia no sitemap e botoes de copia verificados.
+- Deploy Vercel: passou, deployment `dpl_HNxad6ECVdf1cg9BQpn1ZKHtq1wb`, alias `https://ecotuca.vercel.app`.
+- Producao HTTP: 12 rotas verificadas com 200, incluindo cadastros, sitemap, paineis novos e `/sitemap.xml`.
+- Producao browser: passou em 390px para `/cadastro/guia`, `/cadastro/turista`, `/sitemap` e `/app/admin/aprovacoes`; sem overflow horizontal e sem imagens quebradas visiveis.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.

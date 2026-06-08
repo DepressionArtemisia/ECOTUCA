@@ -29,6 +29,19 @@ export default function TeacherContentPage() {
             </div>
           ))}
         </div>
+        <div className="mt-6 grid gap-3 md:grid-cols-4">
+          {[
+            ["Rascunho", "Editavel pelo professor"],
+            ["Curadoria", "Revisao da coordenacao"],
+            ["Publicado", "Visivel ao aluno"],
+            ["Evidencia", "Relato, quiz ou atividade"]
+          ].map(([item, text]) => (
+            <div key={item} className="rounded-lg bg-brand-brown p-4 text-brand-cream">
+              <h2 className="brand-display text-3xl text-brand-yellow">{item}</h2>
+              <p className="mt-2 text-xs font-bold text-brand-cream/75">{text}</p>
+            </div>
+          ))}
+        </div>
         <ContentUploadDemo />
         <EcoButton className="mt-5" variant="mint">Salvar rascunho</EcoButton>
       </section>

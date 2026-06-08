@@ -58,3 +58,12 @@
 - [ ] Mostrar `/app/professor`, `/app/guia`, `/app/turista` com contextos corretos.
 - [ ] Mostrar `/app/admin` e `/app/admin/aprovacoes`.
 - [ ] Fechar com pendencias: Supabase real, legal, operacao, assets finais.
+
+# Round 9 Checklist
+- [ ] Abrir `/cadastro` e explicar os quatro perfis.
+- [ ] Preencher uma etapa de `/cadastro/aluno`.
+- [ ] Mostrar `/cadastro/guia` ou `/cadastro/turista` para comprovar fluxo completo fora do aluno/professor.
+- [ ] Abrir `/sitemap`, filtrar por `Reuniao` e copiar/abrir um link.
+- [ ] Mostrar `/app/professor/conteudos` com estados de rascunho/curadoria/publicacao.
+- [ ] Mostrar `/app/guia` e `/app/turista` com estados operacionais.
+- [ ] Reforcar que cadastros ainda sao visuais/locais, sem usuario real e sem escrita no Supabase.

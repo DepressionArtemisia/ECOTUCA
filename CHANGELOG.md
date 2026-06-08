@@ -57,3 +57,17 @@
 - Added richer desktop content to public and role pages.
 - Softened technical language outside `/demo/status`.
 - Verified lint, build, browser routes, responsive widths and main interactions locally.
+
+# Round 9 - Fonts Panels Signup Final
+- Added documented Troika/Lufga fallback strategy and font placeholder folder.
+- Added shared typography utility classes in `app/globals.css`.
+- Expanded the signup engine with radio groups, checkbox groups, conditional fields, validation messaging and editable review.
+- Rebuilt student, teacher, guide and tourist signup flows as multi-step local drafts.
+- Reworked `/cadastro` copy and context blocks.
+- Added route metadata for sitemap status, audience, visibility and indexability.
+- Replaced `/sitemap` with a filtered explorer and copy-link actions.
+- Updated `/sitemap.xml` to include public/indexable routes only.
+- Added clearer operational state to professor, guide, tourist and approval panels.
+- Added Round 9 audit/progress docs plus Google Forms requirements and Apps Script starter.
+- Ran `npm run lint` and `npm run build` successfully.
+- Verified local browser routes/interactions and deployed production as `dpl_HNxad6ECVdf1cg9BQpn1ZKHtq1wb`, aliased to `https://ecotuca.vercel.app`.

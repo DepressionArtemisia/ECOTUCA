@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { PublicShell } from "@/components/layout/public-shell";
 import { RichPageHeader } from "@/components/layout/rich-page-header";
-import { SiteMapSection } from "@/components/navigation/site-map-section";
-import { siteMapSections } from "@/lib/navigation/site-map";
+import { SiteMapExplorer } from "@/components/navigation/site-map-explorer";
 
 export const metadata: Metadata = {
   title: "Mapa do site | ECOTUCA",
@@ -22,11 +21,7 @@ export default function SiteMapPage() {
       </section>
       <section className="premium-section pt-2">
         <div className="mx-auto max-w-7xl px-5 sm:px-6">
-          <div className="desktop-sitemap-grid">
-            {siteMapSections.map((section) => (
-              <SiteMapSection key={section.title} section={section} />
-            ))}
-          </div>
+          <SiteMapExplorer />
         </div>
       </section>
     </PublicShell>

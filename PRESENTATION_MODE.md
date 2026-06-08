@@ -87,3 +87,11 @@ Senha de todos: `Demo@123456`.
 - Use `/sitemap` as the backup navigation map if the presenter gets lost.
 - Use `/cadastro/aluno` and `/cadastro/professor` to show complete onboarding without claiming real account creation.
 - Keep `/demo/status` for technical backup only.
+
+# Round 9 Presentation Addendum
+- Use `/cadastro` to show that each profile now has a mature entry path.
+- Show `/cadastro/aluno` for youth onboarding and `/cadastro/guia` or `/cadastro/turista` to prove the flow is not student-only.
+- Explain that signup saves drafts in the browser and does not create real users yet.
+- Use `/sitemap` as a presenter tool: filter by `Reuniao`, `Aluno`, `Guia`, `Turista` or `Admin`, then copy/open links.
+- Mention that Troika/Lufga are brand targets; current fonts are documented fallbacks until licensed files arrive.
+- Production deployment for this round: `dpl_HNxad6ECVdf1cg9BQpn1ZKHtq1wb`, available at `https://ecotuca.vercel.app`.

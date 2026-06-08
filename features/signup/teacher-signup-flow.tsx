@@ -2,42 +2,68 @@ import { MultistepSignupFlow } from "@/features/signup/multistep-signup-flow";
 
 const teacherSections = [
   {
-    title: "Identidade",
-    description: "Dados de contato e area de atuacao do educador ou facilitador.",
+    title: "Identificacao",
+    description: "Dados basicos do educador, facilitador ou parceiro pedagogico.",
     fields: [
-      { name: "nomeCompleto", label: "Nome completo", required: true },
-      { name: "email", label: "E-mail", kind: "email" as const, required: true },
-      { name: "telefone", label: "Telefone ou WhatsApp", kind: "tel" as const, required: true },
-      { name: "areaAtuacao", label: "Area de atuacao", required: true },
-      { name: "organizacao", label: "Instituicao ou coletivo" }
+      { name: "nomeCompleto", label: "Nome completo", placeholder: "Ex.: Prof. Mariana Costa", required: true },
+      { name: "email", label: "E-mail", kind: "email" as const, placeholder: "Ex.: mariana@email.com", required: true },
+      { name: "telefone", label: "Telefone/WhatsApp", kind: "tel" as const, placeholder: "Ex.: (21) 97777-0000", required: true },
+      { name: "instituicao", label: "Instituicao/organizacao", placeholder: "Ex.: escola, universidade, ONG, coletivo" },
+      { name: "cidadeUf", label: "Cidade/UF", placeholder: "Ex.: Rio de Janeiro/RJ", required: true },
+      { name: "miniBio", label: "Mini bio", kind: "textarea" as const, placeholder: "Conte sua trajetoria em educacao, territorio ou projeto social.", required: true }
     ]
   },
   {
-    title: "Experiencia",
-    description: "Experiencia pedagogica, territorial e materiais que pode construir.",
+    title: "Atuacao pedagogica",
+    description: "Onde pode contribuir com turmas, trilhas e experiencias educativas.",
     fields: [
-      { name: "miniBio", label: "Mini bio", kind: "textarea" as const, required: true },
-      { name: "disciplinas", label: "Temas que pode ministrar", kind: "textarea" as const, required: true },
-      { name: "experienciaTerritorial", label: "Experiencia com territorio/periferia", kind: "textarea" as const },
-      { name: "portfolio", label: "Link de portfolio, Lattes ou rede profissional" }
+      {
+        name: "areasAtuacao",
+        label: "Area de atuacao",
+        kind: "checkboxGroup" as const,
+        required: true,
+        options: ["Educacao ambiental", "Turismo", "Agenda 2030", "Empreendedorismo", "Cultura local", "Comunicacao", "Tecnologia", "Gestao social", "Outro"]
+      },
+      { name: "experienciaJovens", label: "Experiencia com jovens", kind: "textarea" as const, placeholder: "Ex.: oficinas, aulas, mentoria, projetos de juventude.", required: true },
+      { name: "experienciaTerritorio", label: "Experiencia com territorio/favela/projetos sociais", kind: "textarea" as const, placeholder: "Conte experiencias com periferia, comunidade ou movimentos locais." },
+      {
+        name: "trilhaAtuacao",
+        label: "Trilha onde pode atuar",
+        kind: "checkboxGroup" as const,
+        options: ["Guia local", "Biodiversidade", "Agenda 2030", "Empreendedorismo", "Comunicacao", "Hospitalidade", "Outra"],
+        required: true
+      },
+      {
+        name: "formatos",
+        label: "Formato de contribuicao",
+        kind: "checkboxGroup" as const,
+        options: ["Aula", "Oficina", "Mentoria", "Video", "PDF", "Visita tecnica", "Avaliacao"],
+        required: true
+      }
     ]
   },
   {
-    title: "Turmas",
-    description: "Informacoes praticas para organizar aulas, encontros e materiais.",
+    title: "Conteudos e materiais",
+    description: "Organiza o que pode virar aula, material, forum ou acompanhamento.",
     fields: [
-      { name: "disponibilidade", label: "Disponibilidade", kind: "select" as const, required: true, options: ["Manha", "Tarde", "Noite", "Finais de semana", "Sob demanda"] },
-      { name: "formato", label: "Formato preferido", kind: "select" as const, required: true, options: ["Presencial", "Online", "Hibrido"] },
-      { name: "recursos", label: "Recursos ou materiais necessarios", kind: "textarea" as const }
+      { name: "conteudos", label: "Quais conteudos pode oferecer?", kind: "textarea" as const, placeholder: "Ex.: roteiro de leitura de paisagem, ODS, turismo responsavel.", required: true },
+      { name: "videosProntos", label: "Tem videos prontos?", kind: "radio" as const, options: ["Sim", "Nao", "Posso gravar com apoio"], required: true },
+      { name: "pdfsProntos", label: "Tem PDFs/apostilas?", kind: "radio" as const, options: ["Sim", "Nao", "Tenho rascunhos"], required: true },
+      { name: "apoioGravacao", label: "Precisa de apoio para gravacao?", kind: "radio" as const, options: ["Sim", "Nao", "Talvez"], required: true },
+      { name: "podeForum", label: "Pode responder forum?", kind: "radio" as const, options: ["Sim", "Com agenda combinada", "Nao"], required: true },
+      { name: "podeAvaliar", label: "Pode avaliar atividades?", kind: "radio" as const, options: ["Sim", "Com rubrica simples", "Nao"], required: true },
+      { name: "podeAcompanharTurmas", label: "Pode acompanhar turmas?", kind: "radio" as const, options: ["Sim", "Pontualmente", "Nao"], required: true }
     ]
   },
   {
-    title: "Termos",
-    description: "Combinados para publicacao pedagogica e contato.",
+    title: "Disponibilidade e autorizacao",
+    description: "Combinados para contato, agenda e validacao pela coordenacao.",
     fields: [
-      { name: "aceiteDados", label: "Autorizo a analise dos dados para cadastro de professor ECOTUCA.", kind: "consent" as const, required: true },
-      { name: "aceiteConteudos", label: "Entendo que materiais publicados passam por curadoria da coordenacao.", kind: "consent" as const, required: true },
-      { name: "aceiteContato", label: "Aceito receber contato sobre turmas, agenda e alinhamentos pedagogicos.", kind: "consent" as const, required: true }
+      { name: "disponibilidade", label: "Disponibilidade", kind: "checkboxGroup" as const, required: true, options: ["Manha", "Tarde", "Noite", "Fins de semana", "Sob demanda"] },
+      { name: "formatoPreferido", label: "Formato", kind: "checkboxGroup" as const, required: true, options: ["Presencial", "Online", "Hibrido"] },
+      { name: "aceiteDados", label: "Autorizo o uso dos dados para analise de cadastro e contato da coordenacao.", kind: "consent" as const, required: true },
+      { name: "cienciaValidacao", label: "Estou ciente de que a participacao depende de validacao da coordenacao.", kind: "consent" as const, required: true },
+      { name: "aceiteContato", label: "Aceito receber contato para alinhar turmas, materiais e agenda.", kind: "consent" as const, required: true }
     ]
   }
 ];
@@ -47,15 +73,21 @@ export function TeacherSignupFlow() {
     <MultistepSignupFlow
       title="Cadastro de professor"
       eyebrow="Rede pedagogica"
-      description="Fluxo completo para educadores, facilitadores e parceiros que vao organizar conteudos, turmas e materiais da ECOTUCA."
+      description="Para educadores e facilitadores que apoiam conteudos, turmas, materiais, forum, mentoria e avaliacao dentro da ECOTUCA."
       storageKey="ecotuca:signup:teacher"
       sections={teacherSections}
+      asideTitle="Participacao pedagogica"
       asideItems={[
-        "Perfil voltado para educadores, facilitadores e parceiros.",
-        "Materiais passam por curadoria antes de aparecer para alunos.",
-        "Acesso ao painel de professor depende de aprovacao.",
-        "O formulario ja separa experiencia, agenda e termos."
+        "Perfil avaliado pela coordenacao.",
+        "Conteudos passam por curadoria antes de publicar.",
+        "Turmas e forum dependem de agenda combinada.",
+        "Materiais oficiais precisam de autorizacao de uso.",
+        "Acesso ao painel e liberado apos aprovacao."
       ]}
+      analysisTitle="Depois do envio"
+      analysisDescription="A coordenacao avalia aderencia pedagogica, experiencia com jovens, disponibilidade e materiais antes de alinhar participacao."
+      submitLabel="Enviar cadastro"
+      successMessage="Cadastro recebido. A coordenacao ira avaliar o perfil e entrar em contato para alinhar a participacao."
     />
   );
 }

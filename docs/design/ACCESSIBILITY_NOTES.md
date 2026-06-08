@@ -39,3 +39,10 @@
 - Mobile menu uses native `details/summary` for keyboard-compatible disclosure.
 - Sitemap cards are ordinary links with descriptive text.
 - Remaining work: legal pages need final plain-language review and forms need server-side validation before real submission.
+
+# Round 9 Accessibility Addendum
+- Signup controls now include radio and checkbox groups with visible labels and clear required-step feedback.
+- Conditional guardian fields are shown only when the student marks minor status.
+- Review remains editable before visual submission.
+- Sitemap filters are native buttons with visible focus styles, and route cards include descriptive text plus explicit open/copy actions.
+- Remaining work: final keyboard-only QA across all signup flows and final legal copy review before real data collection.

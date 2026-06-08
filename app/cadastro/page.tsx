@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ClipboardCheck, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
+import { ClipboardCheck, HelpCircle, LockKeyhole, ShieldCheck, Sparkles, UserCheck, UsersRound } from "lucide-react";
 import { EcoButton } from "@/components/brand/eco-button";
 import { ProcessTimeline } from "@/components/content/process-timeline";
 import { RoleSignupCard } from "@/components/forms/role-signup-card";
@@ -44,14 +44,37 @@ const roles = [
   }
 ];
 
+const infoBlocks = [
+  {
+    icon: UserCheck,
+    title: "Como funciona a aprovacao",
+    text: "Aluno, professor e guia passam por leitura da coordenacao antes de receber acesso completo. Turista entra como interesse de visita e recebe retorno da equipe."
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Quais dados pedimos",
+    text: "Contato, vinculo territorial, disponibilidade, interesses, autorizacoes e necessidades de acolhimento. Cada perfil pede somente o que faz sentido para sua jornada."
+  },
+  {
+    icon: LockKeyhole,
+    title: "Privacidade e autorizacao",
+    text: "Nesta fase os formularios sao demos locais. Em producao, os dados precisam seguir LGPD, RLS no Supabase e termos claros para menores, imagem e comunicacao."
+  },
+  {
+    icon: HelpCircle,
+    title: "Duvidas frequentes",
+    text: "O envio visual nao cria usuario real. A proxima etapa tecnica e conectar Auth, aprovacao admin, notificacao e armazenamento seguro quando autorizado."
+  }
+];
+
 export default function RegisterPage() {
   return (
     <PublicShell>
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
         <RichPageHeader
           eyebrow="Cadastro segmentado"
-          title="Escolha o seu caminho na ECOTUCA"
-          description="Cada perfil tem uma entrada propria para preservar contexto, aprovacoes e uma experiencia mais humana desde o primeiro contato."
+          title="Escolha como voce quer participar da ECOTUCA"
+          description="Cada perfil tem uma entrada propria para preservar contexto, autorizacoes, aprovacao e uma experiencia mais humana desde o primeiro contato."
           badgeTone="coral"
         >
           <div className="grid gap-3 sm:grid-cols-3">
@@ -114,6 +137,18 @@ export default function RegisterPage() {
                 { title: "Validacao", description: "Acesso real depende da coordenacao e Supabase." }
               ]}
             />
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {infoBlocks.map((block) => {
+              const Icon = block.icon;
+              return (
+                <article key={block.title} className="brand-card p-5 dark:bg-brand-dark-soft/90">
+                  <Icon size={26} className="text-brand-coral" />
+                  <h3 className="brand-display mt-4 text-3xl">{block.title}</h3>
+                  <p className="mt-3 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">{block.text}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

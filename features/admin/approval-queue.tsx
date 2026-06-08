@@ -61,6 +61,18 @@ export function ApprovalQueue() {
         </div>
         <h1 className="brand-display mt-4 text-5xl">Fila de aprovacoes</h1>
         <p className="mt-2 text-sm font-bold">{message}</p>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          {[
+            ["Validar perfil", "Conferir vinculo, contato e consentimentos."],
+            ["Liberar acesso", "Criar usuario real somente quando Auth estiver autorizado."],
+            ["Registrar decisao", "Guardar motivo, data e responsavel em producao."]
+          ].map(([item, text]) => (
+            <div key={item} className="rounded-lg bg-brand-brown p-4 text-brand-cream">
+              <p className="text-sm font-black uppercase text-brand-yellow">{item}</p>
+              <p className="mt-2 text-xs font-bold text-brand-cream/75">{text}</p>
+            </div>
+          ))}
+        </div>
       </div>
       {loading ? (
         <div className="rounded-lg bg-white p-5 font-black shadow-brand dark:bg-white/10">

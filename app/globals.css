@@ -19,6 +19,8 @@
   --background-dark-soft: #4a241f;
   --border-soft: rgba(58, 26, 22, 0.12);
   --shadow-card: 0 18px 45px rgba(58, 26, 22, 0.14);
+  --font-headline: Impact, "Arial Black", "Trebuchet MS", sans-serif;
+  --font-body: "Nunito Sans", "Aptos", "Segoe UI", system-ui, sans-serif;
 }
 
 .dark {
@@ -43,7 +45,7 @@ body {
   min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: "Nunito Sans", "Aptos", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-body);
   letter-spacing: 0;
 }
 
@@ -65,10 +67,63 @@ textarea {
 }
 
 .brand-display {
-  font-family: Impact, "Arial Black", "Trebuchet MS", sans-serif;
+  font-family: var(--font-headline);
   letter-spacing: 0;
   text-transform: uppercase;
   overflow-wrap: anywhere;
+}
+
+.font-headline {
+  font-family: var(--font-headline);
+  letter-spacing: 0;
+}
+
+.font-body {
+  font-family: var(--font-body);
+  letter-spacing: 0;
+}
+
+.text-display-xl {
+  font-family: var(--font-headline);
+  font-size: clamp(3rem, 8vw, 6.75rem);
+  line-height: 0.94;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.text-display-lg {
+  font-family: var(--font-headline);
+  font-size: clamp(2.5rem, 6vw, 5.25rem);
+  line-height: 0.96;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.text-section-title {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 4vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.text-card-title {
+  font-family: var(--font-headline);
+  font-size: clamp(1.55rem, 3vw, 2.4rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.text-body-readable {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  letter-spacing: 0;
 }
 
 .brand-pattern {

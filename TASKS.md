@@ -89,3 +89,21 @@ Depois da reuniao, aplicar SQL revisado se aprovado, criar Auth users reais com 
 - [ ] Connect signup to Supabase only after SQL/Auth/RLS approval.
 - [ ] Replace extracted raster logos with final designer-approved vector assets when available.
 - [ ] Redeploy and repeat production route QA.
+
+# Round 9 Completed / In Progress
+- [x] Create branch `design/round-9-fonts-panels-signup-final`.
+- [x] Check for Troika/Lufga font files.
+- [x] Document font fallback and create `public/fonts/README.md`.
+- [x] Add CSS typography tokens/classes.
+- [x] Expand student and teacher signup fields.
+- [x] Build guide and tourist multi-step signup flows.
+- [x] Improve `/cadastro` context blocks.
+- [x] Add profile/status metadata to sitemap data.
+- [x] Replace `/sitemap` with filtered explorer.
+- [x] Exclude demo/internal/technical routes from `/sitemap.xml`.
+- [x] Add state blocks to professor, guide, tourist and approval panels.
+- [x] Create Google Forms requirements and Apps Script docs.
+- [x] Run `npm run lint`.
+- [x] Run final `npm run build`.
+- [x] Run final browser QA.
+- [x] Deploy Round 9 to Vercel if verification passes.

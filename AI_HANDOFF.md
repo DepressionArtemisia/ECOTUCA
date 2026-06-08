@@ -167,3 +167,25 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - `AppShell` role context is now important. Pass `roleContext="teacher"`, `"guide"` or `"tourist"` when title inference is not enough.
 - QA passed locally after final build: routes, responsive widths, student/teacher signup, clear draft, login, player, route interest, reset demo and role context.
 - If `npm run build` appears stuck, stop the running `next start` process first.
+
+## Round 9 Handoff
+- Current branch: `design/round-9-fonts-panels-signup-final`.
+- Main new code areas:
+  - `features/signup/guide-signup-flow.tsx`
+  - `features/signup/tourist-signup-flow.tsx`
+  - `features/signup/multistep-signup-flow.tsx`
+  - `components/navigation/site-map-explorer.tsx`
+  - `lib/navigation/site-map.ts`
+  - `app/sitemap.ts`
+  - `app/globals.css`
+- Signup remains local-only. Do not connect to Supabase until backend/RLS/LGPD/approval rules are approved.
+- Font files for Troika/Lufga were not found locally. The app uses documented fallbacks and CSS variables for later replacement.
+- New signup draft keys: `ecotuca:signup:guide` and `ecotuca:signup:tourist`, in addition to student/teacher.
+- `lib/navigation/site-map.ts` now controls route status, audience, visibility and indexing. Update it before changing `/sitemap`, footer routes or `/sitemap.xml`.
+- `/sitemap.xml` intentionally excludes demo, internal app routes and technical routes.
+- Round 9 docs: `docs/progress-reports/STEP_19_ROUND_9_FONTS_PANELS_FORMS.md`, `docs/design/ROUND_9_SITE_AND_PANEL_AUDIT.md`, `docs/forms/GOOGLE_FORMS_REQUIREMENTS.md`, `docs/forms/GOOGLE_FORMS_APPS_SCRIPT.md`, `docs/brand/FONT_USAGE_AND_LICENSE.md`.
+- `npm run lint` passed.
+- `npm run build` passed with 45 routes.
+- Local browser QA passed at 390px and 1440px for the Round 9 routes/interactions.
+- Production deploy passed: `dpl_HNxad6ECVdf1cg9BQpn1ZKHtq1wb`, aliased to `https://ecotuca.vercel.app`.
+- Production HTTP and mobile browser gut-check passed for the new signup/sitemap/admin surfaces.

@@ -19,3 +19,14 @@ Navigation is centralized in `lib/navigation/site-map.ts`.
 
 ## Maintenance Rule
 When adding/removing major routes, update `lib/navigation/site-map.ts` first, then confirm `/sitemap` and `/sitemap.xml` in browser/build.
+
+## Round 9 Update
+- `SiteMapItem` now includes `status`, `audiences`, `visibility` and optional `indexable`.
+- `/sitemap` uses `components/navigation/site-map-explorer.tsx` for profile/status filtering and copy-link actions.
+- `/sitemap.xml` uses `publicSitemapItems` and intentionally excludes demo, internal app routes and technical routes.
+- When adding a route, decide whether it is:
+  - public and indexable,
+  - meeting/demo only,
+  - internal role navigation,
+  - technical/status-only.
+- Keep `/demo/status` technical and non-indexable.

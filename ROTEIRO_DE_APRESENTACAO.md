@@ -159,3 +159,12 @@ Conduza para perguntas e decisoes. Nao tente resolver todas as regras na hora.
 7. Abrir `/app/aluno`: "O aluno acompanha trilha, aula e progresso."
 8. Abrir `/app/professor`, `/app/guia`, `/app/turista`: "Cada role tem contexto proprio."
 9. Abrir `/app/admin`: "A coordenacao enxerga indicadores, aprovacoes e proximas decisoes."
+
+# Round 9 Roteiro Curto
+1. Abrir `/cadastro`: "Agora cada participante entra pelo perfil correto: aluno, professor, guia ou turista."
+2. Abrir `/cadastro/aluno`: "O aluno preenche dados pessoais, interesse, formacao, responsavel/LGPD e revisa antes de enviar."
+3. Abrir `/cadastro/guia`: "O guia informa vinculo territorial, roteiros, operacao, idiomas e cuidados comunitarios."
+4. Abrir `/cadastro/turista`: "O visitante envia interesse de visita, grupo, preparo e consentimentos sem confirmar reserva automaticamente."
+5. Abrir `/sitemap`: "Este mapa ajuda a apresentar e testar o MVP; podemos filtrar por perfil e status."
+6. Abrir `/app/professor/conteudos`: "O conteudo tem estados de rascunho, curadoria, publicado e evidencia."
+7. Fechar em `/app/admin/aprovacoes`: "A coordenacao ainda decide quem entra; nada cria usuario real antes da aprovacao."

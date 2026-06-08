@@ -127,3 +127,11 @@ Mandatory identity components: `PublicShell`, `AppShell`, `MobileShell`, `AdminS
 - PublicShell now carries full product navigation and footer sitemap; AppShell now changes context by role.
 - Cadastro screens use warm off-white forms, dark brown headings, official palette accents and explicit review cards.
 - Avoid visible implementation language in public/customer screens; keep technical diagnostics in `/demo/status`.
+
+## Round 9 Typography And Form Utilities
+- Official Troika/Lufga font files were not found in the checked workspace paths; see `docs/brand/FONT_USAGE_AND_LICENSE.md` and `public/fonts/README.md`.
+- CSS variables now centralize typography fallback: `--font-headline` for Troika-style display and `--font-body` for Lufga-style rounded body text.
+- Utilities added in `app/globals.css`: `.font-headline`, `.font-body`, `.text-display-xl`, `.text-display-lg`, `.text-section-title`, `.text-card-title`, `.text-body-readable`.
+- Do not download or commit unlicensed Troika/Lufga files. When licensed files arrive, place them in `public/fonts/official/` or wire them with `next/font/local`.
+- `MultistepSignupFlow` now supports radio groups, checkbox groups, conditional required fields, autosave, review editing and profile-specific analysis copy.
+- `SiteMapExplorer` replaces the static sitemap view for meeting/QA usage with status/profile filters and copy-link actions.

@@ -37,3 +37,10 @@ O MVP agora incorpora uma camada territorial mais forte: imagens reais/licenciad
 - A navegacao publica foi ampliada e o footer virou apoio de sitemap.
 - As areas professor, guia e turista nao carregam mais contexto de aluno.
 - A plataforma continua segura para reuniao: nada foi aplicado em Supabase real nesta rodada.
+
+# Round 9 Executive Update
+- Os quatro perfis agora tem cadastros multi-step locais: aluno, professor, guia e turista.
+- A plataforma mostra melhor a governanca: rascunho, revisao, aprovacao, curadoria, operacao de guia e interesse de visita.
+- O sitemap virou ferramenta de apresentacao e QA, com filtros por perfil/status e copia de links.
+- A estrategia de fontes oficiais esta documentada: Troika/Lufga continuam como alvo de marca; os fallbacks atuais podem ser trocados quando os arquivos licenciados forem entregues.
+- A alternativa temporaria com Google Forms foi documentada, sem substituir o backend Supabase final.
