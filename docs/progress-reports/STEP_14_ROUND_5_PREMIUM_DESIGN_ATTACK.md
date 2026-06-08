@@ -7,7 +7,7 @@ Elevate ECOTUCA / Perifa Ecotour visual identity, logo handling, premium UI, res
 - Created branch `design/premium-brand-attack`.
 - Created official brand asset directory structure.
 - Added `scripts/extract-brand-assets.mjs`.
-- Generated temporary palette-faithful lockups and PWA icons because the current PDF does not expose official logo artwork.
+- Generated temporary palette-faithful lockups and PWA icons because the PDF checked during Round 5 did not expose official logo artwork. Round 6 later superseded this with real manual extractions.
 - Added `OfficialLogo`.
 - Replaced visible placeholder logo use in shared shells and key screens.
 - Improved Tailwind tokens, global utility classes and component styling.

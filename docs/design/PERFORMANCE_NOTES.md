@@ -10,8 +10,9 @@
 ## Image Notes
 - The PDF extraction previews remain in `docs/brand/extraction/` for documentation, not app runtime.
 - Route imagery still uses existing mock images in `public/mock`.
-- Temporary logo PNGs should be replaced by optimized official SVG/PNG assets before public launch.
+- Logo runtime assets now come from real extracted PNGs under `public/brand/official/from-manual/png/`.
+- Temporary Round 5 lockups remain in `public/brand/temporary-lockups/` as fallback only.
 
 ## Build Considerations
-- If official assets are much larger, optimize before replacing the current files.
+- If production vector/raster assets are supplied later, optimize before replacing the current files.
 - Avoid large background video or heavy blur layers before the presentation build.

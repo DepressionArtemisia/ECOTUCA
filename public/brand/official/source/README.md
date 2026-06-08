@@ -1,5 +1,9 @@
-# Temporary Brand Lockups
+# Brand Source Note
 
-These SVG files are temporary presentation lockups generated from the official ECOTUCA palette because the PDF currently stored at `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf` does not contain clean official logo artwork or the identity manual pages referenced in the brief.
+Round 6 confirmed the correct manual and extracted real demo PNGs from `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
 
-They must be replaced by designer-approved SVG/PNG files as soon as those files are available. Do not treat these files as final brand artwork.
+Preferred current app assets:
+- `public/brand/official/from-manual/png/`
+- `public/brand/official/from-manual/webp/`
+
+Round 5 temporary lockups were moved/rebased to `public/brand/temporary-lockups/` and are fallback only. Production should still request designer-approved SVG/AI/PDF vector files.

@@ -32,6 +32,7 @@ Authenticated/demo: `/app`, `/app/aluno`, `/app/aluno/trilhas`, `/app/aluno/tril
 ## Round 5 Design Requirements
 - Use ECOTUCA as the primary product/app brand.
 - Use Perifa Ecotour as institutional/territorial tourism signature.
-- Keep temporary lockups replaceable without page layout changes.
+- Prefer real assets from `public/brand/official/from-manual/png/`.
+- Keep temporary lockups in `public/brand/temporary-lockups/` as fallback only.
 - Do not apply SQL or create real users during design-only rounds.
 - Preserve `/demo`, `/demo-mobile`, student journey, route interest form and admin metrics while polishing UI.

@@ -15,7 +15,8 @@
 - [x] Suavizar textos tecnicos visiveis para cliente.
 - [x] Rodar lint/build.
 - [x] Remover placeholders visiveis antigos com lockups temporarios premium.
-- [ ] Substituir lockups temporarios por assets oficiais se forem enviados.
+- [x] Extrair logos reais do manual correto para a demo.
+- [ ] Substituir PNGs extraidos por SVG/AI/PDF oficiais para producao.
 
 ## P0 - Rodada 5 design premium
 - [x] Criar branch `design/premium-brand-attack`.
@@ -27,6 +28,17 @@
 - [x] Criar relatorios de marca/design.
 - [x] Rodar build final da rodada.
 - [x] Fazer QA visual/browser da rodada.
+
+## P0 - Rodada 6 logo real
+- [x] Confirmar manual correto em `docs/brand`.
+- [x] Renderizar paginas 4, 5, 6 e 11 em alta resolucao.
+- [x] Gerar PNG/WebP/source crops/previews/contact sheet.
+- [x] Mover lockups temporarios para fallback.
+- [x] Atualizar `OfficialLogo` para priorizar assets `from-manual`.
+- [x] Atualizar favicon/PWA icons.
+- [x] Corrigir overflow mobile apos logo real.
+- [x] Rodar lint/build.
+- [x] Fazer QA browser em 320, 390, 414, 768, 1024 e 1440.
 
 ## P1 - MVP funcional
 - [ ] Aplicar SQL no Supabase.

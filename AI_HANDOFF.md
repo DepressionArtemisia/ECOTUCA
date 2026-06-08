@@ -47,15 +47,30 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 ## Round 5 Premium Design Attack
 - Branch: `design/premium-brand-attack`.
 - Do not apply SQL and do not create real Auth users in this round.
-- The brand PDF in `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf` was analyzed and does not contain official identity manual/logo artwork.
-- Temporary palette-faithful lockups were generated in `public/brand/official/` and old visible placeholder files were replaced with cleaner temporary assets.
+- Historical note: Round 5 analyzed the wrong/incomplete PDF for logo extraction and generated temporary palette-faithful lockups.
 - `components/brand/official-logo.tsx` is the source of truth for logo rendering and fallback behavior.
 - Key UI upgraded: Home, `/demo`, `/demo-mobile`, `/login`, routes, student dashboard, lesson/player, professor, guide, tourist and admin.
 - New docs: `docs/brand/BRAND_ASSET_EXTRACTION_REPORT.md`, `docs/brand/LOGO_USAGE_STRATEGY.md`, `docs/design/*`, `docs/progress-reports/STEP_14_ROUND_5_PREMIUM_DESIGN_ATTACK.md`.
 
+## Round 6 Real Logo Extraction
+- Correct manual confirmed in `docs/brand/MANUAL DE IDENTIDADE VISUAL - PERIFA ECOTOUR.pdf` and copied to `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
+- Real raster logos were extracted from PDF pages 4, 5, 6 and 11 using `scripts/extract-brand-assets.mjs`.
+- Preferred assets live in `public/brand/official/from-manual/png/`.
+- WebP, source crops and previews live under `public/brand/official/from-manual/`.
+- Contact sheet: `docs/brand/extraction/logo-contact-sheet.png`.
+- Extraction manifest: `docs/brand/extraction/extracted-assets.json`.
+- Temporary Round 5 lockups were moved/rebased to `public/brand/temporary-lockups/` and are fallback only.
+- PWA/favicon icons were regenerated from the extracted ECOTUCA symbol.
+- `OfficialLogo` now prefers `from-manual` assets and only falls back to temporary lockups if image loading fails.
+- Responsive fixes landed in `DemoSessionPill`, `PerifaCard`, `MetricCard` and `AdminDashboard` grids.
+- Reset demo data now uses an inline two-click confirmation instead of `window.confirm`.
+
 ## Verification
 - `npm run lint`: passed.
 - `npm run build`: passed.
+- Round 6 browser QA: 84 route/breakpoint combinations passed at 320, 390, 414, 768, 1024 and 1440 with no overflow, no broken images and `from-manual` logos detected.
+- Round 6 interactions passed before reset refactor: theme toggle, login demo, logout, route interest form, player start and player reset.
+- Reset refactor: build passed and `/demo` serves the new inline flow; the previous native confirm blocked the browser automation surface.
 - `NODE_OPTIONS=--use-system-ca npm run supabase:check`: passed.
 - `npm run supabase:prepare-sql`: passed without applying SQL.
 - `NODE_OPTIONS=--use-system-ca npm run supabase:create-demo-users -- --dry-run`: passed without mutation.
@@ -90,8 +105,9 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - Do not document real tokens.
 - Do not expose service role in client components.
 - Keep mock fallback even after connecting Supabase.
-- Do not treat Round 5 temporary lockups as final official logos.
-- Replace temporary brand files only with approved official assets.
+- Do not treat Round 5 temporary lockups as primary logos.
+- Use `public/brand/official/from-manual/png/` for demo unless better official files are provided.
+- Production should request SVG/AI/PDF vector assets from the designer.
 
 ## Next Prompt
 "After the meeting, apply reviewed Supabase SQL only if approved, create real demo Auth users with the safe script, replace official assets/content, seed UUID-backed lessons/routes, and validate real login/progress/bookings while preserving demo fallback."

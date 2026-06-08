@@ -29,12 +29,12 @@ export function AdminDashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6">
-      <section className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
+    <div className="mx-auto min-w-0 max-w-7xl space-y-6">
+      <section className="relative min-w-0 overflow-hidden rounded-lg bg-brand-brown p-5 text-brand-cream shadow-glow sm:p-6">
         <div className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#FE9440)]" />
         <OfficialLogo variant="horizontal" tone="negative" size="md" />
         <p className="mt-5 text-sm font-black uppercase text-brand-mint">Centro de comando</p>
-        <h1 className="brand-display mt-2 text-5xl text-brand-yellow">Impacto, usuarios e roteiros</h1>
+        <h1 className="brand-display mt-2 text-4xl text-brand-yellow sm:text-5xl">Impacto, usuarios e roteiros</h1>
         <p className="mt-3 max-w-3xl text-brand-cream/78">
           Visao executiva para coordenacao, aprovacoes, prestacao de contas e acompanhamento da jornada ECOTUCA.
         </p>
@@ -48,14 +48,14 @@ export function AdminDashboard() {
         />
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2 xl:grid-cols-5">
         {adminMetrics.map((metric) => (
           <MetricCard key={metric.label} metric={metric} />
         ))}
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[1fr_.8fr]">
-        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
+      <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,.8fr)]">
+        <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-black uppercase text-brand-coral">Prestacao de contas</p>
@@ -66,7 +66,7 @@ export function AdminDashboard() {
               CSV
             </EcoButton>
           </div>
-          <div className="mt-6 h-80">
+          <div className="mt-6 h-80 min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={impactChartData}>
                 <CartesianGrid strokeDasharray="4 4" stroke="rgba(58,26,22,.15)" />
@@ -91,11 +91,11 @@ export function AdminDashboard() {
               {pending.map((user) => (
                 <div key={user.email} className="rounded-lg bg-brand-warm p-4 text-brand-brown">
                   <div className="flex items-start justify-between gap-3">
-                    <div>
+                    <div className="min-w-0">
                       <p className="font-black">{user.name}</p>
-                      <p className="text-sm">{user.email}</p>
+                      <p className="truncate text-sm">{user.email}</p>
                     </div>
-                    <Badge tone="coral">{user.status}</Badge>
+                    <Badge className="shrink-0" tone="coral">{user.status}</Badge>
                   </div>
                   <div className="mt-3 flex gap-2">
                     <EcoButton size="sm" variant="mint">
@@ -113,9 +113,9 @@ export function AdminDashboard() {
             <p className="text-sm font-black uppercase text-brand-orange">Roteiros publicados</p>
             <div className="mt-4 space-y-3">
               {tourRoutes.slice(0, 4).map((route) => (
-                <div key={route.slug} className="flex items-center justify-between rounded-lg bg-white/80 p-3 text-sm font-bold dark:bg-white/10">
-                  <span>{route.title}</span>
-                  <Badge tone={route.featured ? "yellow" : "blue"}>{route.featured ? "destaque" : "publicado"}</Badge>
+                <div key={route.slug} className="flex min-w-0 items-center justify-between gap-2 rounded-lg bg-white/80 p-3 text-sm font-bold dark:bg-white/10">
+                  <span className="min-w-0 truncate">{route.title}</span>
+                  <Badge className="shrink-0 px-2 sm:px-3" tone={route.featured ? "yellow" : "blue"}>{route.featured ? "destaque" : "publicado"}</Badge>
                 </div>
               ))}
             </div>
@@ -123,10 +123,10 @@ export function AdminDashboard() {
         </div>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
+      <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
           <p className="text-sm font-black uppercase text-brand-orange">Conclusao por trilha</p>
-          <div className="mt-5 h-72">
+          <div className="mt-5 h-72 min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={completionByTrack}>
                 <CartesianGrid strokeDasharray="4 4" stroke="rgba(58,26,22,.15)" />
@@ -139,9 +139,9 @@ export function AdminDashboard() {
             </ResponsiveContainer>
           </div>
         </div>
-        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
+        <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
           <p className="text-sm font-black uppercase text-brand-coral">Solicitacoes de roteiros</p>
-          <div className="mt-5 h-72">
+          <div className="mt-5 h-72 min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={bookingChartData}>
                 <CartesianGrid strokeDasharray="4 4" stroke="rgba(58,26,22,.15)" />

@@ -1,0 +1,15 @@
+docs/
+*.pdf
+
+.git/
+.next/
+node_modules/
+coverage/
+dist/
+build/
+out/
+
+public/brand/official/from-manual/source-crops/
+public/brand/official/from-manual/previews/
+public/brand/temporary-lockups/svg/
+public/brand/official/source/

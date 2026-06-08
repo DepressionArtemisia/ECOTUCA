@@ -18,9 +18,18 @@ Server-only:
 - deployment/provider tokens as needed.
 
 ## Vercel
-- Import the repository.
-- Configure env vars without exposing service role to client.
-- Run `npm run build`.
+- Production project: `brunos-projects-0f78c3da/ecotuca`.
+- Production URL: `https://ecotuca.vercel.app`.
+- Latest inspected deployment: `dpl_QiRR8SD3fBTqsMHPEraeE8CE1PF4`.
+- Deployment status: Ready.
+- Build command: `npm run build`.
+- `.vercelignore` excludes docs, PDFs, extraction source crops/previews and other non-runtime files.
+- Configure Supabase env vars in the Vercel dashboard if/when the real backend should be used in production. Do not expose service role to client code.
+
+Verified remote routes:
+- `https://ecotuca.vercel.app`
+- `https://ecotuca.vercel.app/demo`
+- `https://ecotuca.vercel.app/roteiros/serra-da-misericordia`
 
 ## Future VPS
 - Add Dockerfile and Nginx/Traefik config after the MVP.

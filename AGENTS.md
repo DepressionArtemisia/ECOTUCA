@@ -14,7 +14,8 @@ Build a professional, navigable MVP for ECOTUCA / Perifa Ecotour: an ecotourism 
 - Mandatory colors: yellow `#FCC224`, coral `#E9635D`, blue `#335595`, orange `#FE9440`, dark brown `#3A1A16`, mint `#2ACCB5`.
 - Do not create a generic blue/purple corporate interface.
 - Do not distort, recolor, crop or recreate official logos incorrectly.
-- If final logo files are not extractable, use documented placeholders and keep `public/brand` ready for official replacements.
+- Use real extracted manual assets from `public/brand/official/from-manual/png/` as the preferred demo logos.
+- Keep `public/brand/temporary-lockups/` only as fallback; do not treat temporary lockups as official.
 - Visual direction: urban, peripheral, educational, technological, welcoming, colorful and premium.
 - Headlines target Troika style: strong, urban, irregular and memorable.
 - Body text target Lufga style: modern, rounded and readable.
@@ -39,8 +40,9 @@ The upstream project instruction asks agents to use Ruflo MCP tools for complex 
 - Brand manual is saved in `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
 - Documentation is updated enough for another AI or developer to continue.
 
-## Round 5 Brand Implementation Note
+## Round 6 Brand Implementation Note
 - Use `components/brand/official-logo.tsx` for ECOTUCA/Perifa logo rendering.
-- Current files in `public/brand/official/` are temporary lockups because the saved PDF lacks official logo vectors.
-- Do not call those temporary lockups final official logos.
-- Future agents should replace files in `public/brand/official/png` and `public/brand/official/svg` with approved designer assets while preserving filenames where possible.
+- The correct manual is saved as `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf` and `docs/brand/MANUAL DE IDENTIDADE VISUAL - PERIFA ECOTOUR.pdf`.
+- Round 6 extracted real ECOTUCA and Perifa logo PNGs from manual pages 4, 5, 6 and 11 into `public/brand/official/from-manual/png/`.
+- `OfficialLogo` prefers `from-manual` assets, then falls back to `public/brand/temporary-lockups/`.
+- Future agents should request designer-approved SVG/AI/PDF vector assets for production, but should keep the current extracted PNGs for the meeting demo unless better official files are provided.

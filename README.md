@@ -42,5 +42,5 @@ Official colors: `#FCC224`, `#E9635D`, `#335595`, `#FE9440`, `#3A1A16`, `#2ACCB5
 ## Local URL
 Use [http://localhost:3020/demo](http://localhost:3020/demo) for the guided presentation in this workspace.
 
-## Round 5 Design Note
-Round 5 added premium brand tokens, `OfficialLogo`, temporary palette-faithful lockups and visual polish across the main routes. The current PDF did not contain extractable official logo artwork, so files in `public/brand/official/` must still be replaced by designer-approved SVG/PNG assets.
+## Round 6 Brand Note
+Round 6 extracted real ECOTUCA/Perifa logo PNGs from the correct identity manual and wired `OfficialLogo` to prefer `public/brand/official/from-manual/png/`. Round 5 lockups now live in `public/brand/temporary-lockups/` as fallback only. Production should still request designer-approved SVG/AI/PDF vector assets.

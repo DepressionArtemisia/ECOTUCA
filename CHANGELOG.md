@@ -18,5 +18,10 @@
 - Froze the MVP for presentation with meeting docs, `/demo` guidance cards, safe local reset and client-facing text polish.
 - Started Round 5 premium design attack on branch `design/premium-brand-attack`.
 - Added `OfficialLogo`, official brand asset folders, extraction report, logo usage strategy and design reports.
-- Replaced old visible placeholder logo art with documented temporary palette-faithful lockups because the current PDF does not contain official logo vectors.
+- Replaced old visible placeholder logo art with documented temporary palette-faithful lockups during Round 5, before the correct manual was confirmed.
 - Polished Home, Demo, Demo Mobile, Login, Routes, Student, Lesson/Player, Professor, Guide, Tourist and Admin surfaces.
+- Confirmed the correct identity manual and extracted real ECOTUCA/Perifa logo PNGs from pages 4, 5, 6 and 11.
+- Rebased Round 5 temporary lockups to `public/brand/temporary-lockups/` and made `OfficialLogo` prefer `public/brand/official/from-manual/png/`.
+- Updated favicon/PWA icons from the extracted ECOTUCA symbol.
+- Fixed mobile overflow in internal shells/admin grids and changed demo reset to inline confirmation.
+- Added `.vercelignore` and deployed production to `https://ecotuca.vercel.app`.

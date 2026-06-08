@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   description: "Plataforma de ensino, ecoturismo e impacto social do Complexo do Alemao.",
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/brand/symbol-ecotuca.png",
-    apple: "/brand/symbol-ecotuca.png"
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png"
   }
 };
 

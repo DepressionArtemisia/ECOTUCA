@@ -20,7 +20,7 @@ export function PerifaCard({
   return (
     <div
       className={cn(
-        "brand-card brand-card-hover relative overflow-hidden border-l-8 p-5 dark:bg-brand-dark-soft/90",
+        "brand-card brand-card-hover relative min-w-0 overflow-hidden border-l-4 p-4 sm:border-l-8 sm:p-5 dark:bg-brand-dark-soft/90",
         border[tone],
         className
       )}

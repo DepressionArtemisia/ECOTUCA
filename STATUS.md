@@ -4,20 +4,44 @@
 - Data/hora: 2026-06-07 13:23:22 -03:00
 - Workspace: `C:\Users\barbo\OneDrive\Área de Trabalho\PROJETOS\ECOTUCA`
 - Rota principal da reuniao: `http://localhost:3020/demo`
-- Porta: `3020`, porque `localhost:3000` estava ocupado por outro projeto local.
+- Porta: `3020`, servindo o build de producao com `next start -p 3020` apos a Rodada 6.
+
+## Deploy Vercel
+- Projeto: `brunos-projects-0f78c3da/ecotuca`.
+- URL de producao: `https://ecotuca.vercel.app`.
+- Deployment id: `dpl_QiRR8SD3fBTqsMHPEraeE8CE1PF4`.
+- Status Vercel: Ready.
+- Alias tecnico: `https://ecotuca-n757w3nlk-brunos-projects-0f78c3da.vercel.app`.
+- Rotas remotas verificadas com HTTP 200: `/`, `/demo`, `/roteiros/serra-da-misericordia`.
+- `.vercelignore` criado para excluir docs, PDFs e previews/crops de extracao que nao sao runtime.
+
+## Rodada 6 - Logo real extraida do manual
+- Branch: `design/premium-brand-attack`.
+- Manual correto confirmado: `docs/brand/MANUAL DE IDENTIDADE VISUAL - PERIFA ECOTOUR.pdf`.
+- Copia canonica criada para tooling: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
+- Extracao real feita por renderizacao visual do PDF em alta resolucao, sem redesenhar a marca.
+- Paginas usadas: 4 (Perifa horizontal/vertical), 5 (ECOTUCA horizontal/vertical com e sem subtitulo), 6 (simbolos e variacoes cromaticas), 11 (negativos).
+- Assets preferenciais gerados em `public/brand/official/from-manual/png/` e `public/brand/official/from-manual/webp/`.
+- Lockups temporarios da Rodada 5 rebaixados para `public/brand/temporary-lockups/`.
+- `OfficialLogo` agora prioriza `from-manual` e cai para temporario apenas se o asset falhar.
+- PWA/favicon atualizados a partir do simbolo ECOTUCA extraido: `public/favicon.ico`, `public/icon-192.png`, `public/icon-512.png`, `public/apple-touch-icon.png`.
+- Contact sheet criado: `docs/brand/extraction/logo-contact-sheet.png`.
+- Indice de preview criado: `docs/brand/ASSET_PREVIEW_INDEX.md`.
+- Public footer recebeu assinatura Perifa Ecotour em negativo real.
+- Ajustes responsivos: `DemoSessionPill`, `PerifaCard`, `MetricCard` e grids do `AdminDashboard` para eliminar overflow em 320px.
+- Reset da demo mudou de `window.confirm` para confirmacao inline de dois cliques, evitando bloqueio na apresentacao.
 
 ## Rodada 5 - Design premium e identidade
 - Branch: `design/premium-brand-attack`.
 - Checkpoint anterior criado: `67616ab freeze: ECOTUCA MVP presentation ready`.
-- PDF analisado: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
-- Resultado da analise: o PDF atual contem proposta/MVP, ilustracoes e mockups; nao contem o manual oficial completo nem logos vetoriais extraiveis descritos no prompt.
+- Observacao historica: a Rodada 5 analisou um PDF incorreto/incompleto para logo e gerou lockups temporarios. A Rodada 6 substituiu o uso principal por assets reais extraidos do manual correto.
 - Criadas pastas `public/brand/official/`, `public/brand/official/png/`, `public/brand/official/svg/`, `public/brand/official/source/` e `docs/brand/extraction/`.
 - Criado `scripts/extract-brand-assets.mjs`.
-- Gerados lockups temporarios premium para ECOTUCA/Perifa, documentados como nao oficiais.
+- Gerados lockups temporarios premium para ECOTUCA/Perifa, agora guardados apenas como fallback.
 - Criado `components/brand/official-logo.tsx` e aplicado em shells, home, demo, login, roteiros, aluno, professor, guia, turista, admin e player.
 - Atualizados tokens Tailwind/CSS e componentes visuais compartilhados.
 - Telas ajustadas: `/`, `/demo`, `/demo-mobile`, `/login`, `/roteiros`, detalhe de roteiro, area do aluno, aula/player, professor, guia, turista e admin.
-- Proximo passo de identidade: substituir arquivos temporarios por SVG/PNG oficiais aprovados pelo designer.
+- Proximo passo de identidade: trocar os PNGs extraidos por SVG/AI/PDF oficiais aprovados pelo designer quando chegarem.
 
 ## Rodada 4 - Freeze de apresentacao
 - Objetivo: congelar o MVP para reuniao, sem aplicar SQL, sem criar usuarios reais e sem refactor grande.
@@ -108,6 +132,12 @@
 - Admin: abrir `/app/admin`, `/app/admin/aprovacoes`, `/app/admin/metricas`.
 
 ## Testes executados
+- Rodada 6: `npm run lint` passou.
+- Rodada 6: `npm run build` passou, 36 rotas.
+- Rodada 6: `scripts/extract-brand-assets.mjs` gerou 12 PNGs reais extraidos do manual, WebP, source crops, previews, JSON e contact sheet.
+- Rodada 6 browser: 84 combinacoes de rota/breakpoint testadas em `320`, `390`, `414`, `768`, `1024` e `1440`; sem overflow horizontal, sem imagens quebradas e com logos `from-manual` detectadas.
+- Rodada 6 interacoes: alternar tema, login demo, logout, enviar interesse em roteiro, iniciar player e reiniciar player passaram no navegador.
+- Rodada 6 reset: o bloqueio por `window.confirm` foi corrigido com confirmacao inline (`Limpar apresentacao` -> `Confirmar limpeza`); build/static confirmam o novo fluxo sem dialogo nativo.
 - Rodada 5: `npm run lint` passou.
 - Rodada 5: `npm run build` passou, 36 rotas.
 - Rodada 5 browser desktop 1440: `/`, `/demo`, `/demo/status`, `/demo-mobile`, `/login`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/guias/rafael-silva`, `/app/aluno`, `/app/aluno/trilhas`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/professor/conteudos`, `/app/guia`, `/app/turista`, `/app/admin`, `/app/admin/aprovacoes`, `/app/admin/metricas`.
@@ -133,7 +163,7 @@
 
 ## Riscos
 - `npm audit` ainda aponta 2 vulnerabilidades moderadas em `next`/`postcss`; `npm audit fix --force` sugere mudanca quebrada e nao foi aplicado.
-- Logos e simbolos continuam placeholders temporarios.
+- Logos e simbolos agora sao PNGs reais extraidos do manual e aprovados para demo, mas producao ainda precisa de SVG/AI/PDF oficial do designer.
 - Videos sao placeholders publicos e precisam ser substituidos por videos oficiais.
 - Supabase real precisa de execucao manual/revisada antes de virar fonte principal do app.
 

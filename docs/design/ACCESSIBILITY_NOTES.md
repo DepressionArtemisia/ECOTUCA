@@ -11,8 +11,10 @@
 ## Contrast Notes
 - Dark theme uses `#3A1A16` as the base and warm/yellow/mint accents.
 - Light theme uses warm background and dark brown text.
-- Temporary logo lockups use framed contrast in dark contexts because official negative artwork is not available yet.
+- Dark logo contexts now use extracted negative assets from manual page 11 when available.
+- No CSS filter is used to invert or recolor the official logo assets.
+- Temporary lockups are fallback only and may receive a warm contrast frame if a from-manual asset fails.
 
 ## Remaining Risk
 - A formal WCAG audit has not been completed.
-- Official logos must be checked for contrast once approved positive/negative variants arrive.
+- Extracted PNG logos were checked in light/dark demo contexts, but final production vectors should receive a formal contrast and scaling pass.

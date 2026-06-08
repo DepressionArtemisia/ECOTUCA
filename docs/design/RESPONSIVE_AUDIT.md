@@ -40,3 +40,9 @@
 - Mobile 390px: critical routes rendered without horizontal overflow.
 - Mobile 320px: critical routes rendered without horizontal overflow after fixing responsive logo sizing, display text wrapping and long demo-user e-mail/password strings.
 - No broken images detected in the checked routes.
+
+## Round 6 Verification Result
+- Checked 84 route/breakpoint combinations: `/`, `/demo`, `/demo/status`, `/demo-mobile`, `/login`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/guia`, `/app/turista`, `/app/admin`, `/app/admin/aprovacoes`.
+- Breakpoints: 320, 390, 414, 768, 1024 and 1440.
+- Result: no horizontal overflow, no broken images and `from-manual` logos detected.
+- Fixes made during the audit: compacted `DemoSessionPill`, added `min-w-0`/mobile padding to brand/admin cards and changed admin chart grids to `minmax(0, 1fr)`.

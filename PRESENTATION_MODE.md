@@ -53,10 +53,10 @@ Senha de todos: `Demo@123456`.
 - `RESUMO_EXECUTIVO_MVP.md`
 
 ## Atualizacao Rodada 5 - Design
-- A apresentacao agora usa `OfficialLogo` e lockups temporarios premium da paleta ECOTUCA.
-- Explicar com cuidado: os assets atuais removem o placeholder visual, mas ainda dependem de SVG/PNG oficial do designer.
+- A apresentacao agora usa `OfficialLogo` com logos reais extraidas do manual correto em `public/brand/official/from-manual/png/`.
+- Explicar com cuidado: os assets atuais sao recortes reais do manual e estao aprovados para demo, mas producao ainda deve receber SVG/AI/PDF oficial do designer.
 - Comecar por `/demo`, abrir home, mostrar `/demo-mobile`, roteiro, aluno, aula/player e admin.
-- Evitar dizer que a logo final foi extraida; dizer que o app esta pronto para receber a logo oficial sem mudar layout.
+- O reset da apresentacao agora usa confirmacao inline: `Limpar apresentacao` e depois `Confirmar limpeza`.
 
 ## Atualizacao Rodada 3
 - Antes ou depois do fluxo principal, abrir `/demo/status` para mostrar a integracao hibrida sem expor chaves.

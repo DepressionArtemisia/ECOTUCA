@@ -1,55 +1,77 @@
 # Brand Asset Extraction Report
 
+## Date
+- 2026-06-07, Round 6.
+
 ## Source Reviewed
+- Canonical PDF: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`
+- Original PDF name: `docs/brand/MANUAL DE IDENTIDADE VISUAL - PERIFA ECOTOUR.pdf`
+- Contact sheet: `docs/brand/extraction/logo-contact-sheet.png`
+- Extraction manifest: `docs/brand/extraction/extracted-assets.json`
 
-- PDF: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf` (3944694 bytes)
-- Local extraction folder reviewed: `docs/brand/extracted/`.
-- Preview/contact sheet generated in `docs/brand/extraction/`.
-- Pages reviewed through text extraction: 1-12.
-- Image previews reviewed from `docs/brand/extracted/` and `docs/brand/extraction/previews/`.
-- Contact sheet reviewed: `docs/brand/extraction/contact-sheet.png`.
+## Manual Pages Used
+- Page 4: Perifa Ecotour horizontal and vertical signatures.
+- Page 5: ECOTUCA horizontal and vertical signatures, including subtitle versions.
+- Page 6: ECOTUCA and Perifa symbols plus chromatic support applications.
+- Page 11: positive/negative applications for dark backgrounds.
 
-## Extraction Result
+## Method
+- The manual pages were rendered visually from the PDF, not recreated manually.
+- `scripts/extract-brand-assets.mjs` runs an embedded PyMuPDF/Pillow extraction flow.
+- Rendering scale: 4x PDF matrix, stored under `docs/brand/extraction/rendered-pages-hi/`.
+- Crop method: relative page coordinates, so the script is independent from screen pixels.
+- Transparency method:
+  - White-background logo crops remove near-white pixels.
+  - Negative crops remove near-black manual background.
+  - Chromatic support symbols preserve the crop without recoloring.
+- No AI upscale, recolor, CSS filter or manual logo redraw was used.
 
-The current PDF contains MVP proposal content, Gamma-generated illustrations and UI mockups. It does not contain the official ECOTUCA/Perifa Ecotour logo pages, vector marks, positive/negative logo variants or brand prohibition pages described in the design prompt.
+## Generated From-Manual Assets
+| Asset | Source | Status | Recommended Use |
+| --- | --- | --- | --- |
+| `public/brand/official/from-manual/png/perifa-ecotour-horizontal-from-manual.png` | Page 4 | Approved for demo | Public footer, routes, institutional blocks |
+| `public/brand/official/from-manual/png/perifa-ecotour-vertical-from-manual.png` | Page 4 | Approved for demo | Certificates, presentation blocks |
+| `public/brand/official/from-manual/png/ecotuca-horizontal-tagline-from-manual.png` | Page 5 | Approved for demo | Home, login, demo, student/app contexts |
+| `public/brand/official/from-manual/png/ecotuca-horizontal-logo-only-from-manual.png` | Page 5 | Approved for demo | Compact headers where subtitle becomes small |
+| `public/brand/official/from-manual/png/ecotuca-vertical-tagline-from-manual.png` | Page 5 | Approved for demo | Hero, splash, certificate |
+| `public/brand/official/from-manual/png/ecotuca-vertical-logo-only-from-manual.png` | Page 5 | Approved for demo | Mobile/PWA/card contexts |
+| `public/brand/official/from-manual/png/perifa-symbol-from-manual.png` | Page 6 | Approved for demo | Institutional symbol, pattern support |
+| `public/brand/official/from-manual/png/ecotuca-symbol-from-manual.png` | Page 6 | Approved for demo | PWA icon, favicon base, compact app mark |
+| `public/brand/official/from-manual/png/perifa-negative-from-manual.png` | Page 11 | Temporary until vector official | Dark-background usage |
+| `public/brand/official/from-manual/png/ecotuca-negative-from-manual.png` | Page 11 | Temporary until vector official | Dark-background usage |
+| `public/brand/official/from-manual/png/ecotuca-symbol-yellow-brown-from-manual.png` | Page 6 | Support asset | Dark brand accents |
+| `public/brand/official/from-manual/png/perifa-symbol-yellow-brown-from-manual.png` | Page 6 | Support asset | Dark brand accents |
 
-Because of that, no official logo was extracted from the PDF in this round. The generated files below are temporary presentation lockups using the official palette, created only to remove low-quality placeholders from the product UI while keeping future replacement simple.
+Corresponding WebP files were generated under `public/brand/official/from-manual/webp/`. Source crops and previews are under `public/brand/official/from-manual/source-crops/` and `public/brand/official/from-manual/previews/`.
 
-## Method Used
+## Legacy Public Paths Updated
+- `public/brand/logo-ecotuca-horizontal.png`
+- `public/brand/logo-ecotuca-vertical.png`
+- `public/brand/logo-perifa-horizontal.png`
+- `public/brand/logo-perifa-vertical.png`
+- `public/brand/symbol-ecotuca.png`
+- `public/brand/symbol-perifa.png`
 
-- Text extracted with local Python/PDF tooling to identify document scope.
-- Existing extracted images were reviewed visually.
-- JPEG2000 page assets were converted to PNG previews for inspection.
-- No clean vector/logo object was found.
-- Temporary SVG lockups were created in `public/brand/official/svg/` and rendered to PNG with `scripts/extract-brand-assets.mjs`.
-- Existing legacy paths in `public/brand/` were synchronized to the cleaner temporary assets so old placeholder art no longer appears in the UI.
+## PWA Icons
+- `public/favicon.ico`
+- `public/icon-192.png`
+- `public/icon-512.png`
+- `public/apple-touch-icon.png`
+- `public/brand/icon-192.png`
+- `public/brand/icon-512.png`
 
-## Generated Temporary Assets
+## Temporary Assets Rebaixados
+Round 5 lockups were moved/rebased to:
+- `public/brand/temporary-lockups/png/`
+- `public/brand/temporary-lockups/svg/`
 
-- `public/brand/official/png/ecotuca-horizontal-tagline.png`
-- `public/brand/official/png/ecotuca-horizontal.png`
-- `public/brand/official/png/ecotuca-vertical-tagline.png`
-- `public/brand/official/png/ecotuca-vertical.png`
-- `public/brand/official/png/perifa-ecotour-horizontal.png`
-- `public/brand/official/png/perifa-ecotour-vertical.png`
-- `public/brand/official/png/simbolo-ecotuca.png`
-- `public/brand/official/png/simbolo-perifa.png`
+They are fallback only and should not be presented as official logo artwork.
 
-## Pending Official Assets
+## Limitations
+- The extracted PNGs are suitable for the meeting demo and web preview.
+- They are still raster crops from a PDF page, not final production vectors.
+- Negative variants are usable for dark UI, but should be replaced by official SVG/AI/PDF files for production.
+- Final launch, print, legal documents and high-resolution collateral should use designer-approved vector assets.
 
-- Official ECOTUCA horizontal logo in SVG and transparent PNG.
-- Official ECOTUCA vertical logo in SVG and transparent PNG.
-- Official ECOTUCA symbol/PWA mark.
-- Official ECOTUCA tagline lockup with approved wording.
-- Official Perifa Ecotour horizontal and vertical logos.
-- Official Perifa Ecotour symbol.
-- Positive and negative variants approved for light and dark backgrounds.
-
-## Usage Recommendation
-
-- Use ECOTUCA as the main app/product brand in headers, login, student area, mobile demo and certificates.
-- Use Perifa Ecotour as institutional/territorial signature in footers, public context blocks and route/tourism surfaces.
-- Keep all logo images inside proportion-preserving containers. Never stretch, recolor, crop, outline, tilt, add effects or remove elements.
-- Use the framed `tone="negative"` presentation in dark sections until official negative logos arrive.
-- Do not use the generated temporary lockups for print, public launch, legal material or final brand delivery.
-- Replace temporary assets before final public launch or printed material production.
+## Recommendation
+Use the extracted PNGs for the current presentation. Before production, request the final ECOTUCA and Perifa Ecotour brand package in SVG/AI/PDF, including positive, negative, symbol, horizontal and vertical variants.

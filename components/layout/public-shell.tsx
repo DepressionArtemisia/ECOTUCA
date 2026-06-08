@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LogIn, MapPinned, Menu } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { BrandGradient } from "@/components/brand/brand-gradient";
+import { OfficialLogo } from "@/components/brand/official-logo";
 import { ThemeToggle } from "@/components/brand/theme-toggle";
 import { EcoButton } from "@/components/brand/eco-button";
 import { publicNav } from "@/lib/constants/brand";
@@ -41,7 +42,10 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
       <main>{children}</main>
       <footer className="border-t border-brand-yellow/10 bg-brand-brown px-5 py-8 text-brand-cream">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <BrandLogo tone="negative" />
+          <div className="flex flex-wrap items-center gap-4">
+            <BrandLogo tone="negative" />
+            <OfficialLogo brand="perifa" variant="horizontal" tone="negative" size="sm" />
+          </div>
           <p className="max-w-xl text-sm text-brand-cream/75">
             ECOTUCA conecta educacao ambiental, juventude, turismo comunitario e prestacao de contas em uma experiencia digital pronta para evoluir.
           </p>

@@ -7,76 +7,141 @@ import { cn } from "@/lib/utils";
 export type OfficialLogoProps = {
   brand?: "ecotuca" | "perifa";
   variant?: "horizontal" | "vertical" | "symbol" | "tagline";
+  tagline?: boolean;
   tone?: "color" | "positive" | "negative";
   size?: "sm" | "md" | "lg" | "xl";
   priority?: boolean;
   className?: string;
 };
 
-const assets = {
+// from-manual assets are preferred for demo.
+const fromManualAssets = {
   ecotuca: {
-    horizontal: "/brand/official/png/ecotuca-horizontal.png",
-    vertical: "/brand/official/png/ecotuca-vertical.png",
-    symbol: "/brand/official/png/simbolo-ecotuca.png",
-    tagline: "/brand/official/png/ecotuca-horizontal-tagline.png"
+    horizontal: "/brand/official/from-manual/png/ecotuca-horizontal-logo-only-from-manual.png",
+    horizontalTagline: "/brand/official/from-manual/png/ecotuca-horizontal-tagline-from-manual.png",
+    vertical: "/brand/official/from-manual/png/ecotuca-vertical-logo-only-from-manual.png",
+    verticalTagline: "/brand/official/from-manual/png/ecotuca-vertical-tagline-from-manual.png",
+    symbol: "/brand/official/from-manual/png/ecotuca-symbol-from-manual.png",
+    negative: "/brand/official/from-manual/png/ecotuca-negative-from-manual.png"
   },
   perifa: {
-    horizontal: "/brand/official/png/perifa-ecotour-horizontal.png",
-    vertical: "/brand/official/png/perifa-ecotour-vertical.png",
-    symbol: "/brand/official/png/simbolo-perifa.png",
-    tagline: "/brand/official/png/perifa-ecotour-horizontal.png"
+    horizontal: "/brand/official/from-manual/png/perifa-ecotour-horizontal-from-manual.png",
+    horizontalTagline: "/brand/official/from-manual/png/perifa-ecotour-horizontal-from-manual.png",
+    vertical: "/brand/official/from-manual/png/perifa-ecotour-vertical-from-manual.png",
+    verticalTagline: "/brand/official/from-manual/png/perifa-ecotour-vertical-from-manual.png",
+    symbol: "/brand/official/from-manual/png/perifa-symbol-from-manual.png",
+    negative: "/brand/official/from-manual/png/perifa-negative-from-manual.png"
+  }
+} as const;
+
+// temporary lockups are fallback only.
+const temporaryLockups = {
+  ecotuca: {
+    horizontal: "/brand/temporary-lockups/png/ecotuca-horizontal.png",
+    horizontalTagline: "/brand/temporary-lockups/png/ecotuca-horizontal-tagline.png",
+    vertical: "/brand/temporary-lockups/png/ecotuca-vertical.png",
+    verticalTagline: "/brand/temporary-lockups/png/ecotuca-vertical-tagline.png",
+    symbol: "/brand/temporary-lockups/png/simbolo-ecotuca.png",
+    negative: "/brand/temporary-lockups/png/ecotuca-horizontal-tagline.png"
+  },
+  perifa: {
+    horizontal: "/brand/temporary-lockups/png/perifa-ecotour-horizontal.png",
+    horizontalTagline: "/brand/temporary-lockups/png/perifa-ecotour-horizontal.png",
+    vertical: "/brand/temporary-lockups/png/perifa-ecotour-vertical.png",
+    verticalTagline: "/brand/temporary-lockups/png/perifa-ecotour-vertical.png",
+    symbol: "/brand/temporary-lockups/png/simbolo-perifa.png",
+    negative: "/brand/temporary-lockups/png/perifa-ecotour-horizontal.png"
   }
 } as const;
 
 const dimensions = {
-  horizontal: { width: 920, height: 240 },
-  vertical: { width: 640, height: 720 },
-  symbol: { width: 512, height: 512 },
-  tagline: { width: 1120, height: 300 }
+  ecotuca: {
+    horizontal: { width: 1255, height: 693 },
+    horizontalTagline: { width: 1255, height: 858 },
+    vertical: { width: 725, height: 871 },
+    verticalTagline: { width: 789, height: 1098 },
+    symbol: { width: 768, height: 534 },
+    negative: { width: 785, height: 458 }
+  },
+  perifa: {
+    horizontal: { width: 1298, height: 758 },
+    horizontalTagline: { width: 1298, height: 758 },
+    vertical: { width: 812, height: 1017 },
+    verticalTagline: { width: 812, height: 1017 },
+    symbol: { width: 546, height: 701 },
+    negative: { width: 785, height: 506 }
+  }
 } as const;
 
 const sizes = {
   sm: {
-    horizontal: "w-36",
-    vertical: "w-24",
-    symbol: "h-9 w-9",
-    tagline: "w-44"
+    horizontal: "h-12",
+    vertical: "h-14",
+    symbol: "h-9 w-14",
+    tagline: "h-14"
   },
   md: {
-    horizontal: "w-48",
-    vertical: "w-32",
-    symbol: "h-11 w-11",
-    tagline: "w-64"
+    horizontal: "h-16",
+    vertical: "h-20",
+    symbol: "h-11 w-16",
+    tagline: "h-20"
   },
   lg: {
-    horizontal: "w-64",
-    vertical: "w-40",
-    symbol: "h-16 w-16",
-    tagline: "w-80 max-w-full sm:w-96"
+    horizontal: "h-24",
+    vertical: "h-32",
+    symbol: "h-16 w-24",
+    tagline: "h-28"
   },
   xl: {
-    horizontal: "w-80",
-    vertical: "w-52",
-    symbol: "h-24 w-24",
-    tagline: "w-80 max-w-full sm:w-[34rem]"
+    horizontal: "h-32",
+    vertical: "h-44",
+    symbol: "h-24 w-36",
+    tagline: "h-36"
   }
 } as const;
+
+type AssetKey = keyof typeof dimensions.ecotuca;
+
+function resolveAssetKey({
+  brand,
+  variant,
+  tone,
+  tagline
+}: {
+  brand: "ecotuca" | "perifa";
+  variant: NonNullable<OfficialLogoProps["variant"]>;
+  tone: NonNullable<OfficialLogoProps["tone"]>;
+  tagline?: boolean;
+}): AssetKey {
+  if (tone === "negative" && variant !== "symbol") return "negative";
+  if (variant === "symbol") return "symbol";
+  if (variant === "tagline") return "horizontalTagline";
+  if (variant === "vertical") return tagline || brand === "ecotuca" ? "verticalTagline" : "vertical";
+  return tagline ? "horizontalTagline" : "horizontal";
+}
 
 export function OfficialLogo({
   brand = "ecotuca",
   variant = "horizontal",
+  tagline,
   tone = "color",
   size = "md",
   priority = false,
   className
 }: OfficialLogoProps) {
-  const [failed, setFailed] = useState(false);
+  const [assetIndex, setAssetIndex] = useState(0);
   const label = brand === "ecotuca" ? "ECOTUCA" : "Perifa Ecotour";
-  const src = assets[brand][variant];
-  const dim = dimensions[variant];
-  const shouldFrame = tone === "negative" && variant !== "symbol";
+  const assetKey = resolveAssetKey({ brand, variant, tone, tagline });
+  const srcOptions = [
+    fromManualAssets[brand][assetKey],
+    temporaryLockups[brand][assetKey]
+  ];
+  const src = srcOptions[assetIndex];
+  const dim = dimensions[brand][assetKey];
+  const displayVariant = variant === "tagline" || assetKey === "horizontalTagline" || assetKey === "negative" ? "tagline" : variant;
+  const shouldFrame = assetIndex > 0 && tone === "negative";
 
-  if (failed) {
+  if (!src) {
     return (
       <span
         className={cn(
@@ -105,7 +170,7 @@ export function OfficialLogo({
     <span
       className={cn(
         "inline-flex max-w-full items-center justify-center",
-        sizes[size][variant],
+        sizes[size][displayVariant],
         shouldFrame && "rounded-lg bg-brand-cream/95 px-2 py-1 shadow-sm",
         className
       )}
@@ -116,8 +181,8 @@ export function OfficialLogo({
         width={dim.width}
         height={dim.height}
         priority={priority}
-        onError={() => setFailed(true)}
-        className={cn("object-contain", variant === "symbol" ? "h-full w-full" : "h-auto w-full")}
+        onError={() => setAssetIndex((current) => current + 1)}
+        className="h-full w-auto max-w-full object-contain"
         sizes="(max-width: 768px) 180px, 280px"
       />
     </span>

@@ -3,7 +3,13 @@
 ## Brand Manual
 PDF: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
 
-The PDF confirms the ECOTUCA product story: learning platform, mobile app, student area, teacher/community area, admin dashboard and route showcase. The explicit brand update defines the visual identity tokens below.
+The correct manual also exists with its original file name: `docs/brand/MANUAL DE IDENTIDADE VISUAL - PERIFA ECOTOUR.pdf`.
+
+Round 6 extracted real logo PNG assets from rendered manual pages:
+- Page 4: Perifa Ecotour horizontal and vertical.
+- Page 5: ECOTUCA horizontal/vertical, with and without subtitle.
+- Page 6: ECOTUCA and Perifa symbols plus chromatic support symbols.
+- Page 11: negative variants for dark backgrounds.
 
 ## Official Palette
 - Brand yellow: `#FCC224`
@@ -28,19 +34,38 @@ Required public paths:
 - `public/brand/symbol-perifa.png`
 - `public/brand/symbol-ecotuca.png`
 
-If final files are not extractable, these are temporary placeholders and must be replaced by official PNG/SVG.
+These legacy public paths now point to real PNGs extracted from the manual:
+- `public/brand/logo-perifa-horizontal.png`
+- `public/brand/logo-perifa-vertical.png`
+- `public/brand/logo-ecotuca-horizontal.png`
+- `public/brand/logo-ecotuca-vertical.png`
+- `public/brand/symbol-perifa.png`
+- `public/brand/symbol-ecotuca.png`
 
-Current status: the PDF currently saved in `docs/brand/` does not contain the identity manual/logo vectors described in the prompt. Round 5 generated cleaner temporary palette-faithful lockups in `public/brand/official/` and synchronized legacy public paths so the UI no longer shows the old placeholder banner. They are not final logos.
+Preferred app assets:
+- `public/brand/official/from-manual/png/ecotuca-horizontal-tagline-from-manual.png`
+- `public/brand/official/from-manual/png/ecotuca-horizontal-logo-only-from-manual.png`
+- `public/brand/official/from-manual/png/ecotuca-vertical-tagline-from-manual.png`
+- `public/brand/official/from-manual/png/ecotuca-vertical-logo-only-from-manual.png`
+- `public/brand/official/from-manual/png/ecotuca-symbol-from-manual.png`
+- `public/brand/official/from-manual/png/perifa-ecotour-horizontal-from-manual.png`
+- `public/brand/official/from-manual/png/perifa-ecotour-vertical-from-manual.png`
+- `public/brand/official/from-manual/png/perifa-symbol-from-manual.png`
+- `public/brand/official/from-manual/png/ecotuca-negative-from-manual.png`
+- `public/brand/official/from-manual/png/perifa-negative-from-manual.png`
+
+Temporary lockups from Round 5 were rebaixados to `public/brand/temporary-lockups/` and are fallback only. Production should still request official SVG/AI/PDF vector files from the designer.
 
 Round 2 update: headers and shells now reserve a clear logo/wordmark area so official PNG/SVG files can replace the placeholders without changing layout. The placeholder should remain typographic and restrained until official assets arrive.
 
-Round 5 update: `components/brand/official-logo.tsx` centralizes ECOTUCA/Perifa brand usage, sizing, tone handling and fallback UI. Replace assets in `public/brand/official/png` or `public/brand/official/svg` without changing page layouts.
+Round 6 update: `components/brand/official-logo.tsx` centralizes ECOTUCA/Perifa brand usage, sizing, tone handling and fallback UI. It prefers `from-manual` PNGs and only falls back to `temporary-lockups` if an asset fails to load.
 
 ## Usage Rules
 - Do not distort the logo.
 - Do not recolor official marks.
 - Do not remove logo elements.
 - Do not add exaggerated shadows, glows or effects to the mark.
+- Do not use CSS filters to invert, recolor or fake negative logo variants.
 - Do not use generic blue/purple SaaS styling.
 - Keep the brand colorful, territorial, educational, warm and premium.
 

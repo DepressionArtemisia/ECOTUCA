@@ -1,0 +1,282 @@
+{
+  "renderedPages": [
+    "docs/brand/extraction/rendered-pages-hi/page-04-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-04-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-05-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-05-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-05-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-05-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-06-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-06-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-11-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-11-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-06-4x.png",
+    "docs/brand/extraction/rendered-pages-hi/page-06-4x.png"
+  ],
+  "assets": [
+    {
+      "name": "perifa-ecotour-horizontal-from-manual",
+      "page": 4,
+      "rect": [
+        0.07,
+        0.38,
+        0.47,
+        0.68
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "Header publico largo, rodape, paginas institucionais",
+      "png": "public/brand/official/from-manual/png/perifa-ecotour-horizontal-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/perifa-ecotour-horizontal-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/perifa-ecotour-horizontal-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/perifa-ecotour-horizontal-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/perifa-ecotour-horizontal-from-manual-dark.jpg",
+      "size": [
+        1298,
+        758
+      ]
+    },
+    {
+      "name": "perifa-ecotour-vertical-from-manual",
+      "page": 4,
+      "rect": [
+        0.6,
+        0.32,
+        0.88,
+        0.75
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "Blocos institucionais, certificados, composicoes verticais",
+      "png": "public/brand/official/from-manual/png/perifa-ecotour-vertical-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/perifa-ecotour-vertical-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/perifa-ecotour-vertical-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/perifa-ecotour-vertical-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/perifa-ecotour-vertical-from-manual-dark.jpg",
+      "size": [
+        812,
+        1017
+      ]
+    },
+    {
+      "name": "ecotuca-horizontal-tagline-from-manual",
+      "page": 5,
+      "rect": [
+        0.12,
+        0.28,
+        0.47,
+        0.64
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "Header principal, home, login, aluno e app",
+      "png": "public/brand/official/from-manual/png/ecotuca-horizontal-tagline-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/ecotuca-horizontal-tagline-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/ecotuca-horizontal-tagline-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/ecotuca-horizontal-tagline-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/ecotuca-horizontal-tagline-from-manual-dark.jpg",
+      "size": [
+        1255,
+        858
+      ]
+    },
+    {
+      "name": "ecotuca-horizontal-logo-only-from-manual",
+      "page": 5,
+      "rect": [
+        0.12,
+        0.28,
+        0.47,
+        0.55
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "Uso compacto quando subtitulo ficar ilegivel",
+      "png": "public/brand/official/from-manual/png/ecotuca-horizontal-logo-only-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/ecotuca-horizontal-logo-only-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/ecotuca-horizontal-logo-only-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/ecotuca-horizontal-logo-only-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/ecotuca-horizontal-logo-only-from-manual-dark.jpg",
+      "size": [
+        1255,
+        693
+      ]
+    },
+    {
+      "name": "ecotuca-vertical-tagline-from-manual",
+      "page": 5,
+      "rect": [
+        0.61,
+        0.26,
+        0.87,
+        0.7
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "Hero, splash, apresentacao e certificado",
+      "png": "public/brand/official/from-manual/png/ecotuca-vertical-tagline-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/ecotuca-vertical-tagline-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/ecotuca-vertical-tagline-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/ecotuca-vertical-tagline-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/ecotuca-vertical-tagline-from-manual-dark.jpg",
+      "size": [
+        789,
+        1098
+      ]
+    },
+    {
+      "name": "ecotuca-vertical-logo-only-from-manual",
+      "page": 5,
+      "rect": [
+        0.61,
+        0.26,
+        0.87,
+        0.6
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "Mobile/PWA e cards com pouco espaco",
+      "png": "public/brand/official/from-manual/png/ecotuca-vertical-logo-only-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/ecotuca-vertical-logo-only-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/ecotuca-vertical-logo-only-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/ecotuca-vertical-logo-only-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/ecotuca-vertical-logo-only-from-manual-dark.jpg",
+      "size": [
+        725,
+        871
+      ]
+    },
+    {
+      "name": "perifa-symbol-from-manual",
+      "page": 6,
+      "rect": [
+        0.2,
+        0.18,
+        0.39,
+        0.47
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "Icone institucional e grafismo de apoio",
+      "png": "public/brand/official/from-manual/png/perifa-symbol-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/perifa-symbol-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/perifa-symbol-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/perifa-symbol-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/perifa-symbol-from-manual-dark.jpg",
+      "size": [
+        546,
+        701
+      ]
+    },
+    {
+      "name": "ecotuca-symbol-from-manual",
+      "page": 6,
+      "rect": [
+        0.55,
+        0.18,
+        0.79,
+        0.45
+      ],
+      "bg": "white",
+      "status": "aprovado para demo",
+      "use": "PWA icon, bottom nav, favicon e assinatura compacta",
+      "png": "public/brand/official/from-manual/png/ecotuca-symbol-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/ecotuca-symbol-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/ecotuca-symbol-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/ecotuca-symbol-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/ecotuca-symbol-from-manual-dark.jpg",
+      "size": [
+        768,
+        534
+      ]
+    },
+    {
+      "name": "perifa-negative-from-manual",
+      "page": 11,
+      "rect": [
+        0.56,
+        0.27,
+        0.77,
+        0.45
+      ],
+      "bg": "black",
+      "status": "temporario ate SVG oficial",
+      "use": "Fundo escuro quando positivo/colorido nao tiver contraste",
+      "png": "public/brand/official/from-manual/png/perifa-negative-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/perifa-negative-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/perifa-negative-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/perifa-negative-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/perifa-negative-from-manual-dark.jpg",
+      "size": [
+        785,
+        506
+      ]
+    },
+    {
+      "name": "ecotuca-negative-from-manual",
+      "page": 11,
+      "rect": [
+        0.56,
+        0.73,
+        0.77,
+        0.89
+      ],
+      "bg": "black",
+      "status": "temporario ate SVG oficial",
+      "use": "Fundo escuro quando positivo/colorido nao tiver contraste",
+      "png": "public/brand/official/from-manual/png/ecotuca-negative-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/ecotuca-negative-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/ecotuca-negative-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/ecotuca-negative-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/ecotuca-negative-from-manual-dark.jpg",
+      "size": [
+        785,
+        458
+      ]
+    },
+    {
+      "name": "ecotuca-symbol-yellow-brown-from-manual",
+      "page": 6,
+      "rect": [
+        0.0,
+        0.55,
+        0.165,
+        0.78
+      ],
+      "bg": "none",
+      "status": "apoio cromatico",
+      "use": "Apoio visual em fundos escuros",
+      "png": "public/brand/official/from-manual/png/ecotuca-symbol-yellow-brown-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/ecotuca-symbol-yellow-brown-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/ecotuca-symbol-yellow-brown-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/ecotuca-symbol-yellow-brown-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/ecotuca-symbol-yellow-brown-from-manual-dark.jpg",
+      "size": [
+        616,
+        609
+      ]
+    },
+    {
+      "name": "perifa-symbol-yellow-brown-from-manual",
+      "page": 6,
+      "rect": [
+        0.833,
+        0.77,
+        1.0,
+        1.0
+      ],
+      "bg": "none",
+      "status": "apoio cromatico",
+      "use": "Apoio visual em fundos escuros",
+      "png": "public/brand/official/from-manual/png/perifa-symbol-yellow-brown-from-manual.png",
+      "webp": "public/brand/official/from-manual/webp/perifa-symbol-yellow-brown-from-manual.webp",
+      "sourceCrop": "public/brand/official/from-manual/source-crops/perifa-symbol-yellow-brown-from-manual-source.png",
+      "previewChecker": "public/brand/official/from-manual/previews/perifa-symbol-yellow-brown-from-manual-checker.jpg",
+      "previewDark": "public/brand/official/from-manual/previews/perifa-symbol-yellow-brown-from-manual-dark.jpg",
+      "size": [
+        623,
+        609
+      ]
+    }
+  ]
+}
