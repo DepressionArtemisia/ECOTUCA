@@ -46,3 +46,11 @@ The upstream project instruction asks agents to use Ruflo MCP tools for complex 
 - Round 6 extracted real ECOTUCA and Perifa logo PNGs from manual pages 4, 5, 6 and 11 into `public/brand/official/from-manual/png/`.
 - `OfficialLogo` prefers `from-manual` assets, then falls back to `public/brand/temporary-lockups/`.
 - Future agents should request designer-approved SVG/AI/PDF vector assets for production, but should keep the current extracted PNGs for the meeting demo unless better official files are provided.
+
+## Round 8 Desktop/Cadastro/Sitemap Note
+- Branch used: `design/round-8-desktop-cadastro-sitemap`.
+- Do not mutate Supabase while continuing this round; student/teacher signup flows are visual/local drafts only.
+- Signup draft keys: `ecotuca:signup:student` and `ecotuca:signup:teacher`.
+- Main navigation/sitemap data lives in `lib/navigation/site-map.ts`; update it before changing `/sitemap` or `/sitemap.xml`.
+- `AppShell` now supports `roleContext` for `student`, `teacher`, `guide` and `tourist`; avoid reintroducing student-only copy into other roles.
+- Round 8 docs: `docs/progress-reports/STEP_18_ROUND_8_DESKTOP_CADASTRO_SITEMAP.md`, `docs/forms/SIGNUP_FLOW_SPEC.md`, `docs/navigation/SITEMAP_STRUCTURE.md`, `docs/design/ROUND_8_DESKTOP_UX_AUDIT.md`.

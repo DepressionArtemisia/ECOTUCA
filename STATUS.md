@@ -212,3 +212,16 @@
 
 ## Proximo prompt recomendado
 Aplicar SQL revisado, criar usuarios Auth reais com `--yes`, seedar dados UUID reais de aulas/roteiros e validar login/progresso/reservas 100% Supabase mantendo fallback demo.
+
+## Round 8 - Desktop, Cadastros e Sitemap
+- Branch: `design/round-8-desktop-cadastro-sitemap`.
+- Criado `/sitemap`, `/mapa-do-site` e `/sitemap.xml`.
+- Criadas paginas institucionais: `/como-funciona`, `/faq`, `/contato`, `/creditos-imagens`, `/termos`, `/privacidade`.
+- `/cadastro` virou entrada segmentada premium; `/cadastro/aluno` e `/cadastro/professor` viraram fluxos multi-step com rascunho, salvar, limpar, revisao e confirmar.
+- Chaves locais: `ecotuca:signup:student`, `ecotuca:signup:teacher`.
+- `/cadastro/guia` e `/cadastro/turista` ganharam formularios e paineis de contexto.
+- `PublicShell` ganhou nav/footer completos; `AppShell` ganhou contexto por role e removeu texto do Lucas em professor/guia/turista.
+- Home, Sobre, Roteiros, Demo, Demo Mobile, Professor, Guia, Turista e Admin receberam conteudo desktop mais rico.
+- Linguagem tecnica foi suavizada fora de `/demo/status`.
+- Testes: `npm run lint` passou; `npm run build` passou com 45 rotas; browser QA cobriu rotas, cadastros, login, player, roteiro, reset e viewports 320-1920 sem overflow.
+- Observacao: para build no Windows, parar `next start` antes de rodar `next build`.

@@ -47,3 +47,13 @@
 - Updated favicon/PWA icons from the extracted ECOTUCA symbol.
 - Fixed mobile overflow in internal shells/admin grids and changed demo reset to inline confirmation.
 - Added `.vercelignore` and deployed production to `https://ecotuca.vercel.app`.
+# Round 8 - Desktop Cadastro Sitemap Polish
+- Added premium desktop layout utilities and richer public shell/footer navigation.
+- Added `/sitemap`, `/mapa-do-site` and generated `/sitemap.xml`.
+- Added institutional pages for how it works, FAQ, contact, image credits, terms and privacy.
+- Rebuilt cadastro entry and added student/teacher multi-step signup flows with autosave, save draft, clear, review and confirm.
+- Improved guide/tourist cadastro pages.
+- Fixed AppShell role context for professor, guide and tourist.
+- Added richer desktop content to public and role pages.
+- Softened technical language outside `/demo/status`.
+- Verified lint, build, browser routes, responsive widths and main interactions locally.

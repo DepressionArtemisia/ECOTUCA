@@ -15,7 +15,7 @@ export function LoginForm() {
   const { login } = useAuth();
   const [email, setEmail] = useState("aluno@ecotuca.local");
   const [password, setPassword] = useState("Demo@123456");
-  const [message, setMessage] = useState("Acesso preparado para contas reais, com modo de demonstracao para esta reuniao.");
+  const [message, setMessage] = useState("Acesso preparado para contas reais, com ambiente de apresentacao para esta reuniao.");
   const [source, setSource] = useState<"supabase" | "demo">("demo");
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ export function LoginForm() {
     <form onSubmit={submit} className="rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
       <OfficialLogo variant="horizontal" tone="negative" size="md" />
       <div className="mt-5">
-        <Badge tone={source === "supabase" ? "mint" : "yellow"}>{source === "supabase" ? "Base conectada" : "Modo demonstracao"}</Badge>
+        <Badge tone={source === "supabase" ? "mint" : "yellow"}>{source === "supabase" ? "Base conectada" : "Apresentacao segura"}</Badge>
       </div>
       <h1 className="brand-display mt-5 text-6xl text-brand-yellow">Entrar</h1>
       <p className="mt-4 text-brand-cream/75">{message}</p>

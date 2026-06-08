@@ -46,3 +46,15 @@
 - [ ] Substituir logos e assets oficiais.
 - [ ] Subir deploy temporario.
 - [ ] Revisar LGPD, termos e autorizacoes.
+# Round 8 Checklist
+- [ ] Abrir `/demo`.
+- [ ] Mostrar `/cadastro` e explicar perfis.
+- [ ] Preencher rapidamente `/cadastro/aluno` ate revisao.
+- [ ] Mostrar `/sitemap` como mapa do MVP.
+- [ ] Mostrar `/como-funciona` para explicar jornada.
+- [ ] Mostrar `/demo-mobile`.
+- [ ] Mostrar `/roteiros/serra-da-misericordia` e formulario de interesse.
+- [ ] Mostrar `/app/aluno`, aula e progresso.
+- [ ] Mostrar `/app/professor`, `/app/guia`, `/app/turista` com contextos corretos.
+- [ ] Mostrar `/app/admin` e `/app/admin/aprovacoes`.
+- [ ] Fechar com pendencias: Supabase real, legal, operacao, assets finais.

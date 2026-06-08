@@ -18,8 +18,8 @@ export function DataSourceBadge() {
   return (
     <Badge tone={tone} className="gap-1">
       <Icon size={13} />
-      {status.label === "Supabase conectado" ? "Base conectada" : status.label === "Modo demo" ? "Modo de demonstracao" : "Demonstracao segura"}
-      {status.localStorageActive ? " + salvo local" : ""}
+      {status.label === "Supabase conectado" ? "Base conectada" : status.label === "Modo demo" ? "Apresentacao segura" : "Ambiente de apresentacao"}
+      {status.localStorageActive ? " + rascunho ativo" : ""}
     </Badge>
   );
 }

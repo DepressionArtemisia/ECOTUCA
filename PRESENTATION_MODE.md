@@ -81,3 +81,9 @@ Senha de todos: `Demo@123456`.
 - Show `/demo-mobile` after Home to prove the MVP can feel like a real installed app.
 - Show `/roteiros/serra-da-misericordia` and highlight "Por que este roteiro importa" and "Validacao e cuidado".
 - Close in `/app/admin` with "Indicadores para edital".
+# Round 8 Presentation Addendum
+- Start at `/demo`.
+- New recommended sequence: Home, Cadastro Aluno, Demo Mobile, Roteiro, Aluno, Aula, Professor, Guia, Admin, Sitemap.
+- Use `/sitemap` as the backup navigation map if the presenter gets lost.
+- Use `/cadastro/aluno` and `/cadastro/professor` to show complete onboarding without claiming real account creation.
+- Keep `/demo/status` for technical backup only.

@@ -42,3 +42,11 @@ Authenticated/demo: `/app`, `/app/aluno`, `/app/aluno/trilhas`, `/app/aluno/tril
 - Territorial imagery must have source, author, license and alt text.
 - Student, tourist, guide, professor and admin surfaces must connect learning/operations back to territory and impact.
 - Demo mode and local fallback must remain available.
+# Round 8 Requirements Captured
+- Required routes include public, cadastro, sitemap, role dashboards, admin approvals and route detail pages.
+- Student and teacher signup must remain no-Supabase-write flows until backend approval.
+- Forms must support autosave, manual draft save, clear draft, review and confirmation.
+- Site map must exist as visual page `/sitemap`, alias `/mapa-do-site` and XML `/sitemap.xml`.
+- AppShell must not show student/Lucas context in professor, guide or tourist areas.
+- Public/customer UI should use presentation language, reserving technical terms for `/demo/status`.
+- Desktop layouts must use the ECOTUCA/Perifa palette and avoid generic blue/purple SaaS styling.

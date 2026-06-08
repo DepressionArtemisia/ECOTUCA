@@ -9,8 +9,8 @@ import { guides } from "@/lib/mock-data/ecotuca";
 
 export default function GuideDashboardPage() {
   return (
-    <AppShell title="Area do guia">
-      <section className="mx-auto max-w-5xl">
+    <AppShell title="Area do guia" roleContext="guide">
+      <section className="mx-auto max-w-6xl">
         <div className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
           <Image
             src="/media/territory/complexo-alemao/visao-do-complexo-thirson-cc-by-sa-4.jpg"
@@ -36,6 +36,18 @@ export default function GuideDashboardPage() {
             <p className="mt-3 font-bold">3 interesses recebidos para Serra da Misericordia e Vivencia Perifa Ecotour.</p>
             <EcoButton variant="coral" className="mt-5">Atualizar disponibilidade</EcoButton>
           </PerifaCard>
+        </div>
+        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+          {[
+            ["Briefing do roteiro", "Ponto de encontro, duracao, narrativa e limites de circulacao."],
+            ["Cuidado comunitario", "Combinados de imagem, respeito aos moradores e seguranca local."],
+            ["Evidencias", "Fotos autorizadas, relatos, presenca e retorno do visitante."]
+          ].map(([item, text]) => (
+            <PerifaCard key={item} tone="mint">
+              <h2 className="brand-display text-3xl">{item}</h2>
+              <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{text}</p>
+            </PerifaCard>
+          ))}
         </div>
       </section>
     </AppShell>

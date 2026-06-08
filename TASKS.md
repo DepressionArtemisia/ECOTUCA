@@ -71,3 +71,21 @@
 
 ## Proximo foco recomendado
 Depois da reuniao, aplicar SQL revisado se aprovado, criar Auth users reais com o script seguro e validar login/progresso/reservas com dados UUID reais.
+# Round 8 Completed
+- [x] Create branch `design/round-8-desktop-cadastro-sitemap`.
+- [x] Add desktop/premium CSS utilities.
+- [x] Rework public shell navigation/footer.
+- [x] Create sitemap data, visual pages and XML route.
+- [x] Create institutional pages.
+- [x] Rework cadastro entry.
+- [x] Build student and teacher multi-step signup flows.
+- [x] Improve guide/tourist signup pages.
+- [x] Fix AppShell role context.
+- [x] Update client-facing language.
+- [x] Run lint/build and browser QA.
+
+# Round 8 Follow-Ups
+- [ ] Review legal text for `/termos` and `/privacidade`.
+- [ ] Connect signup to Supabase only after SQL/Auth/RLS approval.
+- [ ] Replace extracted raster logos with final designer-approved vector assets when available.
+- [ ] Redeploy and repeat production route QA.

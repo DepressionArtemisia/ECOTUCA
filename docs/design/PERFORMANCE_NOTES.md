@@ -29,3 +29,8 @@
 ## Pendencias
 - Criar script futuro `scripts/optimize-territory-images.mjs` se o acervo oficial crescer.
 - Converter para WebP/AVIF quando houver lote final de fotos oficiais.
+# Round 8 Performance Addendum
+- Final local `npm run build` passed with 45 generated routes.
+- Shared first-load JS remains about 102 kB; admin pages remain heavier because of Recharts.
+- New institutional pages reuse shared components and mostly static content.
+- Build note for Windows/OneDrive: stop `next start` before `next build` to avoid `.next` file locks and apparent hangs.

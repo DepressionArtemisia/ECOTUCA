@@ -120,3 +120,10 @@ Mandatory identity components: `PublicShell`, `AppShell`, `MobileShell`, `AdminS
 - Eyebrow: uppercase small labels with coral/mint/yellow.
 - Body LG/MD/SM: rounded readable body stack.
 - Caption/Badge: high-contrast labels, not decorative filler.
+
+## Round 8 Desktop Utilities
+- Added editorial/premium utilities in `app/globals.css`: `.desktop-editorial-grid`, `.desktop-split-hero`, `.desktop-sticky-aside`, `.desktop-two-column-flow`, `.desktop-feature-wall`, `.desktop-sitemap-grid`, `.desktop-form-shell`, `.desktop-form-aside`, `.premium-section`, `.premium-page-header`, `.premium-context-panel`, `.premium-cta-band`.
+- New reusable blocks: `RichPageHeader`, `ProcessTimeline`, `FaqAccordion`, `ImpactBand`, `CreditList`, `EthicalNotice`, `SiteMapSection`, `FormStepper`, `AutosaveIndicator`, `ConsentCheckbox`, `SignupReviewCard`, `RoleSignupCard`.
+- PublicShell now carries full product navigation and footer sitemap; AppShell now changes context by role.
+- Cadastro screens use warm off-white forms, dark brown headings, official palette accents and explicit review cards.
+- Avoid visible implementation language in public/customer screens; keep technical diagnostics in `/demo/status`.

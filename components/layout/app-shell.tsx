@@ -1,26 +1,89 @@
 import Link from "next/link";
-import { Bell, BookOpen, GraduationCap, Home, MapPinned, Settings, UserRound } from "lucide-react";
+import { Bell, BookOpen, CalendarDays, Compass, GraduationCap, Home, MapPinned, Settings, UploadCloud, UserRound, UsersRound } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { ThemeToggle } from "@/components/brand/theme-toggle";
 import { MobileBottomNav } from "@/components/mobile/mobile-bottom-nav";
 import { DemoSessionPill } from "@/components/demo/demo-session-pill";
 import { DataSourceBadge } from "@/components/demo/data-source-badge";
 
-const nav = [
-  { label: "Inicio", href: "/app/aluno", icon: Home },
-  { label: "Trilhas", href: "/app/aluno/trilhas", icon: BookOpen },
-  { label: "Roteiros", href: "/roteiros", icon: MapPinned },
-  { label: "Perfil", href: "/app/perfil", icon: UserRound },
-  { label: "Ajustes", href: "/app/configuracoes", icon: Settings }
-];
+type AppRoleContext = "student" | "teacher" | "guide" | "tourist";
+
+const navByRole = {
+  student: [
+    { label: "Inicio", href: "/app/aluno", icon: Home },
+    { label: "Trilhas", href: "/app/aluno/trilhas", icon: BookOpen },
+    { label: "Roteiros", href: "/roteiros", icon: MapPinned },
+    { label: "Perfil", href: "/app/perfil", icon: UserRound },
+    { label: "Ajustes", href: "/app/configuracoes", icon: Settings }
+  ],
+  teacher: [
+    { label: "Inicio", href: "/app/professor", icon: Home },
+    { label: "Turmas", href: "/app/professor/turmas", icon: UsersRound },
+    { label: "Conteudos", href: "/app/professor/conteudos", icon: UploadCloud },
+    { label: "Comunidade", href: "/app/professor/comunidade", icon: BookOpen },
+    { label: "Ajustes", href: "/app/configuracoes", icon: Settings }
+  ],
+  guide: [
+    { label: "Inicio", href: "/app/guia", icon: Home },
+    { label: "Agenda", href: "/app/guia/agenda", icon: CalendarDays },
+    { label: "Roteiros", href: "/app/guia/roteiros", icon: MapPinned },
+    { label: "Perfil", href: "/app/perfil", icon: UserRound },
+    { label: "Ajustes", href: "/app/configuracoes", icon: Settings }
+  ],
+  tourist: [
+    { label: "Inicio", href: "/app/turista", icon: Home },
+    { label: "Reservas", href: "/app/turista/reservas", icon: CalendarDays },
+    { label: "Roteiros", href: "/roteiros", icon: Compass },
+    { label: "Perfil", href: "/app/perfil", icon: UserRound },
+    { label: "Ajustes", href: "/app/configuracoes", icon: Settings }
+  ]
+} satisfies Record<AppRoleContext, Array<{ label: string; href: string; icon: typeof Home }>>;
+
+const roleContexts = {
+  student: {
+    icon: GraduationCap,
+    title: "Trilha do aluno",
+    text: "Lucas ja concluiu 64% da formacao de Guia Local."
+  },
+  teacher: {
+    icon: BookOpen,
+    title: "Rede pedagogica",
+    text: "Professores acompanham turmas, materiais e progresso com curadoria ECOTUCA."
+  },
+  guide: {
+    icon: MapPinned,
+    title: "Guia territorial",
+    text: "Guias organizam agenda, perfil publico e roteiros validados pelo projeto."
+  },
+  tourist: {
+    icon: Compass,
+    title: "Visitante responsavel",
+    text: "Turistas acompanham reservas, interesses e combinados do territorio."
+  }
+} satisfies Record<AppRoleContext, { icon: typeof Home; title: string; text: string }>;
+
+function inferRoleContext(title: string): AppRoleContext {
+  const normalized = title.toLowerCase();
+  if (normalized.includes("professor") || normalized.includes("conteudo") || normalized.includes("turma")) return "teacher";
+  if (normalized.includes("guia") || normalized.includes("agenda do guia")) return "guide";
+  if (normalized.includes("turista") || normalized.includes("reserva")) return "tourist";
+  return "student";
+}
 
 export function AppShell({
   children,
-  title = "Area ECOTUCA"
+  title = "Area ECOTUCA",
+  roleContext
 }: {
   children: React.ReactNode;
   title?: string;
+  roleContext?: AppRoleContext;
 }) {
+  const resolvedRole = roleContext ?? inferRoleContext(title);
+  const nav = navByRole[resolvedRole];
+  const context = roleContexts[resolvedRole];
+  const ContextIcon = context.icon;
+
   return (
     <div className="min-h-screen bg-background-warm text-brand-brown dark:bg-background-dark dark:text-brand-cream">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-brand-brown/10 bg-white/90 p-5 backdrop-blur lg:block dark:border-brand-yellow/10 dark:bg-brand-dark-soft/75">
@@ -37,8 +100,9 @@ export function AppShell({
           })}
         </nav>
         <div className="mt-8 rounded-lg bg-gradient-territory p-4 text-brand-cream shadow-card dark:bg-brand-yellow dark:text-brand-brown">
-          <GraduationCap size={24} />
-          <p className="mt-3 text-sm font-black">Lucas ja concluiu 64% da formacao de Guia Local.</p>
+          <ContextIcon size={24} />
+          <p className="mt-3 text-xs font-black uppercase opacity-75">{context.title}</p>
+          <p className="mt-2 text-sm font-black">{context.text}</p>
         </div>
       </aside>
       <div className="lg:pl-72">

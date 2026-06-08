@@ -46,7 +46,7 @@ export function ApprovalQueue() {
     setMessage(
       result.source === "supabase"
         ? `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} na base conectada.`
-        : `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} no modo de demonstracao.`
+        : `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} na fila de apresentacao.`
     );
   }
 
@@ -56,7 +56,7 @@ export function ApprovalQueue() {
         <div className="flex flex-wrap gap-2">
           <Badge tone="coral">Fila de aprovacoes</Badge>
           <Badge tone={source === "supabase" ? "mint" : "yellow"}>
-            {source === "supabase" ? "Base conectada" : "Modo demonstracao"}
+            {source === "supabase" ? "Base conectada" : "Fila de apresentacao"}
           </Badge>
         </div>
         <h1 className="brand-display mt-4 text-5xl">Fila de aprovacoes</h1>

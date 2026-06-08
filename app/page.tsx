@@ -36,7 +36,7 @@ export default function HomePage() {
             </div>
             <div className="flex flex-wrap gap-2">
               <Badge tone="yellow">Complexo do Alemao</Badge>
-              <Badge tone="mint">MVP navegavel - modo apresentacao</Badge>
+              <Badge tone="mint">MVP navegavel - apresentacao</Badge>
             </div>
             <h1 className="brand-display mt-5 text-5xl text-brand-yellow sm:text-6xl lg:text-7xl">
               Ecoturismo, formacao e territorio conectando jovens do Complexo do Alemao a novas oportunidades.
@@ -55,6 +55,12 @@ export default function HomePage() {
                 <EcoButton variant="outline" size="lg">
                   <MapPinned size={18} />
                   Ver roteiros
+                </EcoButton>
+              </Link>
+              <Link href="/cadastro">
+                <EcoButton variant="coral" size="lg">
+                  <UsersRound size={18} />
+                  Criar cadastro
                 </EcoButton>
               </Link>
             </div>
@@ -85,7 +91,7 @@ export default function HomePage() {
         <PerifaCard tone="coral">
           <ShieldCheck size={28} className="text-brand-coral" />
           <h2 className="brand-display mt-4 text-3xl">Prestacao de contas</h2>
-          <p className="mt-2 text-sm text-brand-brown/75 dark:text-brand-cream/75">Métricas de formacao, certificados, solicitacoes e prestacao de contas.</p>
+          <p className="mt-2 text-sm text-brand-brown/75 dark:text-brand-cream/75">Metricas de formacao, certificados, solicitacoes e prestacao de contas.</p>
         </PerifaCard>
       </section>
 
@@ -181,6 +187,20 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
+        <div className="mb-6 grid gap-4 lg:grid-cols-3">
+          {[
+            ["Cadastros completos", "Aluno e professor agora tem etapas, rascunho, revisao e confirmacao visual.", "/cadastro"],
+            ["Mapa do MVP", "Sitemap visual organiza paginas publicas, areas internas e transparencia.", "/sitemap"],
+            ["Como funciona", "Fluxo claro da formacao ao roteiro publicado e acompanhado.", "/como-funciona"]
+          ].map(([item, text, href]) => (
+            <Link key={item} href={href} className="focus-ring-brand block rounded-lg">
+              <PerifaCard tone="mint" className="h-full">
+                <h2 className="brand-display text-3xl">{item}</h2>
+                <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{text}</p>
+              </PerifaCard>
+            </Link>
+          ))}
+        </div>
         <div className="mb-8 grid gap-3 md:grid-cols-4">
           {adminMetrics.slice(0, 4).map((metric) => (
             <div key={metric.label} className="brand-card p-4 dark:bg-brand-dark-soft/90">

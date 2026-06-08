@@ -4,7 +4,7 @@ import { TouristBookingsList } from "@/features/routes/tourist-bookings-list";
 
 export default function TouristBookingsPage() {
   return (
-    <AppShell title="Reservas">
+    <AppShell title="Reservas" roleContext="tourist">
       <section className="mx-auto max-w-5xl space-y-4">
         <Badge tone="mint">Historico de solicitacoes</Badge>
         <h1 className="brand-display text-5xl">Reservas e interesses</h1>

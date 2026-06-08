@@ -30,8 +30,12 @@ export const typographyTokens = {
 } as const;
 
 export const publicNav = [
+  { label: "Inicio", href: "/" },
   { label: "Sobre", href: "/sobre" },
+  { label: "Como funciona", href: "/como-funciona" },
   { label: "Roteiros", href: "/roteiros" },
+  { label: "Cadastros", href: "/cadastro" },
   { label: "Demo", href: "/demo" },
-  { label: "Mobile", href: "/demo-mobile" }
+  { label: "Mobile", href: "/demo-mobile" },
+  { label: "Mapa", href: "/sitemap" }
 ] as const;

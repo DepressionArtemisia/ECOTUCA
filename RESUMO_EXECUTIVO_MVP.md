@@ -31,3 +31,9 @@ Dependem de decisao: trilhas reais, videos, PDFs, logos oficiais, regras de cert
 Validar regras na reuniao, receber materiais oficiais, aplicar o banco real, criar usuarios reais e subir uma versao temporaria para teste com pessoas reais.
 # Atualizacao Rodada 7 - Territorio E UI Premium
 O MVP agora incorpora uma camada territorial mais forte: imagens reais/licenciadas, pesquisa sobre Complexo do Alemao/Serra da Misericordia/Penha, roteiros com validacao comunitaria e dashboards mais conectados a impacto. A proposta segue demonstrativa e etica: nenhuma rota e tratada como operacao final sem validacao local.
+# Round 8 Executive Update
+- O MVP agora apresenta uma experiencia desktop mais premium, com paginas institucionais, sitemap visual e cadastros completos para apresentacao.
+- Aluno e professor tem fluxos multi-step com rascunho, revisao e confirmacao visual.
+- A navegacao publica foi ampliada e o footer virou apoio de sitemap.
+- As areas professor, guia e turista nao carregam mais contexto de aluno.
+- A plataforma continua segura para reuniao: nada foi aplicado em Supabase real nesta rodada.

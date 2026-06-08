@@ -9,7 +9,7 @@ import { tourRoutes } from "@/lib/mock-data/ecotuca";
 const sourceLabels = {
   supabase: "Base conectada",
   localStorage: "Salvo para apresentacao",
-  mock: "Modo demonstracao"
+  mock: "Referencia de apresentacao"
 };
 
 const statusLabels: Record<string, string> = {

@@ -26,7 +26,7 @@ export function ContentUploadDemo() {
     setMessage(
       result.source === "supabase"
         ? `Arquivo enviado para lesson-materials/${result.path}.`
-        : "Upload simulado para apresentacao. O arquivo oficial depende do bucket lesson-materials."
+        : "Registro de apresentacao preparado. O arquivo oficial depende da ativacao do bucket lesson-materials."
     );
   }
 
@@ -35,7 +35,7 @@ export function ContentUploadDemo() {
       <div className="flex flex-wrap gap-2">
         <Badge tone="blue">Upload PDF</Badge>
         <Badge tone={source === "supabase" ? "mint" : "yellow"}>
-          {source === "supabase" ? "Storage Supabase" : "Modo demo"}
+          {source === "supabase" ? "Storage Supabase" : "Apresentacao"}
         </Badge>
       </div>
       <label className="mt-4 block">

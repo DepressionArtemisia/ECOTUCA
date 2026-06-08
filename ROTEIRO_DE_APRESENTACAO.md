@@ -149,3 +149,13 @@ Conduza para perguntas e decisoes. Nao tente resolver todas as regras na hora.
 5. Abrir `/roteiros/serra-da-misericordia` e destacar cuidado etico, ponto confirmado pela equipe e galeria.
 6. Entrar em `/app/aluno` e mostrar progresso + territorio da semana.
 7. Fechar em `/app/admin` com indicadores para edital e prestacao de contas.
+# Round 8 Roteiro Curto
+1. "A ECOTUCA agora tem uma camada desktop mais madura e um mapa completo do MVP."
+2. Abrir `/cadastro`: "Cada perfil entra por um caminho proprio."
+3. Abrir `/cadastro/aluno`: "O cadastro salva rascunho, revisa e confirma sem criar usuario real ainda."
+4. Abrir `/sitemap`: "Este e o mapa de navegacao para equipe, parceiro e QA."
+5. Abrir `/demo-mobile`: "A experiencia PWA continua mobile-first."
+6. Abrir `/roteiros/serra-da-misericordia`: "O turismo aparece com cuidado territorial e retorno da equipe."
+7. Abrir `/app/aluno`: "O aluno acompanha trilha, aula e progresso."
+8. Abrir `/app/professor`, `/app/guia`, `/app/turista`: "Cada role tem contexto proprio."
+9. Abrir `/app/admin`: "A coordenacao enxerga indicadores, aprovacoes e proximas decisoes."

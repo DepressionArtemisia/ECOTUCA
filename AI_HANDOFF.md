@@ -153,3 +153,17 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 
 ## Next Prompt
 "After the meeting, apply reviewed Supabase SQL only if approved, create real demo Auth users with the safe script, replace official assets/content, seed UUID-backed lessons/routes, and validate real login/progress/bookings while preserving demo fallback."
+
+## Round 8 Handoff
+- Current branch: `design/round-8-desktop-cadastro-sitemap`.
+- Main new code areas:
+  - `features/signup/*`
+  - `components/forms/*`
+  - `components/content/*`
+  - `components/navigation/site-map-section.tsx`
+  - `lib/navigation/site-map.ts`
+  - new pages under `app/como-funciona`, `app/faq`, `app/contato`, `app/creditos-imagens`, `app/termos`, `app/privacidade`, `app/sitemap`, `app/mapa-do-site`.
+- Student and teacher signup are local-only presentation flows. Do not connect them to Supabase without an approved backend plan.
+- `AppShell` role context is now important. Pass `roleContext="teacher"`, `"guide"` or `"tourist"` when title inference is not enough.
+- QA passed locally after final build: routes, responsive widths, student/teacher signup, clear draft, login, player, route interest, reset demo and role context.
+- If `npm run build` appears stuck, stop the running `next start` process first.

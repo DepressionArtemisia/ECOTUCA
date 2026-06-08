@@ -33,3 +33,9 @@
 - Fazer teste manual completo de teclado em `/demo`, `/roteiros`, detalhe, formulario, player e reset.
 - Criar pagina publica de creditos quando o projeto sair de MVP.
 - Revisar contraste final apos validacao visual de Bruno.
+# Round 8 Accessibility Addendum
+- New signup fields use visible labels and required gating before advancing.
+- Review cards expose submitted values in `dl` structures.
+- Mobile menu uses native `details/summary` for keyboard-compatible disclosure.
+- Sitemap cards are ordinary links with descriptive text.
+- Remaining work: legal pages need final plain-language review and forms need server-side validation before real submission.

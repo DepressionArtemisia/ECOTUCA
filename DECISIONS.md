@@ -38,3 +38,11 @@ This round is visual polish only. No SQL application, no real Auth user creation
 - Imagens de moradores identificaveis, violencia, operacao policial ou pobreza como apelo visual nao entram no produto.
 - O app pode usar imagens Wikimedia Commons/CC com credito documentado, mas deve priorizar acervo proprio/oficial quando disponivel.
 - Teleferico do Alemao aparece apenas como memoria/mobilidade/contexto enquanto a operacao ativa nao estiver validada para turismo.
+# Round 8 Decisions
+- Kept Supabase untouched: no SQL, no Auth user creation, no Storage mutation and no `.env.local` edits.
+- Implemented student/teacher signup as client-side presentation flows with local draft keys `ecotuca:signup:student` and `ecotuca:signup:teacher`.
+- Centralized sitemap/nav data in `lib/navigation/site-map.ts` so visual sitemap, XML sitemap and footer can stay aligned.
+- Added role-aware `AppShell` contexts rather than creating separate shells for teacher/guide/tourist in this round.
+- Chose simple institutional pages with premium editorial sections now; final legal/copy review remains a post-meeting task.
+- Fixed date/input robustness in signup by listening to both `input` and `change` events.
+- Stopped `next start` before builds on Windows because a live server can hold `.next` and make `next build` appear hung.

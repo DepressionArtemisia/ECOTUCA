@@ -23,7 +23,23 @@ npm run build
 - `/demo/status`
 - `/demo-mobile`
 - `/login`
+- `/cadastro`
+- `/cadastro/aluno`
+- `/cadastro/professor`
+- `/cadastro/guia`
+- `/cadastro/turista`
+- `/sitemap`
+- `/mapa-do-site`
+- `/como-funciona`
+- `/faq`
+- `/contato`
+- `/creditos-imagens`
+- `/termos`
+- `/privacidade`
 - `/app/aluno`
+- `/app/professor`
+- `/app/guia`
+- `/app/turista`
 - `/app/admin`
 - `/roteiros/serra-da-misericordia`
 
@@ -51,3 +67,9 @@ Use [http://localhost:3020/demo](http://localhost:3020/demo) for the guided pres
 
 ## Round 6 Brand Note
 Round 6 extracted real ECOTUCA/Perifa logo PNGs from the correct identity manual and wired `OfficialLogo` to prefer `public/brand/official/from-manual/png/`. Round 5 lockups now live in `public/brand/temporary-lockups/` as fallback only. Production should still request designer-approved SVG/AI/PDF vector assets.
+
+## Round 8 Desktop/Cadastro/Sitemap
+- Desktop editorial utilities and premium page sections were added.
+- Student/teacher signup flows are multi-step, local-only and documented in `docs/forms/SIGNUP_FLOW_SPEC.md`.
+- Sitemap structure is documented in `docs/navigation/SITEMAP_STRUCTURE.md`.
+- Round report: `docs/progress-reports/STEP_18_ROUND_8_DESKTOP_CADASTRO_SITEMAP.md`.

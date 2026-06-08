@@ -17,8 +17,10 @@ const demoCards = [
   { title: "Entrar como Aluno", href: "/app/aluno", icon: GraduationCap, tone: "mint" as const, user: "aluno@ecotuca.local", show: "Dashboard, jornada, trilhas e video retomado." },
   { title: "Entrar como Professor", href: "/app/professor", icon: BookOpen, tone: "blue" as const, user: "professora@ecotuca.local", show: "Turmas, conteudos e comunidade pedagogica." },
   { title: "Entrar como Guia", href: "/app/guia", icon: MapPinned, tone: "orange" as const, user: "guia@ecotuca.local", show: "Perfil, certificados, roteiros e agenda." },
-  { title: "Entrar como Turista", href: "/app/turista", icon: Smartphone, tone: "coral" as const, user: "turista@ecotuca.local", show: "Roteiros favoritos e reservas simuladas." },
+  { title: "Entrar como Turista", href: "/app/turista", icon: Smartphone, tone: "coral" as const, user: "turista@ecotuca.local", show: "Roteiros favoritos e solicitacoes de visita." },
   { title: "Entrar como Admin", href: "/app/admin", icon: BarChart3, tone: "blue" as const, user: "admin@ecotuca.local", show: "Aprovacoes, metricas e relatorios." },
+  { title: "Ver Cadastros", href: "/cadastro", icon: UserRound, tone: "yellow" as const, user: "Apresentacao", show: "Escolha de perfil, aluno/professor em etapas e revisao." },
+  { title: "Mapa do Site", href: "/sitemap", icon: MapPinned, tone: "mint" as const, user: "Apresentacao", show: "Todos os caminhos do MVP em uma unica pagina." },
   { title: "Ver Demo Mobile", href: "/demo-mobile", icon: Smartphone, tone: "mint" as const, user: "Apresentacao", show: "App em moldura de celular com telas alternaveis." },
   { title: "Ver Roteiro", href: "/roteiros/serra-da-misericordia", icon: MapPinned, tone: "yellow" as const, user: "Visitante/Turista", show: "Detalhe, guia, seguranca e interesse." },
   { title: "Ver Impacto", href: "/app/admin/metricas", icon: BarChart3, tone: "coral" as const, user: "admin@ecotuca.local", show: "Indicadores e exportacao CSV de demonstracao." }
@@ -53,7 +55,7 @@ export default function DemoPage() {
             className="relative mt-5 max-w-3xl"
             items={[
               { label: "perfis navegaveis", value: "6" },
-              { label: "fluxo sugerido", value: "12 passos" },
+              { label: "fluxo sugerido", value: "13 passos" },
               { label: "modo seguro", value: "ativo" }
             ]}
           />
@@ -67,6 +69,9 @@ export default function DemoPage() {
             </Link>
             <Link href="/demo-mobile">
               <EcoButton variant="mint">Abrir mobile</EcoButton>
+            </Link>
+            <Link href="/sitemap">
+              <EcoButton variant="blue">Mapa do site</EcoButton>
             </Link>
             <FullscreenButton />
             <ResetDemoDataButton />
@@ -86,12 +91,15 @@ export default function DemoPage() {
               <Link href="/roteiros/serra-da-misericordia">
                 <EcoButton variant="outline">Roteiro exemplo</EcoButton>
               </Link>
+              <Link href="/cadastro/aluno">
+                <EcoButton variant="mint">Cadastro aluno</EcoButton>
+              </Link>
             </div>
           </PerifaCard>
           <PerifaCard tone="yellow">
             <Badge tone="coral">Roteiro recomendado</Badge>
             <p className="mt-4 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-              Home publica, demo mobile, roteiro turistico, aluno, aula com progresso, professor, guia, admin e status tecnico discreto.
+              Home publica, cadastro, demo mobile, roteiro turistico, aluno, aula com progresso, professor, guia, admin e status tecnico discreto.
             </p>
             <Link href="/app/aluno" className="mt-5 inline-block">
               <EcoButton variant="mint">Seguir fluxo do aluno</EcoButton>
@@ -124,6 +132,7 @@ export default function DemoPage() {
             <ol className="mt-4 space-y-3 text-sm font-bold">
               {[
                 "Abrir home publica.",
+                "Mostrar cadastro de aluno.",
                 "Mostrar app mobile.",
                 "Mostrar roteiro turistico.",
                 "Enviar solicitacao de interesse.",

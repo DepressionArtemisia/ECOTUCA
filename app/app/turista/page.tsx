@@ -8,7 +8,7 @@ import { tourRoutes } from "@/lib/mock-data/ecotuca";
 
 export default function TouristPage() {
   return (
-    <AppShell title="Area do turista">
+    <AppShell title="Area do turista" roleContext="tourist">
       <section className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
           <Image
@@ -35,6 +35,18 @@ export default function TouristPage() {
               <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
                 Agenda, guia, ponto de encontro e cuidados sao confirmados antes da visita.
               </p>
+            </PerifaCard>
+          ))}
+        </div>
+        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+          {[
+            ["Antes da visita", "Leia orientacoes, combine horario e entenda a proposta comunitaria."],
+            ["Durante o roteiro", "Siga o guia, respeite moradores, imagens e areas sensiveis."],
+            ["Depois", "Registre retorno, avalie a experiencia e apoie a continuidade do projeto."]
+          ].map(([item, text]) => (
+            <PerifaCard key={item} tone="yellow">
+              <h2 className="brand-display text-3xl">{item}</h2>
+              <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{text}</p>
             </PerifaCard>
           ))}
         </div>

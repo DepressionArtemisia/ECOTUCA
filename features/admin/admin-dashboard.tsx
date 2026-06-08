@@ -88,6 +88,20 @@ export function AdminDashboard() {
         </div>
       </section>
 
+      <section className="grid gap-4 lg:grid-cols-4">
+        {[
+          ["Banco real", "Aplicar SQL, RLS e seeds somente depois da validacao aprovada."],
+          ["Usuarios", "Criar Auth real para perfis aprovados e manter apresentacao separada."],
+          ["Operacao", "Definir agenda, preco, seguro, autorizacao de imagem e fluxo de visita."],
+          ["Identidade", "Substituir logos/imagens por pacote oficial quando enviado."]
+        ].map(([item, text]) => (
+          <PerifaCard key={item} tone="mint">
+            <h2 className="brand-display text-3xl">{item}</h2>
+            <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{text}</p>
+          </PerifaCard>
+        ))}
+      </section>
+
       <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,.8fr)]">
         <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

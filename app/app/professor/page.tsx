@@ -3,7 +3,7 @@ import { TeacherDashboard } from "@/features/teacher/teacher-dashboard";
 
 export default function TeacherPage() {
   return (
-    <AppShell title="Professor">
+    <AppShell title="Professor" roleContext="teacher">
       <TeacherDashboard />
     </AppShell>
   );

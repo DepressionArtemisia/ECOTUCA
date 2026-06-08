@@ -55,7 +55,7 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
         <Badge tone="yellow">Solicitacao recebida</Badge>
         <div className="mt-3">
           <Badge tone={savedBooking?.source === "supabase" ? "mint" : "coral"}>
-            {savedBooking?.source === "supabase" ? "Registro conectado" : "Registro de demonstracao"}
+            {savedBooking?.source === "supabase" ? "Registro conectado" : "Registro da apresentacao"}
           </Badge>
         </div>
         <h2 className="brand-display mt-4 text-4xl">Equipe ECOTUCA acionada</h2>

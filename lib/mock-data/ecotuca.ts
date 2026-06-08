@@ -47,7 +47,7 @@ export const demoUsers: DemoUser[] = [
     password: "Demo@123456",
     role: "guide",
     status: "approved",
-    highlight: "Perfil publico, especialidades e agenda simulada."
+    highlight: "Perfil publico, especialidades e agenda em validacao."
   },
   {
     name: "Camila Ferreira",
@@ -445,7 +445,7 @@ export const adminMetrics: Metric[] = [
   { label: "Leads de turistas", value: "31", detail: "modo demonstracao", tone: "coral" },
   { label: "Certificados emitidos", value: "18", detail: "demonstracao", tone: "yellow" },
   { label: "Taxa de conclusao", value: "68%", detail: "trilha Guia Local", tone: "mint" },
-  { label: "Horas estudadas", value: "1.340h", detail: "dados simulados", tone: "blue" },
+  { label: "Horas estudadas", value: "1.340h", detail: "dados de demonstracao", tone: "blue" },
   { label: "Potencial de renda", value: "R$ 9,8k", detail: "por solicitacoes", tone: "mint" }
 ];
 

@@ -1,9 +1,16 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import { PublicShell } from "@/components/layout/public-shell";
 import { BrandPattern } from "@/components/brand/brand-pattern";
 import { OfficialLogo } from "@/components/brand/official-logo";
 import { Badge } from "@/components/ui/badge";
+import { PerifaCard } from "@/components/brand/perifa-card";
 import { RouteBrowser } from "@/features/routes/route-browser";
+
+export const metadata: Metadata = {
+  title: "Roteiros | ECOTUCA / Perifa Ecotour",
+  description: "Roteiros territoriais, ambientais e educativos conectados ao Complexo do Alemao, Serra da Misericordia e Perifa Ecotour."
+};
 
 export default function RoutesPage() {
   return (
@@ -31,6 +38,18 @@ export default function RoutesPage() {
           </p>
           <div className="mt-8">
             <RouteBrowser />
+          </div>
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {[
+              ["Cuidado territorial", "Roteiros precisam de validacao local, respeito a moradores e orientacao de imagem."],
+              ["Experiencia educativa", "Cada visita carrega leitura ambiental, memoria, cultura e Agenda 2030."],
+              ["Guia formado", "A vitrine aproxima o visitante de jovens e guias preparados pela ECOTUCA."]
+            ].map(([title, text]) => (
+              <PerifaCard key={title} tone="orange">
+                <h2 className="brand-display text-3xl">{title}</h2>
+                <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{text}</p>
+              </PerifaCard>
+            ))}
           </div>
         </div>
       </section>

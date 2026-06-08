@@ -81,3 +81,8 @@ Status: concluido em producao e local antes da reuniao.
 - Breakpoints: `320`, `390`, `1024`, `1440`.
 - Checks: 28 combinacoes.
 - Resultado: sem problemas encontrados.
+# Round 8 Responsive Addendum
+- Browser QA covered widths `320`, `360`, `390`, `414`, `768`, `1024`, `1280`, `1440`, `1920`.
+- Checked critical pages: `/`, `/cadastro`, `/cadastro/aluno`, `/sitemap`, `/demo-mobile`, `/app/professor`.
+- Result: 54 route/breakpoint checks with no horizontal overflow.
+- New desktop utilities use CSS grid with mobile-first fallbacks and sticky asides only from `1024px`.
