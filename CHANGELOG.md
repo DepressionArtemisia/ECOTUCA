@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-06-08
+- Created checkpoint `3dd3b40` and switched to `design/territory-real-images-premium-ui`.
+- Audited `https://ecotuca.vercel.app` and documented route-by-route findings.
+- Researched Complexo do Alemao, Serra da Misericordia, Penha, Teleferico memory/reactivation and territorial ethics.
+- Added licensed/credited territory images under `public/media/territory/`.
+- Added `types/media.ts` and `lib/mock-data/media-assets.ts`.
+- Reworked demo route data with validation status, ethical notes, long descriptions, galleries and real image refs.
+- Redesigned Home, Demo, Demo Mobile, Roteiros, Route Detail, Student, Lesson, Professor, Guide, Tourist and Admin surfaces with territorial image/storytelling layer.
+- Removed public-facing "seguro simulado" language from route data.
+- Stabilized `DataSourceBadge` initial status to reduce hydration mismatch risk.
+- Ran `npm run lint` successfully after code changes.
+- Adjusted `PhoneMockup` for 320px/360px presentation widths after browser QA.
+- Ran `npm run build` successfully after final code changes.
+- Ran browser QA across 126 route/viewport combinations with no real horizontal overflow, no visible broken images and no visible missing/empty alt text.
+- Tested key interactions: theme toggle, demo mobile tabs, route search filter, route interest form, player start/reset, reset demo, login demo and logout.
+- Deployed Round 7 to Vercel production as `dpl_Fxvu9q6Xbx5RkjDvkMjsuHg8GwQW`; alias `https://ecotuca.vercel.app` verified with HTTP 200 on all required routes.
+
 ## 2026-06-07
 - Saved local credentials in `.env.local`.
 - Protected env files in `.gitignore`.

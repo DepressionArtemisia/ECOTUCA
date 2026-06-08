@@ -15,7 +15,7 @@ export function getDataSourceStatusSync(): DataSourceStatus {
     supabaseConfigured,
     supabaseReachable: undefined,
     usingFallback: true,
-    localStorageActive: typeof window !== "undefined",
+    localStorageActive: false,
     label: supabaseConfigured ? "Modo demo" : "Fallback local"
   };
 }

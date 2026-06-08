@@ -128,7 +128,7 @@ export function EcoVideoPlayer({
             <p className="mt-1 text-sm text-brand-cream/75">Voce parou em {secondsToTime(seconds)} de {secondsToTime(durationSeconds)}.</p>
             <div className="mt-2">
               <Badge tone={progressSource === "supabase" ? "mint" : "yellow"}>
-                {progressSource === "supabase" ? "Base conectada + progresso local" : "Progresso salvo nesta demo"}
+                {progressSource === "supabase" ? "Base conectada + avanco local" : "Seu avanco fica salvo para continuar depois"}
               </Badge>
             </div>
           </div>

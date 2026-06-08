@@ -65,3 +65,9 @@ Senha de todos: `Demo@123456`.
 - Mock/local: dashboards/metricas, IDs mock de aulas/roteiros, videos placeholders e dados de apresentacao.
 - Pendente: aplicar SQL revisado, criar Auth users reais e seedar aulas/roteiros com UUIDs reais.
 - Ordem sugerida atualizada: `/demo` -> `/demo/status` -> `/` -> `/demo-mobile` -> `/roteiros/serra-da-misericordia` -> `/app/aluno` -> `/app/aluno/aulas/aula-guia-01` -> `/app/professor` -> `/app/admin`.
+# Round 7 Presentation Note
+- Open with the new Home hero and say the app now connects formacao, territorio and ecoturismo with real territorial imagery.
+- Explain that routes are intentionally marked as demonstrative/validation mode to avoid promising unvalidated operations.
+- Show `/demo-mobile` after Home to prove the MVP can feel like a real installed app.
+- Show `/roteiros/serra-da-misericordia` and highlight "Por que este roteiro importa" and "Validacao e cuidado".
+- Close in `/app/admin` with "Indicadores para edital".

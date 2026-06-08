@@ -1,5 +1,14 @@
 # Design System
 
+## Round 7 Territory And Real Image Layer
+- Public and route surfaces now use real/licensed territorial images cataloged in `lib/mock-data/media-assets.ts`.
+- Image credits and licenses live in `docs/media/IMAGE_CREDITS.md` and `docs/media/IMAGE_LICENSES.md`.
+- Route data now carries validation status, ethical notes, `coverAlt`, long narrative and visitor experience fields.
+- Mandatory route badge language: `roteiro demonstrativo`, `validacao comunitaria` or `demo premium` until local validation is complete.
+- Do not present Teleferico do Alemao as active tourism. It may appear only as memory/mobility context unless operation is officially validated.
+- Do not use images of violence, police operations, poverty as visual appeal, or identifiable residents without consent.
+- Known asset gap: a specific, licensed, high-quality Serra da Misericordia image still needs to be provided or approved.
+
 ## Brand Manual
 PDF: `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf`.
 

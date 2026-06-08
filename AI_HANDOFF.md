@@ -1,5 +1,22 @@
 # AI Handoff
 
+## Round 7 Completed Locally / Ready To Deploy
+- Active branch: `design/territory-real-images-premium-ui`.
+- Checkpoint before the round: `3dd3b40 checkpoint: before deep design territory audit`.
+- Do not apply SQL, do not create real Auth users, do not touch service role.
+- New media model: `types/media.ts`.
+- New image catalog: `lib/mock-data/media-assets.ts`.
+- New local image folders: `public/media/territory/*`.
+- Main docs: `docs/design/VERCEL_SITE_DEEP_AUDIT.md`, `docs/research/COMPLEXO_ALEMAO_TERRITORY_RESEARCH.md`, `docs/media/*`, `docs/progress-reports/STEP_16_ROUND_7_TERRITORY_PREMIUM_UI.md`.
+- Route model now has required fields such as `subtitle`, `longDescription`, `coverAlt`, `mediaAssetIds`, `validationStatus`, `whyItMatters`, `visitorExperience` and `careNotes`.
+- If adding Supabase-backed routes later, map/fallback these new fields before passing data to `RouteCard`.
+- `npm run lint` passed after final code edits.
+- `npm run build` passed after final code edits, generating 36 routes.
+- Browser QA passed across 126 route/viewport combinations: 14 required routes x 9 viewports (`320`, `360`, `390`, `414`, `768`, `1024`, `1280`, `1440`, `1920`).
+- Browser interactions passed: theme toggle, demo mobile tab switch, route search filter, route interest form, player start/reset, reset demo, login demo and logout.
+- Deployment completed: `dpl_Fxvu9q6Xbx5RkjDvkMjsuHg8GwQW`, aliased to `https://ecotuca.vercel.app`.
+- Remote HTTP verification passed for all 14 required routes after deployment.
+
 ## Current State
 Root: `C:\Users\barbo\OneDrive\Área de Trabalho\PROJETOS\ECOTUCA`.
 
@@ -66,6 +83,11 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - Reset demo data now uses an inline two-click confirmation instead of `window.confirm`.
 
 ## Verification
+- Round 7 `npm run lint`: passed.
+- Round 7 `npm run build`: passed, 36 routes.
+- Round 7 browser QA: 126 route/breakpoint combinations passed with no real horizontal overflow, no visible broken images and no visible missing/empty alt text.
+- Round 7 browser interactions passed: theme toggle, demo mobile tabs, route filter, route interest form, player start/reset, reset demo, login demo and logout.
+- Round 7 Vercel deploy passed and 14 production routes returned HTTP 200.
 - `npm run lint`: passed.
 - `npm run build`: passed.
 - Round 6 browser QA: 84 route/breakpoint combinations passed at 320, 390, 414, 768, 1024 and 1440 with no overflow, no broken images and `from-manual` logos detected.

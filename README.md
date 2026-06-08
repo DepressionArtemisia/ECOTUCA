@@ -2,6 +2,13 @@
 
 Professional navigable MVP for an ecotourism school and mobile route showcase connected to youth training, sustainable tourism, Agenda 2030 and impact reporting in the Complexo do Alemao.
 
+## Round 7 Territory UI
+- Public site audited at `https://ecotuca.vercel.app`.
+- Territory research: `docs/research/COMPLEXO_ALEMAO_TERRITORY_RESEARCH.md`.
+- Image credits/licensing: `docs/media/IMAGE_CREDITS.md` and `docs/media/IMAGE_LICENSES.md`.
+- Media catalog: `lib/mock-data/media-assets.ts`.
+- Routes now include validation status and ethical notes before any operation is treated as final.
+
 ## Commands
 ```bash
 npm install

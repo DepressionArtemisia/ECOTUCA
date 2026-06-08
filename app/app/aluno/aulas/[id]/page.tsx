@@ -21,10 +21,10 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
         </div>
         <EcoVideoPlayer lessonId={lesson.id} title={lesson.title} videoId={lesson.videoId} durationSeconds={lesson.durationMinutes * 60} />
         <PerifaCard tone="mint">
-          <h2 className="text-xl font-black">Texto de apoio</h2>
+          <h2 className="text-xl font-black">Aprendizado aplicado ao territorio</h2>
           <p className="mt-2 text-brand-brown/75 dark:text-brand-cream/75">{lesson.supportText}</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            {["Assistir video", "Baixar material PDF", "Responder checklist"].map((item, index) => (
+            {["Assistir video", "Baixar material PDF", "Responder checklist de campo"].map((item, index) => (
               <div key={item} className="rounded-lg bg-brand-warm p-3 text-sm font-black text-brand-brown">
                 {index + 1}. {item}
               </div>

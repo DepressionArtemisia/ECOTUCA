@@ -8,7 +8,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
   return (
     <article className="brand-card brand-card-hover p-5 dark:bg-brand-dark-soft/90">
       <div className="flex items-center gap-4">
-        <Image src={guide.avatar} alt="" width={64} height={64} className="h-16 w-16 rounded-lg border-4 border-brand-yellow object-cover" />
+        <Image src={guide.avatar} alt={`Identidade visual temporaria do perfil de ${guide.name}`} width={64} height={64} className="h-16 w-16 rounded-lg border-4 border-brand-yellow object-cover" />
         <div className="min-w-0">
           <h3 className="text-xl font-black">{guide.name}</h3>
           <p className="inline-flex items-center gap-1 text-sm font-black text-brand-orange">

@@ -32,3 +32,9 @@ The correct manual, `MANUAL DE IDENTIDADE VISUAL - PERIFA ECOTOUR.pdf`, was conf
 
 ## 2026-06-07 - Round 5 Design Scope
 This round is visual polish only. No SQL application, no real Auth user creation and no major data architecture refactor. Shared components and shells are preferred so presentation routes improve together.
+# Round 7 Decisions
+- Roteiros demonstrativos nao serao apresentados como operacao final sem validacao comunitaria.
+- Pontos de encontro finais nao serao expostos publicamente antes de confirmacao da equipe.
+- Imagens de moradores identificaveis, violencia, operacao policial ou pobreza como apelo visual nao entram no produto.
+- O app pode usar imagens Wikimedia Commons/CC com credito documentado, mas deve priorizar acervo proprio/oficial quando disponivel.
+- Teleferico do Alemao aparece apenas como memoria/mobilidade/contexto enquanto a operacao ativa nao estiver validada para turismo.

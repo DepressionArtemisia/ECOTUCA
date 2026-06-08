@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Award, Bell, BookOpen, CheckCircle2, Flame, PlayCircle, TimerReset } from "lucide-react";
+import Image from "next/image";
+import { Award, Bell, BookOpen, CheckCircle2, Flame, MapPinned, PlayCircle, TimerReset } from "lucide-react";
 import { EcoButton } from "@/components/brand/eco-button";
 import { BrandPattern } from "@/components/brand/brand-pattern";
 import { EcotucaOrb } from "@/components/brand/ecotuca-orb";
@@ -78,7 +79,7 @@ export function StudentDashboard() {
           </p>
           <h2 className="brand-display mt-4 text-4xl">{currentLesson.title}</h2>
           <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-            Ultimo video assistido. Progresso salvo por usuario e aula no navegador.
+            Seu avanco fica salvo para continuar depois.
           </p>
           <Link href={`/app/aluno/aulas/${currentLesson.id}`} className="mt-5 inline-block">
             <EcoButton variant="mint"><PlayCircle size={17} />Retomar aula</EcoButton>
@@ -135,6 +136,25 @@ export function StudentDashboard() {
                 <li key={activity} className="rounded-lg bg-white/75 p-3 dark:bg-white/10">{activity}</li>
               ))}
             </ul>
+          </PerifaCard>
+          <PerifaCard tone="mint">
+            <p className="inline-flex items-center gap-2 text-sm font-black uppercase text-brand-blue">
+              <MapPinned size={16} />
+              Territorio da semana
+            </p>
+            <div className="relative mt-4 aspect-[4/3] overflow-hidden rounded-lg">
+              <Image
+                src="/media/territory/complexo-alemao/visao-do-complexo-thirson-cc-by-sa-4.jpg"
+                alt="Vista do Complexo do Alemao para estudo de leitura territorial"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+              />
+            </div>
+            <h3 className="brand-display mt-4 text-3xl">Leitura de paisagem</h3>
+            <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
+              Observe morro, cidade, acessos, areas verdes e pontos de memoria antes da aula pratica.
+            </p>
           </PerifaCard>
         </div>
       </section>

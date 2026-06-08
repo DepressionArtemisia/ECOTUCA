@@ -41,3 +41,7 @@ Identidade visual incorporada no Tailwind e componentes; logos reais foram extra
 - PNGs reais extraidos de paginas 4, 5, 6 e 11 para `public/brand/official/from-manual/png/`.
 - Contact sheet criado em `docs/brand/extraction/logo-contact-sheet.png`.
 - `OfficialLogo` prioriza `from-manual` e usa lockups temporarios apenas como fallback.
+# Round 7 Addendum
+- Design system now includes territorial media rules: licensed images only, descriptive alt, documented credits and no exploitative imagery.
+- Roteiros use validation badges and ethical notes as part of the UI language.
+- Official logo handling remains centralized in `components/brand/official-logo.tsx`.

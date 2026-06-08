@@ -53,7 +53,8 @@ export function RouteBrowser() {
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <Badge tone="yellow"><SlidersHorizontal size={14} /> {routes.length} roteiros</Badge>
           <Badge tone="mint">mais procurado: Serra da Misericordia</Badge>
-          <Badge tone="orange">mobile-first</Badge>
+          <Badge tone="orange">roteiros sujeitos a validacao local</Badge>
+          <Badge tone="blue">imagens licenciadas</Badge>
         </div>
       </div>
 
@@ -61,6 +62,14 @@ export function RouteBrowser() {
         {routes.map((route) => (
           <RouteCard key={route.slug} route={route} />
         ))}
+        {routes.length === 0 && (
+          <div className="brand-card p-6 dark:bg-brand-dark-soft/90 md:col-span-2 xl:col-span-3">
+            <h2 className="brand-display text-3xl">Nenhum roteiro encontrado</h2>
+            <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
+              Ajuste os filtros ou busque por territorio, Penha, Serra, juventude ou impacto.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

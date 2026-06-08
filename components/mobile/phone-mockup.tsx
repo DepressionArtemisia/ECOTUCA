@@ -19,12 +19,12 @@ export function PhoneMockup() {
   const guide = guides[0];
 
   return (
-    <section className="grid gap-6 lg:grid-cols-[.75fr_1fr] lg:items-center">
-      <div className="space-y-3">
+    <section className="grid min-w-0 gap-6 overflow-hidden lg:grid-cols-[.75fr_1fr] lg:items-center">
+      <div className="min-w-0 space-y-3">
         <p className="text-sm font-black uppercase text-brand-coral">Visualizacao mobile</p>
-        <h1 className="brand-display text-5xl text-brand-brown dark:text-brand-yellow">App com cara de produto real</h1>
+        <h1 className="brand-display text-4xl text-brand-brown dark:text-brand-yellow sm:text-5xl">App com cara de produto real</h1>
         <p className="max-w-xl text-brand-brown/75 dark:text-brand-cream/75">
-          Navegue entre telas para mostrar turista, guia, aluno e videoaula dentro de uma moldura de celular.
+          Navegue entre telas para mostrar turista, guia, aluno e videoaula com imagens reais do territorio e linguagem de produto pronto para evoluir.
         </p>
         <div className="flex flex-wrap gap-2">
           {screens.map((item) => (
@@ -46,44 +46,58 @@ export function PhoneMockup() {
         </Link>
       </div>
 
-      <div className="mx-auto w-full max-w-sm rounded-mobile border-[10px] border-brand-brown bg-brand-brown p-3 shadow-mobile">
-        <div className="relative h-[680px] max-h-[78vh] min-h-[560px] overflow-hidden rounded-[1.45rem] bg-brand-cream text-brand-brown">
-          <div className="flex items-center justify-between bg-brand-yellow px-5 pb-3 pt-4">
-            <OfficialLogo variant="horizontal" size="sm" />
+      <div className="mx-auto w-full min-w-0 max-w-[19rem] rounded-mobile border-8 border-brand-brown bg-brand-brown p-2 shadow-mobile sm:max-w-sm sm:border-[12px] sm:p-3">
+        <div className="relative h-[640px] max-h-[78vh] min-h-[540px] overflow-hidden rounded-[1.35rem] bg-brand-cream text-brand-brown sm:h-[680px] sm:min-h-[560px] sm:rounded-[1.45rem]">
+          <div className="flex items-center justify-between bg-brand-yellow px-5 py-2 text-[10px] font-black">
+            <span>09:41</span>
             <span className="h-3 w-16 rounded-lg bg-brand-brown/80" />
           </div>
-          <div className="h-[calc(100%-132px)] overflow-y-auto px-4 pb-6 pt-4">
+          <div className="flex items-center justify-between bg-brand-yellow px-5 pb-3 pt-2">
+            <OfficialLogo variant="horizontal" size="sm" />
+            <Badge tone="brown">demo</Badge>
+          </div>
+          <div className="h-[calc(100%-148px)] overflow-y-auto px-4 pb-6 pt-4 transition duration-300">
             {screen === "Home mobile" && (
               <div className="space-y-4">
-                <div className="rounded-lg bg-brand-brown p-4 text-brand-cream">
-                  <Badge tone="mint">Perifa Ecotour</Badge>
-                  <h2 className="brand-display mt-3 text-4xl text-brand-yellow">Explore o territorio</h2>
-                  <p className="mt-2 text-sm text-brand-cream/80">Roteiros, guias e formacao em um app mobile-first.</p>
+                <div className="relative overflow-hidden rounded-lg bg-brand-brown p-4 text-brand-cream">
+                  <Image
+                    src={route.coverUrl}
+                    alt={route.coverAlt}
+                    fill
+                    className="object-cover opacity-30"
+                    sizes="320px"
+                  />
+                  <div className="relative">
+                    <Badge tone="mint">Perifa Ecotour</Badge>
+                    <h2 className="brand-display mt-3 text-4xl text-brand-yellow">Explore o territorio</h2>
+                    <p className="mt-2 text-sm text-brand-cream/80">Roteiros, guias e formacao em um app mobile-first.</p>
+                  </div>
                 </div>
                 {tourRoutes.slice(0, 2).map((item) => (
-                  <RouteMini key={item.slug} title={item.title} image={item.coverUrl} />
+                  <RouteMini key={item.slug} title={item.title} image={item.coverUrl} alt={item.coverAlt} slug={item.slug} />
                 ))}
               </div>
             )}
             {screen === "Roteiros" && (
               <div className="space-y-3">
                 {tourRoutes.map((item) => (
-                  <RouteMini key={item.slug} title={item.title} image={item.coverUrl} />
+                  <RouteMini key={item.slug} title={item.title} image={item.coverUrl} alt={item.coverAlt} slug={item.slug} />
                 ))}
               </div>
             )}
             {screen === "Detalhe" && (
               <div className="space-y-4">
-                <Image src={route.coverUrl} alt="" width={360} height={230} className="rounded-lg object-cover" />
+                <Image src={route.coverUrl} alt={route.coverAlt} width={360} height={230} className="rounded-lg object-cover" />
                 <Badge tone="yellow">R$ {route.price}</Badge>
                 <h2 className="brand-display text-4xl">{route.title}</h2>
                 <p className="text-sm">{route.description}</p>
+                <p className="rounded-lg bg-brand-yellow/45 p-3 text-xs font-black">{route.validationNote}</p>
                 <EcoButton variant="mint">Tenho interesse</EcoButton>
               </div>
             )}
             {screen === "Guia" && (
               <div className="space-y-4">
-                <Image src={guide.avatar} alt="" width={96} height={96} className="rounded-lg" />
+                <Image src={guide.avatar} alt={`Simbolo temporario do perfil de ${guide.name}`} width={96} height={96} className="rounded-lg" />
                 <h2 className="brand-display text-4xl">{guide.name}</h2>
                 <p className="text-sm">{guide.bio}</p>
                 <div className="flex flex-wrap gap-2">{guide.certificates.map((item) => <Badge key={item} tone="blue">{item}</Badge>)}</div>
@@ -93,7 +107,7 @@ export function PhoneMockup() {
               <div className="space-y-3">
                 <Badge tone="mint">Solicitacao enviada</Badge>
                 <h2 className="brand-display text-4xl">Equipe ECOTUCA acionada</h2>
-                <p className="text-sm font-bold">A equipe entrara em contato para confirmar agenda, guia e seguranca.</p>
+                <p className="text-sm font-bold">A equipe entrara em contato para confirmar agenda, guia, ponto de encontro e orientacoes de preparo.</p>
                 {["Nome", "Telefone", "Data preferida", "Pessoas"].map((field) => (
                   <div key={field} className="rounded-lg border border-brand-brown/15 bg-white p-3 text-sm font-bold">{field}</div>
                 ))}
@@ -154,10 +168,10 @@ export function PhoneMockup() {
   );
 }
 
-function RouteMini({ title, image }: { title: string; image: string }) {
+function RouteMini({ title, image, alt, slug }: { title: string; image: string; alt: string; slug: string }) {
   return (
-    <Link href="/roteiros/serra-da-misericordia" className="flex items-center gap-3 rounded-lg bg-white p-3 shadow-brand">
-      <Image src={image} alt="" width={78} height={78} className="h-20 w-20 rounded-lg object-cover" />
+    <Link href={`/roteiros/${slug}`} className="flex items-center gap-3 rounded-lg bg-white p-3 shadow-brand transition hover:-translate-y-0.5">
+      <Image src={image} alt={alt} width={78} height={78} className="h-20 w-20 rounded-lg object-cover" />
       <div className="min-w-0 flex-1">
         <p className="truncate font-black">{title}</p>
         <p className="mt-1 flex items-center gap-1 text-xs font-bold text-brand-brown/70"><MapPinned size={13} />Complexo do Alemao</p>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { BookOpen, FileUp, MessageCircle, UsersRound } from "lucide-react";
 import { OfficialLogo } from "@/components/brand/official-logo";
 import { PerifaCard } from "@/components/brand/perifa-card";
@@ -8,21 +9,31 @@ import { forumTopics, learningTracks } from "@/lib/mock-data/ecotuca";
 export function TeacherDashboard() {
   return (
     <section className="mx-auto max-w-7xl space-y-6">
-      <div className="rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
-        <OfficialLogo variant="horizontal" tone="negative" size="md" />
-        <div className="mt-5">
-          <Badge tone="yellow">Professor</Badge>
+      <div className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
+        <Image
+          src="/media/territory/complexo-alemao/complexo-alemao-panorama-acediscovery-cc-by-4.jpg"
+          alt="Vista do Complexo do Alemao usada como contexto pedagogico"
+          fill
+          className="object-cover opacity-[.18]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-brown via-brand-brown/88 to-brand-blue/45" />
+        <div className="relative">
+          <OfficialLogo variant="horizontal" tone="negative" size="md" />
         </div>
-        <h1 className="brand-display mt-4 text-5xl text-brand-yellow">Prof. Mariana Costa</h1>
-        <p className="mt-3 max-w-2xl text-brand-cream/80">
-          Acompanhe turmas, publique materiais e responda duvidas da comunidade ECOTUCA.
+        <div className="relative mt-5">
+          <Badge tone="yellow">Professor facilitador</Badge>
+        </div>
+        <h1 className="brand-display relative mt-4 text-5xl text-brand-yellow">Prof. Mariana Costa</h1>
+        <p className="relative mt-3 max-w-2xl text-brand-cream/80">
+          Acompanhe turmas, publique materiais, responda duvidas e conecte cada conteudo ao territorio.
         </p>
       </div>
       <div className="grid gap-4 md:grid-cols-4">
         <PerifaCard tone="yellow"><UsersRound size={26} /><p className="mt-3 text-3xl font-black">3 turmas</p><p className="text-sm">128 alunos</p></PerifaCard>
         <PerifaCard tone="mint"><BookOpen size={26} /><p className="mt-3 text-3xl font-black">18 aulas</p><p className="text-sm">12 publicadas</p></PerifaCard>
         <PerifaCard tone="coral"><MessageCircle size={26} /><p className="mt-3 text-3xl font-black">16 duvidas</p><p className="text-sm">5 pendentes</p></PerifaCard>
-        <PerifaCard tone="blue"><FileUp size={26} /><p className="mt-3 text-3xl font-black">9 PDFs</p><p className="text-sm">materiais preparados</p></PerifaCard>
+        <PerifaCard tone="blue"><FileUp size={26} /><p className="mt-3 text-3xl font-black">9 PDFs</p><p className="text-sm">material em preparacao</p></PerifaCard>
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="brand-card p-5 dark:bg-brand-dark-soft/90">

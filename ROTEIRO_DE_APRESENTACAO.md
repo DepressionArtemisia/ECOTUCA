@@ -141,3 +141,11 @@ Frase sugerida:
 
 Cuidado:
 Conduza para perguntas e decisoes. Nao tente resolver todas as regras na hora.
+# Atualizacao Rodada 7
+1. Abrir `/` e apresentar a visao: ECOTUCA forma jovens, Perifa Ecotour conecta territorio e turismo responsavel.
+2. Mostrar a imagem real do Complexo e explicar que fotos/licencas estao documentadas.
+3. Abrir `/demo-mobile` para mostrar o app com cara de produto real.
+4. Abrir `/roteiros` e explicar os selos de demonstracao/validacao comunitaria.
+5. Abrir `/roteiros/serra-da-misericordia` e destacar cuidado etico, ponto confirmado pela equipe e galeria.
+6. Entrar em `/app/aluno` e mostrar progresso + territorio da semana.
+7. Fechar em `/app/admin` com indicadores para edital e prestacao de contas.

@@ -18,3 +18,18 @@
 ## Remaining Risk
 - A formal WCAG audit has not been completed.
 - Extracted PNG logos were checked in light/dark demo contexts, but final production vectors should receive a formal contrast and scaling pass.
+# Round 7 Accessibility Notes
+
+## Melhorias feitas
+- Imagens principais de Home, Roteiros, Detalhe, Demo Mobile, Aluno, Professor, Guia, Turista e Admin receberam `alt` descritivo.
+- Cards de roteiro agora mostram status textual, nao apenas cor.
+- Botao/links principais mantem foco visual via `focus-ring-brand`.
+- Texto em cima de imagem usa overlay marrom/brand para contraste.
+- Formulario de interesse mantem labels visiveis.
+- QA visual final confirmou 126 combinacoes rota/viewport sem imagens visiveis com `alt` ausente/vazio.
+- Interacoes principais foram acionadas por controles acessiveis no browser: tema, filtros, formulario, player, reset, login e logout.
+
+## Pendencias
+- Fazer teste manual completo de teclado em `/demo`, `/roteiros`, detalhe, formulario, player e reset.
+- Criar pagina publica de creditos quando o projeto sair de MVP.
+- Revisar contraste final apos validacao visual de Bruno.

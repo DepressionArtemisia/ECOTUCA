@@ -1,5 +1,22 @@
 # Status
 
+## Rodada 7 - Territorio, imagens reais e UI premium
+- Branch: `design/territory-real-images-premium-ui`.
+- Checkpoint anterior: `3dd3b40 checkpoint: before deep design territory audit`.
+- Auditoria do deploy publico documentada em `docs/design/VERCEL_SITE_DEEP_AUDIT.md`.
+- Pesquisa territorial documentada em `docs/research/COMPLEXO_ALEMAO_TERRITORY_RESEARCH.md`.
+- Banco de imagens criado em `public/media/territory/`, com tipos em `types/media.ts` e dados em `lib/mock-data/media-assets.ts`.
+- Creditos e licencas documentados em `docs/media/IMAGE_CREDITS.md` e `docs/media/IMAGE_LICENSES.md`.
+- Roteiros revisados em `lib/mock-data/ecotuca.ts` com nomes mais territoriais, status de validacao, cuidado etico e galerias licenciadas.
+- Telas ajustadas: `/`, `/demo`, `/demo-mobile`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/guia`, `/app/turista`, `/app/admin`.
+- Correcao provavel para React #418: `DataSourceBadge` agora inicia com status estavel antes de ler ambiente local.
+- `npm run lint` passou no fechamento da rodada.
+- `npm run build` passou no fechamento da rodada, com 36 rotas geradas.
+- QA browser local passou em 126 combinacoes de rota/viewport: 14 rotas obrigatorias x 9 viewports (`320`, `360`, `390`, `414`, `768`, `1024`, `1280`, `1440`, `1920`), sem overflow horizontal real, sem imagens visiveis quebradas e sem alt ausente.
+- Interacoes testadas no browser: tema claro/escuro, demo mobile alternando telas, filtro de roteiro, formulario de roteiro, player iniciar/reiniciar, reset demo, login demo e logout.
+- Deploy Vercel da Rodada 7 concluido e alias de producao atualizado para `https://ecotuca.vercel.app`.
+- Pendente de identidade/midia: fotos oficiais/proprias da Serra da Misericordia e validacao visual por Bruno/equipe.
+
 ## Atualizacao
 - Data/hora: 2026-06-07 13:23:22 -03:00
 - Workspace: `C:\Users\barbo\OneDrive\Área de Trabalho\PROJETOS\ECOTUCA`
@@ -9,10 +26,10 @@
 ## Deploy Vercel
 - Projeto: `brunos-projects-0f78c3da/ecotuca`.
 - URL de producao: `https://ecotuca.vercel.app`.
-- Deployment id: `dpl_QiRR8SD3fBTqsMHPEraeE8CE1PF4`.
+- Deployment id: `dpl_Fxvu9q6Xbx5RkjDvkMjsuHg8GwQW`.
 - Status Vercel: Ready.
-- Alias tecnico: `https://ecotuca-n757w3nlk-brunos-projects-0f78c3da.vercel.app`.
-- Rotas remotas verificadas com HTTP 200: `/`, `/demo`, `/roteiros/serra-da-misericordia`.
+- Alias tecnico: `https://ecotuca-dek38xah6-brunos-projects-0f78c3da.vercel.app`.
+- Rotas remotas verificadas com HTTP 200: `/`, `/demo`, `/demo/status`, `/demo-mobile`, `/login`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/guia`, `/app/turista`, `/app/admin`, `/app/admin/aprovacoes`.
 - `.vercelignore` criado para excluir docs, PDFs e previews/crops de extracao que nao sao runtime.
 
 ## Rodada 6 - Logo real extraida do manual
@@ -132,6 +149,11 @@
 - Admin: abrir `/app/admin`, `/app/admin/aprovacoes`, `/app/admin/metricas`.
 
 ## Testes executados
+- Rodada 7: `npm run lint` passou.
+- Rodada 7: `npm run build` passou, 36 rotas.
+- Rodada 7 browser: 126 combinacoes de rota/breakpoint testadas em `/`, `/demo`, `/demo/status`, `/demo-mobile`, `/login`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/aluno/aulas/aula-guia-01`, `/app/professor`, `/app/guia`, `/app/turista`, `/app/admin`, `/app/admin/aprovacoes`; viewports `320`, `360`, `390`, `414`, `768`, `1024`, `1280`, `1440`, `1920`; sem overflow horizontal real, sem imagem visivel quebrada e sem alt ausente.
+- Rodada 7 interacoes: tema claro/escuro, demo mobile alternando telas, filtro de roteiro por busca, formulario de interesse, player iniciar/reiniciar, reset demo, login demo e logout passaram no browser.
+- Rodada 7 correcao final: `PhoneMockup` recebeu `min-w-0`, escala menor no titulo mobile e frame mais compacto em 320px.
 - Rodada 6: `npm run lint` passou.
 - Rodada 6: `npm run build` passou, 36 rotas.
 - Rodada 6: `scripts/extract-brand-assets.mjs` gerou 12 PNGs reais extraidos do manual, WebP, source crops, previews, JSON e contact sheet.

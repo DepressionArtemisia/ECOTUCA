@@ -1,5 +1,18 @@
 # Tasks
 
+## Round 7 - Territorio e imagens
+- [x] Criar checkpoint e branch `design/territory-real-images-premium-ui`.
+- [x] Auditar o deploy publico por rotas principais.
+- [x] Pesquisar territorio Complexo do Alemao / Serra da Misericordia / Penha.
+- [x] Criar banco de imagens licenciadas e creditos.
+- [x] Revisar roteiros com status demonstrativo/validacao comunitaria.
+- [x] Aplicar camada visual em Home, Demo, Mobile, Roteiros, Aluno, Professor, Guia, Turista e Admin.
+- [x] Rodar `npm run lint`.
+- [x] Rodar `npm run build`.
+- [x] Fazer QA browser final.
+- [x] Fazer redeploy Vercel da Rodada 7.
+- [ ] Bruno/equipe validar imagens e substituir por acervo oficial quando houver.
+
 ## P0 - Antes da reuniao
 - [x] Manter MVP rodando em `localhost:3020`.
 - [x] Melhorar `/demo` como central guiada.

@@ -25,3 +25,5 @@ The project follows the Perifa Ecotour / ECOTUCA visual identity. The PDF manual
 
 ## Round 6 Brand Clarification
 The correct identity manual is present in `docs/brand/` and real ECOTUCA/Perifa logo PNGs were extracted from manual pages 4, 5, 6 and 11. The MVP now uses `public/brand/official/from-manual/png/` as the preferred demo source, with Round 5 temporary lockups kept only as fallback. Production still needs designer-approved SVG/AI/PDF vector assets.
+# Round 7 Brief Update
+The MVP must feel urban, territorial, educational, technological, welcoming, colorful and premium. It now uses real/licensed territory images and route validation language to present Complexo do Alemao, Serra da Misericordia and Perifa Ecotour ethically.

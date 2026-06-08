@@ -55,12 +55,12 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
         <Badge tone="yellow">Solicitacao recebida</Badge>
         <div className="mt-3">
           <Badge tone={savedBooking?.source === "supabase" ? "mint" : "coral"}>
-            {savedBooking?.source === "supabase" ? "Registro conectado" : "Salvo para apresentacao"}
+            {savedBooking?.source === "supabase" ? "Registro conectado" : "Registro de demonstracao"}
           </Badge>
         </div>
         <h2 className="brand-display mt-4 text-4xl">Equipe ECOTUCA acionada</h2>
         <p className="mt-2 text-sm font-bold">
-          Solicitacao recebida. A equipe ECOTUCA entrara em contato para confirmar disponibilidade, seguranca e proximos passos.
+          Solicitacao recebida. A equipe ECOTUCA entrara em contato para confirmar disponibilidade, guia, ponto de encontro e proximos passos.
         </p>
       </div>
     );
@@ -70,7 +70,7 @@ export function RouteInterestForm({ routeSlug }: { routeSlug: string }) {
     <div className="rounded-lg bg-brand-yellow p-5 text-brand-brown shadow-card">
       <h2 className="brand-display text-4xl">Tenho interesse</h2>
       <p className="mt-2 text-sm font-bold">
-        Envie uma solicitacao de roteiro. A equipe ECOTUCA confirma disponibilidade, guia e orientacoes de seguranca.
+        Envie uma solicitacao de roteiro. A equipe ECOTUCA confirma disponibilidade, guia, ponto de encontro e orientacoes de preparo.
       </p>
       <div className="mt-5 space-y-3">
         <Input label="Nome" value={form.name} onChange={(name) => setForm((current) => ({ ...current, name }))} />

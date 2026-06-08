@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { CheckCircle2, Download, UserCheck } from "lucide-react";
+import { CheckCircle2, Download, FileCheck2, UserCheck } from "lucide-react";
 import { EcoButton } from "@/components/brand/eco-button";
 import { ImpactRibbon } from "@/components/brand/impact-ribbon";
 import { OfficialLogo } from "@/components/brand/official-logo";
@@ -31,15 +32,25 @@ export function AdminDashboard() {
   return (
     <div className="mx-auto min-w-0 max-w-7xl space-y-6">
       <section className="relative min-w-0 overflow-hidden rounded-lg bg-brand-brown p-5 text-brand-cream shadow-glow sm:p-6">
+        <Image
+          src="/media/territory/penha/panorama-zona-norte-igreja-penha-adam-jones-cc-by-sa-2.jpg"
+          alt="Panorama da Zona Norte usado como imagem institucional no painel administrativo"
+          fill
+          className="object-cover opacity-20"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-brown via-brand-brown/90 to-brand-blue/60" />
         <div className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#FE9440)]" />
-        <OfficialLogo variant="horizontal" tone="negative" size="md" />
-        <p className="mt-5 text-sm font-black uppercase text-brand-mint">Centro de comando</p>
-        <h1 className="brand-display mt-2 text-4xl text-brand-yellow sm:text-5xl">Impacto, usuarios e roteiros</h1>
-        <p className="mt-3 max-w-3xl text-brand-cream/78">
+        <div className="relative">
+          <OfficialLogo variant="horizontal" tone="negative" size="md" />
+        </div>
+        <p className="relative mt-5 text-sm font-black uppercase text-brand-mint">Centro de comando</p>
+        <h1 className="brand-display relative mt-2 text-4xl text-brand-yellow sm:text-5xl">Impacto, usuarios e roteiros</h1>
+        <p className="relative mt-3 max-w-3xl text-brand-cream/78">
           Visao executiva para coordenacao, aprovacoes, prestacao de contas e acompanhamento da jornada ECOTUCA.
         </p>
         <ImpactRibbon
-          className="mt-5 max-w-4xl"
+          className="relative mt-5 max-w-4xl"
           items={[
             { label: "aprovacoes na fila", value: String(pending.length) },
             { label: "roteiros ativos", value: String(tourRoutes.length) },
@@ -52,6 +63,29 @@ export function AdminDashboard() {
         {adminMetrics.map((metric) => (
           <MetricCard key={metric.label} metric={metric} />
         ))}
+      </section>
+
+      <section className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p className="inline-flex items-center gap-2 text-sm font-black uppercase text-brand-blue dark:text-brand-mint">
+              <FileCheck2 size={16} />
+              Indicadores para edital
+            </p>
+            <h2 className="brand-display mt-2 text-4xl">Impacto que pode virar evidencia</h2>
+            <p className="mt-2 max-w-3xl text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
+              Dados demonstrativos organizados para conversa com apoiadores: formacao, conclusao, certificados, roteiros, solicitacoes, potencial de renda e ODS relacionados.
+            </p>
+          </div>
+          <Badge tone="yellow">dados de demonstracao</Badge>
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-4">
+          {["Jovens inscritos", "Horas de formacao", "Certificados", "Potencial de renda"].map((item) => (
+            <div key={item} className="rounded-lg bg-brand-warm p-4 text-sm font-black text-brand-brown dark:bg-white/10 dark:text-brand-cream">
+              {item}
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,.8fr)]">

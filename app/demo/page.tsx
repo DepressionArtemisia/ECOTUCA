@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BarChart3, BookOpen, GraduationCap, MapPinned, Smartphone, UserRound } from "lucide-react";
 import { PublicShell } from "@/components/layout/public-shell";
 import { DemoUserSwitcher } from "@/components/demo/demo-user-switcher";
@@ -28,17 +29,28 @@ export default function DemoPage() {
     <PublicShell>
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
         <div className="brand-card relative overflow-hidden p-6 dark:bg-brand-dark-soft/90">
+          <Image
+            src="/media/territory/complexo-alemao/visao-do-complexo-thirson-cc-by-sa-4.jpg"
+            alt="Vista do Complexo do Alemao usada como textura territorial da central de apresentacao"
+            fill
+            priority
+            className="object-cover opacity-[.15]"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-paper/95 via-brand-paper/88 to-brand-yellow/40 dark:from-brand-brown/95 dark:via-brand-brown/85 dark:to-brand-blue/40" />
           <div className="absolute inset-x-0 top-0 h-2 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#335595,#FE9440)]" />
-          <div className="mb-5">
+          <div className="relative mb-5">
             <OfficialLogo variant="tagline" size="lg" />
           </div>
-          <Badge tone="coral">Modo apresentacao</Badge>
-          <h1 className="brand-display mt-5 max-w-4xl text-5xl text-brand-brown dark:text-brand-yellow sm:text-6xl">Roteiro guiado para a reuniao</h1>
-          <p className="mt-4 max-w-3xl text-brand-brown/75 dark:text-brand-cream/75">
+          <div className="relative">
+            <Badge tone="coral">Central executiva da apresentacao</Badge>
+          </div>
+          <h1 className="brand-display relative mt-5 max-w-4xl text-5xl text-brand-brown dark:text-brand-yellow sm:text-6xl">Abra a historia, nao a tecnica</h1>
+          <p className="relative mt-4 max-w-3xl text-brand-brown/75 dark:text-brand-cream/75">
             Use estes atalhos para apresentar a historia completa: escola, aluno, turismo, guias, coordenacao e impacto.
           </p>
           <ImpactRibbon
-            className="mt-5 max-w-3xl"
+            className="relative mt-5 max-w-3xl"
             items={[
               { label: "perfis navegaveis", value: "6" },
               { label: "fluxo sugerido", value: "12 passos" },
@@ -63,9 +75,9 @@ export default function DemoPage() {
         <div className="mt-8 grid gap-4 lg:grid-cols-[.8fr_1.2fr]">
           <PerifaCard tone="mint">
             <Badge tone="yellow">Comece por aqui</Badge>
-            <h2 className="brand-display mt-4 text-4xl">Abra a historia, nao a tecnica</h2>
+            <h2 className="brand-display mt-4 text-4xl">Visitante, turista, aluno e impacto</h2>
             <p className="mt-3 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-              Comece pela home publica, mostre o app mobile e depois entre nos fluxos de roteiro, aluno e coordenacao.
+              Comece pela home publica, mostre o app mobile e depois entre nos fluxos de roteiro, aluno, professor, guia e coordenacao.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               <Link href="/">
@@ -79,7 +91,7 @@ export default function DemoPage() {
           <PerifaCard tone="yellow">
             <Badge tone="coral">Roteiro recomendado</Badge>
             <p className="mt-4 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-              Home publica, demo mobile, roteiro turistico, aluno, aula com progresso, professor, guia, admin e status tecnico.
+              Home publica, demo mobile, roteiro turistico, aluno, aula com progresso, professor, guia, admin e status tecnico discreto.
             </p>
             <Link href="/app/aluno" className="mt-5 inline-block">
               <EcoButton variant="mint">Seguir fluxo do aluno</EcoButton>

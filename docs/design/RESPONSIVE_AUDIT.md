@@ -46,3 +46,20 @@
 - Breakpoints: 320, 390, 414, 768, 1024 and 1440.
 - Result: no horizontal overflow, no broken images and `from-manual` logos detected.
 - Fixes made during the audit: compacted `DemoSessionPill`, added `min-w-0`/mobile padding to brand/admin cards and changed admin chart grids to `minmax(0, 1fr)`.
+# Round 7 Responsive Audit
+
+Status: concluido no browser local de producao (`next start -p 3020`) apos `npm run build`.
+
+| Viewport | Paginas testadas | Problemas encontrados | Correcoes feitas | Pendencias |
+| --- | --- | --- | --- | --- |
+| 320px | 14 rotas obrigatorias | Scanner visual apontou largura fixa no topo de `/demo-mobile`; sem scroll horizontal real | `PhoneMockup` recebeu `min-w-0`, titulo `text-4xl` no mobile e frame max `19rem` | Revisao humana em projetor/celular real |
+| 360px | 14 rotas obrigatorias | Mesmo risco visual de `/demo-mobile` | Mesmo ajuste do `PhoneMockup` | Revisao humana |
+| 390px | 14 rotas obrigatorias | Mesmo risco visual de `/demo-mobile` | Mesmo ajuste do `PhoneMockup` | Revisao humana |
+| 414px | 14 rotas obrigatorias | Nenhum overflow horizontal real | Layout mantido | Revisao humana |
+| 768px | 14 rotas obrigatorias | Nenhum overflow horizontal real | Layout mantido | Revisao humana |
+| 1024px | 14 rotas obrigatorias | Nenhum overflow horizontal real | Layout mantido | Revisao humana |
+| 1280px | 14 rotas obrigatorias | Nenhum overflow horizontal real | Layout mantido | Revisao humana |
+| 1440px | 14 rotas obrigatorias | Nenhum overflow horizontal real | Layout mantido | Revisao humana |
+| 1920px | 14 rotas obrigatorias | Nenhum overflow horizontal real | Layout mantido | Revisao humana |
+
+Resultado geral: 126 combinacoes rota/viewport verificadas; sem overflow horizontal real (`scrollWidth` <= viewport), sem imagens visiveis quebradas e sem imagens visiveis com `alt` ausente/vazio. O scanner inicial detectou paths SVG decorativos da Home ultrapassando a viewport visualmente, mas sem gerar scroll horizontal; eles permanecem dentro de containers com overflow controlado.

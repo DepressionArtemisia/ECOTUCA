@@ -1,5 +1,11 @@
 # Logo Usage Strategy
 
+## Round 7 Note
+- Keep official logos from `public/brand/official/from-manual/png/` as the only preferred logo source.
+- Territory photos must support the logo, not compete with it: use overlays from brand brown/yellow/mint and keep logo contrast high.
+- Do not place the logo over busy photo areas without a dark/light contrast layer.
+- Do not recolor logos to match photos.
+
 ## Brand Hierarchy
 - ECOTUCA is the main product/app brand for the learning platform, login, student area, dashboards, video player and PWA.
 - Perifa Ecotour is the institutional, territorial and tourism signature for routes, guides, tourist surfaces, public footer and territory storytelling.

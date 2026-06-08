@@ -36,3 +36,9 @@ Authenticated/demo: `/app`, `/app/aluno`, `/app/aluno/trilhas`, `/app/aluno/tril
 - Keep temporary lockups in `public/brand/temporary-lockups/` as fallback only.
 - Do not apply SQL or create real users during design-only rounds.
 - Preserve `/demo`, `/demo-mobile`, student journey, route interest form and admin metrics while polishing UI.
+# Round 7 Product Requirements
+- Routes must display validation status before being treated as real operations.
+- Public route pages must not expose sensitive final meeting points without team confirmation.
+- Territorial imagery must have source, author, license and alt text.
+- Student, tourist, guide, professor and admin surfaces must connect learning/operations back to territory and impact.
+- Demo mode and local fallback must remain available.

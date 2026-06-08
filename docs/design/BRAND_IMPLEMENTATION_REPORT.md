@@ -1,5 +1,12 @@
 # Brand Implementation Report
 
+## Round 7 Update - Territory And Images
+- Brand manual rules remain mandatory: no recolor, no distortion, no fake logo effects.
+- Territorial storytelling was added without changing official logos.
+- Real/licensed images now support the brand system in Home, Routes, Demo Mobile and internal dashboards.
+- Roteiros now show validation badges so the brand does not overpromise unvalidated operations.
+- Image gap: Serra da Misericordia still needs official/proprietary photo coverage.
+
 ## Done
 - Confirmed the correct manual in `docs/brand/MANUAL DE IDENTIDADE VISUAL - PERIFA ECOTOUR.pdf`.
 - Copied the manual to `docs/brand/MANUAL_DE_IDENTIDADE_VISUAL_PERIFA_ECOTOUR.pdf` for stable tooling.
