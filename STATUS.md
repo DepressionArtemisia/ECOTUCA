@@ -17,6 +17,9 @@
 - `npm run build`: passou, 36 rotas.
 - Documentacao final: `docs/progress-reports/STEP_17_FINAL_PRESENTATION_QA.md`.
 - Nenhuma correcao de codigo foi necessaria no Prompt 8.
+- Merge local: `design/territory-real-images-premium-ui` foi integrado em `master` por fast-forward.
+- Commit final local em `master`: `e9b39c3 chore: final production QA for ECOTUCA meeting`.
+- Push nao executado: o repositorio nao tem remote configurado (`git remote -v` vazio) e nenhum URL GitHub foi encontrado nos arquivos do projeto.
 
 ## Rodada 7 - Territorio, imagens reais e UI premium
 - Branch: `design/territory-real-images-premium-ui`.

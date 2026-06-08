@@ -76,3 +76,10 @@ Producao e local responderam HTTP 200 em:
 
 ## Proxima etapa pos-reuniao
 Aplicar SQL somente se aprovado, criar usuarios Auth reais com script seguro, trocar fotos por acervo oficial quando disponivel, seedar aulas/roteiros com UUIDs reais e validar persistencia 100% Supabase mantendo fallback de demo.
+
+## Merge
+- Branch de trabalho: `design/territory-real-images-premium-ui`.
+- Branch principal local: `master`.
+- Merge local concluido por fast-forward.
+- Commit final local: `e9b39c3 chore: final production QA for ECOTUCA meeting`.
+- Push nao executado porque o repositorio nao tem remote configurado.
