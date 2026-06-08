@@ -1,10 +1,12 @@
 # Checklist da Reuniao ECOTUCA
 
 ## Antes da reuniao
-- [ ] Abrir terminal do projeto.
-- [ ] Rodar `npm run dev -- -p 3020`.
-- [ ] Confirmar que a porta 3020 esta funcionando.
-- [ ] Abrir `http://localhost:3020/demo`.
+- [ ] Abrir `https://ecotuca.vercel.app/demo`.
+- [ ] Deixar `https://ecotuca.vercel.app/demo-mobile` em uma segunda aba.
+- [ ] Abrir terminal do projeto apenas se precisar do plano B local.
+- [ ] Para plano B local: rodar `npm run start -- -p 3020` ou `npm run dev -- -p 3020`.
+- [ ] Confirmar que a porta 3020 esta funcionando se usar local.
+- [ ] Abrir `http://localhost:3020/demo` somente como backup.
 - [ ] Testar `/demo-mobile`.
 - [ ] Testar `/app/aluno`.
 - [ ] Testar `/app/admin`.
@@ -16,6 +18,15 @@
 - [ ] Deixar DevTools fechado.
 - [ ] Deixar navegador em zoom adequado.
 - [ ] Deixar `/demo` e `/demo-mobile` carregados como plano B.
+
+## QA final ja realizado
+- [x] Producao `https://ecotuca.vercel.app` respondeu em 14 rotas obrigatorias.
+- [x] Local `http://localhost:3020` respondeu em 14 rotas obrigatorias.
+- [x] Browser QA responsivo passou sem overflow horizontal real.
+- [x] Imagens e logos passaram sem quebra critica.
+- [x] Interacoes de apresentacao passaram.
+- [x] `npm run lint` passou.
+- [x] `npm run build` passou.
 
 ## Durante a reuniao
 - [ ] Nao abrir terminal com secrets.

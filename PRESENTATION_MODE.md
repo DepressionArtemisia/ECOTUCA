@@ -1,7 +1,17 @@
 # Presentation Mode
 
 ## Rota principal
-Abrir `http://localhost:3020/demo`.
+Abrir `https://ecotuca.vercel.app/demo`.
+
+Backup local: `http://localhost:3020/demo` se a internet da reuniao falhar ou se for necessario apresentar offline.
+
+## QA final - 2026-06-08
+- Producao validada em `https://ecotuca.vercel.app`.
+- Deploy validado: `dpl_Fxvu9q6Xbx5RkjDvkMjsuHg8GwQW`.
+- 14 rotas obrigatorias responderam HTTP 200 em producao e local.
+- Browser QA de producao: 56 checks responsivos sem overflow horizontal real, sem imagem quebrada, sem alt ausente e sem termo proibido em tela de cliente.
+- Interacoes testadas: tema, login aluno/admin, logout, player, formulario, filtro, reset, demo mobile e aprovacoes admin.
+- `npm run lint` e `npm run build` passaram.
 
 ## Freeze Rodada 4
 - Comecar em `/demo`.

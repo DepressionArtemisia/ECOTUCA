@@ -1,5 +1,22 @@
 # AI Handoff
 
+## Prompt 8 Final QA / Presentation Ready
+- Date: 2026-06-08.
+- Production URL: `https://ecotuca.vercel.app`.
+- Validated deployment: `dpl_Fxvu9q6Xbx5RkjDvkMjsuHg8GwQW`.
+- Current branch before merge: `design/territory-real-images-premium-ui`.
+- No SQL was applied, no real Auth users were created and no secrets were edited.
+- Production HTTP QA passed for 14 required routes.
+- Local HTTP QA passed for the same 14 required routes on `http://localhost:3020`.
+- Browser production QA passed: 56 visual responsive checks, no real horizontal overflow, no visible broken images, no visible missing/empty alt text and no forbidden client-facing terms.
+- Browser local QA passed: 28 visual responsive checks on priority routes.
+- Interactions passed in production: theme toggle, student login, logout, admin login, player start/resume after reload, route form, route filter, reset demo, demo mobile tabs and admin approvals.
+- Brand/PWA QA passed: favicon, PWA icons, manifest and `from-manual` logo assets responded in production; no temporary lockup was detected as primary logo.
+- `npm run lint` passed.
+- `npm run build` passed, 36 routes.
+- Final QA report: `docs/progress-reports/STEP_17_FINAL_PRESENTATION_QA.md`.
+- Do not make more UI/code changes before the meeting unless a production-breaking bug appears.
+
 ## Round 7 Completed Locally / Ready To Deploy
 - Active branch: `design/territory-real-images-premium-ui`.
 - Checkpoint before the round: `3dd3b40 checkpoint: before deep design territory audit`.

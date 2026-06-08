@@ -1,5 +1,23 @@
 # Status
 
+## Prompt 8 - QA final de producao e reuniao
+- Data: 2026-06-08.
+- Objetivo: QA final sem novas features, sem SQL, sem usuarios Auth reais e sem mexer em chaves.
+- URL final de producao: `https://ecotuca.vercel.app`.
+- Deploy validado: `dpl_Fxvu9q6Xbx5RkjDvkMjsuHg8GwQW`.
+- Producao: 14 rotas obrigatorias com HTTP 200.
+- Local: 14 rotas obrigatorias com HTTP 200 em `http://localhost:3020`.
+- Browser QA producao: 56 checks visuais responsivos, cobrindo 7 rotas prioritarias x 8 viewports (`320`, `360`, `390`, `414`, `768`, `1024`, `1440`, `1920`).
+- Browser QA local: 28 checks visuais, cobrindo 7 rotas prioritarias x 4 viewports (`320`, `390`, `1024`, `1440`).
+- Resultado visual: sem overflow horizontal real, sem imagem visivel quebrada, sem `alt` ausente/vazio e sem lockup temporario como logo principal.
+- Resultado texto/etica: nenhum termo proibido em tela de cliente; `/demo/status` permanece rota tecnica.
+- Resultado marca/PWA: favicon, PWA icons, manifest e assets `from-manual` responderam em producao.
+- Interacoes testadas em producao: tema, login aluno, logout, login admin, player iniciar/retomar, formulario de roteiro, filtro de roteiros, reset demo, demo mobile e aprovacoes admin.
+- `npm run lint`: passou.
+- `npm run build`: passou, 36 rotas.
+- Documentacao final: `docs/progress-reports/STEP_17_FINAL_PRESENTATION_QA.md`.
+- Nenhuma correcao de codigo foi necessaria no Prompt 8.
+
 ## Rodada 7 - Territorio, imagens reais e UI premium
 - Branch: `design/territory-real-images-premium-ui`.
 - Checkpoint anterior: `3dd3b40 checkpoint: before deep design territory audit`.

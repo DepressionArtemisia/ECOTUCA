@@ -63,3 +63,21 @@ Status: concluido no browser local de producao (`next start -p 3020`) apos `npm 
 | 1920px | 14 rotas obrigatorias | Nenhum overflow horizontal real | Layout mantido | Revisao humana |
 
 Resultado geral: 126 combinacoes rota/viewport verificadas; sem overflow horizontal real (`scrollWidth` <= viewport), sem imagens visiveis quebradas e sem imagens visiveis com `alt` ausente/vazio. O scanner inicial detectou paths SVG decorativos da Home ultrapassando a viewport visualmente, mas sem gerar scroll horizontal; eles permanecem dentro de containers com overflow controlado.
+
+# Prompt 8 Final Production QA
+
+Status: concluido em producao e local antes da reuniao.
+
+## Producao
+- Base: `https://ecotuca.vercel.app`.
+- Rotas prioritarias: `/`, `/demo`, `/demo-mobile`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/admin`.
+- Breakpoints: `320`, `360`, `390`, `414`, `768`, `1024`, `1440`, `1920`.
+- Checks: 56 combinacoes.
+- Resultado: sem overflow horizontal real, sem imagem visivel quebrada, sem `alt` visivel ausente/vazio e sem lockup temporario como logo principal.
+
+## Local
+- Base: `http://localhost:3020`.
+- Rotas prioritarias: `/`, `/demo`, `/demo-mobile`, `/roteiros`, `/roteiros/serra-da-misericordia`, `/app/aluno`, `/app/admin`.
+- Breakpoints: `320`, `390`, `1024`, `1440`.
+- Checks: 28 combinacoes.
+- Resultado: sem problemas encontrados.

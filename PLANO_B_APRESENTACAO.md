@@ -1,6 +1,15 @@
 # Plano B de Apresentacao
 
+## Rota principal validada
+- Producao: `https://ecotuca.vercel.app`.
+- Demo: `https://ecotuca.vercel.app/demo`.
+- Mobile: `https://ecotuca.vercel.app/demo-mobile`.
+- Deploy validado: `dpl_Fxvu9q6Xbx5RkjDvkMjsuHg8GwQW`.
+
 ## Se localhost falhar
+- Usar a producao em `https://ecotuca.vercel.app`.
+
+## Se producao/internet falhar
 - Rodar `npm run dev -- -p 3020`.
 - Conferir a porta indicada no terminal.
 - Se 3000 estiver ocupado, usar 3020.
@@ -32,4 +41,4 @@
 
 ## Se perguntarem se esta em producao
 Resposta sugerida:
-"Este e o MVP navegavel em ambiente local. A arquitetura ja esta preparada para deploy temporario e conexao completa ao Supabase."
+"Sim. O MVP navegavel esta publicado na Vercel em `https://ecotuca.vercel.app`. Tambem existe plano B local para a reuniao, e a conexao completa ao Supabase fica para a etapa pos-reuniao com SQL e usuarios reais aprovados."
