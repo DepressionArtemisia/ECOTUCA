@@ -189,3 +189,16 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - Local browser QA passed at 390px and 1440px for the Round 9 routes/interactions.
 - Production deploy passed: `dpl_HNxad6ECVdf1cg9BQpn1ZKHtq1wb`, aliased to `https://ecotuca.vercel.app`.
 - Production HTTP and mobile browser gut-check passed for the new signup/sitemap/admin surfaces.
+
+## Production Learning Platform Blueprint Handoff
+- Branch: `codex/production-learning-platform-blueprint`.
+- New folder: `docs/production-platform/`.
+- This blueprint defines the real production app separately from the presentation MVP.
+- V1 production focus is teaching only: student, teacher and admin.
+- Keep guide/tourist/route marketplace as future expansion unless Bruno explicitly brings them back into V1.
+- Start with:
+  - `docs/production-platform/PRODUCT_REAL_SCOPE.md`
+  - `docs/production-platform/ROUTE_AND_FLOW_MAP.md`
+  - `docs/production-platform/UX_UI_BLUEPRINT.md`
+  - `docs/production-platform/IMPLEMENTATION_PLAN.md`
+- Next implementation should create a production branch and convert the app from demo-first to learning-platform-first.

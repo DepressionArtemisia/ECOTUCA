@@ -107,3 +107,19 @@ Depois da reuniao, aplicar SQL revisado se aprovado, criar Auth users reais com 
 - [x] Run final `npm run build`.
 - [x] Run final browser QA.
 - [x] Deploy Round 9 to Vercel if verification passes.
+
+# Production Learning Platform Blueprint
+- [x] Create separated production blueprint folder.
+- [x] Define real teaching-platform scope.
+- [x] Map production routes and funnels.
+- [x] Specify student, teacher and admin panels.
+- [x] Specify production UX/UI direction.
+- [x] Specify Supabase/Auth/RLS production model.
+- [x] Specify image and asset direction.
+- [x] Specify implementation phases and acceptance gates.
+- [ ] Create production app branch from this blueprint.
+- [ ] Hide/remove demo-first routes from production navigation.
+- [ ] Implement production auth/signup/approval against staging Supabase.
+- [ ] Build real student learning flow.
+- [ ] Build teacher workspace.
+- [ ] Build admin command center.

@@ -244,3 +244,13 @@ Aplicar SQL revisado, criar usuarios Auth reais com `--yes`, seedar dados UUID r
 - Producao HTTP: 12 rotas verificadas com 200, incluindo cadastros, sitemap, paineis novos e `/sitemap.xml`.
 - Producao browser: passou em 390px para `/cadastro/guia`, `/cadastro/turista`, `/sitemap` e `/app/admin/aprovacoes`; sem overflow horizontal e sem imagens quebradas visiveis.
 - Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+
+## Production Learning Platform Blueprint
+- Data: 2026-06-16.
+- Branch: `codex/production-learning-platform-blueprint`.
+- Objetivo: separar o planejamento do produto real de ensino do MVP/demo/documentacao anterior.
+- Pasta criada: `docs/production-platform/`.
+- Escopo V1 definido: plataforma de ensino ECOTUCA com funil publico, cadastro/aprovacao real, painel do aluno, painel do professor e painel admin.
+- Turismo, guias publicos, reservas e marketplace foram movidos para expansao futura, depois do nucleo de ensino estar estavel.
+- Documentos criados: escopo real, mapa de rotas/funil, UX/UI premium, paineis/features, Supabase/Auth/RLS, plano de implementacao e direcao de imagens/assets.
+- Nenhuma alteracao funcional de codigo foi feita nesta etapa; e um blueprint de construcao para iniciar a producao.

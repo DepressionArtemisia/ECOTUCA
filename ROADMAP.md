@@ -25,3 +25,16 @@
 
 ## Phase 5 - Revenue And Reports
 - Paid bookings, reservations, guide payout reports and advanced impact dashboards.
+
+## Production Learning Platform Reset
+New production blueprint lives in `docs/production-platform/`.
+
+V1 should focus on:
+- public enrollment funnel,
+- real auth/signup/approval,
+- student learning platform,
+- teacher workspace,
+- admin command center,
+- certificates and reports.
+
+Tourism marketplace, guide public profiles and bookings move to later phases after the teaching core is stable.
