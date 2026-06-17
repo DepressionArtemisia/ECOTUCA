@@ -82,6 +82,7 @@ const touristSections = [
 export function TouristSignupFlow() {
   return (
     <MultistepSignupFlow
+      applicationRole="tourist"
       title="Cadastro de turista"
       eyebrow="Visitante responsavel"
       description="Para visitantes, escolas, universidades, empresas e parceiros interessados em experiencias comunitarias, ambientais e territorialmente respeitosas."

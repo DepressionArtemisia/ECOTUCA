@@ -1,5 +1,21 @@
 # AI Handoff
 
+## Signup Server Action Prep Handoff
+- Date: 2026-06-17.
+- Active branch: `codex/production-learning-platform-start`.
+- New server action: `app/actions/signup-application.ts`.
+- Updated signup engine: `features/signup/multistep-signup-flow.tsx`.
+- Role flows now pass `applicationRole`: student, teacher, guide and tourist.
+- New env flag in `.env.example`: `ENABLE_SUPABASE_SIGNUP_WRITES`.
+- New SQL contract: `public.signup_applications` in `supabase/schema.sql`.
+- New RLS policy: `signup applications admin manage` in `supabase/rls.sql`.
+- `supabase/combined-apply.sql` was regenerated with `npm run supabase:prepare-sql`; no SQL was applied.
+- Default behavior is safe: without `ENABLE_SUPABASE_SIGNUP_WRITES=true`, the action validates and returns `mode: prepared` without touching Supabase.
+- Verification passed: `npm run supabase:prepare-sql`, `npm run lint`, `npm run build`.
+- Browser QA passed on mobile `/cadastro/aluno`: required-field error, first-step fill and advance to `Interesse e vinculo`.
+- Direct action smoke test returned `ok: true`, `mode: prepared`.
+- Next recommended slice: make `/app/admin/aprovacoes` read from `signup_applications` when writes are enabled, then define approval promotion to Auth/profile records.
+
 ## Production Auth Gating Handoff
 - Date: 2026-06-17.
 - Active branch: `codex/production-learning-platform-start`.

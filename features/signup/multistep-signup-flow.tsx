@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle2, Trash2 } from "lucide-react";
+import { submitSignupApplication, type SignupApplicationResult } from "@/app/actions/signup-application";
 import { EcoButton } from "@/components/brand/eco-button";
 import { AutosaveIndicator } from "@/components/forms/autosave-indicator";
 import { ConsentCheckbox } from "@/components/forms/consent-checkbox";
@@ -30,6 +31,7 @@ type SignupSection = {
   fields: Field[];
 };
 
+type SignupApplicationRole = "student" | "teacher" | "guide" | "tourist";
 type SignupValue = string | boolean | string[];
 type SignupData = Record<string, SignupValue>;
 
@@ -161,6 +163,7 @@ function FieldControl({
 }
 
 export function MultistepSignupFlow({
+  applicationRole,
   title,
   eyebrow,
   description,
@@ -173,6 +176,7 @@ export function MultistepSignupFlow({
   submitLabel = "Enviar cadastro",
   successMessage = "Cadastro recebido. A coordenacao ECOTUCA ira analisar as informacoes e retornar pelo contato informado."
 }: {
+  applicationRole: SignupApplicationRole;
   title: string;
   eyebrow: string;
   description: string;
@@ -191,6 +195,8 @@ export function MultistepSignupFlow({
   const [hydrated, setHydrated] = useState(false);
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState<SignupApplicationResult | null>(null);
   const [stepError, setStepError] = useState("");
   const steps = [...sections.map((section) => section.title), "Revisao"];
   const reviewStep = current >= sections.length;
@@ -233,6 +239,7 @@ export function MultistepSignupFlow({
 
   function updateField(name: string, value: SignupValue) {
     setSubmitted(false);
+    setSubmitResult(null);
     setStepError("");
     setData((currentData) => ({ ...currentData, [name]: value }));
   }
@@ -248,6 +255,7 @@ export function MultistepSignupFlow({
     setCurrent(0);
     setSavedAt(null);
     setSubmitted(false);
+    setSubmitResult(null);
     setStepError("");
   }
 
@@ -257,7 +265,37 @@ export function MultistepSignupFlow({
       return;
     }
     setStepError("");
+    setSubmitResult(null);
     setCurrent((step) => Math.min(step + 1, sections.length));
+  }
+
+  async function submitApplication() {
+    saveDraft();
+    setSubmitting(true);
+    setStepError("");
+    setSubmitResult(null);
+
+    const result = await submitSignupApplication({
+      role: applicationRole,
+      storageKey,
+      data,
+      submittedAt: new Date().toISOString()
+    });
+
+    setSubmitting(false);
+    setSubmitResult(result);
+    setSubmitted(result.ok);
+
+    if (result.ok) {
+      window.localStorage.setItem(
+        `${storageKey}:last-submission`,
+        JSON.stringify({
+          id: result.id ?? null,
+          mode: result.mode,
+          submittedAt: new Date().toISOString()
+        })
+      );
+    }
   }
 
   return (
@@ -315,9 +353,12 @@ export function MultistepSignupFlow({
                   <CheckCircle2 className="text-brand-mint" size={32} />
                   <h2 className="brand-display mt-3 text-4xl">Cadastro recebido</h2>
                   <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/75">
-                    {successMessage}
+                    {submitResult?.mode === "supabase" ? submitResult.message : successMessage}
                   </p>
                 </div>
+              ) : null}
+              {submitResult && !submitResult.ok ? (
+                <p className="rounded-lg bg-brand-coral px-4 py-3 text-sm font-black text-white">{submitResult.message}</p>
               ) : null}
               <SignupReviewCard title="Conferir informacoes" data={reviewData} />
             </div>
@@ -334,8 +375,8 @@ export function MultistepSignupFlow({
                 <ArrowRight size={17} />
               </EcoButton>
             ) : (
-              <EcoButton type="button" variant="coral" onClick={() => setSubmitted(true)}>
-                {submitLabel}
+              <EcoButton type="button" variant="coral" disabled={submitting} onClick={submitApplication}>
+                {submitting ? "Enviando..." : submitLabel}
                 <CheckCircle2 size={17} />
               </EcoButton>
             )}

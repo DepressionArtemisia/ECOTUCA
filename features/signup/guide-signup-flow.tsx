@@ -73,6 +73,7 @@ const guideSections = [
 export function GuideSignupFlow() {
   return (
     <MultistepSignupFlow
+      applicationRole="guide"
       title="Cadastro de guia"
       eyebrow="Guia territorial"
       description="Para condutores, especialistas locais e jovens em formacao que querem organizar perfil, agenda, especialidades e roteiros responsaveis."

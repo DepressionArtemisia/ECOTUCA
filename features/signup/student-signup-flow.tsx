@@ -153,6 +153,7 @@ const studentSections = [
 export function StudentSignupFlow() {
   return (
     <MultistepSignupFlow
+      applicationRole="student"
       title="Cadastro de aluno"
       eyebrow="Jornada do aluno"
       description="Para jovens do territorio em formacao, com trilhas, aulas, certificados, comunidade e possibilidade futura de atuacao como guia local."

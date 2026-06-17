@@ -1,4 +1,5 @@
 alter table public.profiles enable row level security;
+alter table public.signup_applications enable row level security;
 alter table public.student_profiles enable row level security;
 alter table public.teacher_profiles enable row level security;
 alter table public.guide_profiles enable row level security;
@@ -51,6 +52,9 @@ with check (id = auth.uid() or public.is_admin());
 
 create policy "profiles admin insert" on public.profiles
 for insert with check (public.is_admin());
+
+create policy "signup applications admin manage" on public.signup_applications
+for all using (public.is_admin()) with check (public.is_admin());
 
 create policy "students own or admin" on public.student_profiles
 for all using (user_id = auth.uid() or public.is_admin())

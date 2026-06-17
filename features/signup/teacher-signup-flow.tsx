@@ -71,6 +71,7 @@ const teacherSections = [
 export function TeacherSignupFlow() {
   return (
     <MultistepSignupFlow
+      applicationRole="teacher"
       title="Cadastro de professor"
       eyebrow="Rede pedagogica"
       description="Para educadores e facilitadores que apoiam conteudos, turmas, materiais, forum, mentoria e avaliacao dentro da ECOTUCA."

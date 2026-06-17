@@ -1,5 +1,20 @@
 # Tasks
 
+## Signup Server Action Prep
+- [x] Add server action for signup applications.
+- [x] Wire shared multi-step signup submit to the action.
+- [x] Pass role metadata from student/teacher/guide/tourist flows.
+- [x] Add `ENABLE_SUPABASE_SIGNUP_WRITES` to `.env.example`.
+- [x] Add `signup_applications` SQL contract and admin RLS.
+- [x] Regenerate `supabase/combined-apply.sql` without applying SQL.
+- [x] Run `npm run supabase:prepare-sql`.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Browser QA the student signup first-step flow on mobile.
+- [x] Smoke-test action in prepared mode.
+- [ ] Connect admin approvals to `signup_applications`.
+- [ ] Implement approved application promotion to Auth/profile rows after schema/RLS review.
+
 ## Production Auth Gating
 - [x] Add environment-controlled preview auth fallback.
 - [x] Add centralized access policy for internal app routes.
@@ -47,6 +62,7 @@
 - [x] Run browser QA on local production preview.
 - [x] Document the round in `STATUS.md`, `AI_HANDOFF.md` and progress report.
 - [ ] Connect signup, approval and password reset to reviewed Supabase server actions.
+- [x] Prepare signup server action behind server-side write flag.
 - [ ] Replace mock learning data with Supabase-backed tracks/modules/lessons/submissions.
 - [x] Prepare app route gating with env-controlled session/role/status validation.
 - [ ] Enable app route gating in production after real Auth users are ready.

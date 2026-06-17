@@ -1,5 +1,21 @@
 # Status
 
+## Signup Server Action Prep
+- Data: 2026-06-17.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: preparar envio real de cadastros sem ativar escrita no Supabase por padrao.
+- Criada `app/actions/signup-application.ts` com validacao Zod e modo seguro `prepared`.
+- `features/signup/multistep-signup-flow.tsx` agora chama a action no envio final.
+- Fluxos de aluno, professor, guia e turista passam `applicationRole`.
+- `.env.example` ganhou `ENABLE_SUPABASE_SIGNUP_WRITES`.
+- SQL versionado ganhou `public.signup_applications`, indices e RLS admin-only.
+- `supabase/combined-apply.sql` foi regenerado por `npm run supabase:prepare-sql`; automatic apply continua desligado.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run supabase:prepare-sql`, `npm run lint` e `npm run build` passaram.
+- Browser QA mobile em `/cadastro/aluno`: validacao de obrigatorios, preenchimento da primeira etapa e avanco para `Interesse e vinculo` passaram sem overflow/imagem quebrada/erro de console.
+- Smoke test da action retornou `mode: prepared`, sem escrita real.
+- Relatorio: `docs/progress-reports/STEP_23_SIGNUP_SERVER_ACTION_PREP.md`.
+
 ## Production Auth Gating
 - Data: 2026-06-17.
 - Branch: `codex/production-learning-platform-start`.

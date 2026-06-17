@@ -15,6 +15,25 @@ create table if not exists public.profiles (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.signup_applications (
+  id uuid primary key default gen_random_uuid(),
+  role text not null check (role in ('student','teacher','guide','tourist')),
+  status text not null default 'pending' check (status in ('pending','approved','rejected','archived')),
+  applicant_name text,
+  applicant_email text,
+  applicant_phone text,
+  payload jsonb not null default '{}'::jsonb,
+  source text not null default 'public_signup',
+  policy_version text not null,
+  consent_version text not null,
+  submitted_at timestamptz not null default now(),
+  reviewed_by uuid references public.profiles(id),
+  reviewed_at timestamptz,
+  review_note text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create table if not exists public.student_profiles (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.profiles(id) on delete cascade,
@@ -262,6 +281,8 @@ create table if not exists public.system_settings (
 );
 
 create index if not exists profiles_role_status_idx on public.profiles(role, status);
+create index if not exists signup_applications_role_status_idx on public.signup_applications(role, status);
+create index if not exists signup_applications_email_idx on public.signup_applications(applicant_email);
 create index if not exists lessons_module_order_idx on public.lessons(module_id, order_index);
 create index if not exists lesson_progress_user_idx on public.lesson_progress(user_id);
 create index if not exists tour_routes_status_featured_idx on public.tour_routes(status, featured);
