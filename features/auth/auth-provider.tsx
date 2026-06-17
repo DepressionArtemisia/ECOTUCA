@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { useRouter } from "next/navigation";
 import { loginWithSupabaseOrDemo, logoutEverywhere, type CurrentUser, type LoginResult } from "@/lib/data/auth";
 import { clearStoredDemoUser, getStoredDemoUser, setStoredDemoUser } from "@/lib/data/fallback";
+import { isDemoSessionAllowedInEnforcedAccess, isPreviewAuthFallbackEnabled } from "@/lib/auth/runtime";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { DemoUser } from "@/types/domain";
 
@@ -56,8 +57,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } finally {
         if (active) {
-          const demo = getStoredDemoUser();
-          setUser((current) => current ?? { ...demo, source: "demo" });
+          if (isPreviewAuthFallbackEnabled()) {
+            const demo = getStoredDemoUser();
+            setUser((current) => current ?? { ...demo, source: "demo" });
+          } else {
+            setUser((current) => current ?? null);
+          }
           setLoading(false);
         }
       }
@@ -78,6 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const useDemoUser = useCallback((demoUser: DemoUser) => {
+    if (!isPreviewAuthFallbackEnabled() && !isDemoSessionAllowedInEnforcedAccess()) return;
     setStoredDemoUser(demoUser);
     setUser({ ...demoUser, source: "demo" });
   }, []);
@@ -85,8 +91,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = useCallback(async () => {
     await logoutEverywhere();
     clearStoredDemoUser();
-    const demo = getStoredDemoUser();
-    setUser({ ...demo, source: "demo" });
+    if (isPreviewAuthFallbackEnabled()) {
+      const demo = getStoredDemoUser();
+      setUser({ ...demo, source: "demo" });
+    } else {
+      setUser(null);
+    }
     router.push("/entrar");
   }, [router]);
 

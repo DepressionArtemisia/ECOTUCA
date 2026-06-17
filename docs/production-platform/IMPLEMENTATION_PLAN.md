@@ -41,6 +41,8 @@ Acceptance:
 ## Phase 2 - Auth, Signup And Approval
 Goal: real account pipeline.
 
+Status on 2026-06-17: production gating layer prepared without mutating Supabase.
+
 Tasks:
 - Apply reviewed Supabase migrations to staging.
 - Implement server-side signup actions.
@@ -48,12 +50,20 @@ Tasks:
 - Add admin approval decisions with audit logs.
 - Add e-mail notification plan.
 - Add password reset.
+- Enable production auth flags after real users exist.
 
 Acceptance:
 - Student can apply.
 - Admin can approve.
 - Approved student can log in.
 - Pending/rejected/suspended users are correctly gated.
+
+Current result:
+- `AuthProvider` and login can disable demo fallback with `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`.
+- `AppShell` and `AdminShell` are wrapped by `AppAccessGuard`.
+- Internal route access policy lives in `lib/auth/access-policy.ts`.
+- Production enforcement is controlled by `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce`.
+- SQL, RLS and Auth user creation are still pending review before mutation.
 
 ## Phase 3 - Learning Core
 Goal: real student learning flow.

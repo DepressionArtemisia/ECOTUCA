@@ -4,6 +4,7 @@ import { BrandLogo } from "@/components/brand/brand-logo";
 import { ThemeToggle } from "@/components/brand/theme-toggle";
 import { DemoSessionPill } from "@/components/demo/demo-session-pill";
 import { DataSourceBadge } from "@/components/demo/data-source-badge";
+import { AppAccessGuard } from "@/features/auth/app-access-guard";
 
 const adminNav = [
   { label: "Dashboard", href: "/app/admin", icon: BarChart3 },
@@ -52,7 +53,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </header>
-        <main className="px-4 py-5 sm:px-6 lg:px-8">{children}</main>
+        <main className="px-4 py-5 sm:px-6 lg:px-8">
+          <AppAccessGuard>{children}</AppAccessGuard>
+        </main>
       </div>
     </div>
   );

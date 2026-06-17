@@ -1,5 +1,32 @@
 # AI Handoff
 
+## Production Auth Gating Handoff
+- Date: 2026-06-17.
+- Active branch: `codex/production-learning-platform-start`.
+- This slice prepares production access control while keeping local preview navigable.
+- New files:
+  - `lib/auth/runtime.ts`
+  - `lib/auth/access-policy.ts`
+  - `features/auth/app-access-guard.tsx`
+  - `docs/progress-reports/STEP_22_PRODUCTION_AUTH_GATING.md`
+- Updated files:
+  - `features/auth/auth-provider.tsx`
+  - `lib/data/auth.ts`
+  - `components/layout/app-shell.tsx`
+  - `components/layout/admin-shell.tsx`
+  - `.env.example`
+- Default preview behavior remains unchanged: demo fallback is enabled unless `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`.
+- Production mode should set:
+  - `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`
+  - `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce`
+  - `NEXT_PUBLIC_SHOW_DEMO_CONTROLS=false`
+- `AppAccessGuard` only blocks when access mode is `enforce`; it denies missing sessions, demo sessions unless explicitly allowed, wrong roles and non-approved statuses.
+- No Supabase SQL was applied, no real Auth users were created and no secrets were touched.
+- Verification passed: `npm run lint`, `npm run build`.
+- Policy smoke test passed with student/admin/pending cases.
+- Browser QA passed on `http://127.0.0.1:3020` for `/`, `/app/aluno`, `/app/admin`, `/entrar` and `/sitemap` at desktop and mobile widths; no accidental preview blocking, no overflow, no broken images and no console errors.
+- Next recommended slice: implement staging-safe server actions for signup, approval and password reset with reviewed RLS.
+
 ## Production Learning Core Routes Handoff
 - Date: 2026-06-16.
 - Active branch: `codex/production-learning-platform-start`.

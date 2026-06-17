@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/brand/theme-toggle";
 import { MobileBottomNav } from "@/components/mobile/mobile-bottom-nav";
 import { DemoSessionPill } from "@/components/demo/demo-session-pill";
 import { DataSourceBadge } from "@/components/demo/data-source-badge";
+import { AppAccessGuard } from "@/features/auth/app-access-guard";
 
 type AppRoleContext = "student" | "teacher" | "guide" | "tourist";
 
@@ -124,7 +125,9 @@ export function AppShell({
             </div>
           </div>
         </header>
-        <main className="px-4 pb-24 pt-5 sm:px-6 lg:px-8">{children}</main>
+        <main className="px-4 pb-24 pt-5 sm:px-6 lg:px-8">
+          <AppAccessGuard>{children}</AppAccessGuard>
+        </main>
       </div>
       <MobileBottomNav />
     </div>

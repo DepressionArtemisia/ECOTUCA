@@ -1,5 +1,6 @@
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/is-configured";
+import { isPreviewAuthFallbackEnabled } from "@/lib/auth/runtime";
 import { getDemoUserByEmail, setStoredDemoUser } from "@/lib/data/fallback";
 import type { DemoUser, UserRole, UserStatus } from "@/types/domain";
 
@@ -43,9 +44,19 @@ export async function loginWithSupabaseOrDemo(email: string, password: string): 
       }
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
-        console.warn("Supabase login failed, trying demo fallback", error);
+        console.warn("Supabase login failed", error);
       }
     }
+  }
+
+  if (!isPreviewAuthFallbackEnabled()) {
+    return {
+      ok: false,
+      source: "supabase",
+      message: isSupabaseConfigured()
+        ? "Nao foi possivel validar esta conta aprovada."
+        : "Autenticacao real ainda nao configurada neste ambiente."
+    };
   }
 
   const demo = getDemoUserByEmail(email);

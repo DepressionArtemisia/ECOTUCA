@@ -1,5 +1,17 @@
 # Tasks
 
+## Production Auth Gating
+- [x] Add environment-controlled preview auth fallback.
+- [x] Add centralized access policy for internal app routes.
+- [x] Add shell-level app access guard.
+- [x] Document production auth flags in `.env.example`.
+- [x] Update status, handoff and progress report.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Run browser QA on preview mode after the guard.
+- [x] Smoke-test access policy decisions for student/admin/pending.
+- [ ] Test enforced access mode with real Supabase users after staging Auth is ready.
+
 ## Production Learning Core Routes
 - [x] Add student activities route.
 - [x] Add teacher evaluations route.
@@ -36,7 +48,8 @@
 - [x] Document the round in `STATUS.md`, `AI_HANDOFF.md` and progress report.
 - [ ] Connect signup, approval and password reset to reviewed Supabase server actions.
 - [ ] Replace mock learning data with Supabase-backed tracks/modules/lessons/submissions.
-- [ ] Gate app routes with real session/role validation before public production launch.
+- [x] Prepare app route gating with env-controlled session/role/status validation.
+- [ ] Enable app route gating in production after real Auth users are ready.
 - [ ] Resolve residual Next/PostCSS audit warning when the upstream patched package is available.
 
 ## Round 7 - Territorio e imagens

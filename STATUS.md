@@ -1,5 +1,24 @@
 # Status
 
+## Production Auth Gating
+- Data: 2026-06-17.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: preparar auth e bloqueio de areas internas para producao sem quebrar o preview local.
+- Criados `lib/auth/runtime.ts`, `lib/auth/access-policy.ts` e `features/auth/app-access-guard.tsx`.
+- `AuthProvider` agora respeita `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`; quando ativo, nao injeta usuario demonstrativo automaticamente se nao houver sessao Supabase.
+- `loginWithSupabaseOrDemo` tambem respeita `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`; nesse modo, fallback demo nao valida login.
+- `AppShell` e `AdminShell` agora passam o conteudo pelo `AppAccessGuard`.
+- A politica de acesso mapeia `/app/aluno`, `/app/professor`, `/app/guia`, `/app/turista`, `/app/admin` e areas internas comuns por role/status.
+- Preview padrao segue aberto para navegacao local. Para producao, configurar `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true` e `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce`.
+- `.env.example` documenta as flags sem incluir segredos.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run lint` passou.
+- Validacao local: `npm run build` passou com 52 rotas.
+- Validacao de politica: `tsx` confirmou aluno/admin/pending com decisoes esperadas.
+- Browser QA em `http://127.0.0.1:3020`: desktop e mobile para `/`, `/app/aluno`, `/app/admin`, `/entrar` e `/sitemap`.
+- Resultado browser: sem bloqueio indevido no preview, sem overflow horizontal, sem imagens quebradas, sem erros de console e sem sinais visiveis de demo/MVP/apresentacao nas rotas verificadas.
+- Relatorio: `docs/progress-reports/STEP_22_PRODUCTION_AUTH_GATING.md`.
+
 ## Production Learning Core Routes
 - Data: 2026-06-16.
 - Branch: `codex/production-learning-platform-start`.
