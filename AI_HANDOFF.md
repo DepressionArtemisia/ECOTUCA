@@ -1,5 +1,18 @@
 # AI Handoff
 
+## Admin Approvals Application Queue Handoff
+- Date: 2026-06-17.
+- Active branch: `codex/production-learning-platform-start`.
+- New data service: `lib/data/signup-applications.ts`.
+- Updated admin data service: `lib/data/admin.ts`.
+- Updated UI: `features/admin/approval-queue.tsx`.
+- Admin approvals now try to read pending `public.signup_applications` rows and fall back to pending profiles/prepared data when the table, session or RLS is not ready.
+- The UI now labels rows as `Cadastro publico` or `Perfil pendente`, shows phone/highlight when available, and uses `Fila preparada` instead of presentation language.
+- Approve/reject on `signup_applications` is still prepared-only; real mutation/promotion is intentionally deferred.
+- Verification passed: `npm run lint`, `npm run build`.
+- Browser QA passed for `/app/admin/aprovacoes` on desktop and mobile with no overflow, broken images, console errors or visible `apresentacao`/`MVP` terms.
+- Next recommended slice: server action for admin approval/rejection with audit log and controlled creation of Auth/profile records.
+
 ## Signup Server Action Prep Handoff
 - Date: 2026-06-17.
 - Active branch: `codex/production-learning-platform-start`.

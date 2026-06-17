@@ -65,6 +65,7 @@ Current result:
 - Production enforcement is controlled by `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce`.
 - Signup submission now has a server action in `app/actions/signup-application.ts`.
 - Real signup writes are behind `ENABLE_SUPABASE_SIGNUP_WRITES=true` and target `public.signup_applications`.
+- Admin approvals can read `signup_applications` through `lib/data/signup-applications.ts` and fall back safely until SQL/RLS are applied.
 - SQL, RLS and Auth user creation are still pending review before mutation.
 
 ## Phase 3 - Learning Core

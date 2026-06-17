@@ -1,5 +1,18 @@
 # Status
 
+## Admin Approvals Application Queue
+- Data: 2026-06-17.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: fazer o admin entender a nova fila `signup_applications` sem depender de SQL aplicado agora.
+- Criado `lib/data/signup-applications.ts` para leitura segura de cadastros publicos pendentes.
+- `lib/data/admin.ts` agora retorna fila unificada: `signup_applications` quando disponivel, perfis pendentes/fallback preparado quando nao.
+- `features/admin/approval-queue.tsx` mostra origem, telefone, highlight do payload e rótulos `Base conectada`/`Fila preparada`.
+- Textos de fila de apresentacao foram removidos da tela de aprovacoes.
+- Nenhuma aprovacao real foi gravada e nenhum usuario Auth real foi criado.
+- Validacao local: `npm run lint` e `npm run build` passaram.
+- Browser QA em `/app/admin/aprovacoes`: desktop/mobile sem overflow, sem imagens quebradas, sem erros de console e sem `apresentacao`/`MVP` visivel.
+- Relatorio: `docs/progress-reports/STEP_24_ADMIN_APPROVALS_APPLICATION_QUEUE.md`.
+
 ## Signup Server Action Prep
 - Data: 2026-06-17.
 - Branch: `codex/production-learning-platform-start`.

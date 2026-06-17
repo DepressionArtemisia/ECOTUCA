@@ -1,5 +1,18 @@
 # Tasks
 
+## Admin Approvals Application Queue
+- [x] Add read service for `signup_applications`.
+- [x] Make admin approval queue prefer public signup applications when available.
+- [x] Keep profile/prepared fallback when table/session/RLS is unavailable.
+- [x] Update approval UI with origin, phone and payload highlight.
+- [x] Remove visible presentation wording from approval queue.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Browser QA `/app/admin/aprovacoes` on desktop/mobile.
+- [ ] Add real admin approval/rejection mutation for `signup_applications`.
+- [ ] Add audit log for approval decisions.
+- [ ] Create controlled Auth/profile promotion flow after review.
+
 ## Signup Server Action Prep
 - [x] Add server action for signup applications.
 - [x] Wire shared multi-step signup submit to the action.
@@ -12,7 +25,7 @@
 - [x] Run `npm run build`.
 - [x] Browser QA the student signup first-step flow on mobile.
 - [x] Smoke-test action in prepared mode.
-- [ ] Connect admin approvals to `signup_applications`.
+- [x] Connect admin approvals to read `signup_applications`.
 - [ ] Implement approved application promotion to Auth/profile rows after schema/RLS review.
 
 ## Production Auth Gating

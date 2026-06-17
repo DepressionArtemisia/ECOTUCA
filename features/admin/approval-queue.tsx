@@ -4,20 +4,13 @@ import { CheckCircle2, RefreshCw, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { EcoButton } from "@/components/brand/eco-button";
 import { Badge } from "@/components/ui/badge";
-import { getApprovalQueue, setApprovalStatus } from "@/lib/data/admin";
-import type { DemoUser, UserStatus } from "@/types/domain";
-
-type Row = {
-  email: string;
-  name: string;
-  role: string;
-  status: UserStatus;
-};
+import { getApprovalQueue, setApprovalStatus, type ApprovalQueueItem } from "@/lib/data/admin";
+import type { UserStatus } from "@/types/domain";
 
 export function ApprovalQueue() {
-  const [rows, setRows] = useState<Row[]>([]);
+  const [rows, setRows] = useState<ApprovalQueueItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [source, setSource] = useState<"supabase" | "demo">("demo");
+  const [source, setSource] = useState<"supabase" | "prepared">("prepared");
   const [message, setMessage] = useState("Carregando fila de aprovacoes.");
 
   useEffect(() => {
@@ -27,8 +20,8 @@ export function ApprovalQueue() {
       setLoading(true);
       const queue = await getApprovalQueue();
       if (!active) return;
-      setRows(queue.map(toRow));
-      setSource(queue.some((user) => user.password === "") ? "supabase" : "demo");
+      setRows(queue);
+      setSource(queue.some((item) => item.source === "supabase") ? "supabase" : "prepared");
       setMessage(queue.length ? "Fila pronta para validacao da coordenacao." : "Nenhum cadastro pendente encontrado.");
       setLoading(false);
     }
@@ -39,14 +32,14 @@ export function ApprovalQueue() {
     };
   }, []);
 
-  async function update(email: string, status: Extract<UserStatus, "approved" | "rejected">) {
-    const result = await setApprovalStatus(email, status);
-    setRows((current) => current.map((row) => (row.email === email ? { ...row, status } : row)));
-    setSource(result.source === "supabase" ? "supabase" : "demo");
+  async function update(row: ApprovalQueueItem, status: Extract<UserStatus, "approved" | "rejected">) {
+    const result = await setApprovalStatus(row, status);
+    setRows((current) => current.map((item) => (item.id === row.id ? { ...item, status } : item)));
+    setSource(result.source === "supabase" ? "supabase" : "prepared");
     setMessage(
       result.source === "supabase"
-        ? `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} na base conectada.`
-        : `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} na fila de apresentacao.`
+        ? `Cadastro ${status === "approved" ? "aprovado" : "rejeitado"} na base conectada.`
+        : `Cadastro ${status === "approved" ? "aprovado" : "rejeitado"} no painel preparado.`
     );
   }
 
@@ -56,7 +49,7 @@ export function ApprovalQueue() {
         <div className="flex flex-wrap gap-2">
           <Badge tone="coral">Fila de aprovacoes</Badge>
           <Badge tone={source === "supabase" ? "mint" : "yellow"}>
-            {source === "supabase" ? "Base conectada" : "Fila de apresentacao"}
+            {source === "supabase" ? "Base conectada" : "Fila preparada"}
           </Badge>
         </div>
         <h1 className="brand-display mt-4 text-5xl">Fila de aprovacoes</h1>
@@ -91,17 +84,22 @@ export function ApprovalQueue() {
             <div>
               <p className="text-xl font-black">{row.name}</p>
               <p className="text-sm text-brand-brown/70 dark:text-brand-cream/70">{row.email}</p>
+              {row.phone ? <p className="text-sm text-brand-brown/70 dark:text-brand-cream/70">{row.phone}</p> : null}
+              <p className="mt-2 max-w-2xl text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{row.highlight}</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 <Badge tone="blue">{row.role}</Badge>
+                <Badge tone={row.kind === "signup_application" ? "mint" : "yellow"}>
+                  {row.kind === "signup_application" ? "Cadastro publico" : "Perfil pendente"}
+                </Badge>
                 <Badge tone={row.status === "pending" ? "coral" : row.status === "approved" ? "mint" : "brown"}>{row.status}</Badge>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
-              <EcoButton variant="mint" onClick={() => update(row.email, "approved")} disabled={row.status === "approved"}>
+              <EcoButton variant="mint" onClick={() => update(row, "approved")} disabled={row.status === "approved"}>
                 <CheckCircle2 size={16} />
                 Aprovar
               </EcoButton>
-              <EcoButton variant="outline" onClick={() => update(row.email, "rejected")} disabled={row.status === "rejected"}>
+              <EcoButton variant="outline" onClick={() => update(row, "rejected")} disabled={row.status === "rejected"}>
                 <XCircle size={16} />
                 Rejeitar
               </EcoButton>
@@ -111,13 +109,4 @@ export function ApprovalQueue() {
       ))}
     </section>
   );
-}
-
-function toRow(user: DemoUser): Row {
-  return {
-    email: user.email,
-    name: user.name,
-    role: user.role,
-    status: user.status
-  };
 }
