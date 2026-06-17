@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BarChart3, CheckCircle2, FileText, Route, Settings, Users } from "lucide-react";
+import { BarChart3, CheckCircle2, ClipboardList, FileBarChart, FileText, Settings, Users } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { ThemeToggle } from "@/components/brand/theme-toggle";
 import { DemoSessionPill } from "@/components/demo/demo-session-pill";
@@ -10,8 +10,8 @@ const adminNav = [
   { label: "Aprovacoes", href: "/app/admin/aprovacoes", icon: CheckCircle2 },
   { label: "Usuarios", href: "/app/admin/usuarios", icon: Users },
   { label: "Trilhas", href: "/app/admin/trilhas", icon: FileText },
-  { label: "Praticas", href: "/app/admin/roteiros", icon: Route },
-  { label: "Metricas", href: "/app/admin/metricas", icon: BarChart3 },
+  { label: "Conteudos", href: "/app/admin/conteudos", icon: ClipboardList },
+  { label: "Relatorios", href: "/app/admin/relatorios", icon: FileBarChart },
   { label: "Config", href: "/app/admin/configuracoes", icon: Settings }
 ];
 

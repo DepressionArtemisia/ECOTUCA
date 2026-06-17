@@ -5,7 +5,7 @@ import { SiteMapExplorer } from "@/components/navigation/site-map-explorer";
 
 export const metadata: Metadata = {
   title: "Mapa do site | ECOTUCA",
-  description: "Mapa visual das principais paginas publicas, cadastros, areas internas e paginas de transparencia do MVP ECOTUCA."
+  description: "Mapa visual das principais paginas publicas, cadastros, areas internas e paginas de transparencia da plataforma ECOTUCA."
 };
 
 export default function SiteMapPage() {
@@ -14,8 +14,8 @@ export default function SiteMapPage() {
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
         <RichPageHeader
           eyebrow="Mapa do site"
-          title="Todos os caminhos do MVP em um lugar"
-          description="Use esta pagina como guia de apresentacao, QA e navegacao para decisores, equipe tecnica e parceiros."
+          title="Todos os caminhos da plataforma em um lugar"
+          description="Use esta pagina como guia de navegacao para alunos, professores, coordenacao, equipe tecnica e parceiros."
           badgeTone="mint"
         />
       </section>

@@ -1,5 +1,23 @@
 # Tasks
 
+## Production Learning Core Routes
+- [x] Add student activities route.
+- [x] Add teacher evaluations route.
+- [x] Add admin content curation route.
+- [x] Add admin reports route.
+- [x] Upgrade teacher classes from placeholder to operational view.
+- [x] Upgrade admin users from preview switcher to user-management view.
+- [x] Upgrade admin settings from placeholder to governance view.
+- [x] Update app/admin/mobile navigation to the V1 teaching paths.
+- [x] Update sitemap data and page language for production platform.
+- [x] Add structured mock data/types for activities, evaluations, content review and reports.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Run browser QA on new/edited core routes.
+- [ ] Replace these mock datasets with Supabase-backed services after schema/RLS approval.
+- [ ] Add real activity submission and teacher feedback mutations.
+- [ ] Add real CSV/PDF report export.
+
 ## Production Learning Platform Start
 - [x] Create branch `codex/production-learning-platform-start`.
 - [x] Reorient public navigation away from `/demo`.

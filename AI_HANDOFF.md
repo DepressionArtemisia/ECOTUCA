@@ -1,5 +1,37 @@
 # AI Handoff
 
+## Production Learning Core Routes Handoff
+- Date: 2026-06-16.
+- Active branch: `codex/production-learning-platform-start`.
+- This slice completes the V1 teaching-platform route skeleton after the production funnel start.
+- New pages:
+  - `app/app/aluno/atividades/page.tsx`
+  - `app/app/professor/avaliacoes/page.tsx`
+  - `app/app/admin/conteudos/page.tsx`
+  - `app/app/admin/relatorios/page.tsx`
+- Upgraded pages:
+  - `app/app/professor/turmas/page.tsx`
+  - `app/app/admin/usuarios/page.tsx`
+  - `app/app/admin/configuracoes/page.tsx`
+  - `app/sitemap/page.tsx`
+- Navigation updates:
+  - Student primary nav now includes Atividades and Certificados.
+  - Teacher primary nav now includes Avaliacoes.
+  - Admin primary nav now includes Conteudos and Relatorios.
+  - Mobile bottom nav now points to Atividades instead of tourism routes.
+- Data contract additions:
+  - `StudentActivity`
+  - `TeacherEvaluation`
+  - `ContentReviewItem`
+  - `AdminReportSnapshot`
+  - `AdminReportRow`
+- Data lives in `lib/mock-data/ecotuca.ts` for now and is ready to be replaced by Supabase services.
+- `lib/navigation/site-map.ts` uses `preview` instead of `demo` as the internal route status.
+- No Supabase SQL was applied, no real Auth users were created and no secrets were touched.
+- Verification passed: `npm run lint`, `npm run build`.
+- Browser QA passed on local production preview for the eight edited/new core routes at desktop and mobile widths; no horizontal overflow, no broken images, no console errors and no visible demo/MVP/presentation terms.
+- Next recommended slice: add production route gating/session checks and Supabase-safe server actions for signup/approval/activity submission.
+
 ## Production Learning Platform Start Handoff
 - Date: 2026-06-16.
 - Active branch: `codex/production-learning-platform-start`.

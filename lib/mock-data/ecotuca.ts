@@ -1,4 +1,15 @@
-import type { DemoUser, Guide, LearningTrack, Metric, TourRoute } from "@/types/domain";
+import type {
+  AdminReportRow,
+  AdminReportSnapshot,
+  ContentReviewItem,
+  DemoUser,
+  Guide,
+  LearningTrack,
+  Metric,
+  StudentActivity,
+  TeacherEvaluation,
+  TourRoute
+} from "@/types/domain";
 
 export const demoUsers: DemoUser[] = [
   {
@@ -513,4 +524,145 @@ export const studentJourney = [
   { label: "Certificacao", status: "locked" },
   { label: "Perfil de guia", status: "locked" },
   { label: "Roteiro publicado", status: "locked" }
+];
+
+export const studentActivities: StudentActivity[] = [
+  {
+    id: "atividade-01",
+    title: "Mapa afetivo do territorio",
+    trackTitle: "Formacao de Guia Local",
+    dueDate: "20/06",
+    status: "submitted",
+    evidenceType: "Relato + 3 fotos",
+    teacherFeedback: "Recebido. Aguardando devolutiva da professora.",
+    progressPercent: 80,
+    tone: "mint"
+  },
+  {
+    id: "atividade-02",
+    title: "Checklist de seguranca da saida",
+    trackTitle: "Meio Ambiente e Biodiversidade",
+    dueDate: "24/06",
+    status: "todo",
+    evidenceType: "Lista guiada",
+    teacherFeedback: "Preencha antes da pratica em grupo.",
+    progressPercent: 20,
+    tone: "yellow"
+  },
+  {
+    id: "atividade-03",
+    title: "ODS aplicado ao ecoturismo",
+    trackTitle: "Agenda 2030 e Empreendedorismo",
+    dueDate: "28/06",
+    status: "revision",
+    evidenceType: "Texto curto",
+    teacherFeedback: "Revisar a conexao entre indicador e acao local.",
+    progressPercent: 55,
+    tone: "coral"
+  },
+  {
+    id: "atividade-04",
+    title: "Roteiro de fala para acolhimento",
+    trackTitle: "Formacao de Guia Local",
+    dueDate: "Concluida",
+    status: "reviewed",
+    evidenceType: "Audio de 2 minutos",
+    teacherFeedback: "Aprovado. Boa clareza e cuidado com moradores.",
+    progressPercent: 100,
+    tone: "blue"
+  }
+];
+
+export const teacherEvaluations: TeacherEvaluation[] = [
+  {
+    id: "avaliacao-01",
+    studentName: "Lucas Oliveira",
+    activityTitle: "Mapa afetivo do territorio",
+    trackTitle: "Formacao de Guia Local",
+    submittedAt: "Hoje, 09:42",
+    status: "pending",
+    priority: "alta",
+    evidence: "Relato + 3 fotos",
+    feedbackHint: "Validar se os pontos descritos respeitam combinados de imagem e geolocalizacao."
+  },
+  {
+    id: "avaliacao-02",
+    studentName: "Ana Beatriz Santos",
+    activityTitle: "ODS aplicado ao ecoturismo",
+    trackTitle: "Agenda 2030 e Empreendedorismo",
+    submittedAt: "Ontem, 18:10",
+    status: "revision",
+    priority: "media",
+    evidence: "Texto curto",
+    feedbackHint: "Pedir exemplo de indicador mensuravel e acao local correspondente."
+  },
+  {
+    id: "avaliacao-03",
+    studentName: "Rafael Silva",
+    activityTitle: "Roteiro de fala para acolhimento",
+    trackTitle: "Formacao de Guia Local",
+    submittedAt: "15/06, 14:30",
+    status: "reviewed",
+    priority: "baixa",
+    evidence: "Audio de 2 minutos",
+    feedbackHint: "Aprovado com destaque para linguagem acolhedora."
+  }
+];
+
+export const contentReviewItems: ContentReviewItem[] = [
+  {
+    id: "conteudo-01",
+    title: "Como contar o territorio com seguranca",
+    author: "Prof. Mariana Costa",
+    trackTitle: "Formacao de Guia Local",
+    kind: "Videoaula",
+    status: "approved",
+    updatedAt: "16/06",
+    checklist: ["Objetivo claro", "Atividade territorial", "Termos de imagem"]
+  },
+  {
+    id: "conteudo-02",
+    title: "Residuos, agua e cuidado em trilha",
+    author: "Prof. Mariana Costa",
+    trackTitle: "Meio Ambiente e Biodiversidade",
+    kind: "Material PDF",
+    status: "review",
+    updatedAt: "15/06",
+    checklist: ["Fonte citada", "Quiz pendente", "Acessibilidade revisar"]
+  },
+  {
+    id: "conteudo-03",
+    title: "Precificacao e renda local",
+    author: "Coordenacao ECOTUCA",
+    trackTitle: "Agenda 2030 e Empreendedorismo",
+    kind: "Aula + atividade",
+    status: "changes",
+    updatedAt: "14/06",
+    checklist: ["Exemplo financeiro", "Linguagem simples", "Curadoria final"]
+  },
+  {
+    id: "conteudo-04",
+    title: "Biodiversidade que mora perto",
+    author: "Equipe ECOTUCA",
+    trackTitle: "Meio Ambiente e Biodiversidade",
+    kind: "Rascunho",
+    status: "draft",
+    updatedAt: "12/06",
+    checklist: ["Imagem oficial", "Atividade", "Glossario"]
+  }
+];
+
+export const adminReportSnapshots: AdminReportSnapshot[] = [
+  { label: "Retencao", value: "82%", detail: "alunos ativos no ciclo", tone: "mint" },
+  { label: "Feedbacks", value: "37", detail: "devolutivas no mes", tone: "yellow" },
+  { label: "Certificados", value: "18", detail: "liberados pela coordenacao", tone: "blue" },
+  { label: "Aprovacoes", value: "17", detail: "cadastros na fila", tone: "coral" }
+];
+
+export const adminReportRows: AdminReportRow[] = [
+  { period: "Jan", students: 28, completedLessons: 110, certificates: 2, pendingApprovals: 7, supportRequests: 4 },
+  { period: "Fev", students: 44, completedLessons: 180, certificates: 4, pendingApprovals: 9, supportRequests: 5 },
+  { period: "Mar", students: 73, completedLessons: 330, certificates: 9, pendingApprovals: 11, supportRequests: 7 },
+  { period: "Abr", students: 96, completedLessons: 560, certificates: 13, pendingApprovals: 15, supportRequests: 9 },
+  { period: "Mai", students: 128, completedLessons: 842, certificates: 18, pendingApprovals: 17, supportRequests: 11 }
 ];

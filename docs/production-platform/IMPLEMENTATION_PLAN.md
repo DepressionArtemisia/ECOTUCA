@@ -58,6 +58,8 @@ Acceptance:
 ## Phase 3 - Learning Core
 Goal: real student learning flow.
 
+Status on 2026-06-16: route skeleton started in `codex/production-learning-platform-start`.
+
 Tasks:
 - Build track/module/lesson pages from Supabase.
 - Persist lesson progress.
@@ -71,8 +73,15 @@ Acceptance:
 - Progress survives reload/device change.
 - Teacher/admin can see progress.
 
+Current result:
+- `/app/aluno/atividades` exists with activity status, evidence type, feedback and progress.
+- `/app/professor/avaliacoes` exists with a teacher feedback queue.
+- Data is still mock-based and must be connected to Supabase in the backend slice.
+
 ## Phase 4 - Teacher Workspace
 Goal: real facilitator workflow.
+
+Status on 2026-06-16: visual workspace expanded.
 
 Tasks:
 - Build classes and student progress views.
@@ -86,8 +95,15 @@ Acceptance:
 - Teacher reviews a student submission.
 - Teacher creates a content draft.
 
+Current result:
+- `/app/professor/turmas` now shows class progress and students in attention.
+- `/app/professor/avaliacoes` now shows submissions to review.
+- `/app/professor/conteudos` already supports the visual content creation/upload flow.
+
 ## Phase 5 - Admin Command Center
 Goal: production operation.
+
+Status on 2026-06-16: visual command-center routes expanded.
 
 Tasks:
 - User management.
@@ -101,6 +117,13 @@ Acceptance:
 - Admin can run the platform without editing code.
 - Reports/export show production data.
 - Audit log records critical decisions.
+
+Current result:
+- `/app/admin/usuarios` shows users, roles and status without the old preview switcher.
+- `/app/admin/conteudos` shows content review/curation state.
+- `/app/admin/relatorios` shows report snapshots and monthly rows.
+- `/app/admin/configuracoes` shows governance areas.
+- Mutations, audit log and real exports still need the Supabase backend slice.
 
 ## Phase 6 - Production QA And Deploy
 Goal: public launch.

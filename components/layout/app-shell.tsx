@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bell, BookOpen, CalendarDays, Compass, GraduationCap, Home, MapPinned, Settings, UploadCloud, UserRound, UsersRound } from "lucide-react";
+import { Award, Bell, BookOpen, CalendarDays, ClipboardCheck, Compass, GraduationCap, Home, MapPinned, Settings, UploadCloud, UserRound, UsersRound } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { ThemeToggle } from "@/components/brand/theme-toggle";
 import { MobileBottomNav } from "@/components/mobile/mobile-bottom-nav";
@@ -12,7 +12,8 @@ const navByRole = {
   student: [
     { label: "Inicio", href: "/app/aluno", icon: Home },
     { label: "Trilhas", href: "/app/aluno/trilhas", icon: BookOpen },
-    { label: "Roteiros", href: "/roteiros", icon: MapPinned },
+    { label: "Atividades", href: "/app/aluno/atividades", icon: ClipboardCheck },
+    { label: "Certificados", href: "/app/aluno/certificados", icon: Award },
     { label: "Perfil", href: "/app/perfil", icon: UserRound },
     { label: "Ajustes", href: "/app/configuracoes", icon: Settings }
   ],
@@ -20,7 +21,7 @@ const navByRole = {
     { label: "Inicio", href: "/app/professor", icon: Home },
     { label: "Turmas", href: "/app/professor/turmas", icon: UsersRound },
     { label: "Conteudos", href: "/app/professor/conteudos", icon: UploadCloud },
-    { label: "Comunidade", href: "/app/professor/comunidade", icon: BookOpen },
+    { label: "Avaliacoes", href: "/app/professor/avaliacoes", icon: ClipboardCheck },
     { label: "Ajustes", href: "/app/configuracoes", icon: Settings }
   ],
   guide: [

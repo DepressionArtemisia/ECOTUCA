@@ -15,28 +15,28 @@ const audienceOptions: Array<{ value: "all" | SiteMapAudience; label: string }> 
   { value: "guide", label: "Guia" },
   { value: "tourist", label: "Turista" },
   { value: "admin", label: "Admin" },
-  { value: "meeting", label: "Reuniao" },
+  { value: "meeting", label: "Preview" },
   { value: "technical", label: "Tecnico" }
 ];
 
 const statusOptions: Array<{ value: "all" | SiteMapStatus; label: string }> = [
   { value: "all", label: "Todos" },
   { value: "ready", label: "Pronto" },
-  { value: "demo", label: "Demo" },
+  { value: "preview", label: "Preview" },
   { value: "draft", label: "Minuta" },
   { value: "technical", label: "Tecnico" }
 ];
 
 const statusTone: Record<SiteMapStatus, "yellow" | "coral" | "blue" | "orange" | "mint"> = {
   ready: "mint",
-  demo: "yellow",
+  preview: "yellow",
   draft: "orange",
   technical: "blue"
 };
 
 const statusLabel: Record<SiteMapStatus, string> = {
   ready: "pronto",
-  demo: "demo",
+  preview: "preview",
   draft: "minuta",
   technical: "tecnico"
 };
@@ -82,8 +82,8 @@ function RouteCard({
 }
 
 export function SiteMapExplorer() {
-  const [audience, setAudience] = useState<"all" | SiteMapAudience>("all");
-  const [status, setStatus] = useState<"all" | SiteMapStatus>("all");
+  const [audience, setAudience] = useState<"all" | SiteMapAudience>("public");
+  const [status, setStatus] = useState<"all" | SiteMapStatus>("ready");
   const [copiedHref, setCopiedHref] = useState("");
 
   const filteredSections = useMemo(() => (
@@ -121,7 +121,7 @@ export function SiteMapExplorer() {
       <section className="brand-card p-4 dark:bg-brand-dark-soft/90 sm:p-5">
         <div className="flex flex-wrap items-center gap-3">
           <Filter size={20} className="text-brand-coral" />
-          <h2 className="brand-display text-3xl">Filtros de apresentacao</h2>
+          <h2 className="brand-display text-3xl">Filtros da plataforma</h2>
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <div>

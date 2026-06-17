@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, BookOpen, Home, MapPinned, UserRound } from "lucide-react";
+import { Bell, BookOpen, ClipboardCheck, Home, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
   { label: "Inicio", href: "/app/aluno", icon: Home },
   { label: "Trilhas", href: "/app/aluno/trilhas", icon: BookOpen },
-  { label: "Roteiros", href: "/roteiros", icon: MapPinned },
+  { label: "Atividades", href: "/app/aluno/atividades", icon: ClipboardCheck },
   { label: "Avisos", href: "/app/notificacoes", icon: Bell },
   { label: "Perfil", href: "/app/perfil", icon: UserRound }
 ];

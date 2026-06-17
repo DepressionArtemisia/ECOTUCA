@@ -1,5 +1,32 @@
 # Status
 
+## Production Learning Core Routes
+- Data: 2026-06-16.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: completar o mapa V1 da plataforma de ensino com telas centrais que ainda faltavam no nucleo aluno/professor/admin.
+- Novas rotas criadas:
+  - `/app/aluno/atividades`
+  - `/app/professor/avaliacoes`
+  - `/app/admin/conteudos`
+  - `/app/admin/relatorios`
+- Rotas principais reforcadas:
+  - `/app/professor/turmas` deixou de ser placeholder e virou acompanhamento de turmas/progresso/alunos.
+  - `/app/admin/usuarios` deixou de usar seletor de preview e virou gestao de usuarios/perfis/status.
+  - `/app/admin/configuracoes` deixou de ser placeholder e virou tela de governanca.
+  - `/sitemap` foi limpo para linguagem de plataforma, com filtros iniciais de publico/pronto.
+- Navegacao ajustada:
+  - Aluno: Atividades e Certificados entram no lugar de Roteiros como caminho principal.
+  - Professor: Avaliacoes entra no menu principal.
+  - Admin: Conteudos e Relatorios entram no menu principal.
+  - Bottom nav mobile agora aponta para Atividades.
+- Dados estruturados adicionados em `types/domain.ts` e `lib/mock-data/ecotuca.ts`: atividades do aluno, avaliacoes do professor, curadoria de conteudo e snapshots/linhas de relatorio.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run lint` passou.
+- Validacao local: `npm run build` passou com 52 rotas.
+- Browser QA em `http://localhost:3020`: desktop e mobile para `/app/aluno/atividades`, `/app/professor/turmas`, `/app/professor/avaliacoes`, `/app/admin/usuarios`, `/app/admin/conteudos`, `/app/admin/relatorios`, `/app/admin/configuracoes` e `/sitemap`.
+- Resultado browser: sem overflow horizontal, sem imagens quebradas, sem erros de console e sem sinais visiveis de demo/MVP/apresentacao nas rotas verificadas.
+- Relatorio: `docs/progress-reports/STEP_21_PRODUCTION_LEARNING_CORE_ROUTES.md`.
+
 ## Production Learning Platform Start
 - Data: 2026-06-16.
 - Branch: `codex/production-learning-platform-start`.
