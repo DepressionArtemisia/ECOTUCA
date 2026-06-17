@@ -6,17 +6,15 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { EcoButton } from "@/components/brand/eco-button";
 import { OfficialLogo } from "@/components/brand/official-logo";
-import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/features/auth/auth-provider";
 import type { CurrentUser } from "@/lib/data/auth";
 
 export function LoginForm() {
   const router = useRouter();
   const { login } = useAuth();
-  const [email, setEmail] = useState("aluno@ecotuca.local");
-  const [password, setPassword] = useState("Demo@123456");
-  const [message, setMessage] = useState("Acesso preparado para contas reais, com ambiente de apresentacao para esta reuniao.");
-  const [source, setSource] = useState<"supabase" | "demo">("demo");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("Entre com sua conta aprovada pela coordenacao ECOTUCA.");
   const [loading, setLoading] = useState(false);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -24,7 +22,6 @@ export function LoginForm() {
     setLoading(true);
     const result = await login(email, password);
     setLoading(false);
-    setSource(result.source);
     setMessage(result.message);
     if (result.ok) {
       router.push(resolveLanding(result.user));
@@ -34,10 +31,7 @@ export function LoginForm() {
   return (
     <form onSubmit={submit} className="rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
       <OfficialLogo variant="horizontal" tone="negative" size="md" />
-      <div className="mt-5">
-        <Badge tone={source === "supabase" ? "mint" : "yellow"}>{source === "supabase" ? "Base conectada" : "Apresentacao segura"}</Badge>
-      </div>
-      <h1 className="brand-display mt-5 text-6xl text-brand-yellow">Entrar</h1>
+      <h1 className="brand-display mt-6 text-6xl text-brand-yellow">Entrar</h1>
       <p className="mt-4 text-brand-cream/75">{message}</p>
       <div className="mt-6 space-y-3">
         <label className="block">
@@ -46,6 +40,10 @@ export function LoginForm() {
             <Mail size={18} />
             <input
               value={email}
+              type="email"
+              autoComplete="email"
+              placeholder="seuemail@exemplo.com"
+              required
               onChange={(event) => setEmail(event.target.value)}
               className="w-full bg-transparent text-sm font-bold outline-none"
             />
@@ -56,6 +54,10 @@ export function LoginForm() {
           <input
             value={password}
             type="password"
+            autoComplete="current-password"
+            placeholder="Sua senha"
+            required
+            minLength={6}
             onChange={(event) => setPassword(event.target.value)}
             className="mt-1 h-12 w-full rounded-lg bg-white px-4 text-sm font-bold text-brand-brown outline-none"
           />
@@ -69,6 +71,9 @@ export function LoginForm() {
         <Link href="/cadastro">
           <EcoButton type="button" variant="outline">Criar cadastro</EcoButton>
         </Link>
+        <Link href="/recuperar-senha" className="inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-black text-brand-yellow hover:text-brand-mint">
+          Esqueci minha senha
+        </Link>
       </div>
     </form>
   );
@@ -76,7 +81,7 @@ export function LoginForm() {
 
 function resolveLanding(user?: CurrentUser) {
   if (!user) return "/app/aluno";
-  if (user.status === "pending") return "/app/aguardando-aprovacao";
+  if (user.status === "pending") return "/aguardando-aprovacao";
   if (user.role === "admin" || user.role === "super_admin") return "/app/admin";
   if (user.role === "teacher") return "/app/professor";
   if (user.role === "guide") return "/app/guia";

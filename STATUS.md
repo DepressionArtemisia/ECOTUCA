@@ -1,5 +1,28 @@
 # Status
 
+## Production Learning Platform Start
+- Data: 2026-06-16.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: iniciar a conversao do MVP/demo em plataforma real de ensino, mantendo a documentacao anterior como referencia e deixando `/demo` fora do caminho principal.
+- Public navigation reorientada para ensino: `/`, `/como-funciona`, `/#trilhas`, `/cadastro/aluno`, `/cadastro/professor`, `/contato` e `/entrar`.
+- Home recriada como funil de aprendizagem ECOTUCA: inscricao, aprovacao, trilhas, professor, admin, certificado e impacto.
+- Novas rotas de producao: `/entrar`, `/recuperar-senha` e `/aguardando-aprovacao`.
+- `/cadastro` prioriza Aluno e Professor; os textos de cadastro agora falam em analise/aprovacao da coordenacao.
+- Login perdeu credenciais pre-preenchidas, recebeu campos obrigatorios, link de recuperacao e copy de conta aprovada.
+- Shells internos escondem badges demo por padrao com `NEXT_PUBLIC_SHOW_DEMO_CONTROLS`.
+- Admin foi reorientado para ensino, usuarios, trilhas, certificados, turmas, suporte e impacto; textos visiveis de demo foram removidos do painel principal.
+- Paginas publicas revisadas: `/como-funciona`, `/contato`, `/faq`, `/termos`, `/privacidade` e 404.
+- Dependencias atualizadas para producao: `next@15.5.19`, `eslint-config-next@15.5.19`, `react@19.2.7`, `react-dom@19.2.7`, `@types/react@19.2.17`, `@types/react-dom@19.2.3`.
+- `npm audit fix` removeu a vulnerabilidade alta de `esbuild`.
+- Residual de seguranca: `npm audit --omit=dev` ainda aponta 2 vulnerabilidades moderadas em `postcss` embutido no `next`; `npm audit fix --force` sugere downgrade quebrado para `next@9.3.3`, entao nao foi aplicado.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run lint` passou.
+- Validacao local: `npm run build` passou com 48 rotas.
+- Browser QA em `http://localhost:3020`: desktop e mobile para `/`, `/entrar`, `/recuperar-senha`, `/aguardando-aprovacao`, `/cadastro`, `/cadastro/aluno`, `/cadastro/professor`, `/como-funciona`, `/contato`, `/faq`, `/termos`, `/privacidade`, `/app/aluno`, `/app/professor` e `/app/admin`.
+- Resultado browser: sem overflow horizontal, sem imagens quebradas, sem erros de console e sem sinais visiveis de demo nas rotas testadas.
+- Preview local ativo: `http://localhost:3020`.
+- Relatorio: `docs/progress-reports/STEP_20_PRODUCTION_LEARNING_START.md`.
+
 ## Prompt 8 - QA final de producao e reuniao
 - Data: 2026-06-08.
 - Objetivo: QA final sem novas features, sem SQL, sem usuarios Auth reais e sem mexer em chaves.

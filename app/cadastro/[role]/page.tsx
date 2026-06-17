@@ -49,11 +49,11 @@ export default async function RegisterRolePage({ params }: { params: Promise<{ r
         {role === "turista" ? <TouristSignupFlow /> : null}
         <div className="mt-8">
           <EthicalNotice>
-            A confirmacao visual deste cadastro nao cria usuario real. A proxima etapa e conectar Auth, RLS e aprovacao quando o banco for autorizado.
+            O cadastro entra em analise da coordenacao. A liberacao de acesso acontece apenas depois da aprovacao do perfil e validacao dos termos.
           </EthicalNotice>
         </div>
         <div className="mt-6">
-          <ImpactBand title="Precisa mostrar o fluxo completo?" description="A central de apresentacao organiza o caminho de cadastro, login, areas internas, roteiro e painel admin." href="/demo" action="Abrir demo" />
+          <ImpactBand title="Depois do envio, acompanhe sua entrada" description="Aluno e professor acessam a plataforma pelo login quando a coordenacao aprovar o cadastro." href="/entrar" action="Ir para login" />
         </div>
       </section>
     </PublicShell>

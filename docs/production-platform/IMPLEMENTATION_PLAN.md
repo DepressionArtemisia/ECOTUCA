@@ -3,6 +3,8 @@
 ## Phase 0 - Production Cutover Strategy
 Goal: separate the real teaching platform from the demo MVP.
 
+Status on 2026-06-16: started on branch `codex/production-learning-platform-start`.
+
 Tasks:
 - Create a production branch.
 - Hide or remove demo-first routes from public navigation.
@@ -15,6 +17,11 @@ Acceptance:
 - `/` presents ECOTUCA as a real learning platform.
 - `/demo` is not the main user path.
 - No demo credentials appear in production navigation.
+
+Current result:
+- Public navigation no longer routes users to `/demo`.
+- Home, login, signup, pending approval, how-it-works, contact, FAQ, terms and privacy now use production teaching-platform language.
+- Demo routes still exist, but are no longer the primary public path.
 
 ## Phase 1 - Production Design System
 Goal: lock the ultra premium visual system.

@@ -10,18 +10,18 @@ export const metadata: Metadata = {
 
 const items = [
   { question: "Quem pode se cadastrar como aluno?", answer: "Jovens interessados em educacao ambiental, tecnologia, territorio e turismo comunitario. A liberacao final depende da coordenacao." },
-  { question: "O cadastro cria acesso real imediatamente?", answer: "Nesta rodada, o fluxo apresenta preenchimento, rascunho e confirmacao visual. Usuarios reais entram depois da integracao autorizada com Supabase Auth." },
-  { question: "Os roteiros ja podem ser comercializados?", answer: "A vitrine demonstra a experiencia e a narrativa. Precificacao, agenda e operacao final precisam de validacao local." },
+  { question: "O cadastro libera acesso imediatamente?", answer: "Nao. Primeiro ele entra em analise. Depois da aprovacao, a coordenacao libera o acesso do aluno ou professor." },
+  { question: "A plataforma tambem fala de territorio?", answer: "Sim. O ensino conecta ecoturismo, Complexo do Alemao, Agenda 2030, tecnologia, comunicacao e geracao de renda." },
   { question: "Como as imagens sao creditadas?", answer: "A pagina de creditos lista fontes, licencas e pendencias. O ideal e substituir por acervo oficial quando disponivel." },
-  { question: "Como o professor publica material?", answer: "O painel pedagogico mostra o fluxo de upload e curadoria. O bucket real deve ser ativado depois da validacao tecnica." },
-  { question: "O app funciona como PWA?", answer: "A estrutura ja tem manifest, layout mobile-first e moldura navegavel; proximos passos incluem instalabilidade e cache mais robusto." }
+  { question: "Como o professor publica material?", answer: "O painel pedagogico organiza aulas, materiais, atividades, turmas e feedbacks com curadoria da coordenacao." },
+  { question: "O app funciona como PWA?", answer: "A interface foi pensada mobile-first e pode evoluir para instalabilidade, notificacoes e cache offline controlado." }
 ];
 
 export default function FaqPage() {
   return (
     <PublicShell>
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
-        <RichPageHeader eyebrow="FAQ" title="Perguntas antes da reuniao" description="Respostas objetivas para alinhar escopo, demonstracao, identidade visual e proximas decisoes." badgeTone="blue" />
+        <RichPageHeader eyebrow="FAQ" title="Perguntas sobre a plataforma" description="Respostas objetivas para alunos, professores, parceiros e equipe tecnica entenderem o fluxo de ensino." badgeTone="blue" />
       </section>
       <section className="premium-section pt-2">
         <div className="mx-auto max-w-7xl px-5 sm:px-6">

@@ -3,8 +3,8 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "ECOTUCA / Perifa Ecotour",
-  description: "Plataforma de ensino, ecoturismo e impacto social do Complexo do Alemao.",
+  title: "ECOTUCA | Plataforma de ensino em ecoturismo",
+  description: "Plataforma de ensino ECOTUCA para trilhas, aulas, atividades, certificados e impacto no Complexo do Alemao.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/favicon.ico",

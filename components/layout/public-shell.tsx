@@ -1,12 +1,47 @@
 import Link from "next/link";
-import { ChevronRight, LogIn, MapPinned, Menu } from "lucide-react";
+import { BookOpenCheck, ChevronRight, GraduationCap, LogIn, Menu, ShieldCheck } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { BrandGradient } from "@/components/brand/brand-gradient";
 import { OfficialLogo } from "@/components/brand/official-logo";
 import { ThemeToggle } from "@/components/brand/theme-toggle";
 import { EcoButton } from "@/components/brand/eco-button";
 import { publicNav } from "@/lib/constants/brand";
-import { footerHighlights, siteMapSections } from "@/lib/navigation/site-map";
+
+const footerSections = [
+  {
+    title: "Plataforma",
+    links: [
+      { label: "Como funciona", href: "/como-funciona" },
+      { label: "Cadastro do aluno", href: "/cadastro/aluno" },
+      { label: "Cadastro do professor", href: "/cadastro/professor" },
+      { label: "Entrar", href: "/entrar" }
+    ]
+  },
+  {
+    title: "Ensino",
+    links: [
+      { label: "Trilhas", href: "/#trilhas" },
+      { label: "Area do aluno", href: "/app/aluno" },
+      { label: "Area do professor", href: "/app/professor" },
+      { label: "Certificados", href: "/app/aluno/certificados" }
+    ]
+  },
+  {
+    title: "Institucional",
+    links: [
+      { label: "Sobre", href: "/sobre" },
+      { label: "Contato", href: "/contato" },
+      { label: "Privacidade", href: "/privacidade" },
+      { label: "Termos", href: "/termos" }
+    ]
+  }
+];
+
+const footerHighlights = [
+  { label: "Aprendizagem", href: "/app/aluno", icon: GraduationCap },
+  { label: "Trilhas", href: "/#trilhas", icon: BookOpenCheck },
+  { label: "Aprovacao", href: "/cadastro", icon: ShieldCheck }
+];
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   return (
@@ -23,15 +58,15 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link href="/login" className="hidden sm:block">
+            <Link href="/entrar" className="hidden sm:block">
               <EcoButton size="sm">
                 <LogIn size={16} />
                 Entrar
               </EcoButton>
             </Link>
-            <Link href="/roteiros" className="sm:hidden" aria-label="Roteiros">
+            <Link href="/cadastro" className="sm:hidden" aria-label="Cadastro">
               <EcoButton size="sm" variant="mint">
-                <MapPinned size={16} />
+                <GraduationCap size={16} />
               </EcoButton>
             </Link>
             <details className="group relative lg:hidden">
@@ -59,7 +94,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
               <OfficialLogo brand="perifa" variant="horizontal" tone="negative" size="sm" />
             </div>
             <p className="mt-5 max-w-xl text-sm text-brand-cream/75">
-              ECOTUCA conecta educacao ambiental, juventude, turismo comunitario, tecnologia e prestacao de contas em uma experiencia digital pronta para evoluir.
+              ECOTUCA e a plataforma de ensino da Perifa Ecotour: formacao ambiental, trilhas de aprendizagem, acompanhamento pedagogico, certificados e impacto para jovens do territorio.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               {footerHighlights.slice(0, 6).map((item) => {
@@ -74,11 +109,11 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="grid gap-5 sm:grid-cols-3">
-            {siteMapSections.slice(0, 3).map((section) => (
+            {footerSections.map((section) => (
               <div key={section.title}>
                 <h2 className="text-sm font-black text-brand-yellow">{section.title}</h2>
                 <div className="mt-3 space-y-2">
-                  {section.items.slice(0, 4).map((item) => (
+                  {section.links.map((item) => (
                     <Link key={item.href} href={item.href} className="focus-ring-brand block rounded-md text-sm text-brand-cream/75 hover:text-brand-yellow">
                       {item.label}
                     </Link>

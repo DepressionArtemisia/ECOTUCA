@@ -441,12 +441,12 @@ export const adminMetrics: Metric[] = [
   { label: "Trilhas ativas", value: "3", detail: "formacao em andamento", tone: "blue" },
   { label: "Aulas concluidas", value: "842", detail: "64% da trilha principal", tone: "mint" },
   { label: "Guias em formacao", value: "42", detail: "12 quase certificados", tone: "orange" },
-  { label: "Roteiros publicados", value: "6", detail: "3 em destaque", tone: "orange" },
-  { label: "Leads de turistas", value: "31", detail: "modo demonstracao", tone: "coral" },
-  { label: "Certificados emitidos", value: "18", detail: "demonstracao", tone: "yellow" },
+  { label: "Atividades enviadas", value: "214", detail: "feedback em andamento", tone: "orange" },
+  { label: "Turmas acompanhadas", value: "8", detail: "4 com tutoria ativa", tone: "coral" },
+  { label: "Certificados emitidos", value: "18", detail: "liberados pela coordenacao", tone: "yellow" },
   { label: "Taxa de conclusao", value: "68%", detail: "trilha Guia Local", tone: "mint" },
-  { label: "Horas estudadas", value: "1.340h", detail: "dados de demonstracao", tone: "blue" },
-  { label: "Potencial de renda", value: "R$ 9,8k", detail: "por solicitacoes", tone: "mint" }
+  { label: "Horas estudadas", value: "1.340h", detail: "registro da plataforma", tone: "blue" },
+  { label: "Potencial de renda", value: "R$ 9,8k", detail: "apos certificacao", tone: "mint" }
 ];
 
 export const notices = [
@@ -478,11 +478,11 @@ export const forumTopics = [
 ];
 
 export const impactChartData = [
-  { month: "Jan", alunos: 28, aulas: 110, roteiros: 2 },
-  { month: "Fev", alunos: 44, aulas: 180, roteiros: 2 },
-  { month: "Mar", alunos: 73, aulas: 330, roteiros: 4 },
-  { month: "Abr", alunos: 96, aulas: 560, roteiros: 5 },
-  { month: "Mai", alunos: 128, aulas: 842, roteiros: 6 }
+  { month: "Jan", alunos: 28, aulas: 110, certificados: 2 },
+  { month: "Fev", alunos: 44, aulas: 180, certificados: 4 },
+  { month: "Mar", alunos: 73, aulas: 330, certificados: 9 },
+  { month: "Abr", alunos: 96, aulas: 560, certificados: 13 },
+  { month: "Mai", alunos: 128, aulas: 842, certificados: 18 }
 ];
 
 export const completionByTrack = [

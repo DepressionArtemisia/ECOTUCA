@@ -9,7 +9,7 @@ import { OfficialLogo } from "@/components/brand/official-logo";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { MetricCard } from "@/components/cards/metric-card";
 import { Badge } from "@/components/ui/badge";
-import { adminMetrics, bookingChartData, completionByTrack, demoUsers, impactChartData, tourRoutes } from "@/lib/mock-data/ecotuca";
+import { adminMetrics, bookingChartData, completionByTrack, demoUsers, impactChartData, learningTracks } from "@/lib/mock-data/ecotuca";
 
 export function AdminDashboard() {
   const pending = demoUsers.filter((user) => user.status === "pending");
@@ -24,7 +24,7 @@ export function AdminDashboard() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "ecotuca-impacto-demo.csv";
+    link.download = "ecotuca-impacto.csv";
     link.click();
     URL.revokeObjectURL(url);
   }
@@ -45,15 +45,15 @@ export function AdminDashboard() {
           <OfficialLogo variant="horizontal" tone="negative" size="md" />
         </div>
         <p className="relative mt-5 text-sm font-black uppercase text-brand-mint">Centro de comando</p>
-        <h1 className="brand-display relative mt-2 text-4xl text-brand-yellow sm:text-5xl">Impacto, usuarios e roteiros</h1>
+        <h1 className="brand-display relative mt-2 text-4xl text-brand-yellow sm:text-5xl">Ensino, usuarios e impacto</h1>
         <p className="relative mt-3 max-w-3xl text-brand-cream/78">
-          Visao executiva para coordenacao, aprovacoes, prestacao de contas e acompanhamento da jornada ECOTUCA.
+          Visao executiva para coordenacao, aprovacoes, turmas, trilhas, certificados e acompanhamento da jornada ECOTUCA.
         </p>
         <ImpactRibbon
           className="relative mt-5 max-w-4xl"
           items={[
             { label: "aprovacoes na fila", value: String(pending.length) },
-            { label: "roteiros ativos", value: String(tourRoutes.length) },
+            { label: "trilhas ativas", value: String(learningTracks.length) },
             { label: "relatorio CSV", value: "pronto" }
           ]}
         />
@@ -74,10 +74,10 @@ export function AdminDashboard() {
             </p>
             <h2 className="brand-display mt-2 text-4xl">Impacto que pode virar evidencia</h2>
             <p className="mt-2 max-w-3xl text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
-              Dados demonstrativos organizados para conversa com apoiadores: formacao, conclusao, certificados, roteiros, solicitacoes, potencial de renda e ODS relacionados.
+              Indicadores organizados para gestao e prestacao de contas: formacao, conclusao, certificados, atividades, atendimento, potencial de renda e ODS relacionados.
             </p>
           </div>
-          <Badge tone="yellow">dados de demonstracao</Badge>
+          <Badge tone="yellow">gestao educacional</Badge>
         </div>
         <div className="mt-5 grid gap-3 md:grid-cols-4">
           {["Jovens inscritos", "Horas de formacao", "Certificados", "Potencial de renda"].map((item) => (
@@ -90,9 +90,9 @@ export function AdminDashboard() {
 
       <section className="grid gap-4 lg:grid-cols-4">
         {[
-          ["Banco real", "Aplicar SQL, RLS e seeds somente depois da validacao aprovada."],
-          ["Usuarios", "Criar Auth real para perfis aprovados e manter apresentacao separada."],
-          ["Operacao", "Definir agenda, preco, seguro, autorizacao de imagem e fluxo de visita."],
+          ["Banco", "Manter SQL, RLS, policies e seeds alinhados ao fluxo de aprovacao."],
+          ["Usuarios", "Liberar Auth real apenas para perfis aprovados pela coordenacao."],
+          ["Operacao", "Definir turmas, calendario, responsaveis, termos e autorizacoes."],
           ["Identidade", "Substituir logos/imagens por pacote oficial quando enviado."]
         ].map(([item, text]) => (
           <PerifaCard key={item} tone="mint">
@@ -123,7 +123,7 @@ export function AdminDashboard() {
                 <Tooltip />
                 <Bar dataKey="alunos" fill="#FCC224" radius={[6, 6, 0, 0]} />
                 <Bar dataKey="aulas" fill="#2ACCB5" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="roteiros" fill="#E9635D" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="certificados" fill="#E9635D" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -158,12 +158,12 @@ export function AdminDashboard() {
           </PerifaCard>
 
           <PerifaCard tone="orange">
-            <p className="text-sm font-black uppercase text-brand-orange">Roteiros publicados</p>
+            <p className="text-sm font-black uppercase text-brand-orange">Trilhas acompanhadas</p>
             <div className="mt-4 space-y-3">
-              {tourRoutes.slice(0, 4).map((route) => (
-                <div key={route.slug} className="flex min-w-0 items-center justify-between gap-2 rounded-lg bg-white/80 p-3 text-sm font-bold dark:bg-white/10">
-                  <span className="min-w-0 truncate">{route.title}</span>
-                  <Badge className="shrink-0 px-2 sm:px-3" tone={route.featured ? "yellow" : "blue"}>{route.featured ? "destaque" : "publicado"}</Badge>
+              {learningTracks.map((track) => (
+                <div key={track.id} className="flex min-w-0 items-center justify-between gap-2 rounded-lg bg-white/80 p-3 text-sm font-bold dark:bg-white/10">
+                  <span className="min-w-0 truncate">{track.title}</span>
+                  <Badge className="shrink-0 px-2 sm:px-3" tone={track.progressPercent > 50 ? "yellow" : "blue"}>{track.progressPercent}%</Badge>
                 </div>
               ))}
             </div>
@@ -188,7 +188,7 @@ export function AdminDashboard() {
           </div>
         </div>
         <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
-          <p className="text-sm font-black uppercase text-brand-coral">Solicitacoes de roteiros</p>
+          <p className="text-sm font-black uppercase text-brand-coral">Solicitacoes de suporte</p>
           <div className="mt-5 h-72 min-w-0">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={bookingChartData}>

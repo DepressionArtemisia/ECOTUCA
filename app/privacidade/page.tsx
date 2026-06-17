@@ -6,7 +6,7 @@ import { RichPageHeader } from "@/components/layout/rich-page-header";
 
 export const metadata: Metadata = {
   title: "Privacidade | ECOTUCA",
-  description: "Politica preliminar de privacidade para o MVP ECOTUCA, com foco em LGPD, consentimento e minimizacao de dados."
+  description: "Politica preliminar de privacidade da ECOTUCA, com foco em LGPD, consentimento e minimizacao de dados."
 };
 
 const privacyItems = [
@@ -21,7 +21,7 @@ export default function PrivacidadePage() {
   return (
     <PublicShell>
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
-        <RichPageHeader eyebrow="Privacidade" title="Dados com cuidado e finalidade clara" description="Diretrizes preliminares para apresentar o MVP sem confundir prototipo navegavel com operacao definitiva." badgeTone="mint" />
+        <RichPageHeader eyebrow="Privacidade" title="Dados com cuidado e finalidade clara" description="Diretrizes iniciais para operar cadastros, turmas, aulas, atividades e acompanhamento com responsabilidade." badgeTone="mint" />
       </section>
       <section className="premium-section pt-2">
         <div className="mx-auto max-w-5xl px-5 sm:px-6">

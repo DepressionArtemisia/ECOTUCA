@@ -87,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     clearStoredDemoUser();
     const demo = getStoredDemoUser();
     setUser({ ...demo, source: "demo" });
-    router.push("/demo");
+    router.push("/entrar");
   }, [router]);
 
   const value = useMemo(

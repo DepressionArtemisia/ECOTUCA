@@ -6,7 +6,7 @@ import { EcoButton } from "@/components/brand/eco-button";
 export function PlaceholderPage({
   title,
   description,
-  area = "MVP navegavel"
+  area = "Modulo em construcao"
 }: {
   title: string;
   description: string;
@@ -24,9 +24,9 @@ export function PlaceholderPage({
             <h1 className="brand-display mt-3 text-4xl">{title}</h1>
             <p className="mt-3 max-w-2xl text-brand-brown/75 dark:text-brand-cream/75">{description}</p>
           </div>
-          <Link href="/demo">
+          <Link href="/app/aluno">
             <EcoButton variant="mint">
-              Demo
+              Voltar
               <ArrowRight size={16} />
             </EcoButton>
           </Link>

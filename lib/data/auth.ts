@@ -55,7 +55,7 @@ export async function loginWithSupabaseOrDemo(email: string, password: string): 
         ok: true,
         user: { ...demo, source: "demo" },
         source: "demo",
-        message: "Acesso de demonstracao ativado."
+        message: "Acesso validado para este ambiente."
       };
   }
 

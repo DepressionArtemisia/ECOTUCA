@@ -31,11 +31,9 @@ export const typographyTokens = {
 
 export const publicNav = [
   { label: "Inicio", href: "/" },
-  { label: "Sobre", href: "/sobre" },
   { label: "Como funciona", href: "/como-funciona" },
-  { label: "Roteiros", href: "/roteiros" },
-  { label: "Cadastros", href: "/cadastro" },
-  { label: "Demo", href: "/demo" },
-  { label: "Mobile", href: "/demo-mobile" },
-  { label: "Mapa", href: "/sitemap" }
+  { label: "Trilhas", href: "/#trilhas" },
+  { label: "Para alunos", href: "/cadastro/aluno" },
+  { label: "Para professores", href: "/cadastro/professor" },
+  { label: "Contato", href: "/contato" }
 ] as const;

@@ -1,5 +1,26 @@
 # AI Handoff
 
+## Production Learning Platform Start Handoff
+- Date: 2026-06-16.
+- Active branch: `codex/production-learning-platform-start`.
+- Goal: start the real teaching platform implementation from the production blueprint, without deleting the old demo routes yet.
+- Public shell and navigation now point to the learning funnel, not the demo hub.
+- New production-facing routes: `/entrar`, `/recuperar-senha`, `/aguardando-aprovacao`.
+- `/login` remains available and is re-exported by `/entrar`.
+- Main public copy was cleaned on home, how-it-works, contact, FAQ, terms, privacy, 404 and signup role pages.
+- `/cadastro` now prioritizes student and teacher. Guide/tourist routes still exist but are no longer primary V1 entry points.
+- Login form no longer pre-fills demo credentials; e-mail/password are required and pending users go to `/aguardando-aprovacao`.
+- `AppShell` and `AdminShell` hide `DataSourceBadge` and `DemoSessionPill` unless `NEXT_PUBLIC_SHOW_DEMO_CONTROLS=true`.
+- Admin dashboard is now education-first: teaching, users, tracks, certificates, classes, support and impact.
+- Dependencies updated: `next@15.5.19`, `react@19.2.7`, `react-dom@19.2.7`, matching Next ESLint config and React types.
+- `npm audit fix` removed the high `esbuild` issue. Residual: npm still reports 2 moderate `postcss` issues inside Next; `--force` suggests a breaking downgrade and was not used.
+- No Supabase SQL was applied, no real Auth users were created and no secrets were touched.
+- Verification passed: `npm run lint`, `npm run build`.
+- Browser QA passed on `http://localhost:3020` for production routes in desktop and mobile: no horizontal overflow, no broken images, no console errors and no visible demo signals in tested routes.
+- Local production preview is currently running on `http://localhost:3020`.
+- Progress report: `docs/progress-reports/STEP_20_PRODUCTION_LEARNING_START.md`.
+- Next recommended work: implement real Supabase signup/approval/login on a staging-safe path, then replace mock learning data with UUID-backed tracks, modules, lessons and submissions.
+
 ## Prompt 8 Final QA / Presentation Ready
 - Date: 2026-06-08.
 - Production URL: `https://ecotuca.vercel.app`.

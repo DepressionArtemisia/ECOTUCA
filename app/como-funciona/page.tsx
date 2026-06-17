@@ -18,8 +18,8 @@ export default function ComoFuncionaPage() {
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
         <RichPageHeader
           eyebrow="Como funciona"
-          title="Da formacao ao roteiro publicado"
-          description="A ECOTUCA organiza uma jornada que combina educacao ambiental, tecnologia, cultura local, turismo comunitario e gestao transparente."
+          title="Da inscricao ao certificado"
+          description="A ECOTUCA organiza uma jornada de ensino com cadastro, aprovacao, trilhas, aulas, atividades, certificados e acompanhamento pedagogico."
           badgeTone="yellow"
         />
       </section>
@@ -28,11 +28,11 @@ export default function ComoFuncionaPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-6">
           <ProcessTimeline
             steps={[
-              { title: "Cadastro", description: "Aluno, professor, guia ou turista entra pelo perfil correto." },
-              { title: "Aprovacao", description: "A coordenacao valida acessos, termos e contexto." },
-              { title: "Trilhas", description: "Jovens acompanham aulas, progresso e atividades." },
-              { title: "Territorio", description: "Conteudos se conectam com historia, ambiente e economia local." },
-              { title: "Roteiros", description: "Experiencias aprovadas viram vitrine de turismo responsavel." }
+              { title: "Inscricao", description: "Aluno ou professor envia dados essenciais pelo caminho correto." },
+              { title: "Aprovacao", description: "A coordenacao valida perfil, turma, termos e necessidade de acesso." },
+              { title: "Aprendizagem", description: "Alunos acompanham videoaulas, atividades, materiais e progresso." },
+              { title: "Tutoria", description: "Professores organizam turmas, feedbacks, conteudos e evidencias." },
+              { title: "Certificacao", description: "A plataforma consolida conclusoes, indicadores e certificados." }
             ]}
           />
         </div>
@@ -44,10 +44,10 @@ export default function ComoFuncionaPage() {
             {[
               ["Aluno", "Acompanha trilhas, videoaulas, certificados e comunidade."],
               ["Professor", "Organiza turmas, materiais e acompanhamento pedagogico."],
-              ["Guia", "Mostra perfil, certificados, agenda e roteiros territoriais."],
-              ["Turista", "Escolhe experiencias com contexto, cuidado e retorno da equipe."],
-              ["Admin", "Visualiza indicadores, aprovacoes e prestacao de contas."],
-              ["PWA", "Demonstra uso mobile-first, offline progressivo e experiencia de app."]
+              ["Admin", "Visualiza aprovacoes, indicadores, turmas e prestacao de contas."],
+              ["Trilhas", "Estrutura aulas por modulos, atividades, materiais e objetivos."],
+              ["Certificados", "Organiza conclusoes, evidencias e liberacao de documentos."],
+              ["PWA", "Entrega uso mobile-first, instalabilidade e experiencia de app."]
             ].map(([title, text]) => (
               <article key={title} className="brand-card p-5">
                 <Badge tone="mint">{title}</Badge>
@@ -58,13 +58,13 @@ export default function ComoFuncionaPage() {
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/cadastro"><EcoButton variant="coral">Comecar cadastro</EcoButton></Link>
-            <Link href="/demo"><EcoButton variant="outline">Ver apresentacao</EcoButton></Link>
+            <Link href="/entrar"><EcoButton variant="outline">Entrar na plataforma</EcoButton></Link>
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
-        <ImpactBand title="O produto ja esta navegavel para reuniao" description="As telas principais conectam storytelling, formacao, rotas, mobile e administracao em uma narrativa unica." href="/sitemap" action="Abrir mapa" />
+        <ImpactBand title="Uma plataforma de ensino pronta para crescer" description="A primeira versao de producao prioriza a experiencia educacional: entrada, paineis, trilhas, acompanhamento e gestao." href="/cadastro" action="Ver cadastros" />
       </section>
     </PublicShell>
   );

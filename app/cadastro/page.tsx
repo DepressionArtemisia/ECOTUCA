@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: "Cadastro ECOTUCA | Escolha seu perfil",
-  description: "Cadastro segmentado para alunos, professores, guias e turistas da plataforma ECOTUCA / Perifa Ecotour."
+  description: "Cadastro de aluno e professor para a plataforma de ensino ECOTUCA."
 };
 
 const roles = [
@@ -27,20 +27,6 @@ const roles = [
     tone: "blue" as const,
     description: "Para educadores e facilitadores que apoiam turmas, materiais, aulas e acompanhamento pedagogico.",
     bullets: ["Portfolio e mini bio", "Temas de aula", "Curadoria pedagogica"]
-  },
-  {
-    label: "Guia",
-    href: "/cadastro/guia",
-    tone: "mint" as const,
-    description: "Para condutores territoriais que querem organizar perfil, agenda, especialidades e roteiros.",
-    bullets: ["Perfil publico", "Agenda e idiomas", "Especialidades territoriais"]
-  },
-  {
-    label: "Turista",
-    href: "/cadastro/turista",
-    tone: "orange" as const,
-    description: "Para visitantes interessados em roteiros comunitarios, ambientais e culturalmente responsaveis.",
-    bullets: ["Preferencias de visita", "Contato responsavel", "Interesse por roteiro"]
   }
 ];
 
@@ -48,7 +34,7 @@ const infoBlocks = [
   {
     icon: UserCheck,
     title: "Como funciona a aprovacao",
-    text: "Aluno, professor e guia passam por leitura da coordenacao antes de receber acesso completo. Turista entra como interesse de visita e recebe retorno da equipe."
+    text: "Aluno e professor passam por leitura da coordenacao antes de receber acesso completo."
   },
   {
     icon: ClipboardCheck,
@@ -58,12 +44,12 @@ const infoBlocks = [
   {
     icon: LockKeyhole,
     title: "Privacidade e autorizacao",
-    text: "Nesta fase os formularios sao demos locais. Em producao, os dados precisam seguir LGPD, RLS no Supabase e termos claros para menores, imagem e comunicacao."
+    text: "A producao deve seguir LGPD, RLS no Supabase e termos claros para menores, imagem e comunicacao."
   },
   {
     icon: HelpCircle,
     title: "Duvidas frequentes",
-    text: "O envio visual nao cria usuario real. A proxima etapa tecnica e conectar Auth, aprovacao admin, notificacao e armazenamento seguro quando autorizado."
+    text: "O acesso so e liberado depois da validacao. A equipe pode pedir ajustes ou informacoes complementares."
   }
 ];
 
@@ -74,14 +60,14 @@ export default function RegisterPage() {
         <RichPageHeader
           eyebrow="Cadastro segmentado"
           title="Escolha como voce quer participar da ECOTUCA"
-          description="Cada perfil tem uma entrada propria para preservar contexto, autorizacoes, aprovacao e uma experiencia mais humana desde o primeiro contato."
+          description="A plataforma de ensino comeca com dois caminhos principais: aluno em formacao ou professor/facilitador da rede pedagogica."
           badgeTone="coral"
         >
           <div className="grid gap-3 sm:grid-cols-3">
             {[
-              { icon: ClipboardCheck, label: "Rascunho local", text: "Preencha em etapas e revise antes de confirmar." },
-              { icon: ShieldCheck, label: "Aprovacao", text: "Perfis sensiveis passam pela coordenacao." },
-              { icon: Sparkles, label: "Identidade", text: "Visual conectado ao manual ECOTUCA / Perifa." }
+              { icon: ClipboardCheck, label: "Inscricao", text: "Preencha em etapas e revise antes de enviar." },
+              { icon: ShieldCheck, label: "Aprovacao", text: "A coordenacao valida perfil, turma e autorizacoes." },
+              { icon: Sparkles, label: "Entrada", text: "Depois da aprovacao, o acesso e liberado." }
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -113,14 +99,14 @@ export default function RegisterPage() {
               <Badge tone="mint">Como o cadastro evolui</Badge>
               <h2 className="brand-display mt-4 text-5xl">Entrada simples, decisao organizada</h2>
               <p className="mt-4 max-w-3xl text-base font-bold text-brand-brown/70 dark:text-brand-cream/70">
-                A proposta e apresentar uma experiencia madura para a reuniao: formularios ricos, rascunho seguro no navegador e clareza sobre o que ainda depende de validacao real.
+                O funil real organiza dados, consentimentos, disponibilidade e contexto pedagogico para que a coordenacao aprove acessos com seguranca.
               </p>
             </div>
             <aside className="desktop-sticky-aside premium-context-panel p-5">
               <UsersRound size={28} className="text-brand-coral" />
               <h3 className="brand-display mt-3 text-3xl">Perfis e governanca</h3>
               <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
-                Aluno, professor e guia pedem aprovacao. Turista entra como interesse de visita, com linguagem acolhedora e responsavel.
+                Aluno e professor entram por fluxos diferentes porque a jornada, os consentimentos e a operacao de cada perfil sao diferentes.
               </p>
               <Link href="/app/admin/aprovacoes" className="mt-4 inline-flex">
                 <EcoButton variant="outline">Ver fila admin</EcoButton>
@@ -132,9 +118,9 @@ export default function RegisterPage() {
               steps={[
                 { title: "Escolha do perfil", description: "A pessoa entra pelo caminho correto." },
                 { title: "Preenchimento", description: "Campos organizados por identidade, experiencia e termos." },
-                { title: "Rascunho", description: "Dados permanecem no navegador durante a apresentacao." },
+                { title: "Rascunho", description: "A pessoa pode revisar os dados antes de enviar." },
                 { title: "Revisao", description: "Informacoes aparecem em resumo antes da confirmacao." },
-                { title: "Validacao", description: "Acesso real depende da coordenacao e Supabase." }
+                { title: "Validacao", description: "Acesso completo depende da coordenacao." }
               ]}
             />
           </div>

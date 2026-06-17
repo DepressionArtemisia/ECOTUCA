@@ -10,18 +10,20 @@ const adminNav = [
   { label: "Aprovacoes", href: "/app/admin/aprovacoes", icon: CheckCircle2 },
   { label: "Usuarios", href: "/app/admin/usuarios", icon: Users },
   { label: "Trilhas", href: "/app/admin/trilhas", icon: FileText },
-  { label: "Roteiros", href: "/app/admin/roteiros", icon: Route },
+  { label: "Praticas", href: "/app/admin/roteiros", icon: Route },
   { label: "Metricas", href: "/app/admin/metricas", icon: BarChart3 },
   { label: "Config", href: "/app/admin/configuracoes", icon: Settings }
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
+  const showDemoControls = process.env.NEXT_PUBLIC_SHOW_DEMO_CONTROLS === "true";
+
   return (
     <div className="min-h-screen bg-background-warm text-brand-brown dark:bg-background-dark dark:text-brand-cream">
       <aside className="fixed inset-y-0 left-0 hidden w-80 border-r border-brand-yellow/15 bg-brand-brown p-5 text-brand-cream lg:block">
         <BrandLogo tone="negative" />
         <p className="mt-5 rounded-lg bg-brand-yellow p-4 text-sm font-black text-brand-brown">
-          Centro de comando para coordenacao, prestacao de contas e operacao do MVP.
+          Centro de comando para coordenacao, prestacao de contas e operacao da plataforma.
         </p>
         <nav className="mt-6 space-y-2">
           {adminNav.map((item) => {
@@ -41,11 +43,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <BrandLogo className="lg:hidden" compact />
             <div className="hidden lg:block">
               <p className="text-xs font-black uppercase text-brand-coral">Painel Administrativo</p>
-              <h1 className="brand-display text-3xl">Impacto, usuarios e roteiros</h1>
+              <h1 className="brand-display text-3xl">Ensino, usuarios e impacto</h1>
             </div>
             <div className="flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
-              <DataSourceBadge />
-              <DemoSessionPill />
+              {showDemoControls ? <DataSourceBadge /> : null}
+              {showDemoControls ? <DemoSessionPill /> : null}
               <ThemeToggle />
             </div>
           </div>

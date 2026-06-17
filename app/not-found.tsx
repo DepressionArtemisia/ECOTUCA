@@ -9,10 +9,10 @@ export default function NotFound() {
         <p className="rounded-full bg-brand-coral px-4 py-2 text-sm font-black text-white">404</p>
         <h1 className="brand-display mt-5 text-5xl text-brand-brown dark:text-brand-yellow">Caminho nao encontrado</h1>
         <p className="mt-4 text-lg text-brand-brown/75 dark:text-brand-cream">
-          Esta rota ainda nao entrou no roteiro. Volte para a demo e siga a apresentacao guiada.
+          Esta pagina nao esta disponivel. Volte para o inicio e continue pela plataforma ECOTUCA.
         </p>
-        <Link href="/demo" className="mt-6">
-          <EcoButton>Voltar para demo</EcoButton>
+        <Link href="/" className="mt-6">
+          <EcoButton>Voltar para o inicio</EcoButton>
         </Link>
       </section>
     </PublicShell>

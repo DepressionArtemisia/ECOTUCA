@@ -83,6 +83,7 @@ export function AppShell({
   const nav = navByRole[resolvedRole];
   const context = roleContexts[resolvedRole];
   const ContextIcon = context.icon;
+  const showDemoControls = process.env.NEXT_PUBLIC_SHOW_DEMO_CONTROLS === "true";
 
   return (
     <div className="min-h-screen bg-background-warm text-brand-brown dark:bg-background-dark dark:text-brand-cream">
@@ -113,8 +114,8 @@ export function AppShell({
             </div>
             <h1 className="hidden text-lg font-black lg:block">{title}</h1>
             <div className="flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
-              <DataSourceBadge />
-              <DemoSessionPill />
+              {showDemoControls ? <DataSourceBadge /> : null}
+              {showDemoControls ? <DemoSessionPill /> : null}
               <Link href="/app/notificacoes" className="focus-ring-brand inline-flex h-10 w-10 items-center justify-center rounded-lg border border-brand-brown/15 bg-white/60 dark:border-brand-yellow/20 dark:bg-white/10" aria-label="Notificacoes">
                 <Bell size={18} />
               </Link>

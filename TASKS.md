@@ -1,5 +1,26 @@
 # Tasks
 
+## Production Learning Platform Start
+- [x] Create branch `codex/production-learning-platform-start`.
+- [x] Reorient public navigation away from `/demo`.
+- [x] Rebuild home as a real teaching-platform funnel.
+- [x] Add `/entrar`, `/recuperar-senha` and `/aguardando-aprovacao`.
+- [x] Remove pre-filled demo credentials from login.
+- [x] Prioritize student and teacher signup in `/cadastro`.
+- [x] Hide demo status controls from app/admin shells by default.
+- [x] Recut admin dashboard to education-first indicators.
+- [x] Clean public pages that still used demo/presentation language.
+- [x] Update Next/React dependencies inside the current major-safe path.
+- [x] Run `npm audit fix` for non-breaking fixes.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Run browser QA on local production preview.
+- [x] Document the round in `STATUS.md`, `AI_HANDOFF.md` and progress report.
+- [ ] Connect signup, approval and password reset to reviewed Supabase server actions.
+- [ ] Replace mock learning data with Supabase-backed tracks/modules/lessons/submissions.
+- [ ] Gate app routes with real session/role validation before public production launch.
+- [ ] Resolve residual Next/PostCSS audit warning when the upstream patched package is available.
+
 ## Round 7 - Territorio e imagens
 - [x] Criar checkpoint e branch `design/territory-real-images-premium-ui`.
 - [x] Auditar o deploy publico por rotas principais.
