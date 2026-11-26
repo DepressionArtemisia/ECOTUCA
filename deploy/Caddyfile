@@ -1,0 +1,28 @@
+{
+  admin 127.0.0.1:2019
+}
+
+{$ECOTUCA_HOST} {
+  encode zstd gzip
+  header {
+    X-Content-Type-Options nosniff
+    Referrer-Policy strict-origin-when-cross-origin
+    X-Frame-Options DENY
+    X-Robots-Tag "noindex, nofollow"
+    -Server
+  }
+
+  @private path /auth/v1/admin /auth/v1/admin/* /auth/v1/signup /storage/v1/s3 /storage/v1/s3/*
+  handle @private {
+    respond 404
+  }
+
+  @supabase path /auth/v1/* /rest/v1/* /storage/v1/*
+  handle @supabase {
+    reverse_proxy 127.0.0.1:8100
+  }
+
+  handle {
+    import /etc/ecotuca/upstream.caddy
+  }
+}

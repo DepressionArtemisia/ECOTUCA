@@ -1,5 +1,9 @@
 # ECOTUCA / Perifa Ecotour - Agent Instructions
 
+## Operação e deploy
+
+Leia [DEPLOY.md](DEPLOY.md) antes de mexer na publicação. Use branch, commits temáticos e PR para `main`. O GitHub Actions publica após as verificações. Confira o SHA em `/api/health`. Mantenha segredos fora do repositório e evite aplicar migrações automaticamente em um deploy da interface.
+
 ## Mission
 Build a professional, navigable MVP for ECOTUCA / Perifa Ecotour: an ecotourism learning platform and mobile-first route showcase connected to the Complexo do Alemao, youth training, Agenda 2030, sustainable tourism and income generation.
 
