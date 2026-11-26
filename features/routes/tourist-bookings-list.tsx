@@ -9,7 +9,7 @@ import { tourRoutes } from "@/lib/mock-data/ecotuca";
 const sourceLabels = {
   supabase: "Base conectada",
   localStorage: "Salvo para apresentacao",
-  mock: "Referencia de apresentacao"
+  mock: "Referência de apresentacao"
 };
 
 const statusLabels: Record<string, string> = {
@@ -41,7 +41,7 @@ const mockBookings: StoredRouteBooking[] = [
     phone: "(21) 90000-0000",
     preferredDate: "",
     peopleCount: 2,
-    message: "Salvo para proxima visita.",
+    message: "Salvo para próxima visita.",
     status: "favorite",
     createdAt: "2026-06-07T12:05:00.000Z",
     source: "mock"

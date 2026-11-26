@@ -1,14 +1,10 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { loadLocalEnv, maskedStatus } from "./supabase-script-utils";
-
-loadLocalEnv();
 
 const files = [
   "supabase/schema.sql",
   "supabase/rls.sql",
-  "supabase/storage.sql",
-  "supabase/seed.sql"
+  "supabase/storage.sql"
 ];
 
 const combined = files
@@ -20,14 +16,9 @@ const combined = files
 
 const outPath = resolve(process.cwd(), "supabase/combined-apply.sql");
 mkdirSync(dirname(outPath), { recursive: true });
-writeFileSync(outPath, combined, "utf8");
+writeFileSync(outPath, `-- Schema and policies only. Fixture data is separate.\nBEGIN;\n\n${combined}\n\nCOMMIT;\n`, "utf8");
 
 console.log("ECOTUCA Supabase SQL prepared");
-console.log([
-  maskedStatus("NEXT_PUBLIC_SUPABASE_URL"),
-  maskedStatus("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
-  maskedStatus("SUPABASE_SERVICE_ROLE_KEY")
-]);
 console.log({
   output: "supabase/combined-apply.sql",
   automaticApply: false,

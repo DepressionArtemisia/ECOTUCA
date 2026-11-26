@@ -1,31 +1,22 @@
 import Link from "next/link";
-import { ArrowRight, Clock, GraduationCap } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { LearningTrack } from "@/types/domain";
+import type { LearningTrack } from "@/types/domain";
 
 export function TrackCard({ track }: { track: LearningTrack }) {
   return (
-    <article className="brand-card brand-card-hover p-5 dark:bg-brand-dark-soft/90">
-      <div className="flex items-start justify-between gap-4">
-        <Badge tone={track.accent}>{track.category}</Badge>
-        <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-yellow/45 text-brand-brown dark:bg-brand-yellow dark:text-brand-brown">
-          <GraduationCap size={22} />
-        </span>
-      </div>
-      <h3 className="brand-display mt-4 text-3xl text-brand-brown dark:text-brand-yellow">{track.title}</h3>
-      <p className="mt-3 text-sm text-brand-brown/70 dark:text-brand-cream/75">{track.description}</p>
-      <div className="mt-5 flex items-center justify-between text-sm font-black">
-        <span className="inline-flex items-center gap-2">
-          <Clock size={16} />
-          {track.estimatedHours}h
-        </span>
+    <article className="brand-card flex min-w-0 flex-col items-start p-5">
+      <Badge>{track.category}</Badge>
+      <h3 className="text-card-title mt-3 [overflow-wrap:anywhere]">{track.title}</h3>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--muted)]">{track.description}</p>
+      <div className="mt-4 flex w-full flex-wrap items-center justify-between gap-2 text-sm font-bold">
+        <span className="inline-flex items-center gap-2"><Clock size={16} aria-hidden="true" /> {track.estimatedHours} h</span>
         <span>{track.progressPercent}%</span>
       </div>
-      <Progress value={track.progressPercent} tone={track.accent} className="mt-2" />
-      <Link href={`/app/aluno/trilhas/${track.id}`} className="focus-ring-brand mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg px-1 text-sm font-black text-brand-blue dark:text-brand-mint">
-        Abrir trilha
-        <ArrowRight size={16} />
+      <Progress value={track.progressPercent} label={`Progresso em ${track.title}`} className="mt-2" />
+      <Link href={`/app/aluno/trilhas/${track.id}`} className="inline-action mt-3 text-sm" aria-label={`Abrir trilha ${track.title}`}>
+        Abrir trilha <ArrowRight size={16} aria-hidden="true" />
       </Link>
     </article>
   );

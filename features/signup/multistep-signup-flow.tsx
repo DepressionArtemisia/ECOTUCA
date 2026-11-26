@@ -1,37 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle2, Trash2 } from "lucide-react";
+import { submitSignupApplication, type SignupApplicationResult } from "@/app/actions/signup-application";
 import { EcoButton } from "@/components/brand/eco-button";
 import { AutosaveIndicator } from "@/components/forms/autosave-indicator";
 import { ConsentCheckbox } from "@/components/forms/consent-checkbox";
 import { FormStepper } from "@/components/forms/form-stepper";
 import { SignupReviewCard } from "@/components/forms/signup-review-card";
 import { Badge } from "@/components/ui/badge";
-
-type FieldKind = "text" | "email" | "tel" | "date" | "textarea" | "select" | "radio" | "checkboxGroup" | "consent";
-
-type Field = {
-  name: string;
-  label: string;
-  kind?: FieldKind;
-  placeholder?: string;
-  options?: string[];
-  required?: boolean;
-  requiredWhen?: { field: string; value: string | boolean };
-  showWhen?: { field: string; value: string | boolean };
-  helperText?: string;
-  fullWidth?: boolean;
-};
-
-type SignupSection = {
-  title: string;
-  description: string;
-  fields: Field[];
-};
-
-type SignupValue = string | boolean | string[];
-type SignupData = Record<string, SignupValue>;
+import { getInvalidFields, isRequired, isVisible, type SignupData, type SignupField, type SignupRole, type SignupSection, type SignupValue } from "@/lib/data/signup-fields";
 
 function makeInitialData(sections: SignupSection[]) {
   return sections.reduce<SignupData>((acc, section) => {
@@ -42,30 +20,14 @@ function makeInitialData(sections: SignupSection[]) {
   }, {});
 }
 
-function isVisible(field: Field, data: SignupData) {
-  if (!field.showWhen) return true;
-  return data[field.showWhen.field] === field.showWhen.value;
-}
-
-function isRequired(field: Field, data: SignupData) {
-  if (field.required) return true;
-  if (!field.requiredWhen) return false;
-  return data[field.requiredWhen.field] === field.requiredWhen.value;
-}
-
-function hasValue(field: Field, value: SignupValue) {
-  if (field.kind === "consent") return Boolean(value);
-  if (field.kind === "checkboxGroup") return Array.isArray(value) && value.length > 0;
-  if (field.kind === "email") return String(value ?? "").includes("@");
-  return String(value ?? "").trim().length > 0;
-}
-
 function FieldControl({
   field,
+  id,
   value,
   onChange
 }: {
-  field: Field;
+  field: SignupField;
+  id: string;
   value: SignupValue;
   onChange: (value: SignupValue) => void;
 }) {
@@ -119,11 +81,11 @@ function FieldControl({
     return (
       <textarea
         aria-label={field.label}
-        className="mt-2 min-h-28 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none transition focus:border-brand-mint dark:border-brand-yellow/20 dark:bg-white/10"
+        id={id}
+        className="field-control mt-2 min-h-28 w-full"
         name={field.name}
         placeholder={field.placeholder}
         value={String(value ?? "")}
-        onInput={(event) => onChange(event.currentTarget.value)}
         onChange={(event) => onChange(event.target.value)}
       />
     );
@@ -133,7 +95,8 @@ function FieldControl({
     return (
       <select
         aria-label={field.label}
-        className="mt-2 min-h-12 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none transition focus:border-brand-mint dark:border-brand-yellow/20 dark:bg-brand-dark-soft"
+        id={id}
+        className="field-control mt-2 w-full"
         name={field.name}
         value={String(value ?? "")}
         onChange={(event) => onChange(event.target.value)}
@@ -149,18 +112,19 @@ function FieldControl({
   return (
     <input
       aria-label={field.label}
-      className="mt-2 min-h-12 w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold outline-none transition focus:border-brand-mint dark:border-brand-yellow/20 dark:bg-white/10"
+      id={id}
+        className="field-control mt-2 w-full"
       name={field.name}
       type={field.kind ?? "text"}
       placeholder={field.placeholder}
       value={String(value ?? "")}
-      onInput={(event) => onChange(event.currentTarget.value)}
       onChange={(event) => onChange(event.target.value)}
     />
   );
 }
 
 export function MultistepSignupFlow({
+  applicationRole,
   title,
   eyebrow,
   description,
@@ -168,11 +132,11 @@ export function MultistepSignupFlow({
   sections,
   asideItems,
   asideTitle = "Checklist do perfil",
-  analysisTitle = "Como sera analisado",
-  analysisDescription = "A coordenacao verifica perfil, consentimentos, aderencia ao territorio e necessidades de acompanhamento antes de liberar acessos completos.",
-  submitLabel = "Enviar cadastro",
-  successMessage = "Cadastro recebido. A coordenacao ECOTUCA ira analisar as informacoes e retornar pelo contato informado."
+  analysisTitle = "Como será analisado",
+  analysisDescription = "A coordenação verifica perfil, consentimentos, aderencia ao território e necessidades de acompanhamento antes de liberar acessos completos.",
+  submitLabel = "Enviar inscrição"
 }: {
+  applicationRole: SignupRole;
   title: string;
   eyebrow: string;
   description: string;
@@ -183,7 +147,6 @@ export function MultistepSignupFlow({
   analysisTitle?: string;
   analysisDescription?: string;
   submitLabel?: string;
-  successMessage?: string;
 }) {
   const initialData = useMemo(() => makeInitialData(sections), [sections]);
   const [data, setData] = useState<SignupData>(initialData);
@@ -191,40 +154,55 @@ export function MultistepSignupFlow({
   const [hydrated, setHydrated] = useState(false);
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState<SignupApplicationResult | null>(null);
   const [stepError, setStepError] = useState("");
+  const [draftEnabled, setDraftEnabled] = useState(false);
+  const [requestId, setRequestId] = useState<string | null>(null);
+  const stepHeading = useRef<HTMLHeadingElement>(null);
   const steps = [...sections.map((section) => section.title), "Revisao"];
   const reviewStep = current >= sections.length;
   const labelByName = useMemo(() => Object.fromEntries(sections.flatMap((section) => section.fields.map((field) => [field.name, field.label]))), [sections]);
 
   useEffect(() => {
-    const raw = window.localStorage.getItem(storageKey);
-    if (raw) {
-      try {
+    try {
+      const raw = window.localStorage.getItem(storageKey);
+      if (raw) {
         const parsed = JSON.parse(raw) as SignupData;
         setData({ ...initialData, ...parsed });
+        setDraftEnabled(true);
         setSavedAt("recuperado");
-      } catch {
-        setData(initialData);
       }
-    }
+    } catch {}
     setHydrated(true);
   }, [initialData, storageKey]);
 
-  useEffect(() => {
-    if (!hydrated) return;
-    const timeout = window.setTimeout(() => {
-      window.localStorage.setItem(storageKey, JSON.stringify(data));
+  const saveDraft = useCallback((values: SignupData) => {
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(values));
+      setDraftEnabled(true);
       setSavedAt(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit" }).format(new Date()));
-    }, 450);
+    } catch {
+      setStepError("O navegador não permitiu salvar o rascunho.");
+    }
+  }, [storageKey]);
+
+  useEffect(() => {
+    if (!hydrated || !draftEnabled || submitted) return;
+    const timeout = window.setTimeout(() => saveDraft(data), 450);
     return () => window.clearTimeout(timeout);
-  }, [data, hydrated, storageKey]);
+  }, [data, hydrated, draftEnabled, saveDraft, submitted]);
+
+  function moveToStep(step: number) {
+    setCurrent(step);
+    setStepError("");
+    requestAnimationFrame(() => stepHeading.current?.focus());
+  }
 
   const currentSection = sections[current];
   const visibleFields = reviewStep ? [] : currentSection.fields.filter((field) => isVisible(field, data));
-  const missingFields = reviewStep ? [] : visibleFields
-    .filter((field) => isRequired(field, data))
-    .filter((field) => !hasValue(field, data[field.name]));
-  const requiredReady = reviewStep || missingFields.length === 0;
+  const missingFields = getInvalidFields(visibleFields, data);
+  const requiredReady = missingFields.length === 0;
   const reviewData = Object.fromEntries(
     sections.flatMap((section) => section.fields)
       .filter((field) => isVisible(field, data))
@@ -233,31 +211,56 @@ export function MultistepSignupFlow({
 
   function updateField(name: string, value: SignupValue) {
     setSubmitted(false);
+    setSubmitResult(null);
+    setRequestId(null);
     setStepError("");
     setData((currentData) => ({ ...currentData, [name]: value }));
   }
 
-  function saveDraft() {
-    window.localStorage.setItem(storageKey, JSON.stringify(data));
-    setSavedAt(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit" }).format(new Date()));
-  }
 
   function clearDraft() {
-    window.localStorage.removeItem(storageKey);
+    try { window.localStorage.removeItem(storageKey); } catch {}
     setData(initialData);
     setCurrent(0);
     setSavedAt(null);
+    setDraftEnabled(false);
     setSubmitted(false);
+    setSubmitResult(null);
+    setRequestId(null);
     setStepError("");
   }
 
   function continueToNextStep() {
     if (!requiredReady) {
-      setStepError(`Preencha os campos obrigatorios: ${missingFields.map((field) => field.label).join(", ")}.`);
+      setStepError(`Confira os campos: ${missingFields.map((field) => field.label).join(", ")}.`);
       return;
     }
     setStepError("");
-    setCurrent((step) => Math.min(step + 1, sections.length));
+    setSubmitResult(null);
+    moveToStep(Math.min(current + 1, sections.length));
+  }
+
+  async function submitApplication() {
+    setSubmitting(true);
+    setStepError("");
+    setSubmitResult(null);
+    const id = requestId ?? crypto.randomUUID();
+    setRequestId(id);
+    try {
+      const result = await submitSignupApplication({ id, role: applicationRole, data });
+      setSubmitResult(result);
+      setSubmitted(result.ok);
+      if (result.ok && result.mode === "supabase") {
+        try { window.localStorage.removeItem(storageKey); } catch {}
+        setDraftEnabled(false);
+        setSavedAt(null);
+      }
+      if (result.ok && result.mode === "prepared") saveDraft(data);
+    } catch {
+      setStepError("Não foi possível enviar a inscrição. Tente novamente.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -269,7 +272,7 @@ export function MultistepSignupFlow({
           <p className="mt-4 max-w-3xl text-base font-bold text-brand-brown/72 dark:text-brand-cream/74">{description}</p>
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <AutosaveIndicator savedAt={savedAt} />
-            <Badge tone="mint">Rascunho antes da validacao</Badge>
+
           </div>
         </div>
 
@@ -277,31 +280,39 @@ export function MultistepSignupFlow({
           <FormStepper steps={steps} current={current} />
         </div>
 
-        <form className="mt-6 brand-card p-5 sm:p-6" onSubmit={(event) => event.preventDefault()}>
+        <form className="mt-6 brand-card p-5 sm:p-6" noValidate onSubmit={(event) => { event.preventDefault(); if (submitting || submitted) return; if (reviewStep) void submitApplication(); else continueToNextStep(); }}>
           {!reviewStep ? (
             <>
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h2 className="brand-display text-4xl">{currentSection.title}</h2>
-                  <p className="mt-2 text-sm font-bold text-brand-brown/65 dark:text-brand-cream/70">{currentSection.description}</p>
+                  <h2 ref={stepHeading} tabIndex={-1} className="text-card-title">{currentSection.title}</h2>
+                  <p className="mt-2 text-sm font-bold text-[var(--muted)] dark:text-brand-cream/70">{currentSection.description}</p>
                 </div>
                 <Badge tone="yellow">{current + 1} de {sections.length}</Badge>
               </div>
               <div className="mt-6 grid gap-4 md:grid-cols-2">
-                {visibleFields.map((field) => (
-                  <label key={field.name} className={field.fullWidth || field.kind === "textarea" || field.kind === "consent" || field.kind === "checkboxGroup" || field.kind === "radio" ? "md:col-span-2" : undefined}>
-                    {field.kind !== "consent" && (
-                      <span className="text-sm font-black">
-                        {field.label}
-                        {isRequired(field, data) ? " *" : ""}
-                      </span>
-                    )}
-                    <FieldControl field={field} value={data[field.name] ?? ""} onChange={(value) => updateField(field.name, value)} />
-                    {field.helperText ? <span className="mt-1 block text-xs font-bold text-brand-brown/55 dark:text-brand-cream/60">{field.helperText}</span> : null}
-                  </label>
-                ))}
+                {visibleFields.map((field) => {
+                  const grouped = field.kind === "checkboxGroup" || field.kind === "radio";
+                  const wide = grouped || field.fullWidth || field.kind === "textarea" || field.kind === "consent";
+                  const id = `${applicationRole}-${field.name}`;
+                  const label = <>{field.label}{isRequired(field, data) ? " *" : ""}</>;
+                  const control = <FieldControl id={id} field={field} value={data[field.name] ?? ""} onChange={(value) => updateField(field.name, value)} />;
+                  const hint = field.helperText ? <p className="mt-1 text-xs text-[var(--muted)]">{field.helperText}</p> : null;
+                  if (grouped) return (
+                    <fieldset key={field.name} className="min-w-0 md:col-span-2">
+                      <legend className="text-sm font-bold">{label}</legend>
+                      {control}{hint}
+                    </fieldset>
+                  );
+                  return (
+                    <div key={field.name} className={wide ? "min-w-0 md:col-span-2" : "min-w-0"}>
+                      {field.kind !== "consent" && <label htmlFor={id} className="text-sm font-bold">{label}</label>}
+                      {control}{hint}
+                    </div>
+                  );
+                })}
               </div>
-              {stepError ? <p className="mt-5 rounded-lg bg-brand-coral px-4 py-3 text-sm font-black text-white">{stepError}</p> : null}
+              {stepError ? <p role="alert" className="mt-5 rounded-lg bg-[#fae7e3] px-4 py-3 text-sm font-bold text-[#782f2b]">{stepError}</p> : null}
               {!requiredReady && !stepError ? (
                 <p className="mt-5 rounded-lg bg-brand-yellow/25 px-4 py-3 text-sm font-black text-brand-brown dark:text-brand-cream">
                   Campos com * precisam ser preenchidos para continuar.
@@ -310,39 +321,45 @@ export function MultistepSignupFlow({
             </>
           ) : (
             <div className="space-y-4">
+              <h2 ref={stepHeading} tabIndex={-1} className="text-card-title">Revise sua inscrição</h2>
+              {stepError && <p role="alert">{stepError}</p>}
               {submitted ? (
                 <div className="rounded-lg border border-brand-mint bg-brand-mint/12 p-5">
                   <CheckCircle2 className="text-brand-mint" size={32} />
-                  <h2 className="brand-display mt-3 text-4xl">Cadastro recebido</h2>
+                  <h2 className="text-card-title mt-3">{submitResult?.mode === "supabase" ? "Inscrição recebida" : "Demonstração concluída"}</h2>
                   <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/75">
-                    {successMessage}
+                    {submitResult?.message}
                   </p>
+                  {submitResult?.id && <p className="mt-2 text-sm font-bold [overflow-wrap:anywhere]">Protocolo {submitResult.id}</p>}
                 </div>
               ) : null}
-              <SignupReviewCard title="Conferir informacoes" data={reviewData} />
+              {submitResult && !submitResult.ok ? (
+                <p role="alert" className="rounded-lg bg-[#fae7e3] px-4 py-3 text-sm font-bold text-[#782f2b]">{submitResult.message}</p>
+              ) : null}
+              <SignupReviewCard title="Conferir informações" data={reviewData} />
             </div>
           )}
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <EcoButton type="button" variant="outline" disabled={current === 0} onClick={() => setCurrent((step) => Math.max(step - 1, 0))}>
+            <EcoButton type="button" variant="outline" disabled={current === 0 || submitted} onClick={() => moveToStep(Math.max(current - 1, 0))}>
               <ArrowLeft size={17} />
               Voltar
             </EcoButton>
             {!reviewStep ? (
-              <EcoButton type="button" variant="mint" onClick={continueToNextStep}>
+              <EcoButton type="submit">
                 Continuar
                 <ArrowRight size={17} />
               </EcoButton>
             ) : (
-              <EcoButton type="button" variant="coral" onClick={() => setSubmitted(true)}>
-                {submitLabel}
+              <EcoButton type="submit" disabled={submitting || submitted}>
+                {submitting ? "Enviando..." : submitLabel}
                 <CheckCircle2 size={17} />
               </EcoButton>
             )}
-            {reviewStep ? (
-              <EcoButton type="button" variant="mint" onClick={() => setCurrent(0)}>Editar dados</EcoButton>
+            {reviewStep && !submitted ? (
+              <EcoButton type="button" variant="outline" onClick={() => moveToStep(0)}>Editar dados</EcoButton>
             ) : null}
-            <EcoButton type="button" variant="blue" onClick={saveDraft}>Salvar e continuar depois</EcoButton>
+            {!submitted && <EcoButton type="button" variant="outline" onClick={() => saveDraft(data)}>Salvar e continuar depois</EcoButton>}
             <EcoButton type="button" variant="outline" onClick={clearDraft}>
               <Trash2 size={17} />
               Limpar rascunho

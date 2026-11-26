@@ -23,10 +23,10 @@ Key services:
 - `data-source-status.ts`: safe status for badges and `/demo/status`.
 
 ## Auth Flow
-Login attempts Supabase Auth first and falls back to demo users in localStorage. Real sessions are read by `AuthProvider`; demo selections still work through `DemoUserSwitcher`. Pending users route to `/app/aguardando-aprovacao`.
+Login attempts Supabase Auth first. In preview mode, it can fall back to demo users in localStorage. Real sessions are read by `AuthProvider`; demo selections still work through `DemoUserSwitcher` when preview fallback is enabled. Production can disable this with `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`.
 
 ## Role Protection
-For the presentation, role pages remain navigable. `RoleGuard` exists for client-side UI boundaries, but production protection must combine middleware, server checks and RLS.
+For local preview, role pages remain navigable by default. Production route policy lives in `lib/auth/access-policy.ts` and is applied by `features/auth/app-access-guard.tsx` inside `AppShell` and `AdminShell`. Set `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce` to block missing sessions, demo sessions, wrong roles and non-approved statuses. Final production protection must still combine this UI guard with server checks and Supabase RLS.
 
 ## Deploy Strategy
 Primary deploy target is Vercel. Future VPS deployment can use Docker/Nginx with environment variables and Supabase as managed backend.

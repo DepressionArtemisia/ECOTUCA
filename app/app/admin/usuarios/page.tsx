@@ -1,10 +1,6 @@
 import { AdminShell } from "@/components/layout/admin-shell";
-import { DemoUserSwitcher } from "@/components/demo/demo-user-switcher";
+import { UsersDirectory } from "@/features/admin/users-directory";
 
 export default function AdminUsersPage() {
-  return (
-    <AdminShell>
-      <DemoUserSwitcher />
-    </AdminShell>
-  );
+  return <AdminShell><UsersDirectory /></AdminShell>;
 }

@@ -1,5 +1,117 @@
 # Status
 
+## VPS e entrega continua — 26/11/2026
+
+O runbook em [DEPLOY.md](DEPLOY.md) documenta o endereço temporário da Hostinger, o stack Supabase dedicado, a publicação por commit e a troca futura de domínio. Auth exige perfil aprovado. SMTP e abertura de inscrições seguem a homologação operacional.
+
+## Redesign e preparação para VPS — 24/11/2026
+
+- Home, páginas institucionais, inscrições, roteiros e painéis compartilham uma linguagem visual e editorial. Os temas usam pares de contraste próprios e a navegação interna funciona no celular, inclusive na coordenação.
+- O menu móvel público e dos painéis abre de baixo, com ícones, áreas de toque maiores, rota ativa e opções da conta agrupadas.
+- Arquivos de marca do manual e fotos territoriais licenciadas. Tipografia local em Archivo Black e DM Sans.
+- Inscrições usam validação comum no navegador e no servidor, rascunho opcional e confirmação explícita. A coordenação pode registrar decisões via RPC após aplicar o SQL.
+- Login usa o perfil associado à conta Auth. Recuperação aponta para `/nova-senha`. O modo `enforce` protege os painéis na interface e desativa rotas e sessões demonstrativas.
+- RLS e revisão com histórico passaram no ensaio isolado. Aplicação em homologação, autenticação real, SMTP e publicação na VPS ainda pendentes.
+- Detalhes em [Design system](DESIGN_SYSTEM.md), [roteiro de homologação](docs/production-platform/VPS_SUPABASE_REHEARSAL.md) e [relatório de progresso](docs/progress-reports/STEP_25_REDESIGN_E_ENSAIO_VPS.md).
+
+## Admin Approvals Application Queue
+- Data: 2026-06-17.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: fazer o admin entender a nova fila `signup_applications` sem depender de SQL aplicado agora.
+- Criado `lib/data/signup-applications.ts` para leitura segura de cadastros publicos pendentes.
+- `lib/data/admin.ts` agora retorna fila unificada: `signup_applications` quando disponivel, perfis pendentes/fallback preparado quando nao.
+- `features/admin/approval-queue.tsx` mostra origem, telefone, highlight do payload e rótulos `Base conectada`/`Fila preparada`.
+- Textos de fila de apresentacao foram removidos da tela de aprovacoes.
+- Nenhuma aprovacao real foi gravada e nenhum usuario Auth real foi criado.
+- Validacao local: `npm run lint` e `npm run build` passaram.
+- Browser QA em `/app/admin/aprovacoes`: desktop/mobile sem overflow, sem imagens quebradas, sem erros de console e sem `apresentacao`/`MVP` visivel.
+- Relatorio: `docs/progress-reports/STEP_24_ADMIN_APPROVALS_APPLICATION_QUEUE.md`.
+
+## Signup Server Action Prep
+- Data: 2026-06-17.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: preparar envio real de cadastros sem ativar escrita no Supabase por padrao.
+- Criada `app/actions/signup-application.ts` com validacao Zod e modo seguro `prepared`.
+- `features/signup/multistep-signup-flow.tsx` agora chama a action no envio final.
+- Fluxos de aluno, professor, guia e turista passam `applicationRole`.
+- `.env.example` ganhou `ENABLE_SUPABASE_SIGNUP_WRITES`.
+- SQL versionado ganhou `public.signup_applications`, indices e RLS admin-only.
+- `supabase/combined-apply.sql` foi regenerado por `npm run supabase:prepare-sql`; automatic apply continua desligado.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run supabase:prepare-sql`, `npm run lint` e `npm run build` passaram.
+- Browser QA mobile em `/cadastro/aluno`: validacao de obrigatorios, preenchimento da primeira etapa e avanco para `Interesse e vinculo` passaram sem overflow/imagem quebrada/erro de console.
+- Smoke test da action retornou `mode: prepared`, sem escrita real.
+- Relatorio: `docs/progress-reports/STEP_23_SIGNUP_SERVER_ACTION_PREP.md`.
+
+## Production Auth Gating
+- Data: 2026-06-17.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: preparar auth e bloqueio de areas internas para producao sem quebrar o preview local.
+- Criados `lib/auth/runtime.ts`, `lib/auth/access-policy.ts` e `features/auth/app-access-guard.tsx`.
+- `AuthProvider` agora respeita `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`; quando ativo, nao injeta usuario demonstrativo automaticamente se nao houver sessao Supabase.
+- `loginWithSupabaseOrDemo` tambem respeita `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`; nesse modo, fallback demo nao valida login.
+- `AppShell` e `AdminShell` agora passam o conteudo pelo `AppAccessGuard`.
+- A politica de acesso mapeia `/app/aluno`, `/app/professor`, `/app/guia`, `/app/turista`, `/app/admin` e areas internas comuns por role/status.
+- Preview padrao segue aberto para navegacao local. Para producao, configurar `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true` e `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce`.
+- `.env.example` documenta as flags sem incluir segredos.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run lint` passou.
+- Validacao local: `npm run build` passou com 52 rotas.
+- Validacao de politica: `tsx` confirmou aluno/admin/pending com decisoes esperadas.
+- Browser QA em `http://127.0.0.1:3020`: desktop e mobile para `/`, `/app/aluno`, `/app/admin`, `/entrar` e `/sitemap`.
+- Resultado browser: sem bloqueio indevido no preview, sem overflow horizontal, sem imagens quebradas, sem erros de console e sem sinais visiveis de demo/MVP/apresentacao nas rotas verificadas.
+- Relatorio: `docs/progress-reports/STEP_22_PRODUCTION_AUTH_GATING.md`.
+
+## Production Learning Core Routes
+- Data: 2026-06-16.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: completar o mapa V1 da plataforma de ensino com telas centrais que ainda faltavam no nucleo aluno/professor/admin.
+- Novas rotas criadas:
+  - `/app/aluno/atividades`
+  - `/app/professor/avaliacoes`
+  - `/app/admin/conteudos`
+  - `/app/admin/relatorios`
+- Rotas principais reforcadas:
+  - `/app/professor/turmas` deixou de ser placeholder e virou acompanhamento de turmas/progresso/alunos.
+  - `/app/admin/usuarios` deixou de usar seletor de preview e virou gestao de usuarios/perfis/status.
+  - `/app/admin/configuracoes` deixou de ser placeholder e virou tela de governanca.
+  - `/sitemap` foi limpo para linguagem de plataforma, com filtros iniciais de publico/pronto.
+- Navegacao ajustada:
+  - Aluno: Atividades e Certificados entram no lugar de Roteiros como caminho principal.
+  - Professor: Avaliacoes entra no menu principal.
+  - Admin: Conteudos e Relatorios entram no menu principal.
+  - Bottom nav mobile agora aponta para Atividades.
+- Dados estruturados adicionados em `types/domain.ts` e `lib/mock-data/ecotuca.ts`: atividades do aluno, avaliacoes do professor, curadoria de conteudo e snapshots/linhas de relatorio.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run lint` passou.
+- Validacao local: `npm run build` passou com 52 rotas.
+- Browser QA em `http://localhost:3020`: desktop e mobile para `/app/aluno/atividades`, `/app/professor/turmas`, `/app/professor/avaliacoes`, `/app/admin/usuarios`, `/app/admin/conteudos`, `/app/admin/relatorios`, `/app/admin/configuracoes` e `/sitemap`.
+- Resultado browser: sem overflow horizontal, sem imagens quebradas, sem erros de console e sem sinais visiveis de demo/MVP/apresentacao nas rotas verificadas.
+- Relatorio: `docs/progress-reports/STEP_21_PRODUCTION_LEARNING_CORE_ROUTES.md`.
+
+## Production Learning Platform Start
+- Data: 2026-06-16.
+- Branch: `codex/production-learning-platform-start`.
+- Objetivo: iniciar a conversao do MVP/demo em plataforma real de ensino, mantendo a documentacao anterior como referencia e deixando `/demo` fora do caminho principal.
+- Public navigation reorientada para ensino: `/`, `/como-funciona`, `/#trilhas`, `/cadastro/aluno`, `/cadastro/professor`, `/contato` e `/entrar`.
+- Home recriada como funil de aprendizagem ECOTUCA: inscricao, aprovacao, trilhas, professor, admin, certificado e impacto.
+- Novas rotas de producao: `/entrar`, `/recuperar-senha` e `/aguardando-aprovacao`.
+- `/cadastro` prioriza Aluno e Professor; os textos de cadastro agora falam em analise/aprovacao da coordenacao.
+- Login perdeu credenciais pre-preenchidas, recebeu campos obrigatorios, link de recuperacao e copy de conta aprovada.
+- Shells internos escondem badges demo por padrao com `NEXT_PUBLIC_SHOW_DEMO_CONTROLS`.
+- Admin foi reorientado para ensino, usuarios, trilhas, certificados, turmas, suporte e impacto; textos visiveis de demo foram removidos do painel principal.
+- Paginas publicas revisadas: `/como-funciona`, `/contato`, `/faq`, `/termos`, `/privacidade` e 404.
+- Dependencias atualizadas para producao: `next@15.5.19`, `eslint-config-next@15.5.19`, `react@19.2.7`, `react-dom@19.2.7`, `@types/react@19.2.17`, `@types/react-dom@19.2.3`.
+- `npm audit fix` removeu a vulnerabilidade alta de `esbuild`.
+- Residual de seguranca: `npm audit --omit=dev` ainda aponta 2 vulnerabilidades moderadas em `postcss` embutido no `next`; `npm audit fix --force` sugere downgrade quebrado para `next@9.3.3`, entao nao foi aplicado.
+- Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+- Validacao local: `npm run lint` passou.
+- Validacao local: `npm run build` passou com 48 rotas.
+- Browser QA em `http://localhost:3020`: desktop e mobile para `/`, `/entrar`, `/recuperar-senha`, `/aguardando-aprovacao`, `/cadastro`, `/cadastro/aluno`, `/cadastro/professor`, `/como-funciona`, `/contato`, `/faq`, `/termos`, `/privacidade`, `/app/aluno`, `/app/professor` e `/app/admin`.
+- Resultado browser: sem overflow horizontal, sem imagens quebradas, sem erros de console e sem sinais visiveis de demo nas rotas testadas.
+- Preview local ativo: `http://localhost:3020`.
+- Relatorio: `docs/progress-reports/STEP_20_PRODUCTION_LEARNING_START.md`.
+
 ## Prompt 8 - QA final de producao e reuniao
 - Data: 2026-06-08.
 - Objetivo: QA final sem novas features, sem SQL, sem usuarios Auth reais e sem mexer em chaves.
@@ -244,3 +356,13 @@ Aplicar SQL revisado, criar usuarios Auth reais com `--yes`, seedar dados UUID r
 - Producao HTTP: 12 rotas verificadas com 200, incluindo cadastros, sitemap, paineis novos e `/sitemap.xml`.
 - Producao browser: passou em 390px para `/cadastro/guia`, `/cadastro/turista`, `/sitemap` e `/app/admin/aprovacoes`; sem overflow horizontal e sem imagens quebradas visiveis.
 - Nenhum SQL foi aplicado, nenhum usuario Auth real foi criado e nenhuma chave foi editada.
+
+## Production Learning Platform Blueprint
+- Data: 2026-06-16.
+- Branch: `codex/production-learning-platform-blueprint`.
+- Objetivo: separar o planejamento do produto real de ensino do MVP/demo/documentacao anterior.
+- Pasta criada: `docs/production-platform/`.
+- Escopo V1 definido: plataforma de ensino ECOTUCA com funil publico, cadastro/aprovacao real, painel do aluno, painel do professor e painel admin.
+- Turismo, guias publicos, reservas e marketplace foram movidos para expansao futura, depois do nucleo de ensino estar estavel.
+- Documentos criados: escopo real, mapa de rotas/funil, UX/UI premium, paineis/features, Supabase/Auth/RLS, plano de implementacao e direcao de imagens/assets.
+- Nenhuma alteracao funcional de codigo foi feita nesta etapa; e um blueprint de construcao para iniciar a producao.

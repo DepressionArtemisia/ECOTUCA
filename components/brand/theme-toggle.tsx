@@ -2,29 +2,45 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("ecotuca-theme");
-    const shouldDark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setDark(shouldDark);
-    document.documentElement.classList.toggle("dark", shouldDark);
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    function sync() {
+      let value: string | null = null;
+      try { value = localStorage.getItem("ecotuca-theme"); } catch {}
+      const enabled = value === "dark" || (value !== "light" && media.matches);
+      document.documentElement.classList.toggle("dark", enabled);
+      setDark(enabled);
+    }
+    sync();
+    media.addEventListener("change", sync);
+    function updateCurrentTheme() {
+      setDark(document.documentElement.classList.contains("dark"));
+    }
+    window.addEventListener("storage", sync);
+    window.addEventListener("ecotuca-theme-change", updateCurrentTheme);
+    return () => {
+      media.removeEventListener("change", sync);
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("ecotuca-theme-change", updateCurrentTheme);
+    };
   }, []);
 
   function toggleTheme() {
-    const next = !dark;
-    setDark(next);
-    window.localStorage.setItem("ecotuca-theme", next ? "dark" : "light");
-    document.documentElement.classList.toggle("dark", next);
+    const enabled = !document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", enabled);
+    setDark(enabled);
+    try { localStorage.setItem("ecotuca-theme", enabled ? "dark" : "light"); } catch {}
+    window.dispatchEvent(new Event("ecotuca-theme-change"));
   }
 
   return (
-    <Button variant="outline" size="sm" onClick={toggleTheme} aria-label="Alternar tema">
-      {dark ? <Sun size={16} /> : <Moon size={16} />}
-      <span className="hidden sm:inline">{dark ? "Claro" : "Escuro"}</span>
-    </Button>
+    <button className="icon-control" type="button" onClick={toggleTheme} aria-label="Tema escuro" aria-pressed={dark}>
+      <Sun className="hidden dark:block" size={17} aria-hidden="true" />
+      <Moon className="dark:hidden" size={17} aria-hidden="true" />
+    </button>
   );
 }

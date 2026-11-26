@@ -1,33 +1,26 @@
 import type { Metadata } from "next";
-import { FaqAccordion } from "@/components/content/faq-accordion";
 import { PublicShell } from "@/components/layout/public-shell";
 import { RichPageHeader } from "@/components/layout/rich-page-header";
+import { FaqAccordion } from "@/components/content/faq-accordion";
 
-export const metadata: Metadata = {
-  title: "FAQ | ECOTUCA",
-  description: "Perguntas frequentes sobre cadastros, trilhas, roteiros, aprovacao e uso da plataforma ECOTUCA."
-};
+export const metadata: Metadata = { title: "Perguntas frequentes | ECOTUCA" };
 
 const items = [
-  { question: "Quem pode se cadastrar como aluno?", answer: "Jovens interessados em educacao ambiental, tecnologia, territorio e turismo comunitario. A liberacao final depende da coordenacao." },
-  { question: "O cadastro cria acesso real imediatamente?", answer: "Nesta rodada, o fluxo apresenta preenchimento, rascunho e confirmacao visual. Usuarios reais entram depois da integracao autorizada com Supabase Auth." },
-  { question: "Os roteiros ja podem ser comercializados?", answer: "A vitrine demonstra a experiencia e a narrativa. Precificacao, agenda e operacao final precisam de validacao local." },
-  { question: "Como as imagens sao creditadas?", answer: "A pagina de creditos lista fontes, licencas e pendencias. O ideal e substituir por acervo oficial quando disponivel." },
-  { question: "Como o professor publica material?", answer: "O painel pedagogico mostra o fluxo de upload e curadoria. O bucket real deve ser ativado depois da validacao tecnica." },
-  { question: "O app funciona como PWA?", answer: "A estrutura ja tem manifest, layout mobile-first e moldura navegavel; proximos passos incluem instalabilidade e cache mais robusto." }
+  { question: "Quem pode se inscrever para estudar?", answer: "A formação é voltada a jovens interessados em ecoturismo, educação ambiental e cultura do Complexo do Alemão. A coordenação avalia as inscrições e orienta sobre os critérios de cada turma." },
+  { question: "Quando recebo acesso?", answer: "A coordenação analisa sua inscrição primeiro. Use o contato informado no formulário para receber as orientações da equipe." },
+  { question: "O que vou estudar?", answer: "As trilhas abordam condução de grupos, segurança nos percursos, biodiversidade urbana, turismo comunitário e Agenda 2030." },
+  { question: "Como posso colaborar como professor?", answer: "Use a inscrição de professor para apresentar sua experiência, os assuntos que pode ensinar e sua disponibilidade. A coordenação conversa com você para planejar a participação." },
+  { question: "Como faço para visitar o território?", answer: "Consulte a página de roteiros para ver as propostas e os cuidados de cada percurso. A realização depende da avaliação local, da disponibilidade da equipe e das condições da visita." },
+  { question: "Como recupero minha senha?", answer: "Na tela de entrada, escolha Esqueci minha senha e informe o e-mail vinculado à sua conta. Use o link de recuperação enviado para esse e-mail." }
 ];
 
 export default function FaqPage() {
   return (
     <PublicShell>
-      <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
-        <RichPageHeader eyebrow="FAQ" title="Perguntas antes da reuniao" description="Respostas objetivas para alinhar escopo, demonstracao, identidade visual e proximas decisoes." badgeTone="blue" />
-      </section>
-      <section className="premium-section pt-2">
-        <div className="mx-auto max-w-7xl px-5 sm:px-6">
-          <FaqAccordion items={items} />
-        </div>
-      </section>
+      <div className="site-container space-y-5 py-9 sm:py-14">
+        <RichPageHeader eyebrow="Ajuda" title="Perguntas frequentes" description="Saiba como se inscrever, participar da formação e conhecer os roteiros." />
+        <FaqAccordion items={items} />
+      </div>
     </PublicShell>
   );
 }

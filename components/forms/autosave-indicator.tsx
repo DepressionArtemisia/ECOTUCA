@@ -1,12 +1,6 @@
-"use client";
-
-import { CheckCircle2, RotateCcw } from "lucide-react";
+import { Check } from "lucide-react";
 
 export function AutosaveIndicator({ savedAt }: { savedAt: string | null }) {
-  return (
-    <div className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-brand-brown/10 bg-white/75 px-3 py-2 text-xs font-black text-brand-brown/75 dark:border-brand-yellow/20 dark:bg-white/10 dark:text-brand-cream/75">
-      {savedAt ? <CheckCircle2 size={15} className="text-brand-mint" /> : <RotateCcw size={15} className="text-brand-orange" />}
-      {savedAt ? `Rascunho salvo ${savedAt}` : "Rascunho pronto"}
-    </div>
-  );
+  if (!savedAt) return null;
+  return <p role="status" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--muted)]"><Check size={16} aria-hidden="true" />{savedAt === "recuperado" ? "Rascunho recuperado" : `Rascunho salvo às ${savedAt}`}</p>;
 }

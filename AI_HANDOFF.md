@@ -1,5 +1,129 @@
 # AI Handoff
 
+## Continuidade do deploy — 26/11/2026
+
+Inicie por [DEPLOY.md](DEPLOY.md). O checkout usa GitHub Actions para verificar PRs e publicar `main` na VPS. Compare o SHA do workflow com `/api/health`. Para o Treyar ou outro agente, o fluxo é branch, commit, PR, validação e integração. Segredos ficam no ambiente GitHub e nas configurações privadas da VPS.
+
+## Redesign e ensaio para VPS — 24/11/2026
+
+- Checkout de trabalho em `codex/production-learning-platform-start`. Valide `git status` antes de publicar, pois o trabalho está no workspace.
+- Comece em `DESIGN_SYSTEM.md`, `app/globals.css`, `components/layout/public-shell.tsx` e `components/layout/workspace-shell.tsx`. Os painéis usam a mesma estrutura de navegação e o tema segue sistema ou preferência salva.
+- O menu móvel compartilhado vive em `components/layout/navigation-menu.tsx` e `navigation-menu.module.css`. O modal nativo administra foco e fundo inerte. Os shells fornecem os grupos, as ações e a seção ativa.
+- Para rodar, use `npm ci`, `npm run dev`, `npm run lint` e `npm run build`. No preview, desative escritas e use um ambiente sem apontar para produção. `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce` deve estar presente no build para a VPS.
+- Em Supabase, faça o fluxo de [homologação](docs/production-platform/VPS_SUPABASE_REHEARSAL.md). `npm run supabase:prepare-sql` gera apenas schema, RLS e Storage. O ensaio `supabase/rehearsal.sql` usa transação revertida.
+- As RPCs `review_signup_application` e `review_pending_profile` aceitam apenas decisão em registros pendentes e registram auditoria. A criação de conta Auth depois do aceite da inscrição ainda é manual. A fila não esconde falha de gravação com fallback.
+- Os painéis educacionais ainda usam exemplos em aulas, turmas, atividades, certificados e métricas. O player grava posição real do vídeo e consegue gravar no banco quando aula e usuário tiverem IDs reais. No upload de PDF, o arquivo fica no namespace do usuário e a publicação fica pendente de integração.
+- Nenhuma alteração remota nesta rodada. Valide primeiro Auth/SMTP, configuração de contato e termos antes da coleta pública.
+
+## Admin Approvals Application Queue Handoff
+- Date: 2026-06-17.
+- Active branch: `codex/production-learning-platform-start`.
+- New data service: `lib/data/signup-applications.ts`.
+- Updated admin data service: `lib/data/admin.ts`.
+- Updated UI: `features/admin/approval-queue.tsx`.
+- Admin approvals now try to read pending `public.signup_applications` rows and fall back to pending profiles/prepared data when the table, session or RLS is not ready.
+- The UI now labels rows as `Cadastro publico` or `Perfil pendente`, shows phone/highlight when available, and uses `Fila preparada` instead of presentation language.
+- Approve/reject on `signup_applications` is still prepared-only; real mutation/promotion is intentionally deferred.
+- Verification passed: `npm run lint`, `npm run build`.
+- Browser QA passed for `/app/admin/aprovacoes` on desktop and mobile with no overflow, broken images, console errors or visible `apresentacao`/`MVP` terms.
+- Next recommended slice: server action for admin approval/rejection with audit log and controlled creation of Auth/profile records.
+
+## Signup Server Action Prep Handoff
+- Date: 2026-06-17.
+- Active branch: `codex/production-learning-platform-start`.
+- New server action: `app/actions/signup-application.ts`.
+- Updated signup engine: `features/signup/multistep-signup-flow.tsx`.
+- Role flows now pass `applicationRole`: student, teacher, guide and tourist.
+- New env flag in `.env.example`: `ENABLE_SUPABASE_SIGNUP_WRITES`.
+- New SQL contract: `public.signup_applications` in `supabase/schema.sql`.
+- New RLS policy: `signup applications admin manage` in `supabase/rls.sql`.
+- `supabase/combined-apply.sql` was regenerated with `npm run supabase:prepare-sql`; no SQL was applied.
+- Default behavior is safe: without `ENABLE_SUPABASE_SIGNUP_WRITES=true`, the action validates and returns `mode: prepared` without touching Supabase.
+- Verification passed: `npm run supabase:prepare-sql`, `npm run lint`, `npm run build`.
+- Browser QA passed on mobile `/cadastro/aluno`: required-field error, first-step fill and advance to `Interesse e vinculo`.
+- Direct action smoke test returned `ok: true`, `mode: prepared`.
+- Next recommended slice: make `/app/admin/aprovacoes` read from `signup_applications` when writes are enabled, then define approval promotion to Auth/profile records.
+
+## Production Auth Gating Handoff
+- Date: 2026-06-17.
+- Active branch: `codex/production-learning-platform-start`.
+- This slice prepares production access control while keeping local preview navigable.
+- New files:
+  - `lib/auth/runtime.ts`
+  - `lib/auth/access-policy.ts`
+  - `features/auth/app-access-guard.tsx`
+  - `docs/progress-reports/STEP_22_PRODUCTION_AUTH_GATING.md`
+- Updated files:
+  - `features/auth/auth-provider.tsx`
+  - `lib/data/auth.ts`
+  - `components/layout/app-shell.tsx`
+  - `components/layout/admin-shell.tsx`
+  - `.env.example`
+- Default preview behavior remains unchanged: demo fallback is enabled unless `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`.
+- Production mode should set:
+  - `NEXT_PUBLIC_DISABLE_AUTH_FALLBACK=true`
+  - `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce`
+  - `NEXT_PUBLIC_SHOW_DEMO_CONTROLS=false`
+- `AppAccessGuard` only blocks when access mode is `enforce`; it denies missing sessions, demo sessions unless explicitly allowed, wrong roles and non-approved statuses.
+- No Supabase SQL was applied, no real Auth users were created and no secrets were touched.
+- Verification passed: `npm run lint`, `npm run build`.
+- Policy smoke test passed with student/admin/pending cases.
+- Browser QA passed on `http://127.0.0.1:3020` for `/`, `/app/aluno`, `/app/admin`, `/entrar` and `/sitemap` at desktop and mobile widths; no accidental preview blocking, no overflow, no broken images and no console errors.
+- Next recommended slice: implement staging-safe server actions for signup, approval and password reset with reviewed RLS.
+
+## Production Learning Core Routes Handoff
+- Date: 2026-06-16.
+- Active branch: `codex/production-learning-platform-start`.
+- This slice completes the V1 teaching-platform route skeleton after the production funnel start.
+- New pages:
+  - `app/app/aluno/atividades/page.tsx`
+  - `app/app/professor/avaliacoes/page.tsx`
+  - `app/app/admin/conteudos/page.tsx`
+  - `app/app/admin/relatorios/page.tsx`
+- Upgraded pages:
+  - `app/app/professor/turmas/page.tsx`
+  - `app/app/admin/usuarios/page.tsx`
+  - `app/app/admin/configuracoes/page.tsx`
+  - `app/sitemap/page.tsx`
+- Navigation updates:
+  - Student primary nav now includes Atividades and Certificados.
+  - Teacher primary nav now includes Avaliacoes.
+  - Admin primary nav now includes Conteudos and Relatorios.
+  - Mobile bottom nav now points to Atividades instead of tourism routes.
+- Data contract additions:
+  - `StudentActivity`
+  - `TeacherEvaluation`
+  - `ContentReviewItem`
+  - `AdminReportSnapshot`
+  - `AdminReportRow`
+- Data lives in `lib/mock-data/ecotuca.ts` for now and is ready to be replaced by Supabase services.
+- `lib/navigation/site-map.ts` uses `preview` instead of `demo` as the internal route status.
+- No Supabase SQL was applied, no real Auth users were created and no secrets were touched.
+- Verification passed: `npm run lint`, `npm run build`.
+- Browser QA passed on local production preview for the eight edited/new core routes at desktop and mobile widths; no horizontal overflow, no broken images, no console errors and no visible demo/MVP/presentation terms.
+- Next recommended slice: add production route gating/session checks and Supabase-safe server actions for signup/approval/activity submission.
+
+## Production Learning Platform Start Handoff
+- Date: 2026-06-16.
+- Active branch: `codex/production-learning-platform-start`.
+- Goal: start the real teaching platform implementation from the production blueprint, without deleting the old demo routes yet.
+- Public shell and navigation now point to the learning funnel, not the demo hub.
+- New production-facing routes: `/entrar`, `/recuperar-senha`, `/aguardando-aprovacao`.
+- `/login` remains available and is re-exported by `/entrar`.
+- Main public copy was cleaned on home, how-it-works, contact, FAQ, terms, privacy, 404 and signup role pages.
+- `/cadastro` now prioritizes student and teacher. Guide/tourist routes still exist but are no longer primary V1 entry points.
+- Login form no longer pre-fills demo credentials; e-mail/password are required and pending users go to `/aguardando-aprovacao`.
+- `AppShell` and `AdminShell` hide `DataSourceBadge` and `DemoSessionPill` unless `NEXT_PUBLIC_SHOW_DEMO_CONTROLS=true`.
+- Admin dashboard is now education-first: teaching, users, tracks, certificates, classes, support and impact.
+- Dependencies updated: `next@15.5.19`, `react@19.2.7`, `react-dom@19.2.7`, matching Next ESLint config and React types.
+- `npm audit fix` removed the high `esbuild` issue. Residual: npm still reports 2 moderate `postcss` issues inside Next; `--force` suggests a breaking downgrade and was not used.
+- No Supabase SQL was applied, no real Auth users were created and no secrets were touched.
+- Verification passed: `npm run lint`, `npm run build`.
+- Browser QA passed on `http://localhost:3020` for production routes in desktop and mobile: no horizontal overflow, no broken images, no console errors and no visible demo signals in tested routes.
+- Local production preview is currently running on `http://localhost:3020`.
+- Progress report: `docs/progress-reports/STEP_20_PRODUCTION_LEARNING_START.md`.
+- Next recommended work: implement real Supabase signup/approval/login on a staging-safe path, then replace mock learning data with UUID-backed tracks, modules, lessons and submissions.
+
 ## Prompt 8 Final QA / Presentation Ready
 - Date: 2026-06-08.
 - Production URL: `https://ecotuca.vercel.app`.
@@ -189,3 +313,16 @@ The ECOTUCA MVP runs on `http://localhost:3020/demo`. Port 3000 is occupied by a
 - Local browser QA passed at 390px and 1440px for the Round 9 routes/interactions.
 - Production deploy passed: `dpl_HNxad6ECVdf1cg9BQpn1ZKHtq1wb`, aliased to `https://ecotuca.vercel.app`.
 - Production HTTP and mobile browser gut-check passed for the new signup/sitemap/admin surfaces.
+
+## Production Learning Platform Blueprint Handoff
+- Branch: `codex/production-learning-platform-blueprint`.
+- New folder: `docs/production-platform/`.
+- This blueprint defines the real production app separately from the presentation MVP.
+- V1 production focus is teaching only: student, teacher and admin.
+- Keep guide/tourist/route marketplace as future expansion unless Bruno explicitly brings them back into V1.
+- Start with:
+  - `docs/production-platform/PRODUCT_REAL_SCOPE.md`
+  - `docs/production-platform/ROUTE_AND_FLOW_MAP.md`
+  - `docs/production-platform/UX_UI_BLUEPRINT.md`
+  - `docs/production-platform/IMPLEMENTATION_PLAN.md`
+- Next implementation should create a production branch and convert the app from demo-first to learning-platform-first.

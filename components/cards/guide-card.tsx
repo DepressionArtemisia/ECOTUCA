@@ -11,7 +11,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
         <Image src={guide.avatar} alt={`Identidade visual temporaria do perfil de ${guide.name}`} width={64} height={64} className="h-16 w-16 rounded-lg border-4 border-brand-yellow object-cover" />
         <div className="min-w-0">
           <h3 className="text-xl font-black">{guide.name}</h3>
-          <p className="inline-flex items-center gap-1 text-sm font-black text-brand-orange">
+          <p className="inline-flex items-center gap-1 text-sm font-black text-[var(--accent-text)]">
             <Star size={15} fill="currentColor" />
             {guide.rating.toFixed(1)}
           </p>

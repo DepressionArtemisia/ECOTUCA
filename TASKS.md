@@ -1,5 +1,105 @@
 # Tasks
 
+## Publicação na VPS — 26/11/2026
+
+- [x] Versionar Dockerfile, entrega contínua, backup local e runbook para mudança de operador.
+- [ ] Vincular o domínio definitivo e configurar SMTP verificado.
+- [ ] Configurar backup externo cifrado e ensaiar recuperação completa.
+
+## Redesign e ensaio para VPS — 24/11/2026
+
+- [x] Revisar manual, páginas públicas e fluxos de cada perfil.
+- [x] Aplicar sistema visual com temas, tipografia, navegação responsiva e componentes.
+- [x] Validar o menu móvel público e dos painéis, com abertura inferior, navegação, foco e rolagem em celular.
+- [x] Revisar copy, formulários, estados de acesso, vídeo e exportação CSV.
+- [x] Criar revisão de inscrição e perfil no banco com histórico e validar isolamento por RLS.
+- [x] Documentar aplicação, rollback de fixtures e configuração da futura VPS.
+- [ ] Subir homologação Supabase e confirmar Auth, SMTP, Storage e backup restaurável.
+- [ ] Confirmar conteúdo do curso, endereço de contato e textos institucionais definitivos.
+- [ ] Vincular turmas, conteúdo e progresso reais e automatizar convite de conta após revisão.
+- [ ] Publicar no ambiente autorizado após homologação.
+
+## Admin Approvals Application Queue
+- [x] Add read service for `signup_applications`.
+- [x] Make admin approval queue prefer public signup applications when available.
+- [x] Keep profile/prepared fallback when table/session/RLS is unavailable.
+- [x] Update approval UI with origin, phone and payload highlight.
+- [x] Remove visible presentation wording from approval queue.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Browser QA `/app/admin/aprovacoes` on desktop/mobile.
+- [ ] Add real admin approval/rejection mutation for `signup_applications`.
+- [ ] Add audit log for approval decisions.
+- [ ] Create controlled Auth/profile promotion flow after review.
+
+## Signup Server Action Prep
+- [x] Add server action for signup applications.
+- [x] Wire shared multi-step signup submit to the action.
+- [x] Pass role metadata from student/teacher/guide/tourist flows.
+- [x] Add `ENABLE_SUPABASE_SIGNUP_WRITES` to `.env.example`.
+- [x] Add `signup_applications` SQL contract and admin RLS.
+- [x] Regenerate `supabase/combined-apply.sql` without applying SQL.
+- [x] Run `npm run supabase:prepare-sql`.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Browser QA the student signup first-step flow on mobile.
+- [x] Smoke-test action in prepared mode.
+- [x] Connect admin approvals to read `signup_applications`.
+- [ ] Implement approved application promotion to Auth/profile rows after schema/RLS review.
+
+## Production Auth Gating
+- [x] Add environment-controlled preview auth fallback.
+- [x] Add centralized access policy for internal app routes.
+- [x] Add shell-level app access guard.
+- [x] Document production auth flags in `.env.example`.
+- [x] Update status, handoff and progress report.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Run browser QA on preview mode after the guard.
+- [x] Smoke-test access policy decisions for student/admin/pending.
+- [ ] Test enforced access mode with real Supabase users after staging Auth is ready.
+
+## Production Learning Core Routes
+- [x] Add student activities route.
+- [x] Add teacher evaluations route.
+- [x] Add admin content curation route.
+- [x] Add admin reports route.
+- [x] Upgrade teacher classes from placeholder to operational view.
+- [x] Upgrade admin users from preview switcher to user-management view.
+- [x] Upgrade admin settings from placeholder to governance view.
+- [x] Update app/admin/mobile navigation to the V1 teaching paths.
+- [x] Update sitemap data and page language for production platform.
+- [x] Add structured mock data/types for activities, evaluations, content review and reports.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Run browser QA on new/edited core routes.
+- [ ] Replace these mock datasets with Supabase-backed services after schema/RLS approval.
+- [ ] Add real activity submission and teacher feedback mutations.
+- [ ] Add real CSV/PDF report export.
+
+## Production Learning Platform Start
+- [x] Create branch `codex/production-learning-platform-start`.
+- [x] Reorient public navigation away from `/demo`.
+- [x] Rebuild home as a real teaching-platform funnel.
+- [x] Add `/entrar`, `/recuperar-senha` and `/aguardando-aprovacao`.
+- [x] Remove pre-filled demo credentials from login.
+- [x] Prioritize student and teacher signup in `/cadastro`.
+- [x] Hide demo status controls from app/admin shells by default.
+- [x] Recut admin dashboard to education-first indicators.
+- [x] Clean public pages that still used demo/presentation language.
+- [x] Update Next/React dependencies inside the current major-safe path.
+- [x] Run `npm audit fix` for non-breaking fixes.
+- [x] Run `npm run lint`.
+- [x] Run `npm run build`.
+- [x] Run browser QA on local production preview.
+- [x] Document the round in `STATUS.md`, `AI_HANDOFF.md` and progress report.
+- [ ] Connect signup, approval and password reset to reviewed Supabase server actions.
+- [x] Prepare signup server action behind server-side write flag.
+- [ ] Replace mock learning data with Supabase-backed tracks/modules/lessons/submissions.
+- [x] Prepare app route gating with env-controlled session/role/status validation.
+- [ ] Enable app route gating in production after real Auth users are ready.
+- [ ] Resolve residual Next/PostCSS audit warning when the upstream patched package is available.
+
 ## Round 7 - Territorio e imagens
 - [x] Criar checkpoint e branch `design/territory-real-images-premium-ui`.
 - [x] Auditar o deploy publico por rotas principais.
@@ -107,3 +207,19 @@ Depois da reuniao, aplicar SQL revisado se aprovado, criar Auth users reais com 
 - [x] Run final `npm run build`.
 - [x] Run final browser QA.
 - [x] Deploy Round 9 to Vercel if verification passes.
+
+# Production Learning Platform Blueprint
+- [x] Create separated production blueprint folder.
+- [x] Define real teaching-platform scope.
+- [x] Map production routes and funnels.
+- [x] Specify student, teacher and admin panels.
+- [x] Specify production UX/UI direction.
+- [x] Specify Supabase/Auth/RLS production model.
+- [x] Specify image and asset direction.
+- [x] Specify implementation phases and acceptance gates.
+- [ ] Create production app branch from this blueprint.
+- [ ] Hide/remove demo-first routes from production navigation.
+- [ ] Implement production auth/signup/approval against staging Supabase.
+- [ ] Build real student learning flow.
+- [ ] Build teacher workspace.
+- [ ] Build admin command center.

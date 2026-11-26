@@ -22,7 +22,7 @@ export function SiteMapSection({ section }: { section: SiteMapSectionType }) {
           >
             <span>
               <span className="block text-sm font-black">{item.label}</span>
-              <span className="mt-1 block text-xs text-brand-brown/65 dark:text-brand-cream/70">{item.description}</span>
+              <span className="mt-1 block text-xs text-[var(--muted)] dark:text-brand-cream/70">{item.description}</span>
             </span>
             <ChevronRight className="mt-1 shrink-0 transition group-hover:translate-x-0.5" size={17} />
           </Link>

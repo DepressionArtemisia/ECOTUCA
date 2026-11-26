@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ImpactBand } from "@/components/content/impact-band";
+import Link from "next/link";
 import { EthicalNotice } from "@/components/content/ethical-notice";
 import { PublicShell } from "@/components/layout/public-shell";
 import { GuideSignupFlow } from "@/features/signup/guide-signup-flow";
@@ -15,7 +15,7 @@ const roles = {
   },
   professor: {
     label: "Professor",
-    description: "Cadastro para educadores, facilitadores e parceiros pedagogicos."
+    description: "Cadastro para educadores, facilitadores e parceiros pedagógicos."
   },
   guia: {
     label: "Guia",
@@ -23,7 +23,7 @@ const roles = {
   },
   turista: {
     label: "Turista",
-    description: "Cadastro para visitantes interessados em roteiros responsaveis."
+    description: "Cadastro para visitantes interessados em roteiros responsáveis."
   }
 };
 
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ role: str
 
 export default async function RegisterRolePage({ params }: { params: Promise<{ role: string }> }) {
   const { role } = await params;
-  if (!(role in roles)) notFound();
+  if (!(Object.hasOwn(roles, role))) notFound();
 
   return (
     <PublicShell>
@@ -49,11 +49,8 @@ export default async function RegisterRolePage({ params }: { params: Promise<{ r
         {role === "turista" ? <TouristSignupFlow /> : null}
         <div className="mt-8">
           <EthicalNotice>
-            A confirmacao visual deste cadastro nao cria usuario real. A proxima etapa e conectar Auth, RLS e aprovacao quando o banco for autorizado.
+            Confira os <Link className="underline" href="/termos">termos de uso</Link> e as <Link className="underline" href="/privacidade">informações de privacidade</Link> antes de enviar.
           </EthicalNotice>
-        </div>
-        <div className="mt-6">
-          <ImpactBand title="Precisa mostrar o fluxo completo?" description="A central de apresentacao organiza o caminho de cadastro, login, areas internas, roteiro e painel admin." href="/demo" action="Abrir demo" />
         </div>
       </section>
     </PublicShell>

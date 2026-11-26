@@ -93,3 +93,60 @@ export type Metric = {
   detail: string;
   tone: "yellow" | "coral" | "blue" | "orange" | "mint";
 };
+
+export type StudentActivityStatus = "todo" | "submitted" | "reviewed" | "revision";
+
+export type StudentActivity = {
+  id: string;
+  title: string;
+  trackTitle: string;
+  dueDate: string;
+  status: StudentActivityStatus;
+  evidenceType: string;
+  teacherFeedback: string;
+  progressPercent: number;
+  tone: "yellow" | "coral" | "blue" | "orange" | "mint";
+};
+
+export type TeacherEvaluationStatus = "pending" | "reviewed" | "revision";
+
+export type TeacherEvaluation = {
+  id: string;
+  studentName: string;
+  activityTitle: string;
+  trackTitle: string;
+  submittedAt: string;
+  status: TeacherEvaluationStatus;
+  priority: "alta" | "media" | "baixa";
+  evidence: string;
+  feedbackHint: string;
+};
+
+export type ContentReviewStatus = "draft" | "review" | "approved" | "changes";
+
+export type ContentReviewItem = {
+  id: string;
+  title: string;
+  author: string;
+  trackTitle: string;
+  kind: string;
+  status: ContentReviewStatus;
+  updatedAt: string;
+  checklist: string[];
+};
+
+export type AdminReportSnapshot = {
+  label: string;
+  value: string;
+  detail: string;
+  tone: "yellow" | "coral" | "blue" | "orange" | "mint";
+};
+
+export type AdminReportRow = {
+  period: string;
+  students: number;
+  completedLessons: number;
+  certificates: number;
+  pendingApprovals: number;
+  supportRequests: number;
+};

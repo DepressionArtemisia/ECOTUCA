@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, BookOpen, Home, MapPinned, UserRound } from "lucide-react";
+import { Bell, BookOpen, ClipboardCheck, Home, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
-  { label: "Inicio", href: "/app/aluno", icon: Home },
+  { label: "Início", href: "/app/aluno", icon: Home },
   { label: "Trilhas", href: "/app/aluno/trilhas", icon: BookOpen },
-  { label: "Roteiros", href: "/roteiros", icon: MapPinned },
+  { label: "Atividades", href: "/app/aluno/atividades", icon: ClipboardCheck },
   { label: "Avisos", href: "/app/notificacoes", icon: Bell },
   { label: "Perfil", href: "/app/perfil", icon: UserRound }
 ];
@@ -19,7 +19,7 @@ export function MobileBottomNav({ compact = false }: { compact?: boolean }) {
   return (
     <nav
       className={cn(
-        "mobile-safe-area fixed inset-x-0 bottom-0 z-40 border-t border-brand-brown/10 bg-white/95 px-2 py-2 shadow-brand backdrop-blur lg:hidden dark:border-brand-yellow/15 dark:bg-brand-brown/95",
+        "mobile-safe-área fixed inset-x-0 bottom-0 z-40 border-t border-brand-brown/10 bg-white/95 px-2 py-2 shadow-brand backdrop-blur lg:hidden dark:border-brand-yellow/15 dark:bg-brand-brown/95",
         compact && "absolute"
       )}
     >

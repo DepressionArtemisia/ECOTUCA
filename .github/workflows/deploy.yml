@@ -1,0 +1,72 @@
+name: CI e deploy ECOTUCA
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validar
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run lint
+      - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_ACCESS_CONTROL_MODE: enforce
+      - run: |
+          for script in deploy/*.sh; do bash -n "$script"; done
+          python3 -m py_compile deploy/smoke-vps.py
+
+  deploy:
+    name: Publicar na VPS
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    environment: vps
+    concurrency:
+      group: ecotuca-vps
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Entregar revisão validada
+        shell: bash
+        env:
+          DEPLOY_HOST: ${{ vars.ECOTUCA_DEPLOY_HOST }}
+          DEPLOY_KNOWN_HOST: ${{ vars.ECOTUCA_DEPLOY_KNOWN_HOST }}
+          DEPLOY_SSH_KEY: ${{ secrets.ECOTUCA_DEPLOY_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          : "${DEPLOY_HOST:?}" "${DEPLOY_KNOWN_HOST:?}" "${DEPLOY_SSH_KEY:?}"
+          umask 077
+          temp=$(mktemp -d)
+          trap 'rm -rf -- "$temp"' EXIT
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$temp/key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOST" > "$temp/known_hosts"
+          git archive --format=tar.gz --output="$temp/source.tar.gz" "$GITHUB_SHA" -- \
+            Dockerfile .dockerignore package.json package-lock.json next.config.ts next-env.d.ts tsconfig.json \
+            tailwind.config.ts postcss.config.js eslint.config.mjs app components features lib public types
+          digest=$(sha256sum "$temp/source.tar.gz" | cut -d ' ' -f 1)
+          ssh -T -i "$temp/key" -o IdentitiesOnly=yes -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$temp/known_hosts" \
+            -o ConnectTimeout=15 -o ServerAliveInterval=20 -o ServerAliveCountMax=3 \
+            "ecotuca-deploy@$DEPLOY_HOST" "release $GITHUB_SHA $digest" < "$temp/source.tar.gz"

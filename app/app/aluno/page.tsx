@@ -3,7 +3,7 @@ import { StudentDashboard } from "@/features/student/student-dashboard";
 
 export default function StudentPage() {
   return (
-    <AppShell title="Area do aluno">
+    <AppShell title="Área do aluno">
       <StudentDashboard />
     </AppShell>
   );

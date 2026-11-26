@@ -4,9 +4,9 @@ import { notices } from "@/lib/mock-data/ecotuca";
 
 export default function NotificationsPage() {
   return (
-    <AppShell title="Notificacoes">
+    <AppShell title="Notificações">
       <section className="mx-auto max-w-4xl">
-        <h1 className="brand-display text-5xl">Notificacoes</h1>
+        <h1 className="brand-display text-5xl">Notificações</h1>
         <div className="mt-6 space-y-3">
           {notices.map((notice) => (
             <div key={notice} className="rounded-lg bg-white p-4 shadow-brand dark:bg-white/10">

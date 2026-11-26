@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Lock, PlayCircle } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
-import { EcoButton } from "@/components/brand/eco-button";
+import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { learningTracks } from "@/lib/mock-data/ecotuca";
@@ -22,24 +22,19 @@ export default async function TrackDetailPage({ params }: { params: Promise<{ id
           <Progress value={track.progressPercent} tone={track.accent} />
         </div>
         <div className="mt-8 space-y-4">
-          {track.lessons.map((lesson, index) => {
-            const locked = index > 1 && lesson.status === "not_started";
+          {track.lessons.map((lesson) => {
             return (
             <article key={lesson.id} className="rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <Badge tone={locked ? "coral" : lesson.status === "completed" ? "mint" : "yellow"}>{locked ? "bloqueada" : lesson.status}</Badge>
+                  <Badge tone={lesson.status === "completed" ? "mint" : "yellow"}>{{ completed: "Concluída", in_progress: "Em andamento", not_started: "A iniciar" }[lesson.status]}</Badge>
                   <h2 className="mt-3 text-xl font-black">{lesson.title}</h2>
                   <p className="mt-1 text-sm text-brand-brown/70 dark:text-brand-cream/70">{lesson.description}</p>
-                  <p className="mt-2 text-xs font-black text-brand-orange">{lesson.durationMinutes} min - {lesson.progressPercent}%</p>
+                  <p className="mt-2 text-xs font-black text-[var(--accent-text)]">{lesson.durationMinutes} min - {lesson.progressPercent}%</p>
                 </div>
-                {locked ? (
-                  <EcoButton variant="outline"><Lock size={16} />Liberada apos aula pratica</EcoButton>
-                ) : (
-                  <Link href={`/app/aluno/aulas/${lesson.id}`}>
-                    <EcoButton variant="mint"><PlayCircle size={16} />Assistir</EcoButton>
-                  </Link>
-                )}
+                <Link href={`/app/aluno/aulas/${lesson.id}`} className={buttonVariants({ variant: "outline", className: "shrink-0" })}>
+                  <PlayCircle size={16} aria-hidden="true" /> Abrir aula
+                </Link>
               </div>
             </article>
           );

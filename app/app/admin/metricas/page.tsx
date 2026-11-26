@@ -4,7 +4,7 @@ import { AdminDashboard } from "@/features/admin/admin-dashboard";
 export default function AdminMetricsPage() {
   return (
     <AdminShell>
-      <AdminDashboard />
+      <AdminDashboard indicatorsOnly />
     </AdminShell>
   );
 }

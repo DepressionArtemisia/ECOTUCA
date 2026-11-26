@@ -1,46 +1,30 @@
 import type { Metadata } from "next";
-import { ShieldCheck } from "lucide-react";
-import { EthicalNotice } from "@/components/content/ethical-notice";
+import Link from "next/link";
 import { PublicShell } from "@/components/layout/public-shell";
 import { RichPageHeader } from "@/components/layout/rich-page-header";
 
-export const metadata: Metadata = {
-  title: "Privacidade | ECOTUCA",
-  description: "Politica preliminar de privacidade para o MVP ECOTUCA, com foco em LGPD, consentimento e minimizacao de dados."
-};
-
-const privacyItems = [
-  ["Minimizacao", "Coletar apenas dados necessarios para cadastro, contato, aprovacao e acompanhamento."],
-  ["Consentimento", "Separar aceite de dados, contato, imagem e publicacao de materiais."],
-  ["Seguranca", "Nao expor chaves sensiveis no cliente e manter service role fora do frontend."],
-  ["Aprovacao", "Liberar perfis sensiveis somente depois de validacao da coordenacao."],
-  ["Proxima fase", "Conectar Supabase Auth, RLS e politicas de storage depois da revisao aprovada."]
+export const metadata: Metadata = { title: "Privacidade | ECOTUCA" };
+const contents = [
+  { title: "Inscrição e acompanhamento", body: "Os formulários pedem dados de contato, disponibilidade e informações necessárias para avaliar a inscrição e organizar a turma. Para menores de idade, o formulário também solicita o contato de um responsável." },
+  { title: "Rascunho no navegador", body: "Ao escolher salvar seu rascunho, os dados ficam neste navegador. Em um aparelho compartilhado, use a opção Limpar rascunho quando terminar." },
+  { title: "Imagem e materiais", body: "A equipe trata autorizações de uso de imagem separadamente. Antes de enviar um material, confira se você tem permissão para compartilhar o conteúdo." },
+  { title: "Dúvidas sobre seus dados", body: "Use o canal da coordenação para perguntar sobre o uso de suas informações ou a correção de dados de cadastro." }
 ];
 
 export default function PrivacidadePage() {
   return (
     <PublicShell>
-      <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
-        <RichPageHeader eyebrow="Privacidade" title="Dados com cuidado e finalidade clara" description="Diretrizes preliminares para apresentar o MVP sem confundir prototipo navegavel com operacao definitiva." badgeTone="mint" />
-      </section>
-      <section className="premium-section pt-2">
-        <div className="mx-auto max-w-5xl px-5 sm:px-6">
-          <div className="desktop-editorial-grid">
-            {privacyItems.map(([title, text]) => (
-              <article key={title} className="brand-card p-5">
-                <ShieldCheck className="text-brand-mint" size={26} />
-                <h2 className="brand-display mt-3 text-3xl">{title}</h2>
-                <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">{text}</p>
-              </article>
-            ))}
-          </div>
-          <div className="mt-6">
-            <EthicalNotice>
-              A versao final deve incluir base legal, direitos do titular, encarregado, retencao, revogacao e canais formais.
-            </EthicalNotice>
-          </div>
+      <div className="site-container space-y-5 py-9 sm:py-14">
+        <RichPageHeader eyebrow="Informações" title="Privacidade" description="Entenda para que servem as informações pedidas na inscrição e como o rascunho fica salvo." />
+        <div className="grid gap-4 md:grid-cols-2">
+          {contents.map(({ title, body }) => (
+            <section key={title} className="brand-card p-5">
+              <h2 className="text-card-title">{title}</h2><p className="mt-2 text-[var(--muted)]">{body}</p>
+            </section>
+          ))}
         </div>
-      </section>
+        <p className="text-sm text-[var(--muted)]">Orientações preliminares. A política completa está em revisão. <Link href="/contato" className="inline-action">Consultar contato</Link></p>
+      </div>
     </PublicShell>
   );
 }

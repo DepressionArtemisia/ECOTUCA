@@ -1,6 +1,12 @@
-import { Button, type ButtonProps } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Button, buttonVariants, type ButtonProps } from "@/components/ui/button";
 
-export function EcoButton({ className, ...props }: ButtonProps) {
-  return <Button className={cn("shadow-soft active:translate-y-px", className)} {...props} />;
+export function EcoButton(props: ButtonProps) {
+  return <Button {...props} />;
+}
+
+type EcoLinkProps = React.ComponentProps<typeof Link> & Pick<ButtonProps, "variant" | "size">;
+
+export function EcoLink({ className, size, variant, ...props }: EcoLinkProps) {
+  return <Link className={buttonVariants({ className, size, variant })} {...props} />;
 }

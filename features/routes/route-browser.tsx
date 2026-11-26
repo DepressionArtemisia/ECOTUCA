@@ -1,103 +1,59 @@
 "use client";
 
-import { Search, SlidersHorizontal } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Search } from "lucide-react";
+import { useState } from "react";
 import { RouteCard } from "@/components/cards/route-card";
-import { Badge } from "@/components/ui/badge";
 import { tourRoutes } from "@/lib/mock-data/ecotuca";
+
+function normalize(value: string) {
+  return value.normalize("NFD").replace(/\p{Diacritic}/gu, "").trim().toLowerCase();
+}
 
 export function RouteBrowser() {
   const [query, setQuery] = useState("");
-  const [difficulty, setDifficulty] = useState("todos");
-  const [duration, setDuration] = useState("todos");
-  const [price, setPrice] = useState("todos");
-
-  const routes = useMemo(() => {
-    return tourRoutes.filter((route) => {
-      const matchesQuery = `${route.title} ${route.shortDescription} ${route.tags.join(" ")}`
-        .toLowerCase()
-        .includes(query.toLowerCase());
-      const matchesDifficulty = difficulty === "todos" || route.difficulty === difficulty;
-      const matchesDuration =
-        duration === "todos" ||
-        (duration === "curto" && route.durationMinutes <= 150) ||
-        (duration === "medio" && route.durationMinutes > 150 && route.durationMinutes <= 210) ||
-        (duration === "longo" && route.durationMinutes > 210);
-      const matchesPrice =
-        price === "todos" ||
-        (price === "ate-70" && route.price <= 70) ||
-        (price === "ate-90" && route.price <= 90) ||
-        (price === "premium" && route.price > 90);
-
-      return matchesQuery && matchesDifficulty && matchesDuration && matchesPrice;
-    });
-  }, [difficulty, duration, price, query]);
+  const [difficulty, setDifficulty] = useState("");
+  const [duration, setDuration] = useState("");
+  const routes = tourRoutes.filter((route) => {
+    const searchable = normalize(`${route.title} ${route.shortDescription} ${route.tags.join(" ")}`);
+    return searchable.includes(normalize(query))
+      && (!difficulty || route.difficulty === difficulty)
+      && (!duration || (duration === "curto" ? route.durationMinutes <= 150 : route.durationMinutes > 150));
+  });
 
   return (
-    <section className="space-y-6">
-      <div className="brand-card p-4 dark:bg-brand-dark-soft/90">
-        <div className="grid gap-3 lg:grid-cols-[1fr_180px_180px_180px]">
-          <label className="flex min-h-12 items-center gap-3 rounded-lg bg-brand-warm px-4 text-sm font-bold text-brand-brown">
-            <Search size={18} />
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Buscar por roteiro, tag ou territorio"
-              className="w-full bg-transparent outline-none placeholder:text-brand-brown/55"
-            />
+    <section className="space-y-4" aria-label="Explore os roteiros">
+      <div className="brand-card p-4 sm:p-5">
+        <div className="grid gap-3 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)]">
+          <label className="block min-w-0 text-sm font-bold">
+            <span className="inline-flex items-center gap-2"><Search size={16} aria-hidden="true" /> Buscar roteiro</span>
+            <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Ex.: Serra da Misericórdia" className="field-control mt-1 w-full" />
           </label>
-          <Filter label="Dificuldade" value={difficulty} onChange={setDifficulty} options={["todos", "leve", "moderada", "intensa"]} />
-          <Filter label="Duracao" value={duration} onChange={setDuration} options={["todos", "curto", "medio", "longo"]} />
-          <Filter label="Preco" value={price} onChange={setPrice} options={["todos", "ate-70", "ate-90", "premium"]} />
+          <label className="block min-w-0 text-sm font-bold">
+            Dificuldade
+            <select value={difficulty} onChange={(event) => setDifficulty(event.target.value)} className="field-control mt-1 w-full">
+              <option value="">Todas</option><option value="leve">Leve</option><option value="moderada">Moderada</option><option value="intensa">Intensa</option>
+            </select>
+          </label>
+          <label className="block min-w-0 text-sm font-bold">
+            Duração estimada
+            <select value={duration} onChange={(event) => setDuration(event.target.value)} className="field-control mt-1 w-full">
+              <option value="">Todas</option><option value="curto">Até 2h30</option><option value="longo">Mais de 2h30</option>
+            </select>
+          </label>
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <Badge tone="yellow"><SlidersHorizontal size={14} /> {routes.length} roteiros</Badge>
-          <Badge tone="mint">mais procurado: Serra da Misericordia</Badge>
-          <Badge tone="orange">roteiros sujeitos a validacao local</Badge>
-          <Badge tone="blue">imagens licenciadas</Badge>
+        <p className="mt-3 text-sm text-[var(--muted)]" role="status">{routes.length} {routes.length === 1 ? "roteiro encontrado" : "roteiros encontrados"}</p>
+      </div>
+      {routes.length ? (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {routes.map((route) => <RouteCard key={route.slug} route={route} />)}
         </div>
-      </div>
-
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {routes.map((route) => (
-          <RouteCard key={route.slug} route={route} />
-        ))}
-        {routes.length === 0 && (
-          <div className="brand-card p-6 dark:bg-brand-dark-soft/90 md:col-span-2 xl:col-span-3">
-            <h2 className="brand-display text-3xl">Nenhum roteiro encontrado</h2>
-            <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
-              Ajuste os filtros ou busque por territorio, Penha, Serra, juventude ou impacto.
-            </p>
-          </div>
-        )}
-      </div>
+      ) : (
+        <div className="brand-card p-5">
+          <h2 className="text-card-title">Nenhum roteiro encontrado</h2>
+          <p className="mt-2 text-sm text-[var(--muted)]">Experimente outro nome ou ajuste os filtros.</p>
+          <button type="button" className="inline-action mt-2 text-sm" onClick={() => { setQuery(""); setDifficulty(""); setDuration(""); }}>Limpar filtros</button>
+        </div>
+      )}
     </section>
-  );
-}
-
-function Filter({
-  label,
-  value,
-  onChange,
-  options
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: string[];
-}) {
-  return (
-    <label className="block">
-      <span className="sr-only">{label}</span>
-      <select
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="h-12 w-full rounded-lg border border-brand-brown/15 bg-brand-warm px-3 text-sm font-black text-brand-brown outline-none focus:border-brand-mint"
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>{label}: {option}</option>
-        ))}
-      </select>
-    </label>
   );
 }

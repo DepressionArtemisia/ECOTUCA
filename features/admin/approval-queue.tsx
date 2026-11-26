@@ -1,123 +1,97 @@
 "use client";
 
-import { CheckCircle2, RefreshCw, XCircle } from "lucide-react";
+import { Check, ClipboardCheck, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { EcoButton } from "@/components/brand/eco-button";
 import { Badge } from "@/components/ui/badge";
-import { getApprovalQueue, setApprovalStatus } from "@/lib/data/admin";
-import type { DemoUser, UserStatus } from "@/types/domain";
+import { useAuth } from "@/features/auth/auth-provider";
+import { shouldEnforceAppAccess } from "@/lib/auth/runtime";
+import { getApprovalQueue, setApprovalStatus, type ApprovalQueueItem, type ReviewDecision } from "@/lib/data/admin";
+import type { UserRole } from "@/types/domain";
 
-type Row = {
-  email: string;
-  name: string;
-  role: string;
-  status: UserStatus;
+const roles: Record<UserRole, string> = {
+  student: "Aluno", teacher: "Professor", guide: "Guia", tourist: "Visitante",
+  visitor: "Visitante", admin: "Coordenação", super_admin: "Administração"
 };
 
 export function ApprovalQueue() {
-  const [rows, setRows] = useState<Row[]>([]);
+  const { user, loading: authLoading } = useAuth();
+  const preview = user?.source === "demo" || (!user && !shouldEnforceAppAccess());
+  const [rows, setRows] = useState<ApprovalQueueItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [source, setSource] = useState<"supabase" | "demo">("demo");
-  const [message, setMessage] = useState("Carregando fila de aprovacoes.");
+  const [message, setMessage] = useState("");
+  const [failed, setFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const [saving, setSaving] = useState<string | null>(null);
 
   useEffect(() => {
+    if (authLoading) return;
     let active = true;
+    setLoading(true);
+    setFailed(false);
+    setMessage("");
+    getApprovalQueue(preview)
+      .then((items) => { if (active) setRows(items); })
+      .catch(() => { if (active) setFailed(true); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [authLoading, preview, attempt, user?.id]);
 
-    async function load() {
-      setLoading(true);
-      const queue = await getApprovalQueue();
-      if (!active) return;
-      setRows(queue.map(toRow));
-      setSource(queue.some((user) => user.password === "") ? "supabase" : "demo");
-      setMessage(queue.length ? "Fila pronta para validacao da coordenacao." : "Nenhum cadastro pendente encontrado.");
-      setLoading(false);
+  async function review(row: ApprovalQueueItem, decision: ReviewDecision) {
+    if (saving !== null) return;
+    if (decision === "rejected" && !window.confirm(`Recusar a solicitação de ${row.name}?`)) return;
+    setSaving(row.id);
+    try {
+      const recorded = preview || await setApprovalStatus(row, decision);
+      setRows((current) => current.filter((item) => item.id !== row.id || item.kind !== row.kind));
+      setMessage(!recorded ? "Esta solicitação já foi revisada. A fila foi atualizada."
+        : preview ? "Decisão simulada nesta demonstração."
+          : decision === "rejected" ? "Solicitação recusada."
+            : row.kind === "profile" ? "Acesso liberado para este perfil."
+              : "Inscrição aprovada. A coordenação ainda precisa criar e comunicar o acesso.");
+    } catch {
+      setMessage("A decisão não foi registrada. Tente novamente.");
+    } finally {
+      setSaving(null);
     }
-
-    load();
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  async function update(email: string, status: Extract<UserStatus, "approved" | "rejected">) {
-    const result = await setApprovalStatus(email, status);
-    setRows((current) => current.map((row) => (row.email === email ? { ...row, status } : row)));
-    setSource(result.source === "supabase" ? "supabase" : "demo");
-    setMessage(
-      result.source === "supabase"
-        ? `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} na base conectada.`
-        : `Usuario ${status === "approved" ? "aprovado" : "rejeitado"} na fila de apresentacao.`
-    );
   }
 
   return (
     <section className="mx-auto max-w-6xl space-y-4">
-      <div className="rounded-lg bg-brand-yellow p-5 text-brand-brown shadow-brand">
-        <div className="flex flex-wrap gap-2">
-          <Badge tone="coral">Fila de aprovacoes</Badge>
-          <Badge tone={source === "supabase" ? "mint" : "yellow"}>
-            {source === "supabase" ? "Base conectada" : "Fila de apresentacao"}
-          </Badge>
-        </div>
-        <h1 className="brand-display mt-4 text-5xl">Fila de aprovacoes</h1>
-        <p className="mt-2 text-sm font-bold">{message}</p>
-        <div className="mt-5 grid gap-3 md:grid-cols-3">
-          {[
-            ["Validar perfil", "Conferir vinculo, contato e consentimentos."],
-            ["Liberar acesso", "Criar usuario real somente quando Auth estiver autorizado."],
-            ["Registrar decisao", "Guardar motivo, data e responsavel em producao."]
-          ].map(([item, text]) => (
-            <div key={item} className="rounded-lg bg-brand-brown p-4 text-brand-cream">
-              <p className="text-sm font-black uppercase text-brand-yellow">{item}</p>
-              <p className="mt-2 text-xs font-bold text-brand-cream/75">{text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <header className="brand-card p-5 sm:p-8">
+        <p className="section-label"><span /> Coordenação</p>
+        <h1 className="text-display-lg mt-3">Aprovações</h1>
+        <p className="mt-3 max-w-[62ch] text-[var(--muted)]">Revise as inscrições e os perfis pendentes. Ao aprovar uma inscrição, combine com a pessoa como ela receberá o acesso.</p>
+        {!authLoading && preview && <Badge className="mt-3" tone="yellow">Fila de demonstração</Badge>}
+      </header>
+      {message && <p className="brand-card p-4 text-sm" role="status">{message}</p>}
       {loading ? (
-        <div className="rounded-lg bg-white p-5 font-black shadow-brand dark:bg-white/10">
-          <RefreshCw className="mr-2 inline animate-spin" size={16} />
-          Buscando cadastros pendentes
+        <p className="brand-card p-5" role="status">Buscando solicitações…</p>
+      ) : failed ? (
+        <div className="brand-card p-5">
+          <p role="alert">Não foi possível carregar as solicitações.</p>
+          <EcoButton className="mt-3" variant="outline" onClick={() => setAttempt(attempt + 1)}>Tentar novamente</EcoButton>
         </div>
-      ) : null}
-      {!loading && rows.length === 0 ? (
-        <div className="rounded-lg bg-white p-5 font-black shadow-brand dark:bg-white/10">
-          Nenhum cadastro pendente no modo atual.
-        </div>
-      ) : null}
-      {rows.map((row) => (
-        <article key={row.email} className="rounded-lg border border-brand-brown/10 bg-white p-5 shadow-brand dark:border-brand-yellow/15 dark:bg-white/10">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-xl font-black">{row.name}</p>
-              <p className="text-sm text-brand-brown/70 dark:text-brand-cream/70">{row.email}</p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                <Badge tone="blue">{row.role}</Badge>
-                <Badge tone={row.status === "pending" ? "coral" : row.status === "approved" ? "mint" : "brown"}>{row.status}</Badge>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <EcoButton variant="mint" onClick={() => update(row.email, "approved")} disabled={row.status === "approved"}>
-                <CheckCircle2 size={16} />
-                Aprovar
-              </EcoButton>
-              <EcoButton variant="outline" onClick={() => update(row.email, "rejected")} disabled={row.status === "rejected"}>
-                <XCircle size={16} />
-                Rejeitar
-              </EcoButton>
+      ) : rows.length ? rows.map((row) => (
+        <article key={`${row.kind}:${row.id}`} className="brand-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0 [overflow-wrap:anywhere]">
+            <h2 className="text-xl font-bold">{row.name}</h2>
+            <p className="text-sm text-[var(--muted)]">{row.email}</p>
+            {row.phone && <p className="text-sm text-[var(--muted)]">{row.phone}</p>}
+            {row.highlight && <p className="mt-2 max-w-[60ch] text-sm">{row.highlight}</p>}
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Badge>{roles[row.role]}</Badge>
+              <Badge tone="yellow">{row.kind === "signup_application" ? "Nova inscrição" : "Perfil com conta criada"}</Badge>
             </div>
           </div>
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <EcoButton onClick={() => review(row, "approved")} disabled={saving !== null}><Check size={16} /> Aprovar</EcoButton>
+            <EcoButton variant="outline" onClick={() => review(row, "rejected")} disabled={saving !== null}><X size={16} /> Recusar</EcoButton>
+          </div>
         </article>
-      ))}
+      )) : (
+        <div className="brand-card p-5"><ClipboardCheck size={22} aria-hidden="true" /><p className="mt-2">Nenhuma solicitação pendente.</p></div>
+      )}
     </section>
   );
-}
-
-function toRow(user: DemoUser): Row {
-  return {
-    email: user.email,
-    name: user.name,
-    role: user.role,
-    status: user.status
-  };
 }

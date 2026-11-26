@@ -10,3 +10,6 @@ out/
 coverage/
 .vercel/
 .DS_Store
+.next-start-*.log
+*.tsbuildinfo
+.playwright-mcp/

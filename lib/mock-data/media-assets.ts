@@ -3,8 +3,8 @@ import type { MediaAsset } from "@/types/media";
 export const mediaAssets: MediaAsset[] = [
   {
     id: "complexo-alemao-panorama",
-    title: "Panorama aereo do Complexo do Alemao",
-    alt: "Vista ampla do Complexo do Alemao com morros, casas e paisagem urbana da Zona Norte do Rio",
+    title: "Panorama aereo do Complexo do Alemão",
+    alt: "Vista ampla do Complexo do Alemão com morros, casas e paisagem urbana da Zona Norte do Rio",
     src: "/media/territory/complexo-alemao/complexo-alemao-panorama-acediscovery-cc-by-4.jpg",
     author: "Acediscovery",
     source: "https://commons.wikimedia.org/wiki/File:Complexo-do-Alemao-Rio-de-Janeiro.jpg",
@@ -13,13 +13,13 @@ export const mediaAssets: MediaAsset[] = [
     creditRequired: true,
     usage: "Hero institucional, rotas territoriais e cards de contexto.",
     status: "approved",
-    location: "Complexo do Alemao, Rio de Janeiro",
+    location: "Complexo do Alemão, Rio de Janeiro",
     tags: ["complexo-alemao", "territorio", "panorama", "zona-norte"]
   },
   {
     id: "visao-do-complexo",
-    title: "Visao do Complexo do Alemao",
-    alt: "Vista do Complexo do Alemao em perspectiva urbana com casas e encostas ao fundo",
+    title: "Visao do Complexo do Alemão",
+    alt: "Vista do Complexo do Alemão em perspectiva urbana com casas e encostas ao fundo",
     src: "/media/territory/complexo-alemao/visao-do-complexo-thirson-cc-by-sa-4.jpg",
     author: "Thirson",
     source: "https://commons.wikimedia.org/wiki/File:Vis%C3%A3o_do_complexo_2.jpg",
@@ -28,13 +28,13 @@ export const mediaAssets: MediaAsset[] = [
     creditRequired: true,
     usage: "Cards de roteiros, demo mobile e narrativa territorial.",
     status: "approved",
-    location: "Complexo do Alemao, Rio de Janeiro",
+    location: "Complexo do Alemão, Rio de Janeiro",
     tags: ["complexo-alemao", "vista", "cidade", "territorio"]
   },
   {
     id: "complexo-alemao-public-domain",
-    title: "Complexo do Alemao em registro historico aberto",
-    alt: "Imagem do Complexo do Alemao com moradias em encosta e paisagem urbana",
+    title: "Complexo do Alemão em registro histórico aberto",
+    alt: "Imagem do Complexo do Alemão com moradias em encosta e paisagem urbana",
     src: "/media/territory/complexo-alemao/complexo-alemao-olimore-public-domain.jpg",
     author: "Olimor",
     source: "https://commons.wikimedia.org/wiki/File:Complexo_alemao_rj.jpg",
@@ -43,20 +43,20 @@ export const mediaAssets: MediaAsset[] = [
     creditRequired: false,
     usage: "Imagem de apoio para telas internas e placeholders territoriais.",
     status: "approved",
-    location: "Complexo do Alemao, Rio de Janeiro",
+    location: "Complexo do Alemão, Rio de Janeiro",
     tags: ["complexo-alemao", "territorio", "apoio"]
   },
   {
     id: "igreja-da-penha",
     title: "Igreja da Penha",
-    alt: "Igreja da Penha no alto do morro, ponto visual de referencia da Zona Norte do Rio",
+    alt: "Igreja da Penha no alto do morro, ponto visual de referência da Zona Norte do Rio",
     src: "/media/territory/penha/igreja-da-penha-wilfredor-cc0.jpg",
     author: "Wilfredor",
     source: "https://commons.wikimedia.org/wiki/File:Igreja_da_Penha,_Rio_de_Janeiro,_Brazil.jpg",
     license: "CC0 1.0",
     licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
     creditRequired: false,
-    usage: "Roteiros de mirante, relacao visual Penha-Alemao e contexto turistico.",
+    usage: "Roteiros de mirante, relação visual Penha-Alemão e contexto turístico.",
     status: "approved",
     location: "Penha, Rio de Janeiro",
     tags: ["penha", "mirante", "referencia-visual", "zona-norte"]

@@ -1,50 +1,33 @@
 import { AppShell } from "@/components/layout/app-shell";
-import { EcoButton } from "@/components/brand/eco-button";
-import { Badge } from "@/components/ui/badge";
 import { ContentUploadDemo } from "@/features/teacher/content-upload-demo";
+
+const tips = [
+  { title: "Defina um objetivo", body: "Diga o que o aluno deve conseguir explicar ou demonstrar ao terminar a aula." },
+  { title: "Proponha uma atividade", body: "Relacione a aula a uma situação que os alunos possam observar ou praticar no território." },
+  { title: "Combine a entrega", body: "Explique o formato, o prazo e o que será considerado na devolutiva." }
+];
 
 export default function TeacherContentPage() {
   return (
-    <AppShell title="Conteudos" roleContext="teacher">
-      <section className="mx-auto max-w-6xl rounded-lg bg-white p-5 shadow-brand dark:bg-white/10">
-        <Badge tone="blue">Gestao pedagogica</Badge>
-        <h1 className="brand-display mt-4 text-5xl">Criar conteudo</h1>
-        <p className="mt-3 max-w-3xl text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
-          Prepare aulas, materiais e evidencias de aprendizagem para a trilha do aluno. A publicacao final passa por curadoria da coordenacao.
-        </p>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          {["Titulo da aula", "Trilha", "Modulo", "Link do video", "Imagem de capa", "Publicacao"].map((field) => (
-            <div key={field} className="rounded-lg bg-brand-warm p-4 text-sm font-black text-brand-brown">{field}</div>
-          ))}
+    <AppShell title="Conteúdos" roleContext="teacher">
+      <div className="workspace-grid">
+        <header className="workspace-intro">
+          <div>
+            <p className="section-label"><span /> Ensino</p>
+            <h1 className="text-display-lg mt-2">Conteúdos</h1>
+            <p className="mt-3 max-w-[60ch] text-[var(--muted)]">Organize a proposta da aula e encaminhe o material de apoio para a coordenação.</p>
+          </div>
+        </header>
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,.75fr)]">
+          <ContentUploadDemo />
+          <aside className="brand-card p-5 sm:p-7">
+            <h2 className="text-card-title">Antes de enviar</h2>
+            <ul className="mt-4 space-y-3">
+              {tips.map((item) => <li key={item.title}><strong>{item.title}</strong><p className="text-sm leading-relaxed text-[var(--muted)]">{item.body}</p></li>)}
+            </ul>
+          </aside>
         </div>
-        <div className="mt-6 grid gap-3 md:grid-cols-3">
-          {[
-            ["Objetivo da aula", "O que o aluno deve conseguir explicar ou praticar."],
-            ["Atividade territorial", "Tarefa simples conectada ao territorio e ao ambiente."],
-            ["Evidencia", "Foto, relato, quiz ou checkpoint para acompanhamento."]
-          ].map(([item, text]) => (
-            <div key={item} className="rounded-lg border border-brand-brown/10 bg-brand-yellow/15 p-4 dark:border-brand-yellow/20 dark:bg-white/5">
-              <h2 className="text-sm font-black">{item}</h2>
-              <p className="mt-2 text-xs font-bold text-brand-brown/70 dark:text-brand-cream/70">{text}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-3 md:grid-cols-4">
-          {[
-            ["Rascunho", "Editavel pelo professor"],
-            ["Curadoria", "Revisao da coordenacao"],
-            ["Publicado", "Visivel ao aluno"],
-            ["Evidencia", "Relato, quiz ou atividade"]
-          ].map(([item, text]) => (
-            <div key={item} className="rounded-lg bg-brand-brown p-4 text-brand-cream">
-              <h2 className="brand-display text-3xl text-brand-yellow">{item}</h2>
-              <p className="mt-2 text-xs font-bold text-brand-cream/75">{text}</p>
-            </div>
-          ))}
-        </div>
-        <ContentUploadDemo />
-        <EcoButton className="mt-5" variant="mint">Salvar rascunho</EcoButton>
-      </section>
+      </div>
     </AppShell>
   );
 }

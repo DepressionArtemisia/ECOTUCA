@@ -1,87 +1,66 @@
-import Image from "next/image";
-import { BookOpen, ClipboardCheck, FileUp, MessageCircle, TimerReset, UsersRound } from "lucide-react";
-import { OfficialLogo } from "@/components/brand/official-logo";
-import { PerifaCard } from "@/components/brand/perifa-card";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, BookOpen, ClipboardCheck, UploadCloud, UsersRound } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { forumTopics, learningTracks } from "@/lib/mock-data/ecotuca";
+import { forumTopics, learningTracks, teacherEvaluations } from "@/lib/mock-data/ecotuca";
+
+const shortcuts = [
+  { title: "Turmas", description: "Veja o progresso e identifique quem precisa de apoio.", href: "/app/professor/turmas", icon: UsersRound },
+  { title: "Conteúdos", description: "Prepare aulas, materiais e propostas de atividade.", href: "/app/professor/conteudos", icon: UploadCloud },
+  { title: "Avaliações", description: "Leia as entregas e organize as devolutivas.", href: "/app/professor/avaliacoes", icon: ClipboardCheck }
+];
 
 export function TeacherDashboard() {
-  const contentStates = [
-    { label: "Rascunhos", value: "5", detail: "aulas em preparo", tone: "yellow" as const, icon: FileUp },
-    { label: "Em curadoria", value: "3", detail: "materiais para revisar", tone: "coral" as const, icon: ClipboardCheck },
-    { label: "Publicadas", value: "12", detail: "aulas disponiveis", tone: "mint" as const, icon: BookOpen },
-    { label: "Proximas respostas", value: "5", detail: "duvidas pendentes", tone: "blue" as const, icon: TimerReset }
-  ];
+  const pending = teacherEvaluations.filter((item) => item.status === "pending").length;
 
   return (
-    <section className="mx-auto max-w-7xl space-y-6">
-      <div className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
-        <Image
-          src="/media/territory/complexo-alemao/complexo-alemao-panorama-acediscovery-cc-by-4.jpg"
-          alt="Vista do Complexo do Alemao usada como contexto pedagogico"
-          fill
-          className="object-cover opacity-[.18]"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-brown via-brand-brown/88 to-brand-blue/45" />
-        <div className="relative">
-          <OfficialLogo variant="horizontal" tone="negative" size="md" />
+    <div className="workspace-grid">
+      <header className="workspace-intro">
+        <div>
+          <p className="section-label"><span /> Ensino</p>
+          <h1 className="text-display-lg mt-2">Área do professor</h1>
+          <p className="mt-3 max-w-[55ch] text-[var(--muted)]">Organize suas turmas, prepare materiais e acompanhe as entregas dos alunos.</p>
         </div>
-        <div className="relative mt-5">
-          <Badge tone="yellow">Professor facilitador</Badge>
-        </div>
-        <h1 className="brand-display relative mt-4 text-5xl text-brand-yellow">Prof. Mariana Costa</h1>
-        <p className="relative mt-3 max-w-2xl text-brand-cream/80">
-          Acompanhe turmas, publique materiais, responda duvidas e conecte cada conteudo ao territorio.
-        </p>
-      </div>
-      <div className="grid gap-4 md:grid-cols-4">
-        <PerifaCard tone="yellow"><UsersRound size={26} /><p className="mt-3 text-3xl font-black">3 turmas</p><p className="text-sm">128 alunos</p></PerifaCard>
-        <PerifaCard tone="mint"><BookOpen size={26} /><p className="mt-3 text-3xl font-black">18 aulas</p><p className="text-sm">12 publicadas</p></PerifaCard>
-        <PerifaCard tone="coral"><MessageCircle size={26} /><p className="mt-3 text-3xl font-black">16 duvidas</p><p className="text-sm">5 pendentes</p></PerifaCard>
-        <PerifaCard tone="blue"><FileUp size={26} /><p className="mt-3 text-3xl font-black">9 PDFs</p><p className="text-sm">material em preparacao</p></PerifaCard>
-      </div>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {contentStates.map((state) => {
-          const Icon = state.icon;
-          return (
-            <PerifaCard key={state.label} tone={state.tone}>
-              <Icon size={24} />
-              <p className="mt-3 text-sm font-black uppercase text-brand-brown/65 dark:text-brand-cream/70">{state.label}</p>
-              <p className="brand-display mt-1 text-4xl">{state.value}</p>
-              <p className="text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">{state.detail}</p>
-            </PerifaCard>
-          );
-        })}
-      </div>
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
-          <h2 className="brand-display text-4xl">Progresso das trilhas</h2>
-          <div className="mt-4 space-y-4">
+        <Link href="/app/professor/avaliacoes" className={buttonVariants()}>Abrir avaliações <ArrowUpRight size={17} aria-hidden="true" /></Link>
+      </header>
+
+      <section className="grid gap-3 md:grid-cols-3" aria-label="Atalhos do professor">
+        {shortcuts.map(({ title, description, href, icon: Icon }) => (
+          <Link href={href} key={href} className="brand-card workspace-shortcut">
+            <span className="workspace-icon"><Icon size={21} aria-hidden="true" /></span>
+            <ArrowRight size={18} className="ml-auto" aria-hidden="true" />
+            <h2>{title}</h2>
+            <p>{description}</p>
+          </Link>
+        ))}
+      </section>
+
+      <section className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,.85fr)]" aria-label="Acompanhamento pedagógico">
+        <div className="brand-card p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="text-card-title">Progresso das trilhas</h2>
+            <Badge>Dados de exemplo</Badge>
+          </div>
+          <ul className="mt-4 space-y-4">
             {learningTracks.map((track) => (
-              <div key={track.id}>
-                <div className="mb-2 flex justify-between text-sm font-black">
-                  <span>{track.title}</span>
-                  <span>{track.progressPercent}%</span>
-                </div>
-                <Progress value={track.progressPercent} tone={track.accent} />
-              </div>
+              <li key={track.id}>
+                <div className="mb-2 flex justify-between gap-3 text-sm font-bold"><span>{track.title}</span><span>{track.progressPercent}%</span></div>
+                <Progress value={track.progressPercent} label={track.title} />
+              </li>
             ))}
+          </ul>
+        </div>
+        <div className="brand-card p-5 sm:p-6">
+          <h2 className="text-card-title">Acompanhe a turma</h2>
+          <p className="mt-3 text-[var(--muted)]"><strong className="text-[var(--foreground)]">{pending}</strong> entregas pendentes no exemplo de avaliações.</p>
+          <div className="mt-5 border-t border-[var(--border-soft)] pt-4">
+            <p className="font-bold">Tópico recente da comunidade</p>
+            <p className="mt-1 text-sm text-[var(--muted)]">{forumTopics[0].title}</p>
+            <Link href="/app/professor/comunidade" className="inline-action mt-2 text-sm"><BookOpen size={16} aria-hidden="true" /> Abrir comunidade</Link>
           </div>
         </div>
-        <div className="brand-card p-5 dark:bg-brand-dark-soft/90">
-          <h2 className="brand-display text-4xl">Forum para responder</h2>
-          <div className="mt-4 space-y-3">
-            {forumTopics.map((topic) => (
-              <div key={topic.title} className="rounded-lg bg-brand-warm p-3 text-brand-brown">
-                <p className="font-black">{topic.title}</p>
-                <p className="text-xs font-bold">{topic.replies} respostas - {topic.category}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

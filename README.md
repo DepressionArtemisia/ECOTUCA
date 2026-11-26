@@ -80,3 +80,9 @@ Round 6 extracted real ECOTUCA/Perifa logo PNGs from the correct identity manual
 - `/sitemap` now has profile/status filters and copy-link actions; `/sitemap.xml` indexes only public routes.
 - Google Forms fallback requirements and Apps Script starter live in `docs/forms/`.
 - Round report: `docs/progress-reports/STEP_19_ROUND_9_FONTS_PANELS_FORMS.md`.
+
+## Production Learning Platform Blueprint
+- The real production product is now scoped separately in `docs/production-platform/`.
+- V1 focus: ECOTUCA teaching platform with student, teacher and admin panels.
+- Demo/tourism/guide marketplace features are treated as future expansion, not the first production release.
+- Start with `docs/production-platform/README.md` and `docs/production-platform/IMPLEMENTATION_PLAN.md`.

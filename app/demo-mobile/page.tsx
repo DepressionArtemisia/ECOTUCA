@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+import { shouldEnforceAppAccess } from "@/lib/auth/runtime";
 import type { Metadata } from "next";
 import { PublicShell } from "@/components/layout/public-shell";
 import { BrandPattern } from "@/components/brand/brand-pattern";
@@ -7,10 +9,11 @@ import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: "Demo mobile | ECOTUCA PWA",
-  description: "Mockup navegavel mobile-first da experiencia PWA ECOTUCA / Perifa Ecotour."
+  description: "Mockup navegável mobile-first da experiência PWA ECOTUCA / Perifa Ecotour."
 };
 
 export default function DemoMobilePage() {
+  if (shouldEnforceAppAccess()) notFound();
   return (
     <PublicShell>
       <section className="brand-surface relative overflow-hidden">
@@ -20,7 +23,7 @@ export default function DemoMobilePage() {
             <Badge tone="mint">PWA mobile-first</Badge>
             <h1 className="brand-display mt-4 text-5xl">App com cara de uso real</h1>
             <p className="mt-3 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
-              A demo mostra como aluno, roteiro, guia e solicitacao aparecem em uma experiencia compacta, colorida e conectada ao territorio.
+              A demo mostra como aluno, roteiro, guia e solicitação aparecem em uma experiência compacta, colorida e conectada ao território.
             </p>
           </div>
           <PhoneMockup />
@@ -28,7 +31,7 @@ export default function DemoMobilePage() {
             {[
               ["Aluno", "Progresso, trilhas e continuacao de aula."],
               ["Roteiro", "Card territorial com imagem, tags e chamada clara."],
-              ["Turismo", "Detalhe com guia, cuidado local e solicitacao."]
+              ["Turismo", "Detalhe com guia, cuidado local e solicitação."]
             ].map(([title, text]) => (
               <PerifaCard key={title} tone="mint">
                 <h2 className="brand-display text-3xl">{title}</h2>
