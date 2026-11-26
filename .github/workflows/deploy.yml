@@ -51,11 +51,17 @@ jobs:
       - name: Entregar revisão validada
         shell: bash
         env:
+          GH_TOKEN: ${{ github.token }}
           DEPLOY_HOST: ${{ vars.ECOTUCA_DEPLOY_HOST }}
           DEPLOY_KNOWN_HOST: ${{ vars.ECOTUCA_DEPLOY_KNOWN_HOST }}
           DEPLOY_SSH_KEY: ${{ secrets.ECOTUCA_DEPLOY_SSH_KEY }}
         run: |
           set -euo pipefail
+          main_sha=$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')
+          if [[ "$main_sha" != "$GITHUB_SHA" ]]; then
+            echo "A newer revision is already on main; skipping this release."
+            exit 0
+          fi
           : "${DEPLOY_HOST:?}" "${DEPLOY_KNOWN_HOST:?}" "${DEPLOY_SSH_KEY:?}"
           umask 077
           temp=$(mktemp -d)

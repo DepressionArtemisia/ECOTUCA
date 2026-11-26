@@ -1,8 +1,8 @@
 # Status
 
-## VPS e entrega continua — 26/11/2026
+## VPS e entrega contínua — 26/11/2026
 
-O runbook em [DEPLOY.md](DEPLOY.md) documenta o endereço temporário da Hostinger, o stack Supabase dedicado, a publicação por commit e a troca futura de domínio. Auth exige perfil aprovado. SMTP e abertura de inscrições seguem a homologação operacional.
+O runbook em [DEPLOY.md](DEPLOY.md) documenta o endereço temporário da Hostinger, o stack Supabase dedicado, a publicação por commit e a troca futura de domínio. Auth exige perfil aprovado. O ensaio na VPS confirmou login HTTPS, revisão auditada, isolamento do Storage e restauração do dump em banco descartável. SMTP e abertura de inscrições seguem a homologação operacional. Evidências em [STEP 26](docs/progress-reports/STEP_26_PUBLICACAO_VPS.md).
 
 ## Redesign e preparação para VPS — 24/11/2026
 
