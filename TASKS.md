@@ -3,6 +3,8 @@
 ## Publicação na VPS — 26/11/2026
 
 - [x] Versionar Dockerfile, entrega contínua, backup local e runbook para mudança de operador.
+- [x] Testar Auth, permissões, histórico de aprovação e Storage na VPS com contas descartáveis.
+- [x] Restaurar o dump em banco descartável e agendar backups locais.
 - [ ] Vincular o domínio definitivo e configurar SMTP verificado.
 - [ ] Configurar backup externo cifrado e ensaiar recuperação completa.
 
