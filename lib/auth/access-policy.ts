@@ -26,13 +26,13 @@ export type AccessDecision = {
 
 export function getAppAccessRequirement(pathname: string): AccessRequirement | null {
   const path = normalizePathname(pathname);
-  if (!path.startsWith("/app")) return null;
+  if (path !== "/app" && !path.startsWith("/app/")) return null;
 
-  if (path.startsWith("/app/aguardando-aprovacao")) {
+  if (path === "/app/aguardando-aprovacao") {
     return {
       label: "Status de aprovacao",
       roles: allAppRoles,
-      statuses: ["pending", "approved"]
+      statuses: ["pending", "approved", "rejected", "suspended", "inactive"]
     };
   }
 

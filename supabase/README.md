@@ -1,23 +1,12 @@
-# Supabase Setup
+# Supabase ECOTUCA
 
-## Order
-1. Review and run `schema.sql`.
-2. Review and run `rls.sql`.
-3. Review and run `storage.sql`.
-4. Create Auth users with the emails listed in `DEMO_USERS.md`.
-5. Run `seed.sql` after Auth users exist or adjust profile UUIDs to match created users.
+Para instalação na VPS, configuração de chaves, contas e testes, use [o roteiro de homologação](../docs/production-platform/VPS_SUPABASE_REHEARSAL.md).
 
-## Environment
-Required:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `schema.sql` cria as tabelas e os índices da aplicação.
+- `rls.sql` define as permissões por perfil, leitura do conteúdo publicado e as funções de revisão auditada.
+- `storage.sql` prepara os buckets e o controle por papel e prefixo do usuário.
+- `npm run supabase:prepare-sql` gera `combined-apply.sql` com os três arquivos, em uma transação.
+- `rehearsal.sql` confere as regras com registros fictícios e rollback em homologação.
+- `seed.sql` contém exemplos para um banco de demonstração. Depende dos IDs de Auth correspondentes e deve ser tratado separadamente.
 
-Optional production write flags:
-- `ENABLE_SUPABASE_SIGNUP_WRITES=true` enables `app/actions/signup-application.ts` to insert pending rows into `public.signup_applications` after the reviewed SQL is applied.
-
-## Security Notes
-- Never expose `SUPABASE_SERVICE_ROLE_KEY` in client components.
-- RLS policies are an MVP starting point and must be reviewed before production.
-- Demo data mirrors app mock data but is not a substitute for full migration testing.
-- Signup writes are disabled by default. Do not enable `ENABLE_SUPABASE_SIGNUP_WRITES` until `signup_applications` schema/RLS and LGPD copy are reviewed.
+A chave de serviço fica no servidor. Ao usar o modo de produção, configure também o redirecionamento do Auth para `/nova-senha` e teste SMTP antes de abrir inscrições.

@@ -1,5 +1,24 @@
 # Tasks
 
+## Publicação na VPS — 26/11/2026
+
+- [x] Versionar Dockerfile, entrega contínua, backup local e runbook para mudança de operador.
+- [ ] Vincular o domínio definitivo e configurar SMTP verificado.
+- [ ] Configurar backup externo cifrado e ensaiar recuperação completa.
+
+## Redesign e ensaio para VPS — 24/11/2026
+
+- [x] Revisar manual, páginas públicas e fluxos de cada perfil.
+- [x] Aplicar sistema visual com temas, tipografia, navegação responsiva e componentes.
+- [x] Validar o menu móvel público e dos painéis, com abertura inferior, navegação, foco e rolagem em celular.
+- [x] Revisar copy, formulários, estados de acesso, vídeo e exportação CSV.
+- [x] Criar revisão de inscrição e perfil no banco com histórico e validar isolamento por RLS.
+- [x] Documentar aplicação, rollback de fixtures e configuração da futura VPS.
+- [ ] Subir homologação Supabase e confirmar Auth, SMTP, Storage e backup restaurável.
+- [ ] Confirmar conteúdo do curso, endereço de contato e textos institucionais definitivos.
+- [ ] Vincular turmas, conteúdo e progresso reais e automatizar convite de conta após revisão.
+- [ ] Publicar no ambiente autorizado após homologação.
+
 ## Admin Approvals Application Queue
 - [x] Add read service for `signup_applications`.
 - [x] Make admin approval queue prefer public signup applications when available.

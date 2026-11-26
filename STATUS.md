@@ -1,5 +1,19 @@
 # Status
 
+## VPS e entrega continua — 26/11/2026
+
+O runbook em [DEPLOY.md](DEPLOY.md) documenta o endereço temporário da Hostinger, o stack Supabase dedicado, a publicação por commit e a troca futura de domínio. Auth exige perfil aprovado. SMTP e abertura de inscrições seguem a homologação operacional.
+
+## Redesign e preparação para VPS — 24/11/2026
+
+- Home, páginas institucionais, inscrições, roteiros e painéis compartilham uma linguagem visual e editorial. Os temas usam pares de contraste próprios e a navegação interna funciona no celular, inclusive na coordenação.
+- O menu móvel público e dos painéis abre de baixo, com ícones, áreas de toque maiores, rota ativa e opções da conta agrupadas.
+- Arquivos de marca do manual e fotos territoriais licenciadas. Tipografia local em Archivo Black e DM Sans.
+- Inscrições usam validação comum no navegador e no servidor, rascunho opcional e confirmação explícita. A coordenação pode registrar decisões via RPC após aplicar o SQL.
+- Login usa o perfil associado à conta Auth. Recuperação aponta para `/nova-senha`. O modo `enforce` protege os painéis na interface e desativa rotas e sessões demonstrativas.
+- RLS e revisão com histórico passaram no ensaio isolado. Aplicação em homologação, autenticação real, SMTP e publicação na VPS ainda pendentes.
+- Detalhes em [Design system](DESIGN_SYSTEM.md), [roteiro de homologação](docs/production-platform/VPS_SUPABASE_REHEARSAL.md) e [relatório de progresso](docs/progress-reports/STEP_25_REDESIGN_E_ENSAIO_VPS.md).
+
 ## Admin Approvals Application Queue
 - Data: 2026-06-17.
 - Branch: `codex/production-learning-platform-start`.

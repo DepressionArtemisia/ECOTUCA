@@ -7,11 +7,11 @@ import { useState } from "react";
 import { OfficialLogo } from "@/components/brand/official-logo";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { EcoButton } from "@/components/brand/eco-button";
+import { EcoButton, EcoLink } from "@/components/brand/eco-button";
 import { guides, learningTracks, tourRoutes } from "@/lib/mock-data/ecotuca";
 import { cn } from "@/lib/utils";
 
-const screens = ["Home mobile", "Roteiros", "Detalhe", "Guia", "Solicitacao enviada", "Aluno", "Video"] as const;
+const screens = ["Home mobile", "Roteiros", "Detalhe", "Guia", "Solicitação enviada", "Aluno", "Video"] as const;
 
 export function PhoneMockup() {
   const [screen, setScreen] = useState<(typeof screens)[number]>("Home mobile");
@@ -21,10 +21,10 @@ export function PhoneMockup() {
   return (
     <section className="grid min-w-0 gap-6 overflow-hidden lg:grid-cols-[.75fr_1fr] lg:items-center">
       <div className="min-w-0 space-y-3">
-        <p className="text-sm font-black uppercase text-brand-coral">Visualizacao mobile</p>
+        <p className="text-sm font-black uppercase text-[var(--accent-text)]">Visualizacao mobile</p>
         <h1 className="brand-display text-4xl text-brand-brown dark:text-brand-yellow sm:text-5xl">App com cara de produto real</h1>
         <p className="max-w-xl text-brand-brown/75 dark:text-brand-cream/75">
-          Navegue entre telas para mostrar turista, guia, aluno e videoaula com imagens reais do territorio e linguagem de produto pronto para evoluir.
+          Navegue entre telas para mostrar turista, guia, aluno e videoaula com imagens reais do território e linguagem de produto pronto para evoluir.
         </p>
         <div className="flex flex-wrap gap-2">
           {screens.map((item) => (
@@ -41,9 +41,7 @@ export function PhoneMockup() {
             </button>
           ))}
         </div>
-        <Link href="/roteiros/serra-da-misericordia" className="inline-block">
-          <EcoButton variant="mint">Abrir tela real</EcoButton>
-        </Link>
+        <EcoLink href="/roteiros/serra-da-misericordia" variant="mint" className="inline-block">Abrir tela real</EcoLink>
       </div>
 
       <div className="mx-auto w-full min-w-0 max-w-[19rem] rounded-mobile border-8 border-brand-brown bg-brand-brown p-2 shadow-mobile sm:max-w-sm sm:border-[12px] sm:p-3">
@@ -69,8 +67,8 @@ export function PhoneMockup() {
                   />
                   <div className="relative">
                     <Badge tone="mint">Perifa Ecotour</Badge>
-                    <h2 className="brand-display mt-3 text-4xl text-brand-yellow">Explore o territorio</h2>
-                    <p className="mt-2 text-sm text-brand-cream/80">Roteiros, guias e formacao em um app mobile-first.</p>
+                    <h2 className="brand-display mt-3 text-4xl text-brand-yellow">Explore o território</h2>
+                    <p className="mt-2 text-sm text-brand-cream/80">Roteiros, guias e formação em um app mobile-first.</p>
                   </div>
                 </div>
                 {tourRoutes.slice(0, 2).map((item) => (
@@ -103,11 +101,11 @@ export function PhoneMockup() {
                 <div className="flex flex-wrap gap-2">{guide.certificates.map((item) => <Badge key={item} tone="blue">{item}</Badge>)}</div>
               </div>
             )}
-            {screen === "Solicitacao enviada" && (
+            {screen === "Solicitação enviada" && (
               <div className="space-y-3">
-                <Badge tone="mint">Solicitacao enviada</Badge>
+                <Badge tone="mint">Solicitação enviada</Badge>
                 <h2 className="brand-display text-4xl">Equipe ECOTUCA acionada</h2>
-                <p className="text-sm font-bold">A equipe entrara em contato para confirmar agenda, guia, ponto de encontro e orientacoes de preparo.</p>
+                <p className="text-sm font-bold">A equipe entrara em contato para confirmar agenda, guia, ponto de encontro e orientações de preparo.</p>
                 {["Nome", "Telefone", "Data preferida", "Pessoas"].map((field) => (
                   <div key={field} className="rounded-lg border border-brand-brown/15 bg-white p-3 text-sm font-bold">{field}</div>
                 ))}
@@ -131,7 +129,7 @@ export function PhoneMockup() {
                 <div className="flex aspect-video items-center justify-center rounded-lg bg-brand-brown text-brand-yellow">
                   <PlayCircle size={52} />
                 </div>
-                <h2 className="brand-display text-3xl">Como contar o territorio</h2>
+                <h2 className="brand-display text-3xl">Como contar o território</h2>
                 <Progress value={72} tone="mint" />
                 <p className="text-sm font-bold">Continuar de onde parei: 03:42</p>
               </div>
@@ -140,7 +138,7 @@ export function PhoneMockup() {
           <div className="absolute inset-x-0 bottom-0 border-t border-brand-brown/10 bg-white/95 px-2 py-2">
             <div className="grid grid-cols-5 gap-1">
               {[
-                { label: "Inicio", icon: Home },
+                { label: "Início", icon: Home },
                 { label: "Trilhas", icon: BookOpen },
                 { label: "Roteiros", icon: MapPinned },
                 { label: "Avisos", icon: Bell },
@@ -174,7 +172,7 @@ function RouteMini({ title, image, alt, slug }: { title: string; image: string; 
       <Image src={image} alt={alt} width={78} height={78} className="h-20 w-20 rounded-lg object-cover" />
       <div className="min-w-0 flex-1">
         <p className="truncate font-black">{title}</p>
-        <p className="mt-1 flex items-center gap-1 text-xs font-bold text-brand-brown/70"><MapPinned size={13} />Complexo do Alemao</p>
+        <p className="mt-1 flex items-center gap-1 text-xs font-bold text-brand-brown/70"><MapPinned size={13} />Complexo do Alemão</p>
       </div>
       <ChevronRight size={18} />
     </Link>

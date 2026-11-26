@@ -34,6 +34,15 @@ create table if not exists public.signup_applications (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.access_review_events (
+  id uuid primary key default gen_random_uuid(),
+  subject_kind text not null check (subject_kind in ('signup_application', 'profile')),
+  subject_id uuid not null,
+  decision text not null check (decision in ('approved', 'rejected')),
+  reviewer_id uuid references public.profiles(id) on delete set null,
+  decided_at timestamptz not null default now()
+);
+
 create table if not exists public.student_profiles (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.profiles(id) on delete cascade,

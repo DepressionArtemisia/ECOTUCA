@@ -1,41 +1,7 @@
-# Font Usage And License
+# Tipografia da ECOTUCA
 
-## Manual Direction
-- Headlines: Troika.
-- Text/subtext: Lufga.
+O manual usa Troika nos títulos e Lufga no texto. Os arquivos licenciados para uso na web ainda não foram fornecidos ao projeto.
 
-## Current Repository Status
-Round 9 checked:
+A interface usa Archivo Black para títulos e DM Sans Variable para texto e controles. As fontes são servidas junto com a aplicação pelos pacotes Fontsource. Ambos os pacotes incluem licença SIL Open Font License no repositório da dependência. Os tokens `--font-headline` e `--font-body` ficam em `app/globals.css`.
 
-- `public/fonts/`
-- `app/fonts/`
-- `assets/fonts/`
-- `docs/brand/fonts/`
-- `docs/brand/`
-
-No `.ttf`, `.otf`, `.woff` or `.woff2` Troika/Lufga files were found.
-
-## Current Implementation
-- The app uses CSS variables in `app/globals.css`.
-- `--font-headline` currently falls back to `Impact`, `Arial Black`, `Trebuchet MS`, `sans-serif`.
-- `--font-body` currently falls back to `Nunito Sans`, `Aptos`, `Segoe UI`, `system-ui`, `sans-serif`.
-- Utility classes are available: `.font-headline`, `.font-body`, `.text-display-xl`, `.text-display-lg`, `.text-section-title`, `.text-card-title`, `.text-body-readable`.
-
-## Production Requirement
-Before public launch, request licensed official files from the brand/design owner:
-
-- Troika headline font file and license terms.
-- Lufga text family files and license terms.
-- Permission scope for web/PWA embedding.
-- Whether self-hosting is allowed.
-
-## Future Wiring
-When official files arrive:
-
-1. Place files in `public/fonts/` or `app/fonts/`.
-2. Create `lib/fonts.ts` or `app/fonts.ts` using `next/font/local`.
-3. Map Troika to `--font-headline`.
-4. Map Lufga to `--font-body`.
-5. Re-run accessibility and responsive QA.
-
-No unlicensed font downloads were used in Round 9.
+A troca de arquivos, se aprovada pela marca, deve preservar hierarquia, contraste e larguras de linha. Revise a composição, o suporte a acentos e a quebra de títulos em telas móveis após substituir as fontes.

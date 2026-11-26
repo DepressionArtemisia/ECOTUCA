@@ -1,46 +1,27 @@
 import type { Metadata } from "next";
-import { EthicalNotice } from "@/components/content/ethical-notice";
 import { PublicShell } from "@/components/layout/public-shell";
 import { RichPageHeader } from "@/components/layout/rich-page-header";
 
-export const metadata: Metadata = {
-  title: "Termos de uso | ECOTUCA",
-  description: "Termos de uso preliminares para a plataforma ECOTUCA."
-};
-
-const terms = [
-  "A plataforma organiza uma experiencia educacional para inscricao, aulas, atividades, acompanhamento e certificacao.",
-  "Cadastros enviados entram em analise e nao liberam acesso automaticamente.",
-  "Conteudos, turmas e certificados dependem de validacao pedagogica e autorizacao da coordenacao.",
-  "Conteudos pedagogicos e materiais enviados devem passar por curadoria da coordenacao.",
-  "A marca ECOTUCA / Perifa Ecotour deve seguir o manual de identidade visual salvo em docs/brand."
+export const metadata: Metadata = { title: "Termos de uso | ECOTUCA" };
+const rules = [
+  "Use seus próprios dados na inscrição. A coordenação avalia o pedido antes de liberar o acesso.",
+  "Mantenha sua senha em segurança e saia da conta ao terminar de usar um aparelho compartilhado.",
+  "Respeite alunos, professores e moradores. Compartilhe fotos, vídeos e materiais somente quando houver autorização.",
+  "Siga as orientações da turma para entregas, avaliações e certificação. Confirme com a equipe as condições de cada visita."
 ];
 
 export default function TermosPage() {
   return (
     <PublicShell>
-      <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
-        <RichPageHeader eyebrow="Termos" title="Uso responsavel da plataforma" description="Texto preliminar em linguagem clara para orientar cadastro, aprendizagem, publicacao de conteudo e acesso aos paineis." badgeTone="blue" />
-      </section>
-      <section className="premium-section pt-2">
-        <div className="mx-auto max-w-4xl px-5 sm:px-6">
-          <div className="brand-card p-5 sm:p-6">
-            <ol className="space-y-4 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-              {terms.map((term, index) => (
-                <li key={term} className="flex gap-3">
-                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-xs font-black text-brand-brown">{index + 1}</span>
-                  <span>{term}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <div className="mt-6">
-            <EthicalNotice>
-              Este texto e base operacional preliminar. A versao juridica final deve ser revisada antes de operacao publica ampla.
-            </EthicalNotice>
-          </div>
-        </div>
-      </section>
+      <div className="site-container space-y-5 py-9 sm:py-14">
+        <RichPageHeader eyebrow="Informações" title="Termos de uso" description="Combinados para participar da formação e usar a plataforma." />
+        <section className="brand-card max-w-4xl p-5 sm:p-7" aria-label="Combinados da plataforma">
+          <ol className="list-decimal space-y-3 ps-6 leading-relaxed">
+            {rules.map((text) => <li key={text}>{text}</li>)}
+          </ol>
+        </section>
+        <p className="text-sm text-[var(--muted)]">Orientações preliminares. A versão completa dos termos está em revisão pela coordenação.</p>
+      </div>
     </PublicShell>
   );
 }

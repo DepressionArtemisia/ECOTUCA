@@ -8,7 +8,7 @@ export function CreditList({ assets }: { assets: MediaAsset[] }) {
         <article key={asset.id} className="brand-card p-4 dark:bg-brand-dark-soft/90">
           <div className="flex flex-wrap gap-2">
             <Badge tone={asset.creditRequired ? "orange" : "mint"}>
-              {asset.creditRequired ? "credito obrigatorio" : "credito documentado"}
+              {asset.creditRequired ? "crédito obrigatório" : "crédito documentado"}
             </Badge>
             <Badge tone="blue">{asset.license}</Badge>
           </div>

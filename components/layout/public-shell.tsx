@@ -1,124 +1,95 @@
 import Link from "next/link";
-import { BookOpenCheck, ChevronRight, GraduationCap, LogIn, Menu, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, BookOpen, CircleHelp, Compass, House, MapPin, MessageCircle } from "lucide-react";
 import { BrandLogo } from "@/components/brand/brand-logo";
-import { BrandGradient } from "@/components/brand/brand-gradient";
 import { OfficialLogo } from "@/components/brand/official-logo";
 import { ThemeToggle } from "@/components/brand/theme-toggle";
-import { EcoButton } from "@/components/brand/eco-button";
-import { publicNav } from "@/lib/constants/brand";
+import { buttonVariants } from "@/components/ui/button";
+import { NavigationMenu } from "@/components/layout/navigation-menu";
 
-const footerSections = [
-  {
-    title: "Plataforma",
-    links: [
-      { label: "Como funciona", href: "/como-funciona" },
-      { label: "Cadastro do aluno", href: "/cadastro/aluno" },
-      { label: "Cadastro do professor", href: "/cadastro/professor" },
-      { label: "Entrar", href: "/entrar" }
-    ]
-  },
-  {
-    title: "Ensino",
-    links: [
-      { label: "Trilhas", href: "/#trilhas" },
-      { label: "Area do aluno", href: "/app/aluno" },
-      { label: "Area do professor", href: "/app/professor" },
-      { label: "Certificados", href: "/app/aluno/certificados" }
-    ]
-  },
-  {
-    title: "Institucional",
-    links: [
-      { label: "Sobre", href: "/sobre" },
-      { label: "Contato", href: "/contato" },
-      { label: "Privacidade", href: "/privacidade" },
-      { label: "Termos", href: "/termos" }
-    ]
-  }
+const navigation = [
+  { label: "A formação", href: "/como-funciona", icon: BookOpen },
+  { label: "Roteiros", href: "/roteiros", icon: Compass },
+  { label: "O projeto", href: "/sobre", icon: MapPin },
+  { label: "Perguntas frequentes", href: "/faq", icon: CircleHelp }
 ];
 
-const footerHighlights = [
-  { label: "Aprendizagem", href: "/app/aluno", icon: GraduationCap },
-  { label: "Trilhas", href: "/#trilhas", icon: BookOpenCheck },
-  { label: "Aprovacao", href: "/cadastro", icon: ShieldCheck }
+const mobileNavigation = [
+  { label: "Início", href: "/", icon: House },
+  ...navigation,
+  { label: "Contato", href: "/contato", icon: MessageCircle }
+].map(({ label, href, icon: Icon }) => ({ label, href, icon: <Icon size={19} strokeWidth={1.75} /> }));
+
+const footerSections = [
+  { title: "Formação", links: [
+    { label: "Como funciona", href: "/como-funciona" },
+    { label: "Inscrição de aluno", href: "/cadastro/aluno" },
+    { label: "Inscrição de professor", href: "/cadastro/professor" },
+    { label: "Entrar", href: "/entrar" }
+  ] },
+  { title: "Projeto", links: [
+    { label: "Sobre a ECOTUCA", href: "/sobre" },
+    { label: "Roteiros", href: "/roteiros" },
+    { label: "Contato", href: "/contato" },
+    { label: "Perguntas frequentes", href: "/faq" }
+  ] },
+  { title: "Informações", links: [
+    { label: "Privacidade", href: "/privacidade" },
+    { label: "Termos", href: "/termos" },
+    { label: "Créditos das imagens", href: "/creditos-imagens" },
+    { label: "Mapa do site", href: "/sitemap" }
+  ] }
 ];
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-background-warm text-brand-brown dark:bg-background-dark dark:text-brand-cream">
-      <header className="sticky top-0 z-40 border-b border-brand-brown/10 bg-brand-warm/95 backdrop-blur dark:border-brand-yellow/10 dark:bg-brand-brown/95">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+    <div className="public-shell">
+      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
+      <header className="site-header">
+        <div className="site-container site-header-row">
           <BrandLogo />
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegacao principal">
-            {publicNav.map((item) => (
-              <Link key={item.href} href={item.href} className="focus-ring-brand rounded-lg px-4 py-2 text-sm font-black transition hover:bg-brand-yellow/40 dark:hover:bg-white/10">
-                {item.label}
-              </Link>
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegação principal">
+            {navigation.map((item) => (
+              <Link key={item.href} href={item.href} className="site-nav-link">{item.label}</Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <ThemeToggle />
-            <Link href="/entrar" className="hidden sm:block">
-              <EcoButton size="sm">
-                <LogIn size={16} />
-                Entrar
-              </EcoButton>
+            <Link href="/entrar" className={buttonVariants({ variant: "outline", size: "sm" })}>
+              Entrar <ArrowUpRight className="hidden sm:block" size={14} aria-hidden="true" />
             </Link>
-            <Link href="/cadastro" className="sm:hidden" aria-label="Cadastro">
-              <EcoButton size="sm" variant="mint">
-                <GraduationCap size={16} />
-              </EcoButton>
-            </Link>
-            <details className="group relative lg:hidden">
-              <summary className="focus-ring-brand inline-flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-brand-brown/15 bg-white/60 dark:border-brand-yellow/20 dark:bg-white/10" aria-label="Menu">
-                <Menu size={18} />
-              </summary>
-              <nav className="absolute right-0 mt-3 w-72 rounded-lg border border-brand-brown/12 bg-brand-paper p-3 shadow-premium dark:border-brand-yellow/20 dark:bg-brand-dark-soft" aria-label="Menu mobile">
-                {publicNav.map((item) => (
-                  <Link key={item.href} href={item.href} className="focus-ring-brand flex min-h-11 items-center justify-between rounded-lg px-3 py-2 text-sm font-black hover:bg-brand-yellow/25 dark:hover:bg-white/10">
-                    {item.label}
-                    <ChevronRight size={16} />
-                  </Link>
-                ))}
-              </nav>
-            </details>
+            <NavigationMenu
+              groups={[{ items: mobileNavigation }]}
+              label="Menu do site"
+              title="ECOTUCA"
+              footer={
+                <div className="grid grid-cols-2 gap-2">
+                  <Link href="/entrar" className={buttonVariants({ variant: "outline" })}>Entrar</Link>
+                  <Link href="/cadastro" className={buttonVariants()}>Inscrever-se</Link>
+                </div>
+              }
+            />
           </div>
         </div>
       </header>
-      <main>{children}</main>
-      <footer className="border-t border-brand-yellow/10 bg-brand-brown px-5 py-10 text-brand-cream">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_1.4fr]">
+      <main id="conteudo" tabIndex={-1}>{children}</main>
+      <footer className="site-footer">
+        <div className="site-container grid gap-9 lg:grid-cols-[1fr_1.45fr]">
           <div>
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-6">
               <BrandLogo tone="negative" />
-              <OfficialLogo brand="perifa" variant="horizontal" tone="negative" size="sm" />
+              <OfficialLogo brand="perifa" tone="negative" size="sm" />
             </div>
-            <p className="mt-5 max-w-xl text-sm text-brand-cream/75">
-              ECOTUCA e a plataforma de ensino da Perifa Ecotour: formacao ambiental, trilhas de aprendizagem, acompanhamento pedagogico, certificados e impacto para jovens do territorio.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {footerHighlights.slice(0, 6).map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link key={item.href} href={item.href} className="focus-ring-brand inline-flex min-h-10 items-center gap-2 rounded-lg border border-brand-yellow/20 px-3 py-2 text-xs font-black text-brand-cream/85 hover:bg-brand-yellow hover:text-brand-brown">
-                    <Icon size={15} />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-brand-cream/75">Escola de Ecoturismo do Complexo do Alemão, uma iniciativa da Perifa Ecotour.</p>
           </div>
-          <div className="grid gap-5 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3">
             {footerSections.map((section) => (
               <div key={section.title}>
-                <h2 className="text-sm font-black text-brand-yellow">{section.title}</h2>
-                <div className="mt-3 space-y-2">
+                <h2 className="text-sm font-bold">{section.title}</h2>
+                <ul className="mt-2">
                   {section.links.map((item) => (
-                    <Link key={item.href} href={item.href} className="focus-ring-brand block rounded-md text-sm text-brand-cream/75 hover:text-brand-yellow">
-                      {item.label}
-                    </Link>
+                    <li key={item.href}><Link className="footer-link" href={item.href}>{item.label}</Link></li>
                   ))}
-                </div>
+                </ul>
               </div>
             ))}
           </div>
@@ -126,8 +97,4 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
       </footer>
     </div>
   );
-}
-
-export function PublicHero({ children }: { children: React.ReactNode }) {
-  return <BrandGradient className="min-h-[calc(100vh-76px)]">{children}</BrandGradient>;
 }

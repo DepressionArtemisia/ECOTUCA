@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+import { shouldEnforceAppAccess } from "@/lib/auth/runtime";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, BarChart3, BookOpen, GraduationCap, MapPinned, Smartphone, UserRound } from "lucide-react";
@@ -6,7 +8,7 @@ import { DemoUserSwitcher } from "@/components/demo/demo-user-switcher";
 import { FullscreenButton } from "@/components/demo/fullscreen-button";
 import { DataSourceBadge } from "@/components/demo/data-source-badge";
 import { ResetDemoDataButton } from "@/components/demo/reset-demo-data-button";
-import { EcoButton } from "@/components/brand/eco-button";
+import { EcoLink } from "@/components/brand/eco-button";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { ImpactRibbon } from "@/components/brand/impact-ribbon";
 import { OfficialLogo } from "@/components/brand/official-logo";
@@ -14,26 +16,27 @@ import { Badge } from "@/components/ui/badge";
 
 const demoCards = [
   { title: "Entrar como Visitante", href: "/", icon: UserRound, tone: "yellow" as const, user: "Sem login", show: "Home publica, marca e proposta institucional." },
-  { title: "Entrar como Aluno", href: "/app/aluno", icon: GraduationCap, tone: "mint" as const, user: "aluno@ecotuca.local", show: "Dashboard, jornada, trilhas e video retomado." },
-  { title: "Entrar como Professor", href: "/app/professor", icon: BookOpen, tone: "blue" as const, user: "professora@ecotuca.local", show: "Turmas, conteudos e comunidade pedagogica." },
+  { title: "Entrar como Aluno", href: "/app/aluno", icon: GraduationCap, tone: "mint" as const, user: "aluno@ecotuca.local", show: "Dashboard, jornada, trilhas e vídeo retomado." },
+  { title: "Entrar como Professor", href: "/app/professor", icon: BookOpen, tone: "blue" as const, user: "professora@ecotuca.local", show: "Turmas, conteúdos e comunidade pedagógica." },
   { title: "Entrar como Guia", href: "/app/guia", icon: MapPinned, tone: "orange" as const, user: "guia@ecotuca.local", show: "Perfil, certificados, roteiros e agenda." },
-  { title: "Entrar como Turista", href: "/app/turista", icon: Smartphone, tone: "coral" as const, user: "turista@ecotuca.local", show: "Roteiros favoritos e solicitacoes de visita." },
-  { title: "Entrar como Admin", href: "/app/admin", icon: BarChart3, tone: "blue" as const, user: "admin@ecotuca.local", show: "Aprovacoes, metricas e relatorios." },
-  { title: "Ver Cadastros", href: "/cadastro", icon: UserRound, tone: "yellow" as const, user: "Apresentacao", show: "Escolha de perfil, aluno/professor em etapas e revisao." },
-  { title: "Mapa do Site", href: "/sitemap", icon: MapPinned, tone: "mint" as const, user: "Apresentacao", show: "Todos os caminhos do MVP em uma unica pagina." },
+  { title: "Entrar como Turista", href: "/app/turista", icon: Smartphone, tone: "coral" as const, user: "turista@ecotuca.local", show: "Roteiros favoritos e solicitações de visita." },
+  { title: "Entrar como Admin", href: "/app/admin", icon: BarChart3, tone: "blue" as const, user: "admin@ecotuca.local", show: "Aprovações, métricas e relatórios." },
+  { title: "Ver Cadastros", href: "/cadastro", icon: UserRound, tone: "yellow" as const, user: "Apresentacao", show: "Escolha de perfil, aluno/professor em etapas e revisão." },
+  { title: "Mapa do Site", href: "/sitemap", icon: MapPinned, tone: "mint" as const, user: "Apresentacao", show: "Todos os caminhos do MVP em uma única página." },
   { title: "Ver Demo Mobile", href: "/demo-mobile", icon: Smartphone, tone: "mint" as const, user: "Apresentacao", show: "App em moldura de celular com telas alternaveis." },
-  { title: "Ver Roteiro", href: "/roteiros/serra-da-misericordia", icon: MapPinned, tone: "yellow" as const, user: "Visitante/Turista", show: "Detalhe, guia, seguranca e interesse." },
-  { title: "Ver Impacto", href: "/app/admin/metricas", icon: BarChart3, tone: "coral" as const, user: "admin@ecotuca.local", show: "Indicadores e exportacao CSV de demonstracao." }
+  { title: "Ver Roteiro", href: "/roteiros/serra-da-misericordia", icon: MapPinned, tone: "yellow" as const, user: "Visitante/Turista", show: "Detalhe, guia, segurança e interesse." },
+  { title: "Ver Impacto", href: "/app/admin/metricas", icon: BarChart3, tone: "coral" as const, user: "admin@ecotuca.local", show: "Indicadores e exportação CSV de demonstração." }
 ];
 
 export default function DemoPage() {
+  if (shouldEnforceAppAccess()) notFound();
   return (
     <PublicShell>
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
         <div className="brand-card relative overflow-hidden p-6 dark:bg-brand-dark-soft/90">
           <Image
             src="/media/territory/complexo-alemao/visao-do-complexo-thirson-cc-by-sa-4.jpg"
-            alt="Vista do Complexo do Alemao usada como textura territorial da central de apresentacao"
+            alt="Vista do Complexo do Alemão usada como textura territorial da central de apresentacao"
             fill
             priority
             className="object-cover opacity-[.15]"
@@ -47,9 +50,9 @@ export default function DemoPage() {
           <div className="relative">
             <Badge tone="coral">Central executiva da apresentacao</Badge>
           </div>
-          <h1 className="brand-display relative mt-5 max-w-4xl text-5xl text-brand-brown dark:text-brand-yellow sm:text-6xl">Abra a historia, nao a tecnica</h1>
+          <h1 className="brand-display relative mt-5 max-w-4xl text-5xl text-brand-brown dark:text-brand-yellow sm:text-6xl">Abra a história, não a técnica</h1>
           <p className="relative mt-4 max-w-3xl text-brand-brown/75 dark:text-brand-cream/75">
-            Use estes atalhos para apresentar a historia completa: escola, aluno, turismo, guias, coordenacao e impacto.
+            Use estes atalhos para apresentar a história completa: escola, aluno, turismo, guias, coordenação e impacto.
           </p>
           <ImpactRibbon
             className="relative mt-5 max-w-3xl"
@@ -61,18 +64,12 @@ export default function DemoPage() {
           />
         </div>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-3xl text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">Ambiente pronto para apresentacao com dados de demonstracao.</p>
+          <p className="max-w-3xl text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">Ambiente pronto para apresentacao com dados de demonstração.</p>
           <div className="flex flex-wrap gap-2">
             <DataSourceBadge />
-            <Link href="/demo/status">
-              <EcoButton variant="outline">Status do ambiente</EcoButton>
-            </Link>
-            <Link href="/demo-mobile">
-              <EcoButton variant="mint">Abrir mobile</EcoButton>
-            </Link>
-            <Link href="/sitemap">
-              <EcoButton variant="blue">Mapa do site</EcoButton>
-            </Link>
+            <EcoLink href="/demo/status" variant="outline">Status do ambiente</EcoLink>
+            <EcoLink href="/demo-mobile" variant="mint">Abrir mobile</EcoLink>
+            <EcoLink href="/sitemap" variant="blue">Mapa do site</EcoLink>
             <FullscreenButton />
             <ResetDemoDataButton />
           </div>
@@ -82,28 +79,20 @@ export default function DemoPage() {
             <Badge tone="yellow">Comece por aqui</Badge>
             <h2 className="brand-display mt-4 text-4xl">Visitante, turista, aluno e impacto</h2>
             <p className="mt-3 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-              Comece pela home publica, mostre o app mobile e depois entre nos fluxos de roteiro, aluno, professor, guia e coordenacao.
+              Comece pela home publica, mostre o app mobile e depois entre nos fluxos de roteiro, aluno, professor, guia e coordenação.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Link href="/">
-                <EcoButton variant="coral">Home publica</EcoButton>
-              </Link>
-              <Link href="/roteiros/serra-da-misericordia">
-                <EcoButton variant="outline">Roteiro exemplo</EcoButton>
-              </Link>
-              <Link href="/cadastro/aluno">
-                <EcoButton variant="mint">Cadastro aluno</EcoButton>
-              </Link>
+              <EcoLink href="/" variant="coral">Home publica</EcoLink>
+              <EcoLink href="/roteiros/serra-da-misericordia" variant="outline">Roteiro exemplo</EcoLink>
+              <EcoLink href="/cadastro/aluno" variant="mint">Cadastro aluno</EcoLink>
             </div>
           </PerifaCard>
           <PerifaCard tone="yellow">
             <Badge tone="coral">Roteiro recomendado</Badge>
             <p className="mt-4 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-              Home publica, cadastro, demo mobile, roteiro turistico, aluno, aula com progresso, professor, guia, admin e status tecnico discreto.
+              Home publica, cadastro, demo mobile, roteiro turístico, aluno, aula com progresso, professor, guia, admin e status técnico discreto.
             </p>
-            <Link href="/app/aluno" className="mt-5 inline-block">
-              <EcoButton variant="mint">Seguir fluxo do aluno</EcoButton>
-            </Link>
+            <EcoLink href="/app/aluno" variant="mint" className="mt-5 inline-block">Seguir fluxo do aluno</EcoLink>
           </PerifaCard>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -128,32 +117,30 @@ export default function DemoPage() {
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_.8fr]">
           <DemoUserSwitcher />
           <PerifaCard tone="yellow" className="min-w-0">
-            <p className="text-sm font-black uppercase text-brand-coral">Sequencia sugerida</p>
+            <p className="text-sm font-black uppercase text-[var(--accent-text)]">Sequencia sugerida</p>
             <ol className="mt-4 space-y-3 text-sm font-bold">
               {[
                 "Abrir home publica.",
                 "Mostrar cadastro de aluno.",
                 "Mostrar app mobile.",
-                "Mostrar roteiro turistico.",
-                "Enviar solicitacao de interesse.",
+                "Mostrar roteiro turístico.",
+                "Enviar solicitação de interesse.",
                 "Entrar como aluno.",
                 "Mostrar trilha e aula.",
-                "Mostrar video retomando progresso.",
+                "Mostrar vídeo retomando progresso.",
                 "Entrar como professor.",
                 "Mostrar acompanhamento.",
                 "Entrar como admin.",
-                "Mostrar aprovacoes e metricas.",
+                "Mostrar aprovações e métricas.",
                 "Fechar com impacto social."
               ].map((item, index) => (
                 <li key={item} className="flex gap-3 rounded-lg bg-white/75 p-3 dark:bg-white/10">
-                  <span className="font-black text-brand-orange">{index + 1}</span>
+                  <span className="font-black text-[var(--accent-text)]">{index + 1}</span>
                   {item}
                 </li>
               ))}
             </ol>
-            <Link href="/app/aluno" className="mt-5 inline-block">
-              <EcoButton variant="mint">Proximo passo</EcoButton>
-            </Link>
+            <EcoLink href="/app/aluno" variant="mint" className="mt-5 inline-block">Próximo passo</EcoLink>
           </PerifaCard>
         </div>
       </section>

@@ -1,3 +1,6 @@
+-- Schema and policies only. Fixture data is separate.
+BEGIN;
+
 -- ==================================================
 -- supabase/schema.sql
 -- ==================================================
@@ -36,6 +39,15 @@ create table if not exists public.signup_applications (
   review_note text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
+);
+
+create table if not exists public.access_review_events (
+  id uuid primary key default gen_random_uuid(),
+  subject_kind text not null check (subject_kind in ('signup_application', 'profile')),
+  subject_id uuid not null,
+  decision text not null check (decision in ('approved', 'rejected')),
+  reviewer_id uuid references public.profiles(id) on delete set null,
+  decided_at timestamptz not null default now()
 );
 
 create table if not exists public.student_profiles (
@@ -298,6 +310,7 @@ create index if not exists tour_routes_status_featured_idx on public.tour_routes
 
 alter table public.profiles enable row level security;
 alter table public.signup_applications enable row level security;
+alter table public.access_review_events enable row level security;
 alter table public.student_profiles enable row level security;
 alter table public.teacher_profiles enable row level security;
 alter table public.guide_profiles enable row level security;
@@ -325,139 +338,254 @@ create or replace function public.current_profile_role()
 returns text
 language sql
 security definer
-set search_path = public
+set search_path = ''
 stable
 as $$
-  select role from public.profiles where id = auth.uid()
+  select role from public.profiles where id = auth.uid() and status = 'approved'
 $$;
 
 create or replace function public.is_admin()
 returns boolean
 language sql
 security definer
-set search_path = public
+set search_path = ''
 stable
 as $$
   select coalesce(public.current_profile_role() in ('admin', 'super_admin'), false)
 $$;
 
+create or replace function public.has_approved_profile()
+returns boolean
+language sql
+stable
+set search_path = ''
+as $$
+  select public.current_profile_role() is not null
+$$;
+
+revoke execute on function public.current_profile_role(), public.is_admin(), public.has_approved_profile() from public;
+grant execute on function public.current_profile_role(), public.is_admin(), public.has_approved_profile() to anon, authenticated, service_role;
+
+revoke all on public.profiles, public.signup_applications, public.access_review_events from anon;
+grant select on public.profiles, public.signup_applications, public.access_review_events to authenticated;
+revoke insert, update, delete, truncate on public.profiles, public.signup_applications, public.access_review_events from authenticated;
+grant update (full_name, phone, avatar_url, bio, neighborhood) on public.profiles to authenticated;
+grant all on public.profiles, public.signup_applications, public.access_review_events to service_role;
+
+create or replace function public.review_signup_application(application_id uuid, decision text)
+returns boolean
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if not public.is_admin() or decision is null or decision not in ('approved', 'rejected') then
+    raise exception 'Review not allowed' using errcode = '42501';
+  end if;
+  update public.signup_applications
+     set status = decision, reviewed_by = auth.uid(), reviewed_at = now(), updated_at = now()
+   where id = application_id and status = 'pending';
+  if not found then return false; end if;
+  insert into public.access_review_events (subject_kind, subject_id, decision, reviewer_id)
+  values ('signup_application', application_id, decision, auth.uid());
+  return true;
+end;
+$$;
+
+create or replace function public.review_pending_profile(profile_id uuid, decision text)
+returns boolean
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if not public.is_admin() or decision is null or decision not in ('approved', 'rejected') then
+    raise exception 'Review not allowed' using errcode = '42501';
+  end if;
+  update public.profiles
+     set status = decision, updated_at = now()
+   where id = profile_id and status = 'pending' and role not in ('admin', 'super_admin');
+  if not found then return false; end if;
+  insert into public.access_review_events (subject_kind, subject_id, decision, reviewer_id)
+  values ('profile', profile_id, decision, auth.uid());
+  return true;
+end;
+$$;
+
+revoke execute on function public.review_signup_application(uuid, text), public.review_pending_profile(uuid, text) from public, anon;
+grant execute on function public.review_signup_application(uuid, text), public.review_pending_profile(uuid, text) to authenticated;
+
+
+drop policy if exists "profiles self select" on public.profiles;
 create policy "profiles self select" on public.profiles
 for select using (id = auth.uid() or public.is_admin());
 
+drop policy if exists "profiles self update" on public.profiles;
 create policy "profiles self update" on public.profiles
-for update using (id = auth.uid() or public.is_admin())
-with check (id = auth.uid() or public.is_admin());
+for update to authenticated using (id = auth.uid() and public.has_approved_profile())
+with check (id = auth.uid() and public.has_approved_profile());
 
-create policy "profiles admin insert" on public.profiles
-for insert with check (public.is_admin());
+drop policy if exists "profiles admin insert" on public.profiles;
 
+drop policy if exists "signup applications admin manage" on public.signup_applications;
 create policy "signup applications admin manage" on public.signup_applications
+for select to authenticated using (public.is_admin());
+
+drop policy if exists "admins can read access review events" on public.access_review_events;
+create policy "admins can read access review events" on public.access_review_events
+for select to authenticated using (public.is_admin());
+
+drop policy if exists "students own or admin" on public.student_profiles;
+create policy "students own or admin" on public.student_profiles
+for select using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
+
+drop policy if exists "admins manage student records" on public.student_profiles;
+create policy "admins manage student records" on public.student_profiles
 for all using (public.is_admin()) with check (public.is_admin());
 
-create policy "students own or admin" on public.student_profiles
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
-
+drop policy if exists "teachers own or admin" on public.teacher_profiles;
 create policy "teachers own or admin" on public.teacher_profiles
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+for all using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin())
+with check ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "guides public select" on public.guide_profiles;
 create policy "guides public select" on public.guide_profiles
 for select using (true);
 
+drop policy if exists "guides own or admin write" on public.guide_profiles;
 create policy "guides own or admin write" on public.guide_profiles
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+for all using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin())
+with check ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "tourists own or admin" on public.tourist_profiles;
 create policy "tourists own or admin" on public.tourist_profiles
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+for all using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin())
+with check ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "published tracks visible" on public.learning_tracks;
 create policy "published tracks visible" on public.learning_tracks
-for select using (status = 'published' or public.is_admin());
+for select using ((status = 'published' and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "admin manage tracks" on public.learning_tracks;
 create policy "admin manage tracks" on public.learning_tracks
 for all using (public.is_admin()) with check (public.is_admin());
 
+drop policy if exists "published modules visible" on public.learning_modules;
 create policy "published modules visible" on public.learning_modules
 for select using (
   exists (
     select 1 from public.learning_tracks t
-    where t.id = learning_modules.track_id and (t.status = 'published' or public.is_admin())
+    where t.id = learning_modules.track_id and ((t.status = 'published' and public.has_approved_profile()) or public.is_admin())
   )
 );
 
+drop policy if exists "admin manage modules" on public.learning_modules;
 create policy "admin manage modules" on public.learning_modules
 for all using (public.is_admin()) with check (public.is_admin());
 
+drop policy if exists "published lessons visible" on public.lessons;
 create policy "published lessons visible" on public.lessons
-for select using (status = 'published' or public.is_admin());
+for select using (
+  public.is_admin() or (
+    status = 'published' and public.has_approved_profile()
+    and exists (select 1 from public.learning_modules m where m.id = lessons.module_id)
+  )
+);
 
+-- Teacher editing remains an explicit future permission tied to class ownership.
+
+drop policy if exists "admin teacher manage lessons" on public.lessons;
 create policy "admin teacher manage lessons" on public.lessons
-for all using (public.is_admin() or public.current_profile_role() = 'teacher')
-with check (public.is_admin() or public.current_profile_role() = 'teacher');
+for all using (public.is_admin()) with check (public.is_admin());
 
+drop policy if exists "own lesson progress" on public.lesson_progress;
 create policy "own lesson progress" on public.lesson_progress
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+for all using ((user_id = auth.uid() and public.current_profile_role() = 'student') or public.is_admin())
+with check (
+  public.is_admin() or (
+    user_id = auth.uid() and public.current_profile_role() = 'student'
+    and exists (select 1 from public.lessons l where l.id = lesson_id)
+  )
+);
 
+drop policy if exists "own enrollments" on public.track_enrollments;
 create policy "own enrollments" on public.track_enrollments
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+for select using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "admin manage enrollments" on public.track_enrollments;
+create policy "admin manage enrollments" on public.track_enrollments
+for all using (public.is_admin()) with check (public.is_admin());
+
+drop policy if exists "own student activity" on public.student_activity_logs;
 create policy "own student activity" on public.student_activity_logs
-for select using (user_id = auth.uid() or public.is_admin());
+for select using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "own certificates" on public.certificates;
 create policy "own certificates" on public.certificates
-for select using (user_id = auth.uid() or public.is_admin());
+for select using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "own achievements" on public.student_achievements;
 create policy "own achievements" on public.student_achievements
-for select using (user_id = auth.uid() or public.is_admin());
+for select using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "published routes visible" on public.tour_routes;
 create policy "published routes visible" on public.tour_routes
 for select using (status = 'published' or public.is_admin());
 
+drop policy if exists "admin guide manage routes" on public.tour_routes;
 create policy "admin guide manage routes" on public.tour_routes
-for all using (public.is_admin() or guide_id = auth.uid())
-with check (public.is_admin() or guide_id = auth.uid());
+for all using (public.is_admin() or (guide_id = auth.uid() and public.current_profile_role() = 'guide'))
+with check (public.is_admin() or (guide_id = auth.uid() and public.current_profile_role() = 'guide' and status <> 'published'));
 
+drop policy if exists "bookings own or admin" on public.route_bookings;
 create policy "bookings own or admin" on public.route_bookings
-for all using (tourist_id = auth.uid() or public.is_admin())
-with check (tourist_id = auth.uid() or public.is_admin() or tourist_id is null);
+for all using (public.is_admin() or (tourist_id = auth.uid() and public.current_profile_role() = 'tourist'))
+with check (public.is_admin() or (tourist_id = auth.uid() and public.current_profile_role() = 'tourist' and status = 'pending'));
 
+drop policy if exists "favorites own" on public.route_favorites;
 create policy "favorites own" on public.route_favorites
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+for all using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin())
+with check ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "reviews public select" on public.route_reviews;
 create policy "reviews public select" on public.route_reviews
 for select using (true);
 
+drop policy if exists "reviews own insert" on public.route_reviews;
 create policy "reviews own insert" on public.route_reviews
 for insert with check (user_id = auth.uid());
 
+drop policy if exists "forum published select" on public.forum_topics;
 create policy "forum published select" on public.forum_topics
-for select using (status = 'published' or public.is_admin());
+for select using ((status = 'published' and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "forum authenticated insert" on public.forum_topics;
 create policy "forum authenticated insert" on public.forum_topics
-for insert with check (auth.uid() = author_id);
+for insert with check (auth.uid() = author_id and public.has_approved_profile());
 
+drop policy if exists "replies visible" on public.forum_replies;
 create policy "replies visible" on public.forum_replies
-for select using (true);
+for select using (exists (select 1 from public.forum_topics t where t.id = topic_id));
 
+drop policy if exists "replies authenticated insert" on public.forum_replies;
 create policy "replies authenticated insert" on public.forum_replies
-for insert with check (auth.uid() = author_id);
+for insert with check (auth.uid() = author_id and exists (select 1 from public.forum_topics t where t.id = topic_id));
 
+drop policy if exists "notifications own" on public.notifications;
 create policy "notifications own" on public.notifications
-for all using (user_id = auth.uid() or public.is_admin())
-with check (user_id = auth.uid() or public.is_admin());
+for all using ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin())
+with check ((user_id = auth.uid() and public.has_approved_profile()) or public.is_admin());
 
+drop policy if exists "impact admin select" on public.impact_metrics;
 create policy "impact admin select" on public.impact_metrics
 for select using (public.is_admin());
 
+drop policy if exists "media own or admin" on public.media_assets;
 create policy "media own or admin" on public.media_assets
 for all using (owner_id = auth.uid() or public.is_admin())
 with check (owner_id = auth.uid() or public.is_admin());
 
+drop policy if exists "settings admin" on public.system_settings;
 create policy "settings admin" on public.system_settings
 for all using (public.is_admin()) with check (public.is_admin());
 
@@ -475,73 +603,40 @@ values
 ('certificates', 'certificates', false, 10485760, array['application/pdf','image/png','image/jpeg']),
 ('documents', 'documents', false, 52428800, array['application/pdf','text/plain']),
 ('video-thumbnails', 'video-thumbnails', true, 10485760, array['image/png','image/jpeg','image/webp'])
-on conflict (id) do update set public = excluded.public;
+on conflict (id) do update set public = excluded.public, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
 
+drop policy if exists "public brand assets" on storage.objects;
 create policy "public brand assets" on storage.objects
 for select using (bucket_id in ('avatars', 'brand-assets', 'route-images', 'video-thumbnails'));
 
+drop policy if exists "ECOTUCA private reads" on storage.objects;
+create policy "ECOTUCA private reads" on storage.objects
+for select to authenticated using (
+  bucket_id in ('lesson-materials', 'certificates', 'documents') and (
+    public.is_admin()
+    or (public.has_approved_profile() and (storage.foldername(name))[1] = auth.uid()::text)
+  )
+);
+
+drop policy if exists "authenticated upload own files" on storage.objects;
 create policy "authenticated upload own files" on storage.objects
-for insert with check (auth.role() = 'authenticated');
+for insert to authenticated with check (
+  (storage.foldername(name))[1] = auth.uid()::text and (
+    (bucket_id = 'avatars' and public.has_approved_profile())
+    or (bucket_id = 'lesson-materials' and public.current_profile_role() = 'teacher')
+    or (bucket_id in ('lesson-materials', 'certificates', 'documents', 'brand-assets', 'route-images', 'video-thumbnails') and public.is_admin())
+  )
+);
 
-create policy "owner update own files" on storage.objects
-for update using (owner = auth.uid());
+drop policy if exists "owner update own files" on storage.objects;
 
+drop policy if exists "owner delete own files" on storage.objects;
 create policy "owner delete own files" on storage.objects
-for delete using (owner = auth.uid());
+for delete to authenticated using (
+  public.is_admin()
+  or (public.has_approved_profile() and (storage.foldername(name))[1] = auth.uid()::text
+      and bucket_id in ('avatars', 'lesson-materials'))
+);
 
 
--- ==================================================
--- supabase/seed.sql
--- ==================================================
-
--- Demo seed uses fixed UUIDs for profiles. Create matching auth users manually or via Supabase Admin API before relying on auth references.
-
-insert into public.profiles (id, full_name, email, role, status, bio, neighborhood)
-values
-('00000000-0000-0000-0000-000000000001', 'Coordenacao ECOTUCA', 'admin@ecotuca.local', 'admin', 'approved', 'Coordena aprovacao, metricas e prestacao de contas.', 'Complexo do Alemao'),
-('00000000-0000-0000-0000-000000000002', 'Bruno Copque', 'bruno@ecotuca.local', 'super_admin', 'approved', 'Controle tecnico e operacional.', 'Rio de Janeiro'),
-('00000000-0000-0000-0000-000000000003', 'Prof. Mariana Costa', 'professora@ecotuca.local', 'teacher', 'approved', 'Educadora ambiental e facilitadora.', 'Complexo do Alemao'),
-('00000000-0000-0000-0000-000000000004', 'Lucas Oliveira', 'aluno@ecotuca.local', 'student', 'approved', 'Aluno em formacao de guia local.', 'Complexo do Alemao'),
-('00000000-0000-0000-0000-000000000005', 'Ana Beatriz Santos', 'pendente@ecotuca.local', 'student', 'pending', 'Cadastro aguardando aprovacao.', 'Complexo do Alemao'),
-('00000000-0000-0000-0000-000000000006', 'Rafael Silva', 'guia@ecotuca.local', 'guide', 'approved', 'Guia local em destaque.', 'Complexo do Alemao'),
-('00000000-0000-0000-0000-000000000007', 'Camila Ferreira', 'turista@ecotuca.local', 'tourist', 'approved', 'Turista interessada em roteiros comunitarios.', 'Niteroi')
-on conflict (id) do update set full_name = excluded.full_name, role = excluded.role, status = excluded.status;
-
-insert into public.learning_tracks (id, title, description, category, difficulty, estimated_hours, status, order_index, created_by)
-values
-('10000000-0000-0000-0000-000000000001', 'Formacao de Guia Local', 'Conducao segura, leitura do territorio e hospitalidade.', 'Ecoturismo', 'intermediario', 18, 'published', 1, '00000000-0000-0000-0000-000000000003'),
-('10000000-0000-0000-0000-000000000002', 'Meio Ambiente e Biodiversidade', 'Ecologia urbana, Serra da Misericordia e cuidados ambientais.', 'Ambiental', 'basico', 14, 'published', 2, '00000000-0000-0000-0000-000000000003'),
-('10000000-0000-0000-0000-000000000003', 'Agenda 2030 e Empreendedorismo', 'ODS, renda local e turismo responsavel.', 'Impacto', 'intermediario', 16, 'published', 3, '00000000-0000-0000-0000-000000000003')
-on conflict (id) do nothing;
-
-insert into public.learning_modules (id, track_id, title, description, order_index)
-values
-('20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001', 'Primeiros passos do guia', 'Seguranca, narrativa e acolhimento.', 1)
-on conflict (id) do nothing;
-
-insert into public.lessons (id, module_id, title, description, content, video_provider, video_id, duration_minutes, order_index, status)
-values
-('30000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'Como contar o territorio com seguranca', 'Primeiros passos para conduzir visitantes.', 'Roteirize paradas, combine regras e valorize memorias locais.', 'youtube', 'ScMzIvxBSi4', 18, 1, 'published')
-on conflict (id) do nothing;
-
-insert into public.track_enrollments (user_id, track_id, status, progress_percent)
-values
-('00000000-0000-0000-0000-000000000004', '10000000-0000-0000-0000-000000000001', 'in_progress', 64)
-on conflict (user_id, track_id) do update set progress_percent = excluded.progress_percent;
-
-insert into public.lesson_progress (user_id, lesson_id, status, progress_percent, watched_seconds, last_position_seconds, total_duration_seconds, last_watched_at)
-values
-('00000000-0000-0000-0000-000000000004', '30000000-0000-0000-0000-000000000001', 'in_progress', 72, 778, 222, 1080, now())
-on conflict (user_id, lesson_id) do update set progress_percent = excluded.progress_percent, last_position_seconds = excluded.last_position_seconds;
-
-insert into public.tour_routes (id, title, slug, description, short_description, location, meeting_point, duration_minutes, difficulty, price, max_people, cover_url, guide_id, status, featured, tags, included_items, recommendations, accessibility, best_time, safety_notes)
-values
-('40000000-0000-0000-0000-000000000001', 'Serra da Misericordia', 'serra-da-misericordia', 'Vivencia territorial que conecta biodiversidade, historia local, mirantes e educacao ambiental.', 'Trilha de natureza, memoria e leitura ambiental.', 'Complexo do Alemao, Rio de Janeiro', 'Base Perifa Ecotour', 180, 'moderada', 85, 12, '/mock/route-serra.png', '00000000-0000-0000-0000-000000000006', 'published', true, array['biodiversidade','mirante','territorio'], array['Guia local','Material educativo'], array['Levar agua','Usar tenis fechado'], 'Trechos de subida e solo irregular.', 'Manha', 'Grupo acompanhado por guia local.')
-on conflict (id) do nothing;
-
-insert into public.impact_metrics (metric_key, metric_label, metric_value, metric_period)
-values
-('students_registered', 'Jovens inscritos', 128, '2026-05'),
-('lessons_completed', 'Aulas concluidas', 842, '2026-05'),
-('routes_published', 'Roteiros publicados', 6, '2026-05')
-on conflict do nothing;
+COMMIT;

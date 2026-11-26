@@ -8,12 +8,12 @@ import { tourRoutes } from "@/lib/mock-data/ecotuca";
 
 export default function TouristPage() {
   return (
-    <AppShell title="Area do turista" roleContext="tourist">
+    <AppShell title="Área do turista" roleContext="tourist">
       <section className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-lg bg-brand-brown p-6 text-brand-cream shadow-glow">
           <Image
             src="/media/territory/penha/igreja-da-penha-wilfredor-cc0.jpg"
-            alt="Igreja da Penha como referencia visual da experiencia turistica na Zona Norte"
+            alt="Igreja da Penha como referência visual da experiência turística na Zona Norte"
             fill
             className="object-cover opacity-20"
             sizes="100vw"
@@ -25,15 +25,15 @@ export default function TouristPage() {
           <Badge tone="yellow" className="relative mt-5">Visitante respeitoso</Badge>
           <h1 className="brand-display relative mt-5 text-5xl text-brand-yellow">Roteiros favoritos</h1>
           <p className="relative mt-3 max-w-2xl text-brand-cream/80">
-            Escolha experiencias territoriais com guias formados, narrativas locais e orientacoes de preparo confirmadas pela equipe.
+            Escolha experiências territoriais com guias formados, narrativas locais e orientações de preparo confirmadas pela equipe.
           </p>
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {["Solicitacoes recentes", "Orientacoes de preparo", "Proximos passos"].map((item) => (
+          {["Solicitações recentes", "Orientações de preparo", "Próximos passos"].map((item) => (
             <PerifaCard key={item} tone="orange">
               <h2 className="brand-display text-3xl">{item}</h2>
               <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">
-                Agenda, guia, ponto de encontro e cuidados sao confirmados antes da visita.
+                Agenda, guia, ponto de encontro e cuidados são confirmados antes da visita.
               </p>
             </PerifaCard>
           ))}
@@ -42,7 +42,7 @@ export default function TouristPage() {
           {[
             ["Interesse", "recebido", "aguardando retorno"],
             ["Grupo", "4 pessoas", "perfil familiar"],
-            ["Preparo", "pendente", "orientacoes antes da visita"],
+            ["Preparo", "pendente", "orientações antes da visita"],
             ["Conduta", "confirmar", "imagem e respeito local"]
           ].map(([item, value, text]) => (
             <PerifaCard key={item} tone="mint">
@@ -54,9 +54,9 @@ export default function TouristPage() {
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           {[
-            ["Antes da visita", "Leia orientacoes, combine horario e entenda a proposta comunitaria."],
-            ["Durante o roteiro", "Siga o guia, respeite moradores, imagens e areas sensiveis."],
-            ["Depois", "Registre retorno, avalie a experiencia e apoie a continuidade do projeto."]
+            ["Antes da visita", "Leia orientações, combine horário e entenda a proposta comunitaria."],
+            ["Durante o roteiro", "Siga o guia, respeite moradores, imagens e áreas sensíveis."],
+            ["Depois", "Registre retorno, avalie a experiência e apoie a continuidade do projeto."]
           ].map(([item, text]) => (
             <PerifaCard key={item} tone="yellow">
               <h2 className="brand-display text-3xl">{item}</h2>

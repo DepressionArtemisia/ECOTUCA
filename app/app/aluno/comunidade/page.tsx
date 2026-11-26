@@ -7,7 +7,7 @@ export default function StudentCommunityPage() {
   return (
     <AppShell title="Comunidade">
       <section className="mx-auto max-w-5xl">
-        <Badge tone="coral">Forum ECOTUCA</Badge>
+        <Badge tone="coral">Fórum ECOTUCA</Badge>
         <h1 className="brand-display mt-4 text-5xl">Comunidade</h1>
         <div className="mt-6 space-y-4">
           {forumTopics.map((topic) => (

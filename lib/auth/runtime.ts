@@ -1,7 +1,7 @@
 export type AccessControlMode = "preview" | "enforce";
 
 export function isPreviewAuthFallbackEnabled() {
-  return process.env.NEXT_PUBLIC_DISABLE_AUTH_FALLBACK !== "true";
+  return !shouldEnforceAppAccess() && process.env.NEXT_PUBLIC_DISABLE_AUTH_FALLBACK !== "true";
 }
 
 export function getAccessControlMode(): AccessControlMode {

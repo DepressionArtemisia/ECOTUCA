@@ -25,10 +25,10 @@ const config: Config = {
           "dark-soft": "#4A241F",
           ink: "#24110F"
         },
-        "background-warm": "#FFF6E2",
-        "background-paper": "#FFFDF7",
-        "background-dark": "#3A1A16",
-        "background-dark-soft": "#4A241F",
+        "background-warm": "var(--background)",
+        "background-paper": "var(--card)",
+        "background-dark": "var(--background)",
+        "background-dark-soft": "var(--card)",
         "text-brown": "#3A1A16",
         "text-muted-warm": "#7B5F59",
         "text-inverse": "#FFF6E2",
@@ -37,8 +37,8 @@ const config: Config = {
         "border-dark": "rgba(255, 246, 226, 0.18)"
       },
       fontFamily: {
-        display: ["Impact", "Arial Black", "Trebuchet MS", "sans-serif"],
-        sans: ["Nunito Sans", "Aptos", "Segoe UI", "system-ui", "sans-serif"]
+        display: ["var(--font-headline)"],
+        sans: ["var(--font-body)"]
       },
       boxShadow: {
         soft: "0 10px 28px rgba(58, 26, 22, 0.10)",
@@ -60,7 +60,7 @@ const config: Config = {
         "gradient-tourism": "linear-gradient(135deg, #FE9440 0%, #E9635D 45%, #335595 100%)"
       },
       borderRadius: {
-        card: "0.5rem",
+        card: "var(--radius-card)",
         mobile: "1.75rem",
         pill: "999px"
       },

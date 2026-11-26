@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginWithSupabaseOrDemo, logoutEverywhere, type CurrentUser, type LoginResult } from "@/lib/data/auth";
+import { loadAuthProfile, loginWithSupabaseOrDemo, logoutEverywhere, type CurrentUser, type LoginResult } from "@/lib/data/auth";
 import { clearStoredDemoUser, getStoredDemoUser, setStoredDemoUser } from "@/lib/data/fallback";
 import { isDemoSessionAllowedInEnforcedAccess, isPreviewAuthFallbackEnabled } from "@/lib/auth/runtime";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -27,29 +27,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let active = true;
 
     async function load() {
+      let hasRealSession = false;
       try {
         const supabase = createSupabaseBrowserClient();
         const session = await supabase?.auth.getSession();
         const authUser = session?.data.session?.user;
         if (authUser && supabase) {
-          const profile = await supabase
-            .from("profiles")
-            .select("id, full_name, email, role, status, bio")
-            .eq("id", authUser.id)
-            .maybeSingle();
-          if (active && profile.data) {
-            setUser({
-              id: profile.data.id,
-              name: profile.data.full_name,
-              email: profile.data.email,
-              password: "",
-              role: profile.data.role,
-              status: profile.data.status,
-              highlight: profile.data.bio ?? "Sessao Supabase.",
-              source: "supabase"
-            });
-            return;
-          }
+          hasRealSession = true;
+          const profile = await loadAuthProfile(authUser.id);
+          if (active) setUser(profile);
+          return;
         }
       } catch (error) {
         if (process.env.NODE_ENV === "development") {
@@ -57,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } finally {
         if (active) {
-          if (isPreviewAuthFallbackEnabled()) {
+          if (!hasRealSession && isPreviewAuthFallbackEnabled()) {
             const demo = getStoredDemoUser();
             setUser((current) => current ?? { ...demo, source: "demo" });
           } else {
@@ -69,8 +56,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     load();
+    const subscription = createSupabaseBrowserClient()?.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT" && active) setUser((current) => current?.source === "supabase" ? null : current);
+    }).data.subscription;
     return () => {
       active = false;
+      subscription?.unsubscribe();
     };
   }, []);
 

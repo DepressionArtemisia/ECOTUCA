@@ -3,55 +3,50 @@
 import { FileUp } from "lucide-react";
 import { useState } from "react";
 import { EcoButton } from "@/components/brand/eco-button";
-import { Badge } from "@/components/ui/badge";
-import { uploadDemoAwareFile } from "@/lib/data/uploads";
+import { useAuth } from "@/features/auth/auth-provider";
+import { uploadLessonMaterial } from "@/lib/data/uploads";
 
 export function ContentUploadDemo() {
-  const [file, setFile] = useState<File | null>(null);
-  const [message, setMessage] = useState("Nenhum arquivo enviado nesta sessao.");
-  const [source, setSource] = useState<"supabase" | "demo">("demo");
+  const { user } = useAuth();
+  const [message, setMessage] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  async function submit() {
-    if (!file) {
-      setMessage("Selecione um PDF antes de enviar.");
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const file = new FormData(form).get("material");
+    if (!(file instanceof File) || file.type !== "application/pdf" || !file.size || file.size > 50 * 1024 * 1024) {
+      setMessage("Selecione um PDF de até 50 MB.");
       return;
     }
-
+    if (user?.source === "demo") {
+      setMessage("Arquivo validado na demonstração. Nenhum PDF foi enviado.");
+      return;
+    }
     setUploading(true);
-    const safeName = file.name.replace(/[^a-z0-9._-]/gi, "-").toLowerCase();
-    const result = await uploadDemoAwareFile("lesson-materials", `demo/${Date.now()}-${safeName}`, file);
-    setUploading(false);
-    setSource(result.source);
-    setMessage(
-      result.source === "supabase"
-        ? `Arquivo enviado para lesson-materials/${result.path}.`
-        : "Registro de apresentacao preparado. O arquivo oficial depende da ativacao do bucket lesson-materials."
-    );
+    setMessage("");
+    try {
+      await uploadLessonMaterial(file);
+      form.reset();
+      setMessage("Material armazenado. A publicação na aula depende da revisão da coordenação.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Não foi possível enviar o material.");
+    } finally {
+      setUploading(false);
+    }
   }
 
   return (
-    <div className="mt-6 rounded-lg border border-brand-brown/10 bg-brand-warm p-4 text-brand-brown dark:border-brand-yellow/15 dark:bg-brand-brown/60 dark:text-brand-cream">
-      <div className="flex flex-wrap gap-2">
-        <Badge tone="blue">Upload PDF</Badge>
-        <Badge tone={source === "supabase" ? "mint" : "yellow"}>
-          {source === "supabase" ? "Storage Supabase" : "Apresentacao"}
-        </Badge>
-      </div>
-      <label className="mt-4 block">
-        <span className="text-xs font-black uppercase">Material da aula</span>
-        <input
-          type="file"
-          accept="application/pdf"
-          onChange={(event) => setFile(event.target.files?.[0] ?? null)}
-          className="mt-2 block w-full rounded-lg border border-brand-brown/15 bg-white px-4 py-3 text-sm font-bold text-brand-brown"
-        />
+    <form onSubmit={submit} className="brand-card p-5 sm:p-7">
+      <h2 className="text-card-title">Enviar material de apoio</h2>
+      <p className="mt-2 text-sm text-[var(--muted)]">Envie um PDF de até 50 MB para revisão. Compartilhe somente arquivos que você tem autorização para usar.</p>
+      <label className="mt-4 block text-sm font-bold">Arquivo PDF
+        <input type="file" name="material" accept="application/pdf" required className="mt-2 block w-full rounded-lg border border-[var(--control-border)] p-3 text-sm" />
       </label>
-      <p className="mt-3 text-sm font-bold">{message}</p>
-      <EcoButton className="mt-4" variant="mint" type="button" onClick={submit} disabled={uploading}>
-        <FileUp size={16} />
-        {uploading ? "Enviando..." : "Enviar material"}
+      {message && <p role="status" className="mt-3 text-sm">{message}</p>}
+      <EcoButton className="mt-4" type="submit" disabled={uploading}>
+        <FileUp size={16} aria-hidden="true" /> {uploading ? "Enviando…" : "Enviar material"}
       </EcoButton>
-    </div>
+    </form>
   );
 }

@@ -79,7 +79,7 @@ export async function saveProgress(payload: VideoProgressPayload) {
       completed_at: payload.completed ? new Date().toISOString() : null,
       last_watched_at: payload.updatedAt,
       updated_at: payload.updatedAt
-    });
+    }, { onConflict: "user_id,lesson_id" });
 
     if (error) throw error;
     return { ok: true, source: "supabase" as const };

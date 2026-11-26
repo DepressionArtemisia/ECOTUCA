@@ -24,7 +24,7 @@ export default async function GuidePage({ params }: { params: Promise<{ id: stri
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {guide.certificates.map((cert) => (
             <div key={cert} className="rounded-lg bg-white p-4 shadow-brand dark:bg-white/10">
-              <Award className="text-brand-orange" />
+              <Award className="text-[var(--accent-text)]" />
               <p className="mt-3 font-black">{cert}</p>
             </div>
           ))}

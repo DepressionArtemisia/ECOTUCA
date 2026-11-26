@@ -1,22 +1,21 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Check, Copy, ExternalLink, Filter } from "lucide-react";
-import { EcoButton } from "@/components/brand/eco-button";
+import { EcoButton, EcoLink } from "@/components/brand/eco-button";
 import { Badge } from "@/components/ui/badge";
 import { siteMapSections, type SiteMapAudience, type SiteMapItem, type SiteMapStatus } from "@/lib/navigation/site-map";
 
 const audienceOptions: Array<{ value: "all" | SiteMapAudience; label: string }> = [
   { value: "all", label: "Todos" },
-  { value: "public", label: "Publico" },
+  { value: "public", label: "Público" },
   { value: "student", label: "Aluno" },
   { value: "teacher", label: "Professor" },
   { value: "guide", label: "Guia" },
   { value: "tourist", label: "Turista" },
   { value: "admin", label: "Admin" },
   { value: "meeting", label: "Preview" },
-  { value: "technical", label: "Tecnico" }
+  { value: "technical", label: "Técnico" }
 ];
 
 const statusOptions: Array<{ value: "all" | SiteMapStatus; label: string }> = [
@@ -24,7 +23,7 @@ const statusOptions: Array<{ value: "all" | SiteMapStatus; label: string }> = [
   { value: "ready", label: "Pronto" },
   { value: "preview", label: "Preview" },
   { value: "draft", label: "Minuta" },
-  { value: "technical", label: "Tecnico" }
+  { value: "technical", label: "Técnico" }
 ];
 
 const statusTone: Record<SiteMapStatus, "yellow" | "coral" | "blue" | "orange" | "mint"> = {
@@ -66,12 +65,8 @@ function RouteCard({
         </p>
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
-        <Link href={item.href}>
-          <EcoButton size="sm" variant="mint">
-            <ExternalLink size={15} />
-            Abrir
-          </EcoButton>
-        </Link>
+        <EcoLink href={item.href} size="sm" variant="mint"><ExternalLink size={15} />
+            Abrir</EcoLink>
         <EcoButton size="sm" variant="outline" type="button" onClick={() => onCopy(item.href)}>
           {copiedHref === item.href ? <Check size={15} /> : <Copy size={15} />}
           {copiedHref === item.href ? "Copiado" : "Copiar"}
@@ -120,12 +115,12 @@ export function SiteMapExplorer() {
     <div className="space-y-6">
       <section className="brand-card p-4 dark:bg-brand-dark-soft/90 sm:p-5">
         <div className="flex flex-wrap items-center gap-3">
-          <Filter size={20} className="text-brand-coral" />
+          <Filter size={20} className="text-[var(--accent-text)]" />
           <h2 className="brand-display text-3xl">Filtros da plataforma</h2>
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <div>
-            <p className="text-sm font-black uppercase text-brand-brown/65 dark:text-brand-cream/70">Perfil</p>
+            <p className="text-sm font-black uppercase text-[var(--muted)] dark:text-brand-cream/70">Perfil</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {audienceOptions.map((option) => (
                 <button
@@ -144,7 +139,7 @@ export function SiteMapExplorer() {
             </div>
           </div>
           <div>
-            <p className="text-sm font-black uppercase text-brand-brown/65 dark:text-brand-cream/70">Status</p>
+            <p className="text-sm font-black uppercase text-[var(--muted)] dark:text-brand-cream/70">Status</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {statusOptions.map((option) => (
                 <button
@@ -175,7 +170,7 @@ export function SiteMapExplorer() {
               </span>
               <div>
                 <h2 className="brand-display text-4xl">{section.title}</h2>
-                <p className="text-sm font-bold text-brand-brown/60 dark:text-brand-cream/65">{section.items.length} rotas encontradas</p>
+                <p className="text-sm font-bold text-[var(--muted)] dark:text-[var(--muted)]">{section.items.length} rotas encontradas</p>
               </div>
             </div>
             <div className="desktop-sitemap-grid">

@@ -1,207 +1,114 @@
 "use client";
 
-import Image from "next/image";
-import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { CheckCircle2, Download, FileCheck2, UserCheck } from "lucide-react";
-import { EcoButton } from "@/components/brand/eco-button";
-import { ImpactRibbon } from "@/components/brand/impact-ribbon";
-import { OfficialLogo } from "@/components/brand/official-logo";
-import { PerifaCard } from "@/components/brand/perifa-card";
+import Link from "next/link";
+import { Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { ArrowRight, ChartNoAxesColumn, ClipboardCheck, FileSpreadsheet, GraduationCap } from "lucide-react";
 import { MetricCard } from "@/components/cards/metric-card";
 import { Badge } from "@/components/ui/badge";
-import { adminMetrics, bookingChartData, completionByTrack, demoUsers, impactChartData, learningTracks } from "@/lib/mock-data/ecotuca";
+import { buttonVariants } from "@/components/ui/button";
+import { adminMetrics, bookingChartData, completionByTrack, impactChartData } from "@/lib/mock-data/ecotuca";
 
-export function AdminDashboard() {
-  const pending = demoUsers.filter((user) => user.status === "pending");
+const shortcuts = [
+  { title: "Aprovações", description: "Revise inscrições e libere o acesso a perfis pendentes.", href: "/app/admin/aprovacoes", icon: ClipboardCheck },
+  { title: "Conteúdos", description: "Consulte as aulas e os materiais em revisão.", href: "/app/admin/conteudos", icon: GraduationCap },
+  { title: "Relatórios", description: "Consulte a série mensal e exporte a planilha.", href: "/app/admin/relatorios", icon: FileSpreadsheet }
+];
+const tooltipStyle = { backgroundColor: "var(--card)", borderColor: "var(--control-border)", color: "var(--foreground)", borderRadius: 10 };
+const axes = { tick: { fontSize: 12 }, tickLine: false, axisLine: false };
 
-  function exportCsv() {
-    const rows = [
-      ["metric", "value", "detail"],
-      ...adminMetrics.map((metric) => [metric.label, metric.value, metric.detail])
-    ];
-    const csv = rows.map((row) => row.map((cell) => `"${cell}"`).join(",")).join("\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "ecotuca-impacto.csv";
-    link.click();
-    URL.revokeObjectURL(url);
-  }
-
+export function AdminDashboard({ indicatorsOnly = false }: { indicatorsOnly?: boolean }) {
   return (
-    <div className="mx-auto min-w-0 max-w-7xl space-y-6">
-      <section className="relative min-w-0 overflow-hidden rounded-lg bg-brand-brown p-5 text-brand-cream shadow-glow sm:p-6">
-        <Image
-          src="/media/territory/penha/panorama-zona-norte-igreja-penha-adam-jones-cc-by-sa-2.jpg"
-          alt="Panorama da Zona Norte usado como imagem institucional no painel administrativo"
-          fill
-          className="object-cover opacity-20"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-brown via-brand-brown/90 to-brand-blue/60" />
-        <div className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,#FCC224,#E9635D,#2ACCB5,#FE9440)]" />
-        <div className="relative">
-          <OfficialLogo variant="horizontal" tone="negative" size="md" />
+    <div className="workspace-grid">
+      <header className="workspace-intro">
+        <div>
+          <p className="section-label"><span /> Coordenação</p>
+          <h1 className="text-display-lg mt-2">{indicatorsOnly ? "Indicadores de impacto" : "Visão geral"}</h1>
+          <p className="mt-3 max-w-[60ch] text-[var(--muted)]">{indicatorsOnly
+            ? "Acompanhe a participação dos alunos, o avanço nas trilhas e a emissão de certificados."
+            : "Acompanhe as inscrições, o andamento da formação e os dados de prestação de contas."}</p>
         </div>
-        <p className="relative mt-5 text-sm font-black uppercase text-brand-mint">Centro de comando</p>
-        <h1 className="brand-display relative mt-2 text-4xl text-brand-yellow sm:text-5xl">Ensino, usuarios e impacto</h1>
-        <p className="relative mt-3 max-w-3xl text-brand-cream/78">
-          Visao executiva para coordenacao, aprovacoes, turmas, trilhas, certificados e acompanhamento da jornada ECOTUCA.
-        </p>
-        <ImpactRibbon
-          className="relative mt-5 max-w-4xl"
-          items={[
-            { label: "aprovacoes na fila", value: String(pending.length) },
-            { label: "trilhas ativas", value: String(learningTracks.length) },
-            { label: "relatorio CSV", value: "pronto" }
-          ]}
-        />
-      </section>
+        {indicatorsOnly ? <Link href="/app/admin/relatorios" className={buttonVariants({ variant: "outline" })}><FileSpreadsheet size={17} /> Abrir relatórios</Link>
+          : <Link href="/app/admin/aprovacoes" className={buttonVariants()}><ClipboardCheck size={17} /> Revisar inscrições</Link>}
+      </header>
 
-      <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2 xl:grid-cols-5">
-        {adminMetrics.map((metric) => (
-          <MetricCard key={metric.label} metric={metric} />
-        ))}
-      </section>
-
-      <section className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <p className="inline-flex items-center gap-2 text-sm font-black uppercase text-brand-blue dark:text-brand-mint">
-              <FileCheck2 size={16} />
-              Indicadores para edital
-            </p>
-            <h2 className="brand-display mt-2 text-4xl">Impacto que pode virar evidencia</h2>
-            <p className="mt-2 max-w-3xl text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">
-              Indicadores organizados para gestao e prestacao de contas: formacao, conclusao, certificados, atividades, atendimento, potencial de renda e ODS relacionados.
-            </p>
-          </div>
-          <Badge tone="yellow">gestao educacional</Badge>
-        </div>
-        <div className="mt-5 grid gap-3 md:grid-cols-4">
-          {["Jovens inscritos", "Horas de formacao", "Certificados", "Potencial de renda"].map((item) => (
-            <div key={item} className="rounded-lg bg-brand-warm p-4 text-sm font-black text-brand-brown dark:bg-white/10 dark:text-brand-cream">
-              {item}
-            </div>
+      {!indicatorsOnly && (
+        <section className="grid gap-3 md:grid-cols-3" aria-label="Atalhos da coordenação">
+          {shortcuts.map(({ title, description, href, icon: Icon }) => (
+            <Link key={href} href={href} className="brand-card workspace-shortcut">
+              <span className="workspace-icon"><Icon size={21} aria-hidden="true" /></span>
+              <ArrowRight size={18} className="ml-auto" aria-hidden="true" />
+              <h2>{title}</h2>
+              <p>{description}</p>
+            </Link>
           ))}
+        </section>
+      )}
+
+      <section aria-labelledby="indicadores-resumo">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <h2 id="indicadores-resumo" className="text-section-title">{indicatorsOnly ? "Resumo do período" : "Acompanhamento da formação"}</h2>
+          <Badge>Dados de exemplo</Badge>
+        </div>
+        <div className="grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+          {adminMetrics.map((metric) => <MetricCard key={metric.label} metric={metric} />)}
         </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-4">
-        {[
-          ["Banco", "Manter SQL, RLS, policies e seeds alinhados ao fluxo de aprovacao."],
-          ["Usuarios", "Liberar Auth real apenas para perfis aprovados pela coordenacao."],
-          ["Operacao", "Definir turmas, calendario, responsaveis, termos e autorizacoes."],
-          ["Identidade", "Substituir logos/imagens por pacote oficial quando enviado."]
-        ].map(([item, text]) => (
-          <PerifaCard key={item} tone="mint">
-            <h2 className="brand-display text-3xl">{item}</h2>
-            <p className="mt-2 text-sm font-bold text-brand-brown/75 dark:text-brand-cream/75">{text}</p>
-          </PerifaCard>
-        ))}
+      <section className="brand-card min-w-0 p-4 sm:p-6" aria-labelledby="impacto-mensal">
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <h2 className="text-card-title" id="impacto-mensal">Evolução mensal</h2>
+          {!indicatorsOnly && <Link href="/app/admin/metricas" className="inline-action text-sm"><ChartNoAxesColumn size={17} /> Ver indicadores</Link>}
+        </div>
+        <div className="mt-4 h-72 min-w-0">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={impactChartData} margin={{ top: 8, right: 4, bottom: 4, left: -14 }}>
+              <CartesianGrid strokeDasharray="3 4" vertical={false} />
+              <XAxis {...axes} dataKey="month" />
+              <YAxis {...axes} width={52} />
+              <Tooltip contentStyle={tooltipStyle} />
+              <Legend />
+              <Bar dataKey="alunos" name="Alunos" fill="#FCC224" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="aulas" name="Aulas" fill="#6D90D1" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="certificados" name="Certificados" fill="#40A28D" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </section>
 
-      <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,.8fr)]">
-        <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm font-black uppercase text-brand-coral">Prestacao de contas</p>
-              <h2 className="brand-display text-4xl">Impacto mensal</h2>
+      {indicatorsOnly && (
+        <div className="grid min-w-0 gap-4 xl:grid-cols-2">
+          <section className="brand-card min-w-0 p-4 sm:p-6">
+            <h2 className="text-card-title">Conclusão por trilha</h2>
+            <div className="mt-4 h-64 min-w-0">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={completionByTrack} margin={{ right: 4, left: -14 }}>
+                  <CartesianGrid vertical={false} strokeDasharray="3 4" />
+                  <XAxis {...axes} dataKey="name" />
+                  <YAxis {...axes} width={52} />
+                  <Tooltip contentStyle={tooltipStyle} />
+                  <Legend />
+                  <Bar dataKey="concluidas" name="Concluídas" fill="#40A28D" isAnimationActive={false} />
+                  <Bar dataKey="andamento" name="Em andamento" fill="#FCC224" isAnimationActive={false} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-            <EcoButton variant="outline" onClick={exportCsv}>
-              <Download size={17} />
-              CSV
-            </EcoButton>
-          </div>
-          <div className="mt-6 h-80 min-w-0">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={impactChartData}>
-                <CartesianGrid strokeDasharray="4 4" stroke="rgba(58,26,22,.15)" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="alunos" fill="#FCC224" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="aulas" fill="#2ACCB5" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="certificados" fill="#E9635D" radius={[6, 6, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <PerifaCard tone="coral">
-            <p className="inline-flex items-center gap-2 text-sm font-black uppercase text-brand-coral">
-              <UserCheck size={16} />
-              Fila de aprovacoes
-            </p>
-            <div className="mt-4 space-y-3">
-              {pending.map((user) => (
-                <div key={user.email} className="rounded-lg bg-brand-warm p-4 text-brand-brown">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="font-black">{user.name}</p>
-                      <p className="truncate text-sm">{user.email}</p>
-                    </div>
-                    <Badge className="shrink-0" tone="coral">{user.status}</Badge>
-                  </div>
-                  <div className="mt-3 flex gap-2">
-                    <EcoButton size="sm" variant="mint">
-                      <CheckCircle2 size={15} />
-                      Aprovar
-                    </EcoButton>
-                    <EcoButton size="sm" variant="outline">Revisar</EcoButton>
-                  </div>
-                </div>
-              ))}
+          </section>
+          <section className="brand-card min-w-0 p-4 sm:p-6">
+            <h2 className="text-card-title">Solicitações de suporte</h2>
+            <div className="mt-4 h-64 min-w-0">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={bookingChartData} margin={{ right: 8, left: -14 }}>
+                  <CartesianGrid vertical={false} strokeDasharray="3 4" />
+                  <XAxis {...axes} dataKey="week" />
+                  <YAxis {...axes} width={52} />
+                  <Tooltip contentStyle={tooltipStyle} />
+                  <Line type="monotone" dataKey="solicitacoes" name="Solicitações" stroke="#E9635D" strokeWidth={3} isAnimationActive={false} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
-          </PerifaCard>
-
-          <PerifaCard tone="orange">
-            <p className="text-sm font-black uppercase text-brand-orange">Trilhas acompanhadas</p>
-            <div className="mt-4 space-y-3">
-              {learningTracks.map((track) => (
-                <div key={track.id} className="flex min-w-0 items-center justify-between gap-2 rounded-lg bg-white/80 p-3 text-sm font-bold dark:bg-white/10">
-                  <span className="min-w-0 truncate">{track.title}</span>
-                  <Badge className="shrink-0 px-2 sm:px-3" tone={track.progressPercent > 50 ? "yellow" : "blue"}>{track.progressPercent}%</Badge>
-                </div>
-              ))}
-            </div>
-          </PerifaCard>
+          </section>
         </div>
-      </section>
-
-      <section className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
-          <p className="text-sm font-black uppercase text-brand-orange">Conclusao por trilha</p>
-          <div className="mt-5 h-72 min-w-0">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={completionByTrack}>
-                <CartesianGrid strokeDasharray="4 4" stroke="rgba(58,26,22,.15)" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="concluidas" fill="#2ACCB5" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="andamento" fill="#FCC224" radius={[6, 6, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        <div className="brand-card min-w-0 overflow-hidden p-4 sm:p-5 dark:bg-brand-dark-soft/90">
-          <p className="text-sm font-black uppercase text-brand-coral">Solicitacoes de suporte</p>
-          <div className="mt-5 h-72 min-w-0">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={bookingChartData}>
-                <CartesianGrid strokeDasharray="4 4" stroke="rgba(58,26,22,.15)" />
-                <XAxis dataKey="week" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="solicitacoes" stroke="#E9635D" strokeWidth={4} dot={{ fill: "#FCC224", r: 6 }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </section>
+      )}
     </div>
   );
 }

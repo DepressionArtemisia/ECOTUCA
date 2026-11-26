@@ -1,5 +1,4 @@
-import { CheckCircle2, FileText, ShieldCheck } from "lucide-react";
-import { EcoButton } from "@/components/brand/eco-button";
+import { CheckCircle2, FileText } from "lucide-react";
 import { PerifaCard } from "@/components/brand/perifa-card";
 import { AdminShell } from "@/components/layout/admin-shell";
 import { Badge } from "@/components/ui/badge";
@@ -17,23 +16,23 @@ export default function AdminContentsPage() {
   return (
     <AdminShell>
       <section className="mx-auto max-w-7xl space-y-6">
-        <div className="brand-card bg-brand-brown p-5 text-brand-cream shadow-glow sm:p-6">
-          <Badge tone="mint">Curadoria de conteudo</Badge>
-          <h1 className="brand-display mt-4 text-5xl text-brand-yellow sm:text-6xl">Conteudos da plataforma</h1>
-          <p className="mt-3 max-w-3xl text-sm font-bold text-brand-cream/75">
-            Controle aulas, materiais, rascunhos e revisoes antes de publicar qualquer conteudo para alunos e professores.
+        <div className="brand-card workspace-callout p-5 sm:p-6">
+          <Badge>Revisões de exemplo</Badge>
+          <h1 className="brand-display mt-4 text-5xl text-[var(--foreground)] sm:text-6xl">Conteúdos da plataforma</h1>
+          <p className="mt-3 max-w-3xl text-sm font-bold text-[var(--muted)]">
+            Veja como a coordenação acompanha aulas e materiais em preparação. Cada revisão reúne os critérios que precisam ser conferidos antes da publicação.
           </p>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-4">
           {[
             ["Rascunhos", "1", "Professor prepara antes da curadoria"],
-            ["Em curadoria", "1", "Coordenacao revisa objetivos e linguagem"],
-            ["Com ajustes", "1", "Volta para o autor com orientacao"],
+            ["Em curadoria", "1", "Coordenação revisa objetivos e linguagem"],
+            ["Com ajustes", "1", "Volta para o autor com orientação"],
             ["Aprovados", "1", "Liberado para trilhas e certificados"]
           ].map(([label, value, detail]) => (
             <PerifaCard key={label} tone="mint">
-              <p className="text-xs font-black uppercase text-brand-coral">{label}</p>
+              <p className="text-xs font-black uppercase text-[var(--accent-text)]">{label}</p>
               <p className="brand-display mt-2 text-4xl">{value}</p>
               <p className="mt-2 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">{detail}</p>
             </PerifaCard>
@@ -70,10 +69,6 @@ export default function AdminContentsPage() {
                       Atualizado
                     </p>
                     <p className="brand-display mt-2 text-3xl">{item.updatedAt}</p>
-                    <EcoButton className="mt-5 w-full" variant={item.status === "approved" ? "mint" : "coral"}>
-                      <ShieldCheck size={16} />
-                      Revisar
-                    </EcoButton>
                   </aside>
                 </div>
               </PerifaCard>

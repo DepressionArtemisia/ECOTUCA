@@ -1,0 +1,174 @@
+.trigger {
+  min-width: 2.75rem;
+  border-color: var(--border-soft);
+  background: linear-gradient(160deg, var(--card), var(--surface-alt));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .18), 0 2px 0 var(--border-soft);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.trigger:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 1px 2px rgb(28 15 12 / .12);
+}
+
+.sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: min(100%, 32rem);
+  max-width: none;
+  max-height: min(90vh, 44rem);
+  max-height: min(90dvh, 44rem);
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  border: 1px solid var(--border-soft);
+  border-bottom: 0;
+  border-radius: 1.55rem 1.55rem 0 0;
+  background: var(--card);
+  box-shadow: 0 -1px 1px rgb(255 255 255 / .12), 0 -14px 46px rgb(29 15 11 / .24);
+}
+
+.sheet[open] { animation: enter 290ms cubic-bezier(.2, .75, .25, 1) both; }
+.sheet[data-closing] { animation: exit 205ms cubic-bezier(.45, 0, .85, .45) both; }
+
+.sheet::backdrop {
+  background: rgb(28 15 12 / .52);
+  backdrop-filter: blur(3px);
+  animation: dim-in 260ms ease both;
+}
+
+.sheet[data-closing]::backdrop { animation: dim-out 205ms ease both; }
+:global(html):has(.sheet[open]) { overflow: hidden; overscroll-behavior: none; }
+
+.surface {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  max-height: inherit;
+  padding-inline: max(.75rem, env(safe-area-inset-left)) max(.75rem, env(safe-area-inset-right));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: radial-gradient(ellipse at 5% 0%, color-mix(in srgb, var(--brand-yellow) 11%, transparent), transparent 48%), var(--card);
+}
+
+.header {
+  display: flex;
+  min-height: 4.1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: .65rem .4rem .45rem;
+}
+
+.header h2 {
+  font-family: var(--font-headline);
+  font-size: clamp(1.3rem, 4.8vw, 1.65rem);
+  letter-spacing: -.045em;
+  line-height: 1.12;
+}
+
+.close {
+  flex: none;
+  border-color: var(--border-soft);
+  border-radius: 50%;
+  background: var(--surface-alt);
+}
+
+.navigation {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding: .35rem .35rem .85rem;
+}
+
+.group + .group { margin-top: .8rem; }
+
+.groupLabel {
+  margin-bottom: .45rem;
+  padding-inline: .3rem;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 750;
+}
+
+.links {
+  overflow: clip;
+  border: 1px solid var(--border-soft);
+  border-radius: .95rem;
+  background: var(--background);
+  box-shadow: 0 3px 9px rgb(28 15 12 / .05), inset 0 1px 0 rgb(255 255 255 / .12);
+}
+
+.links li + li { border-top: 1px solid var(--border-soft); }
+
+.link {
+  position: relative;
+  display: grid;
+  min-height: 3.35rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .68rem;
+  padding: .44rem .72rem;
+  color: var(--foreground);
+  font-size: .94rem;
+  font-weight: 720;
+  line-height: 1.25;
+  transition: background-color 150ms ease;
+}
+
+.link:focus-visible {
+  z-index: 1;
+  outline-offset: -3px;
+  border-radius: .55rem;
+}
+
+.link:active, .link:hover { background: var(--surface-alt); }
+
+.itemIcon {
+  display: grid;
+  width: 2.3rem;
+  height: 2.3rem;
+  place-items: center;
+  border: 1px solid var(--border-soft);
+  border-radius: .72rem;
+  background: linear-gradient(155deg, var(--card), var(--surface-alt));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .15), 0 1px 1px rgb(28 15 12 / .08);
+}
+
+.chevron { color: var(--muted); }
+
+.link[aria-current="page"] {
+  background: color-mix(in srgb, var(--brand-yellow) 18%, var(--background));
+  font-weight: 800;
+}
+
+.link[aria-current="page"] .itemIcon {
+  color: var(--brand-brown);
+  border-color: var(--brand-yellow);
+  background: linear-gradient(150deg, #ffd258, var(--brand-yellow));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .35), 0 2px 4px rgb(94 62 9 / .15);
+}
+
+.footer {
+  padding: .65rem .35rem .8rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+@keyframes enter {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes exit {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+@keyframes dim-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dim-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

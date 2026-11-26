@@ -33,12 +33,12 @@ export function DemoUserSwitcher() {
     <section className="brand-card min-w-0 p-4 dark:bg-brand-dark-soft/90 sm:p-5">
       <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <p className="text-sm font-black uppercase text-brand-coral">Usuarios de apresentacao</p>
+          <p className="text-sm font-black uppercase text-[var(--accent-text)]">Usuários de apresentacao</p>
           <h2 className="brand-display text-3xl">Login rapido da reuniao</h2>
           <p className="mt-2 text-sm text-brand-brown/70 dark:text-brand-cream/75">
-            Selecione um perfil para contar uma historia diferente na apresentacao.
+            Selecione um perfil para contar uma história diferente na apresentacao.
           </p>
-          <Badge tone="yellow" className="mt-3">Modo de demonstracao</Badge>
+          <Badge tone="yellow" className="mt-3">Modo de demonstração</Badge>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="sm" onClick={() => copyText(selected.email)}>

@@ -1,5 +1,20 @@
 # AI Handoff
 
+## Continuidade do deploy — 26/11/2026
+
+Inicie por [DEPLOY.md](DEPLOY.md). O checkout usa GitHub Actions para verificar PRs e publicar `main` na VPS. Compare o SHA do workflow com `/api/health`. Para o Treyar ou outro agente, o fluxo é branch, commit, PR, validação e integração. Segredos ficam no ambiente GitHub e nas configurações privadas da VPS.
+
+## Redesign e ensaio para VPS — 24/11/2026
+
+- Checkout de trabalho em `codex/production-learning-platform-start`. Valide `git status` antes de publicar, pois o trabalho está no workspace.
+- Comece em `DESIGN_SYSTEM.md`, `app/globals.css`, `components/layout/public-shell.tsx` e `components/layout/workspace-shell.tsx`. Os painéis usam a mesma estrutura de navegação e o tema segue sistema ou preferência salva.
+- O menu móvel compartilhado vive em `components/layout/navigation-menu.tsx` e `navigation-menu.module.css`. O modal nativo administra foco e fundo inerte. Os shells fornecem os grupos, as ações e a seção ativa.
+- Para rodar, use `npm ci`, `npm run dev`, `npm run lint` e `npm run build`. No preview, desative escritas e use um ambiente sem apontar para produção. `NEXT_PUBLIC_ACCESS_CONTROL_MODE=enforce` deve estar presente no build para a VPS.
+- Em Supabase, faça o fluxo de [homologação](docs/production-platform/VPS_SUPABASE_REHEARSAL.md). `npm run supabase:prepare-sql` gera apenas schema, RLS e Storage. O ensaio `supabase/rehearsal.sql` usa transação revertida.
+- As RPCs `review_signup_application` e `review_pending_profile` aceitam apenas decisão em registros pendentes e registram auditoria. A criação de conta Auth depois do aceite da inscrição ainda é manual. A fila não esconde falha de gravação com fallback.
+- Os painéis educacionais ainda usam exemplos em aulas, turmas, atividades, certificados e métricas. O player grava posição real do vídeo e consegue gravar no banco quando aula e usuário tiverem IDs reais. No upload de PDF, o arquivo fica no namespace do usuário e a publicação fica pendente de integração.
+- Nenhuma alteração remota nesta rodada. Valide primeiro Auth/SMTP, configuração de contato e termos antes da coleta pública.
+
 ## Admin Approvals Application Queue Handoff
 - Date: 2026-06-17.
 - Active branch: `codex/production-learning-platform-start`.

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ImpactBand } from "@/components/content/impact-band";
+import Link from "next/link";
 import { EthicalNotice } from "@/components/content/ethical-notice";
 import { PublicShell } from "@/components/layout/public-shell";
 import { GuideSignupFlow } from "@/features/signup/guide-signup-flow";
@@ -15,7 +15,7 @@ const roles = {
   },
   professor: {
     label: "Professor",
-    description: "Cadastro para educadores, facilitadores e parceiros pedagogicos."
+    description: "Cadastro para educadores, facilitadores e parceiros pedagógicos."
   },
   guia: {
     label: "Guia",
@@ -23,7 +23,7 @@ const roles = {
   },
   turista: {
     label: "Turista",
-    description: "Cadastro para visitantes interessados em roteiros responsaveis."
+    description: "Cadastro para visitantes interessados em roteiros responsáveis."
   }
 };
 
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ role: str
 
 export default async function RegisterRolePage({ params }: { params: Promise<{ role: string }> }) {
   const { role } = await params;
-  if (!(role in roles)) notFound();
+  if (!(Object.hasOwn(roles, role))) notFound();
 
   return (
     <PublicShell>
@@ -49,11 +49,8 @@ export default async function RegisterRolePage({ params }: { params: Promise<{ r
         {role === "turista" ? <TouristSignupFlow /> : null}
         <div className="mt-8">
           <EthicalNotice>
-            O cadastro entra em analise da coordenacao. A liberacao de acesso acontece apenas depois da aprovacao do perfil e validacao dos termos.
+            Confira os <Link className="underline" href="/termos">termos de uso</Link> e as <Link className="underline" href="/privacidade">informações de privacidade</Link> antes de enviar.
           </EthicalNotice>
-        </div>
-        <div className="mt-6">
-          <ImpactBand title="Depois do envio, acompanhe sua entrada" description="Aluno e professor acessam a plataforma pelo login quando a coordenacao aprovar o cadastro." href="/entrar" action="Ir para login" />
         </div>
       </section>
     </PublicShell>

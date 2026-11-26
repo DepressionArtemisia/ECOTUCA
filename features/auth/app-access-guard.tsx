@@ -22,8 +22,8 @@ export function AppAccessGuard({ children }: { children: React.ReactNode }) {
     return (
       <AccessStatePanel
         badge="Verificando acesso"
-        title="Preparando sua area"
-        text="Estamos validando sessao, perfil e status de aprovacao antes de abrir a plataforma."
+        title="Abrindo sua área"
+        text="Aguarde enquanto a plataforma verifica sua conta."
       />
     );
   }
@@ -46,7 +46,7 @@ function AccessDeniedPanel({ decision }: { decision: AccessDecision }) {
           <ArrowRight size={17} />
         </Link>
         <Link href="/contato" className={buttonVariants({ variant: "outline" })}>
-          Falar com a coordenacao
+          Falar com a coordenação
         </Link>
       </div>
     </AccessStatePanel>
@@ -80,7 +80,7 @@ function AccessStatePanel({
       </p>
       <div className="mt-5 rounded-lg bg-brand-mint/20 p-4 text-sm font-black text-brand-brown dark:bg-white/10 dark:text-brand-cream">
         <ShieldCheck className="mb-2" size={20} />
-        A plataforma abre areas internas somente para contas aprovadas e com perfil compativel.
+        A plataforma abre áreas internas somente para contas aprovadas e com perfil compativel.
       </div>
       {children}
     </section>
@@ -90,16 +90,20 @@ function AccessStatePanel({
 function accessDeniedCopy(decision: AccessDecision) {
   if (decision.reason === "status_pending") {
     return {
-      title: "Cadastro em analise",
-      text: "Seu perfil ja foi recebido e precisa da aprovacao da coordenacao antes de acessar esta area.",
+      title: "Cadastro em análise",
+      text: "Seu perfil já foi recebido e precisa da aprovação da coordenação antes de acessar esta área.",
       action: "Ver status",
-      href: "/aguardando-aprovacao"
+      href: "/app/aguardando-aprovacao"
     };
+  }
+
+  if (decision.reason === "status_denied") {
+    return { title: "Acesso indisponível", text: "Consulte a situação da sua conta para saber os próximos passos.", action: "Consultar situação", href: "/app/aguardando-aprovacao" };
   }
 
   if (decision.reason === "role_denied") {
     return {
-      title: "Perfil sem permissao",
+      title: "Perfil sem permissão",
       text: `Esta area pertence a ${decision.requirement?.label ?? "outro perfil"} e exige uma conta autorizada para seguir.`,
       action: "Entrar com outra conta",
       href: "/entrar"
@@ -108,9 +112,9 @@ function accessDeniedCopy(decision: AccessDecision) {
 
   if (decision.reason === "demo_source_denied") {
     return {
-      title: "Sessao real necessaria",
-      text: "O ambiente de producao nao aceita sessao demonstrativa para areas internas.",
-      action: "Entrar com Supabase",
+      title: "Sessão real necessária",
+      text: "Entre com o e-mail da sua conta ECOTUCA para abrir o painel.",
+      action: "Entrar na plataforma",
       href: "/entrar"
     };
   }

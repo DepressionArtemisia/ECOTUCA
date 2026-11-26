@@ -17,7 +17,7 @@ export function RoleGuard({
       <div className="rounded-lg bg-brand-yellow p-5 text-brand-brown shadow-brand">
         <Badge tone="coral">Acesso restrito</Badge>
         <h1 className="brand-display mt-4 text-4xl">Acesso restrito</h1>
-        <p className="mt-2 text-sm font-bold">Este perfil nao tem permissao para acessar esta area da plataforma.</p>
+        <p className="mt-2 text-sm font-bold">Este perfil não tem permissão para acessar esta área da plataforma.</p>
       </div>
     );
   }

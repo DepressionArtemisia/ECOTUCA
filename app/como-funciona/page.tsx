@@ -1,71 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { EcoButton } from "@/components/brand/eco-button";
-import { ImpactBand } from "@/components/content/impact-band";
-import { ProcessTimeline } from "@/components/content/process-timeline";
 import { PublicShell } from "@/components/layout/public-shell";
 import { RichPageHeader } from "@/components/layout/rich-page-header";
-import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  title: "Como funciona | ECOTUCA",
-  description: "Entenda o fluxo da ECOTUCA: cadastro, formacao, aulas, certificacao, roteiros e acompanhamento de impacto."
-};
+export const metadata: Metadata = { title: "Como funciona | ECOTUCA", description: "Veja como entrar e participar da formação em ecoturismo da ECOTUCA." };
+
+const steps = [
+  { title: "Inscreva-se", description: "Escolha o perfil de aluno ou professor. Preencha as etapas com seu contato e sua disponibilidade e revise as respostas antes de enviar." },
+  { title: "Aguarde a análise", description: "A coordenação confere as informações e entra em contato para explicar a próxima etapa. Tenha em mãos o protocolo da inscrição." },
+  { title: "Comece a formação", description: "Quando receber acesso, entre para acompanhar as trilhas e realizar as atividades. Professores acompanham as turmas e orientam as entregas." },
+  { title: "Conclua as etapas do curso", description: "A coordenação e os professores acompanham a conclusão das atividades e orientam sobre a certificação de cada turma." }
+];
 
 export default function ComoFuncionaPage() {
   return (
     <PublicShell>
-      <section className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:py-12">
-        <RichPageHeader
-          eyebrow="Como funciona"
-          title="Da inscricao ao certificado"
-          description="A ECOTUCA organiza uma jornada de ensino com cadastro, aprovacao, trilhas, aulas, atividades, certificados e acompanhamento pedagogico."
-          badgeTone="yellow"
-        />
-      </section>
-
-      <section className="premium-section pt-2">
-        <div className="mx-auto max-w-7xl px-5 sm:px-6">
-          <ProcessTimeline
-            steps={[
-              { title: "Inscricao", description: "Aluno ou professor envia dados essenciais pelo caminho correto." },
-              { title: "Aprovacao", description: "A coordenacao valida perfil, turma, termos e necessidade de acesso." },
-              { title: "Aprendizagem", description: "Alunos acompanham videoaulas, atividades, materiais e progresso." },
-              { title: "Tutoria", description: "Professores organizam turmas, feedbacks, conteudos e evidencias." },
-              { title: "Certificacao", description: "A plataforma consolida conclusoes, indicadores e certificados." }
-            ]}
-          />
+      <div className="site-container space-y-5 py-9 sm:py-14">
+        <RichPageHeader eyebrow="A formação" title="Da inscrição ao certificado" description="A formação aproxima o aprendizado digital das práticas de turismo comunitário e educação ambiental no Complexo do Alemão." />
+        <ol className="grid gap-4 md:grid-cols-2">
+          {steps.map(({ title, description }, index) => (
+            <li key={title} className="brand-card p-5 sm:p-7">
+              <span className="workspace-icon font-bold" aria-hidden="true">{index + 1}</span>
+              <h2 className="text-card-title mt-3">{title}</h2>
+              <p className="mt-2 max-w-[62ch] text-[var(--muted)]">{description}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="flex flex-wrap gap-2">
+          <Link className={buttonVariants()} href="/cadastro">Escolher meu perfil</Link>
+          <Link className={buttonVariants({ variant: "outline" })} href="/faq">Ver perguntas frequentes</Link>
         </div>
-      </section>
-
-      <section className="premium-section bg-white/45 dark:bg-white/5">
-        <div className="mx-auto max-w-7xl px-5 sm:px-6">
-          <div className="desktop-feature-wall">
-            {[
-              ["Aluno", "Acompanha trilhas, videoaulas, certificados e comunidade."],
-              ["Professor", "Organiza turmas, materiais e acompanhamento pedagogico."],
-              ["Admin", "Visualiza aprovacoes, indicadores, turmas e prestacao de contas."],
-              ["Trilhas", "Estrutura aulas por modulos, atividades, materiais e objetivos."],
-              ["Certificados", "Organiza conclusoes, evidencias e liberacao de documentos."],
-              ["PWA", "Entrega uso mobile-first, instalabilidade e experiencia de app."]
-            ].map(([title, text]) => (
-              <article key={title} className="brand-card p-5">
-                <Badge tone="mint">{title}</Badge>
-                <h2 className="brand-display mt-4 text-4xl">{title}</h2>
-                <p className="mt-3 text-sm font-bold text-brand-brown/70 dark:text-brand-cream/70">{text}</p>
-              </article>
-            ))}
-          </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/cadastro"><EcoButton variant="coral">Comecar cadastro</EcoButton></Link>
-            <Link href="/entrar"><EcoButton variant="outline">Entrar na plataforma</EcoButton></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
-        <ImpactBand title="Uma plataforma de ensino pronta para crescer" description="A primeira versao de producao prioriza a experiencia educacional: entrada, paineis, trilhas, acompanhamento e gestao." href="/cadastro" action="Ver cadastros" />
-      </section>
+      </div>
     </PublicShell>
   );
 }
